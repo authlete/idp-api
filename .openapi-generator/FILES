@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -205,20 +204,4 @@ model_user_service_membership_response.go
 model_web_authn_challenge_request.go
 model_web_authn_challenge_response.go
 response.go
-test/api_access_api_test.go
-test/api_access_map_api_test.go
-test/api_api_server_api_test.go
-test/api_authorization_endpoint_test.go
-test/api_authorize_api_test.go
-test/api_discovery_endpoint_test.go
-test/api_introspection_endpoint_test.go
-test/api_json_web_key_set_endpoint_test.go
-test/api_organization_api_test.go
-test/api_organization_token_api_test.go
-test/api_service_api_test.go
-test/api_service_token_api_test.go
-test/api_session_api_test.go
-test/api_token_endpoint_test.go
-test/api_user_api_test.go
-test/api_user_info_endpoint_test.go
 utils.go
