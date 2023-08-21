@@ -158,7 +158,7 @@ type Service struct {
 	TrustAnchors []TrustAnchor `json:"trustAnchors,omitempty"`
 	FederationJwks *string `json:"federationJwks,omitempty"`
 	FederationSignatureKeyId *string `json:"federationSignatureKeyId,omitempty"`
-	FederationConfigurationDuration *int64 `json:"federationConfigurationDuration,omitempty"`
+	FederationConfigurationDuration *int32 `json:"federationConfigurationDuration,omitempty"`
 	SignedJwksUri *string `json:"signedJwksUri,omitempty"`
 	FederationRegistrationEndpoint *string `json:"federationRegistrationEndpoint,omitempty"`
 	SupportedClientRegistrationTypes []string `json:"supportedClientRegistrationTypes,omitempty"`
@@ -4635,9 +4635,9 @@ func (o *Service) SetFederationSignatureKeyId(v string) {
 }
 
 // GetFederationConfigurationDuration returns the FederationConfigurationDuration field value if set, zero value otherwise.
-func (o *Service) GetFederationConfigurationDuration() int64 {
+func (o *Service) GetFederationConfigurationDuration() int32 {
 	if o == nil || isNil(o.FederationConfigurationDuration) {
-		var ret int64
+		var ret int32
 		return ret
 	}
 	return *o.FederationConfigurationDuration
@@ -4645,7 +4645,7 @@ func (o *Service) GetFederationConfigurationDuration() int64 {
 
 // GetFederationConfigurationDurationOk returns a tuple with the FederationConfigurationDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Service) GetFederationConfigurationDurationOk() (*int64, bool) {
+func (o *Service) GetFederationConfigurationDurationOk() (*int32, bool) {
 	if o == nil || isNil(o.FederationConfigurationDuration) {
     return nil, false
 	}
@@ -4661,8 +4661,8 @@ func (o *Service) HasFederationConfigurationDuration() bool {
 	return false
 }
 
-// SetFederationConfigurationDuration gets a reference to the given int64 and assigns it to the FederationConfigurationDuration field.
-func (o *Service) SetFederationConfigurationDuration(v int64) {
+// SetFederationConfigurationDuration gets a reference to the given int32 and assigns it to the FederationConfigurationDuration field.
+func (o *Service) SetFederationConfigurationDuration(v int32) {
 	o.FederationConfigurationDuration = &v
 }
 

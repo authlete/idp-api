@@ -142,7 +142,7 @@ Name | Type | Description | Notes
 **TrustAnchors** | Pointer to [**[]TrustAnchor**](TrustAnchor.md) |  | [optional] 
 **FederationJwks** | Pointer to **string** |  | [optional] 
 **FederationSignatureKeyId** | Pointer to **string** |  | [optional] 
-**FederationConfigurationDuration** | Pointer to **int64** |  | [optional] 
+**FederationConfigurationDuration** | Pointer to **int32** |  | [optional] 
 **SignedJwksUri** | Pointer to **string** |  | [optional] 
 **FederationRegistrationEndpoint** | Pointer to **string** |  | [optional] 
 **SupportedClientRegistrationTypes** | Pointer to **[]string** |  | [optional] 
@@ -3643,20 +3643,20 @@ HasFederationSignatureKeyId returns a boolean if a field has been set.
 
 ### GetFederationConfigurationDuration
 
-`func (o *Service) GetFederationConfigurationDuration() int64`
+`func (o *Service) GetFederationConfigurationDuration() int32`
 
 GetFederationConfigurationDuration returns the FederationConfigurationDuration field if non-nil, zero value otherwise.
 
 ### GetFederationConfigurationDurationOk
 
-`func (o *Service) GetFederationConfigurationDurationOk() (*int64, bool)`
+`func (o *Service) GetFederationConfigurationDurationOk() (*int32, bool)`
 
 GetFederationConfigurationDurationOk returns a tuple with the FederationConfigurationDuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFederationConfigurationDuration
 
-`func (o *Service) SetFederationConfigurationDuration(v int64)`
+`func (o *Service) SetFederationConfigurationDuration(v int32)`
 
 SetFederationConfigurationDuration sets FederationConfigurationDuration field to given value.
 
