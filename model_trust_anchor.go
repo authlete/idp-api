@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the TrustAnchor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TrustAnchor{}
+
 // TrustAnchor struct for TrustAnchor
 type TrustAnchor struct {
 	EntityId *string `json:"entityId,omitempty"`
-	Jwks *string `json:"jwks,omitempty"`
+	Jwks     *string `json:"jwks,omitempty"`
 }
 
 // NewTrustAnchor instantiates a new TrustAnchor object
@@ -39,7 +42,7 @@ func NewTrustAnchorWithDefaults() *TrustAnchor {
 
 // GetEntityId returns the EntityId field value if set, zero value otherwise.
 func (o *TrustAnchor) GetEntityId() string {
-	if o == nil || isNil(o.EntityId) {
+	if o == nil || IsNil(o.EntityId) {
 		var ret string
 		return ret
 	}
@@ -49,15 +52,15 @@ func (o *TrustAnchor) GetEntityId() string {
 // GetEntityIdOk returns a tuple with the EntityId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustAnchor) GetEntityIdOk() (*string, bool) {
-	if o == nil || isNil(o.EntityId) {
-    return nil, false
+	if o == nil || IsNil(o.EntityId) {
+		return nil, false
 	}
 	return o.EntityId, true
 }
 
 // HasEntityId returns a boolean if a field has been set.
 func (o *TrustAnchor) HasEntityId() bool {
-	if o != nil && !isNil(o.EntityId) {
+	if o != nil && !IsNil(o.EntityId) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *TrustAnchor) SetEntityId(v string) {
 
 // GetJwks returns the Jwks field value if set, zero value otherwise.
 func (o *TrustAnchor) GetJwks() string {
-	if o == nil || isNil(o.Jwks) {
+	if o == nil || IsNil(o.Jwks) {
 		var ret string
 		return ret
 	}
@@ -81,15 +84,15 @@ func (o *TrustAnchor) GetJwks() string {
 // GetJwksOk returns a tuple with the Jwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TrustAnchor) GetJwksOk() (*string, bool) {
-	if o == nil || isNil(o.Jwks) {
-    return nil, false
+	if o == nil || IsNil(o.Jwks) {
+		return nil, false
 	}
 	return o.Jwks, true
 }
 
 // HasJwks returns a boolean if a field has been set.
 func (o *TrustAnchor) HasJwks() bool {
-	if o != nil && !isNil(o.Jwks) {
+	if o != nil && !IsNil(o.Jwks) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *TrustAnchor) SetJwks(v string) {
 }
 
 func (o TrustAnchor) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.EntityId) {
-		toSerialize["entityId"] = o.EntityId
-	}
-	if !isNil(o.Jwks) {
-		toSerialize["jwks"] = o.Jwks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TrustAnchor) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EntityId) {
+		toSerialize["entityId"] = o.EntityId
+	}
+	if !IsNil(o.Jwks) {
+		toSerialize["jwks"] = o.Jwks
+	}
+	return toSerialize, nil
 }
 
 type NullableTrustAnchor struct {
@@ -147,5 +158,3 @@ func (v *NullableTrustAnchor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

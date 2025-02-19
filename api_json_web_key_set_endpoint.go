@@ -13,18 +13,32 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type JsonWebKeySetEndpointAPI interface {
 
-// JsonWebKeySetEndpointApiService JsonWebKeySetEndpointApi service
-type JsonWebKeySetEndpointApiService service
+	/*
+		GetJsonWebKeySet Method for GetJsonWebKeySet
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetJsonWebKeySetRequest
+	*/
+	GetJsonWebKeySet(ctx context.Context) ApiGetJsonWebKeySetRequest
+
+	// GetJsonWebKeySetExecute executes the request
+	//  @return string
+	GetJsonWebKeySetExecute(r ApiGetJsonWebKeySetRequest) (string, *http.Response, error)
+}
+
+// JsonWebKeySetEndpointAPIService JsonWebKeySetEndpointAPI service
+type JsonWebKeySetEndpointAPIService service
 
 type ApiGetJsonWebKeySetRequest struct {
-	ctx context.Context
-	ApiService *JsonWebKeySetEndpointApiService
+	ctx        context.Context
+	ApiService JsonWebKeySetEndpointAPI
 }
 
 func (r ApiGetJsonWebKeySetRequest) Execute() (string, *http.Response, error) {
@@ -34,27 +48,28 @@ func (r ApiGetJsonWebKeySetRequest) Execute() (string, *http.Response, error) {
 /*
 GetJsonWebKeySet Method for GetJsonWebKeySet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetJsonWebKeySetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetJsonWebKeySetRequest
 */
-func (a *JsonWebKeySetEndpointApiService) GetJsonWebKeySet(ctx context.Context) ApiGetJsonWebKeySetRequest {
+func (a *JsonWebKeySetEndpointAPIService) GetJsonWebKeySet(ctx context.Context) ApiGetJsonWebKeySetRequest {
 	return ApiGetJsonWebKeySetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *JsonWebKeySetEndpointApiService) GetJsonWebKeySetExecute(r ApiGetJsonWebKeySetRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *JsonWebKeySetEndpointAPIService) GetJsonWebKeySetExecute(r ApiGetJsonWebKeySetRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JsonWebKeySetEndpointApiService.GetJsonWebKeySet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "JsonWebKeySetEndpointAPIService.GetJsonWebKeySet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -92,9 +107,9 @@ func (a *JsonWebKeySetEndpointApiService) GetJsonWebKeySetExecute(r ApiGetJsonWe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

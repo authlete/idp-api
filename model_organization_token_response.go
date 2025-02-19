@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrganizationTokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrganizationTokenResponse{}
+
 // OrganizationTokenResponse struct for OrganizationTokenResponse
 type OrganizationTokenResponse struct {
-	OrganizationId *int64 `json:"organizationId,omitempty"`
-	AccessToken *string `json:"accessToken,omitempty"`
-	TokenId *string `json:"tokenId,omitempty"`
-	Description *string `json:"description,omitempty"`
+	OrganizationId *int64  `json:"organizationId,omitempty"`
+	AccessToken    *string `json:"accessToken,omitempty"`
+	TokenId        *string `json:"tokenId,omitempty"`
+	Description    *string `json:"description,omitempty"`
 }
 
 // NewOrganizationTokenResponse instantiates a new OrganizationTokenResponse object
@@ -41,7 +44,7 @@ func NewOrganizationTokenResponseWithDefaults() *OrganizationTokenResponse {
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *OrganizationTokenResponse) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -51,15 +54,15 @@ func (o *OrganizationTokenResponse) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationTokenResponse) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *OrganizationTokenResponse) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *OrganizationTokenResponse) SetOrganizationId(v int64) {
 
 // GetAccessToken returns the AccessToken field value if set, zero value otherwise.
 func (o *OrganizationTokenResponse) GetAccessToken() string {
-	if o == nil || isNil(o.AccessToken) {
+	if o == nil || IsNil(o.AccessToken) {
 		var ret string
 		return ret
 	}
@@ -83,15 +86,15 @@ func (o *OrganizationTokenResponse) GetAccessToken() string {
 // GetAccessTokenOk returns a tuple with the AccessToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationTokenResponse) GetAccessTokenOk() (*string, bool) {
-	if o == nil || isNil(o.AccessToken) {
-    return nil, false
+	if o == nil || IsNil(o.AccessToken) {
+		return nil, false
 	}
 	return o.AccessToken, true
 }
 
 // HasAccessToken returns a boolean if a field has been set.
 func (o *OrganizationTokenResponse) HasAccessToken() bool {
-	if o != nil && !isNil(o.AccessToken) {
+	if o != nil && !IsNil(o.AccessToken) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *OrganizationTokenResponse) SetAccessToken(v string) {
 
 // GetTokenId returns the TokenId field value if set, zero value otherwise.
 func (o *OrganizationTokenResponse) GetTokenId() string {
-	if o == nil || isNil(o.TokenId) {
+	if o == nil || IsNil(o.TokenId) {
 		var ret string
 		return ret
 	}
@@ -115,15 +118,15 @@ func (o *OrganizationTokenResponse) GetTokenId() string {
 // GetTokenIdOk returns a tuple with the TokenId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationTokenResponse) GetTokenIdOk() (*string, bool) {
-	if o == nil || isNil(o.TokenId) {
-    return nil, false
+	if o == nil || IsNil(o.TokenId) {
+		return nil, false
 	}
 	return o.TokenId, true
 }
 
 // HasTokenId returns a boolean if a field has been set.
 func (o *OrganizationTokenResponse) HasTokenId() bool {
-	if o != nil && !isNil(o.TokenId) {
+	if o != nil && !IsNil(o.TokenId) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *OrganizationTokenResponse) SetTokenId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *OrganizationTokenResponse) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -147,15 +150,15 @@ func (o *OrganizationTokenResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationTokenResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *OrganizationTokenResponse) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *OrganizationTokenResponse) SetDescription(v string) {
 }
 
 func (o OrganizationTokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.AccessToken) {
-		toSerialize["accessToken"] = o.AccessToken
-	}
-	if !isNil(o.TokenId) {
-		toSerialize["tokenId"] = o.TokenId
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OrganizationTokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.AccessToken) {
+		toSerialize["accessToken"] = o.AccessToken
+	}
+	if !IsNil(o.TokenId) {
+		toSerialize["tokenId"] = o.TokenId
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableOrganizationTokenResponse struct {
@@ -219,5 +230,3 @@ func (v *NullableOrganizationTokenResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

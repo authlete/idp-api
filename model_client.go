@@ -14,101 +14,104 @@ import (
 	"encoding/json"
 )
 
+// checks if the Client type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Client{}
+
 // Client struct for Client
 type Client struct {
-	Number *int32 `json:"number,omitempty"`
-	ServiceNumber *int32 `json:"serviceNumber,omitempty"`
-	Developer *string `json:"developer,omitempty"`
-	ClientId *int64 `json:"clientId,omitempty"`
-	ClientIdAlias *string `json:"clientIdAlias,omitempty"`
-	ClientIdAliasEnabled *bool `json:"clientIdAliasEnabled,omitempty"`
-	ClientSecret *string `json:"clientSecret,omitempty"`
-	ClientType *string `json:"clientType,omitempty"`
-	RedirectUris []string `json:"redirectUris,omitempty"`
-	ResponseTypes []string `json:"responseTypes,omitempty"`
-	GrantTypes []string `json:"grantTypes,omitempty"`
-	ApplicationType *string `json:"applicationType,omitempty"`
-	Contacts []string `json:"contacts,omitempty"`
-	ClientName *string `json:"clientName,omitempty"`
-	ClientNames []TaggedValue `json:"clientNames,omitempty"`
-	LogoUri *string `json:"logoUri,omitempty"`
-	LogoUris []TaggedValue `json:"logoUris,omitempty"`
-	ClientUri *string `json:"clientUri,omitempty"`
-	ClientUris []TaggedValue `json:"clientUris,omitempty"`
-	PolicyUri *string `json:"policyUri,omitempty"`
-	PolicyUris []TaggedValue `json:"policyUris,omitempty"`
-	TosUri *string `json:"tosUri,omitempty"`
-	TosUris []TaggedValue `json:"tosUris,omitempty"`
-	JwksUri *string `json:"jwksUri,omitempty"`
-	Jwks *string `json:"jwks,omitempty"`
-	DerivedSectorIdentifier *string `json:"derivedSectorIdentifier,omitempty"`
-	SectorIdentifierUri *string `json:"sectorIdentifierUri,omitempty"`
-	SubjectType *string `json:"subjectType,omitempty"`
-	IdTokenSignAlg *string `json:"idTokenSignAlg,omitempty"`
-	IdTokenEncryptionAlg *string `json:"idTokenEncryptionAlg,omitempty"`
-	IdTokenEncryptionEnc *string `json:"idTokenEncryptionEnc,omitempty"`
-	UserInfoSignAlg *string `json:"userInfoSignAlg,omitempty"`
-	UserInfoEncryptionAlg *string `json:"userInfoEncryptionAlg,omitempty"`
-	UserInfoEncryptionEnc *string `json:"userInfoEncryptionEnc,omitempty"`
-	RequestSignAlg *string `json:"requestSignAlg,omitempty"`
-	RequestEncryptionAlg *string `json:"requestEncryptionAlg,omitempty"`
-	RequestEncryptionEnc *string `json:"requestEncryptionEnc,omitempty"`
-	TokenAuthMethod *string `json:"tokenAuthMethod,omitempty"`
-	TokenAuthSignAlg *string `json:"tokenAuthSignAlg,omitempty"`
-	DefaultMaxAge *int32 `json:"defaultMaxAge,omitempty"`
-	DefaultAcrs []string `json:"defaultAcrs,omitempty"`
-	AuthTimeRequired *bool `json:"authTimeRequired,omitempty"`
-	LoginUri *string `json:"loginUri,omitempty"`
-	RequestUris []string `json:"requestUris,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Descriptions []TaggedValue `json:"descriptions,omitempty"`
-	CreatedAt *int64 `json:"createdAt,omitempty"`
-	ModifiedAt *int64 `json:"modifiedAt,omitempty"`
-	Extension *ClientExtension `json:"extension,omitempty"`
-	TlsClientAuthSubjectDn *string `json:"tlsClientAuthSubjectDn,omitempty"`
-	TlsClientAuthSanDns *string `json:"tlsClientAuthSanDns,omitempty"`
-	TlsClientAuthSanUri *string `json:"tlsClientAuthSanUri,omitempty"`
-	TlsClientAuthSanIp *string `json:"tlsClientAuthSanIp,omitempty"`
-	TlsClientAuthSanEmail *string `json:"tlsClientAuthSanEmail,omitempty"`
-	TlsClientCertificateBoundAccessTokens *bool `json:"tlsClientCertificateBoundAccessTokens,omitempty"`
-	SelfSignedCertificateKeyId *string `json:"selfSignedCertificateKeyId,omitempty"`
-	SoftwareId *string `json:"softwareId,omitempty"`
-	SoftwareVersion *string `json:"softwareVersion,omitempty"`
-	AuthorizationSignAlg *string `json:"authorizationSignAlg,omitempty"`
-	AuthorizationEncryptionAlg *string `json:"authorizationEncryptionAlg,omitempty"`
-	AuthorizationEncryptionEnc *string `json:"authorizationEncryptionEnc,omitempty"`
-	BcDeliveryMode *string `json:"bcDeliveryMode,omitempty"`
-	BcNotificationEndpoint *string `json:"bcNotificationEndpoint,omitempty"`
-	BcRequestSignAlg *string `json:"bcRequestSignAlg,omitempty"`
-	BcUserCodeRequired *bool `json:"bcUserCodeRequired,omitempty"`
-	DynamicallyRegistered *bool `json:"dynamicallyRegistered,omitempty"`
-	RegistrationAccessTokenHash *string `json:"registrationAccessTokenHash,omitempty"`
-	AuthorizationDetailsTypes []string `json:"authorizationDetailsTypes,omitempty"`
-	ParRequired *bool `json:"parRequired,omitempty"`
-	RequestObjectRequired *bool `json:"requestObjectRequired,omitempty"`
-	Attributes []Pair `json:"attributes,omitempty"`
-	CustomMetadata *string `json:"customMetadata,omitempty"`
-	FrontChannelRequestObjectEncryptionRequired *bool `json:"frontChannelRequestObjectEncryptionRequired,omitempty"`
-	RequestObjectEncryptionAlgMatchRequired *bool `json:"requestObjectEncryptionAlgMatchRequired,omitempty"`
-	RequestObjectEncryptionEncMatchRequired *bool `json:"requestObjectEncryptionEncMatchRequired,omitempty"`
-	DigestAlgorithm *string `json:"digestAlgorithm,omitempty"`
-	SingleAccessTokenPerSubject *bool `json:"singleAccessTokenPerSubject,omitempty"`
-	PkceRequired *bool `json:"pkceRequired,omitempty"`
-	PkceS256Required *bool `json:"pkceS256Required,omitempty"`
-	RsSignedRequestKeyId *string `json:"rsSignedRequestKeyId,omitempty"`
-	RsRequestSigned *bool `json:"rsRequestSigned,omitempty"`
-	DpopRequired *bool `json:"dpopRequired,omitempty"`
-	EntityId *string `json:"entityId,omitempty"`
-	TrustAnchorId *string `json:"trustAnchorId,omitempty"`
-	TrustChain []string `json:"trustChain,omitempty"`
-	TrustChainExpiresAt *int64 `json:"trustChainExpiresAt,omitempty"`
-	TrustChainUpdatedAt *int64 `json:"trustChainUpdatedAt,omitempty"`
-	OrganizationName *string `json:"organizationName,omitempty"`
-	SignedJwksUri *string `json:"signedJwksUri,omitempty"`
-	ClientRegistrationTypes []string `json:"clientRegistrationTypes,omitempty"`
-	AutomaticallyRegistered *bool `json:"automaticallyRegistered,omitempty"`
-	ExplicitlyRegistered *bool `json:"explicitlyRegistered,omitempty"`
-	CredentialOfferEndpoint *string `json:"credentialOfferEndpoint,omitempty"`
+	Number                                      *int32           `json:"number,omitempty"`
+	ServiceNumber                               *int32           `json:"serviceNumber,omitempty"`
+	Developer                                   *string          `json:"developer,omitempty"`
+	ClientId                                    *int64           `json:"clientId,omitempty"`
+	ClientIdAlias                               *string          `json:"clientIdAlias,omitempty"`
+	ClientIdAliasEnabled                        *bool            `json:"clientIdAliasEnabled,omitempty"`
+	ClientSecret                                *string          `json:"clientSecret,omitempty"`
+	ClientType                                  *string          `json:"clientType,omitempty"`
+	RedirectUris                                []string         `json:"redirectUris,omitempty"`
+	ResponseTypes                               []string         `json:"responseTypes,omitempty"`
+	GrantTypes                                  []string         `json:"grantTypes,omitempty"`
+	ApplicationType                             *string          `json:"applicationType,omitempty"`
+	Contacts                                    []string         `json:"contacts,omitempty"`
+	ClientName                                  *string          `json:"clientName,omitempty"`
+	ClientNames                                 []TaggedValue    `json:"clientNames,omitempty"`
+	LogoUri                                     *string          `json:"logoUri,omitempty"`
+	LogoUris                                    []TaggedValue    `json:"logoUris,omitempty"`
+	ClientUri                                   *string          `json:"clientUri,omitempty"`
+	ClientUris                                  []TaggedValue    `json:"clientUris,omitempty"`
+	PolicyUri                                   *string          `json:"policyUri,omitempty"`
+	PolicyUris                                  []TaggedValue    `json:"policyUris,omitempty"`
+	TosUri                                      *string          `json:"tosUri,omitempty"`
+	TosUris                                     []TaggedValue    `json:"tosUris,omitempty"`
+	JwksUri                                     *string          `json:"jwksUri,omitempty"`
+	Jwks                                        *string          `json:"jwks,omitempty"`
+	DerivedSectorIdentifier                     *string          `json:"derivedSectorIdentifier,omitempty"`
+	SectorIdentifierUri                         *string          `json:"sectorIdentifierUri,omitempty"`
+	SubjectType                                 *string          `json:"subjectType,omitempty"`
+	IdTokenSignAlg                              *string          `json:"idTokenSignAlg,omitempty"`
+	IdTokenEncryptionAlg                        *string          `json:"idTokenEncryptionAlg,omitempty"`
+	IdTokenEncryptionEnc                        *string          `json:"idTokenEncryptionEnc,omitempty"`
+	UserInfoSignAlg                             *string          `json:"userInfoSignAlg,omitempty"`
+	UserInfoEncryptionAlg                       *string          `json:"userInfoEncryptionAlg,omitempty"`
+	UserInfoEncryptionEnc                       *string          `json:"userInfoEncryptionEnc,omitempty"`
+	RequestSignAlg                              *string          `json:"requestSignAlg,omitempty"`
+	RequestEncryptionAlg                        *string          `json:"requestEncryptionAlg,omitempty"`
+	RequestEncryptionEnc                        *string          `json:"requestEncryptionEnc,omitempty"`
+	TokenAuthMethod                             *string          `json:"tokenAuthMethod,omitempty"`
+	TokenAuthSignAlg                            *string          `json:"tokenAuthSignAlg,omitempty"`
+	DefaultMaxAge                               *int32           `json:"defaultMaxAge,omitempty"`
+	DefaultAcrs                                 []string         `json:"defaultAcrs,omitempty"`
+	AuthTimeRequired                            *bool            `json:"authTimeRequired,omitempty"`
+	LoginUri                                    *string          `json:"loginUri,omitempty"`
+	RequestUris                                 []string         `json:"requestUris,omitempty"`
+	Description                                 *string          `json:"description,omitempty"`
+	Descriptions                                []TaggedValue    `json:"descriptions,omitempty"`
+	CreatedAt                                   *int64           `json:"createdAt,omitempty"`
+	ModifiedAt                                  *int64           `json:"modifiedAt,omitempty"`
+	Extension                                   *ClientExtension `json:"extension,omitempty"`
+	TlsClientAuthSubjectDn                      *string          `json:"tlsClientAuthSubjectDn,omitempty"`
+	TlsClientAuthSanDns                         *string          `json:"tlsClientAuthSanDns,omitempty"`
+	TlsClientAuthSanUri                         *string          `json:"tlsClientAuthSanUri,omitempty"`
+	TlsClientAuthSanIp                          *string          `json:"tlsClientAuthSanIp,omitempty"`
+	TlsClientAuthSanEmail                       *string          `json:"tlsClientAuthSanEmail,omitempty"`
+	TlsClientCertificateBoundAccessTokens       *bool            `json:"tlsClientCertificateBoundAccessTokens,omitempty"`
+	SelfSignedCertificateKeyId                  *string          `json:"selfSignedCertificateKeyId,omitempty"`
+	SoftwareId                                  *string          `json:"softwareId,omitempty"`
+	SoftwareVersion                             *string          `json:"softwareVersion,omitempty"`
+	AuthorizationSignAlg                        *string          `json:"authorizationSignAlg,omitempty"`
+	AuthorizationEncryptionAlg                  *string          `json:"authorizationEncryptionAlg,omitempty"`
+	AuthorizationEncryptionEnc                  *string          `json:"authorizationEncryptionEnc,omitempty"`
+	BcDeliveryMode                              *string          `json:"bcDeliveryMode,omitempty"`
+	BcNotificationEndpoint                      *string          `json:"bcNotificationEndpoint,omitempty"`
+	BcRequestSignAlg                            *string          `json:"bcRequestSignAlg,omitempty"`
+	BcUserCodeRequired                          *bool            `json:"bcUserCodeRequired,omitempty"`
+	DynamicallyRegistered                       *bool            `json:"dynamicallyRegistered,omitempty"`
+	RegistrationAccessTokenHash                 *string          `json:"registrationAccessTokenHash,omitempty"`
+	AuthorizationDetailsTypes                   []string         `json:"authorizationDetailsTypes,omitempty"`
+	ParRequired                                 *bool            `json:"parRequired,omitempty"`
+	RequestObjectRequired                       *bool            `json:"requestObjectRequired,omitempty"`
+	Attributes                                  []Pair           `json:"attributes,omitempty"`
+	CustomMetadata                              *string          `json:"customMetadata,omitempty"`
+	FrontChannelRequestObjectEncryptionRequired *bool            `json:"frontChannelRequestObjectEncryptionRequired,omitempty"`
+	RequestObjectEncryptionAlgMatchRequired     *bool            `json:"requestObjectEncryptionAlgMatchRequired,omitempty"`
+	RequestObjectEncryptionEncMatchRequired     *bool            `json:"requestObjectEncryptionEncMatchRequired,omitempty"`
+	DigestAlgorithm                             *string          `json:"digestAlgorithm,omitempty"`
+	SingleAccessTokenPerSubject                 *bool            `json:"singleAccessTokenPerSubject,omitempty"`
+	PkceRequired                                *bool            `json:"pkceRequired,omitempty"`
+	PkceS256Required                            *bool            `json:"pkceS256Required,omitempty"`
+	RsSignedRequestKeyId                        *string          `json:"rsSignedRequestKeyId,omitempty"`
+	RsRequestSigned                             *bool            `json:"rsRequestSigned,omitempty"`
+	DpopRequired                                *bool            `json:"dpopRequired,omitempty"`
+	EntityId                                    *string          `json:"entityId,omitempty"`
+	TrustAnchorId                               *string          `json:"trustAnchorId,omitempty"`
+	TrustChain                                  []string         `json:"trustChain,omitempty"`
+	TrustChainExpiresAt                         *int64           `json:"trustChainExpiresAt,omitempty"`
+	TrustChainUpdatedAt                         *int64           `json:"trustChainUpdatedAt,omitempty"`
+	OrganizationName                            *string          `json:"organizationName,omitempty"`
+	SignedJwksUri                               *string          `json:"signedJwksUri,omitempty"`
+	ClientRegistrationTypes                     []string         `json:"clientRegistrationTypes,omitempty"`
+	AutomaticallyRegistered                     *bool            `json:"automaticallyRegistered,omitempty"`
+	ExplicitlyRegistered                        *bool            `json:"explicitlyRegistered,omitempty"`
+	CredentialOfferEndpoint                     *string          `json:"credentialOfferEndpoint,omitempty"`
 	// Deprecated
 	SectorIdentifier *string `json:"sectorIdentifier,omitempty"`
 }
@@ -132,7 +135,7 @@ func NewClientWithDefaults() *Client {
 
 // GetNumber returns the Number field value if set, zero value otherwise.
 func (o *Client) GetNumber() int32 {
-	if o == nil || isNil(o.Number) {
+	if o == nil || IsNil(o.Number) {
 		var ret int32
 		return ret
 	}
@@ -142,15 +145,15 @@ func (o *Client) GetNumber() int32 {
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetNumberOk() (*int32, bool) {
-	if o == nil || isNil(o.Number) {
-    return nil, false
+	if o == nil || IsNil(o.Number) {
+		return nil, false
 	}
 	return o.Number, true
 }
 
 // HasNumber returns a boolean if a field has been set.
 func (o *Client) HasNumber() bool {
-	if o != nil && !isNil(o.Number) {
+	if o != nil && !IsNil(o.Number) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *Client) SetNumber(v int32) {
 
 // GetServiceNumber returns the ServiceNumber field value if set, zero value otherwise.
 func (o *Client) GetServiceNumber() int32 {
-	if o == nil || isNil(o.ServiceNumber) {
+	if o == nil || IsNil(o.ServiceNumber) {
 		var ret int32
 		return ret
 	}
@@ -174,15 +177,15 @@ func (o *Client) GetServiceNumber() int32 {
 // GetServiceNumberOk returns a tuple with the ServiceNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetServiceNumberOk() (*int32, bool) {
-	if o == nil || isNil(o.ServiceNumber) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceNumber) {
+		return nil, false
 	}
 	return o.ServiceNumber, true
 }
 
 // HasServiceNumber returns a boolean if a field has been set.
 func (o *Client) HasServiceNumber() bool {
-	if o != nil && !isNil(o.ServiceNumber) {
+	if o != nil && !IsNil(o.ServiceNumber) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *Client) SetServiceNumber(v int32) {
 
 // GetDeveloper returns the Developer field value if set, zero value otherwise.
 func (o *Client) GetDeveloper() string {
-	if o == nil || isNil(o.Developer) {
+	if o == nil || IsNil(o.Developer) {
 		var ret string
 		return ret
 	}
@@ -206,15 +209,15 @@ func (o *Client) GetDeveloper() string {
 // GetDeveloperOk returns a tuple with the Developer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDeveloperOk() (*string, bool) {
-	if o == nil || isNil(o.Developer) {
-    return nil, false
+	if o == nil || IsNil(o.Developer) {
+		return nil, false
 	}
 	return o.Developer, true
 }
 
 // HasDeveloper returns a boolean if a field has been set.
 func (o *Client) HasDeveloper() bool {
-	if o != nil && !isNil(o.Developer) {
+	if o != nil && !IsNil(o.Developer) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *Client) SetDeveloper(v string) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *Client) GetClientId() int64 {
-	if o == nil || isNil(o.ClientId) {
+	if o == nil || IsNil(o.ClientId) {
 		var ret int64
 		return ret
 	}
@@ -238,15 +241,15 @@ func (o *Client) GetClientId() int64 {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ClientId) {
-    return nil, false
+	if o == nil || IsNil(o.ClientId) {
+		return nil, false
 	}
 	return o.ClientId, true
 }
 
 // HasClientId returns a boolean if a field has been set.
 func (o *Client) HasClientId() bool {
-	if o != nil && !isNil(o.ClientId) {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *Client) SetClientId(v int64) {
 
 // GetClientIdAlias returns the ClientIdAlias field value if set, zero value otherwise.
 func (o *Client) GetClientIdAlias() string {
-	if o == nil || isNil(o.ClientIdAlias) {
+	if o == nil || IsNil(o.ClientIdAlias) {
 		var ret string
 		return ret
 	}
@@ -270,15 +273,15 @@ func (o *Client) GetClientIdAlias() string {
 // GetClientIdAliasOk returns a tuple with the ClientIdAlias field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientIdAliasOk() (*string, bool) {
-	if o == nil || isNil(o.ClientIdAlias) {
-    return nil, false
+	if o == nil || IsNil(o.ClientIdAlias) {
+		return nil, false
 	}
 	return o.ClientIdAlias, true
 }
 
 // HasClientIdAlias returns a boolean if a field has been set.
 func (o *Client) HasClientIdAlias() bool {
-	if o != nil && !isNil(o.ClientIdAlias) {
+	if o != nil && !IsNil(o.ClientIdAlias) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *Client) SetClientIdAlias(v string) {
 
 // GetClientIdAliasEnabled returns the ClientIdAliasEnabled field value if set, zero value otherwise.
 func (o *Client) GetClientIdAliasEnabled() bool {
-	if o == nil || isNil(o.ClientIdAliasEnabled) {
+	if o == nil || IsNil(o.ClientIdAliasEnabled) {
 		var ret bool
 		return ret
 	}
@@ -302,15 +305,15 @@ func (o *Client) GetClientIdAliasEnabled() bool {
 // GetClientIdAliasEnabledOk returns a tuple with the ClientIdAliasEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientIdAliasEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.ClientIdAliasEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.ClientIdAliasEnabled) {
+		return nil, false
 	}
 	return o.ClientIdAliasEnabled, true
 }
 
 // HasClientIdAliasEnabled returns a boolean if a field has been set.
 func (o *Client) HasClientIdAliasEnabled() bool {
-	if o != nil && !isNil(o.ClientIdAliasEnabled) {
+	if o != nil && !IsNil(o.ClientIdAliasEnabled) {
 		return true
 	}
 
@@ -324,7 +327,7 @@ func (o *Client) SetClientIdAliasEnabled(v bool) {
 
 // GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *Client) GetClientSecret() string {
-	if o == nil || isNil(o.ClientSecret) {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
@@ -334,15 +337,15 @@ func (o *Client) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientSecretOk() (*string, bool) {
-	if o == nil || isNil(o.ClientSecret) {
-    return nil, false
+	if o == nil || IsNil(o.ClientSecret) {
+		return nil, false
 	}
 	return o.ClientSecret, true
 }
 
 // HasClientSecret returns a boolean if a field has been set.
 func (o *Client) HasClientSecret() bool {
-	if o != nil && !isNil(o.ClientSecret) {
+	if o != nil && !IsNil(o.ClientSecret) {
 		return true
 	}
 
@@ -356,7 +359,7 @@ func (o *Client) SetClientSecret(v string) {
 
 // GetClientType returns the ClientType field value if set, zero value otherwise.
 func (o *Client) GetClientType() string {
-	if o == nil || isNil(o.ClientType) {
+	if o == nil || IsNil(o.ClientType) {
 		var ret string
 		return ret
 	}
@@ -366,15 +369,15 @@ func (o *Client) GetClientType() string {
 // GetClientTypeOk returns a tuple with the ClientType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientTypeOk() (*string, bool) {
-	if o == nil || isNil(o.ClientType) {
-    return nil, false
+	if o == nil || IsNil(o.ClientType) {
+		return nil, false
 	}
 	return o.ClientType, true
 }
 
 // HasClientType returns a boolean if a field has been set.
 func (o *Client) HasClientType() bool {
-	if o != nil && !isNil(o.ClientType) {
+	if o != nil && !IsNil(o.ClientType) {
 		return true
 	}
 
@@ -388,7 +391,7 @@ func (o *Client) SetClientType(v string) {
 
 // GetRedirectUris returns the RedirectUris field value if set, zero value otherwise.
 func (o *Client) GetRedirectUris() []string {
-	if o == nil || isNil(o.RedirectUris) {
+	if o == nil || IsNil(o.RedirectUris) {
 		var ret []string
 		return ret
 	}
@@ -398,15 +401,15 @@ func (o *Client) GetRedirectUris() []string {
 // GetRedirectUrisOk returns a tuple with the RedirectUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRedirectUrisOk() ([]string, bool) {
-	if o == nil || isNil(o.RedirectUris) {
-    return nil, false
+	if o == nil || IsNil(o.RedirectUris) {
+		return nil, false
 	}
 	return o.RedirectUris, true
 }
 
 // HasRedirectUris returns a boolean if a field has been set.
 func (o *Client) HasRedirectUris() bool {
-	if o != nil && !isNil(o.RedirectUris) {
+	if o != nil && !IsNil(o.RedirectUris) {
 		return true
 	}
 
@@ -420,7 +423,7 @@ func (o *Client) SetRedirectUris(v []string) {
 
 // GetResponseTypes returns the ResponseTypes field value if set, zero value otherwise.
 func (o *Client) GetResponseTypes() []string {
-	if o == nil || isNil(o.ResponseTypes) {
+	if o == nil || IsNil(o.ResponseTypes) {
 		var ret []string
 		return ret
 	}
@@ -430,15 +433,15 @@ func (o *Client) GetResponseTypes() []string {
 // GetResponseTypesOk returns a tuple with the ResponseTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetResponseTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.ResponseTypes) {
-    return nil, false
+	if o == nil || IsNil(o.ResponseTypes) {
+		return nil, false
 	}
 	return o.ResponseTypes, true
 }
 
 // HasResponseTypes returns a boolean if a field has been set.
 func (o *Client) HasResponseTypes() bool {
-	if o != nil && !isNil(o.ResponseTypes) {
+	if o != nil && !IsNil(o.ResponseTypes) {
 		return true
 	}
 
@@ -452,7 +455,7 @@ func (o *Client) SetResponseTypes(v []string) {
 
 // GetGrantTypes returns the GrantTypes field value if set, zero value otherwise.
 func (o *Client) GetGrantTypes() []string {
-	if o == nil || isNil(o.GrantTypes) {
+	if o == nil || IsNil(o.GrantTypes) {
 		var ret []string
 		return ret
 	}
@@ -462,15 +465,15 @@ func (o *Client) GetGrantTypes() []string {
 // GetGrantTypesOk returns a tuple with the GrantTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetGrantTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.GrantTypes) {
-    return nil, false
+	if o == nil || IsNil(o.GrantTypes) {
+		return nil, false
 	}
 	return o.GrantTypes, true
 }
 
 // HasGrantTypes returns a boolean if a field has been set.
 func (o *Client) HasGrantTypes() bool {
-	if o != nil && !isNil(o.GrantTypes) {
+	if o != nil && !IsNil(o.GrantTypes) {
 		return true
 	}
 
@@ -484,7 +487,7 @@ func (o *Client) SetGrantTypes(v []string) {
 
 // GetApplicationType returns the ApplicationType field value if set, zero value otherwise.
 func (o *Client) GetApplicationType() string {
-	if o == nil || isNil(o.ApplicationType) {
+	if o == nil || IsNil(o.ApplicationType) {
 		var ret string
 		return ret
 	}
@@ -494,15 +497,15 @@ func (o *Client) GetApplicationType() string {
 // GetApplicationTypeOk returns a tuple with the ApplicationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetApplicationTypeOk() (*string, bool) {
-	if o == nil || isNil(o.ApplicationType) {
-    return nil, false
+	if o == nil || IsNil(o.ApplicationType) {
+		return nil, false
 	}
 	return o.ApplicationType, true
 }
 
 // HasApplicationType returns a boolean if a field has been set.
 func (o *Client) HasApplicationType() bool {
-	if o != nil && !isNil(o.ApplicationType) {
+	if o != nil && !IsNil(o.ApplicationType) {
 		return true
 	}
 
@@ -516,7 +519,7 @@ func (o *Client) SetApplicationType(v string) {
 
 // GetContacts returns the Contacts field value if set, zero value otherwise.
 func (o *Client) GetContacts() []string {
-	if o == nil || isNil(o.Contacts) {
+	if o == nil || IsNil(o.Contacts) {
 		var ret []string
 		return ret
 	}
@@ -526,15 +529,15 @@ func (o *Client) GetContacts() []string {
 // GetContactsOk returns a tuple with the Contacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetContactsOk() ([]string, bool) {
-	if o == nil || isNil(o.Contacts) {
-    return nil, false
+	if o == nil || IsNil(o.Contacts) {
+		return nil, false
 	}
 	return o.Contacts, true
 }
 
 // HasContacts returns a boolean if a field has been set.
 func (o *Client) HasContacts() bool {
-	if o != nil && !isNil(o.Contacts) {
+	if o != nil && !IsNil(o.Contacts) {
 		return true
 	}
 
@@ -548,7 +551,7 @@ func (o *Client) SetContacts(v []string) {
 
 // GetClientName returns the ClientName field value if set, zero value otherwise.
 func (o *Client) GetClientName() string {
-	if o == nil || isNil(o.ClientName) {
+	if o == nil || IsNil(o.ClientName) {
 		var ret string
 		return ret
 	}
@@ -558,15 +561,15 @@ func (o *Client) GetClientName() string {
 // GetClientNameOk returns a tuple with the ClientName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientNameOk() (*string, bool) {
-	if o == nil || isNil(o.ClientName) {
-    return nil, false
+	if o == nil || IsNil(o.ClientName) {
+		return nil, false
 	}
 	return o.ClientName, true
 }
 
 // HasClientName returns a boolean if a field has been set.
 func (o *Client) HasClientName() bool {
-	if o != nil && !isNil(o.ClientName) {
+	if o != nil && !IsNil(o.ClientName) {
 		return true
 	}
 
@@ -580,7 +583,7 @@ func (o *Client) SetClientName(v string) {
 
 // GetClientNames returns the ClientNames field value if set, zero value otherwise.
 func (o *Client) GetClientNames() []TaggedValue {
-	if o == nil || isNil(o.ClientNames) {
+	if o == nil || IsNil(o.ClientNames) {
 		var ret []TaggedValue
 		return ret
 	}
@@ -590,15 +593,15 @@ func (o *Client) GetClientNames() []TaggedValue {
 // GetClientNamesOk returns a tuple with the ClientNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientNamesOk() ([]TaggedValue, bool) {
-	if o == nil || isNil(o.ClientNames) {
-    return nil, false
+	if o == nil || IsNil(o.ClientNames) {
+		return nil, false
 	}
 	return o.ClientNames, true
 }
 
 // HasClientNames returns a boolean if a field has been set.
 func (o *Client) HasClientNames() bool {
-	if o != nil && !isNil(o.ClientNames) {
+	if o != nil && !IsNil(o.ClientNames) {
 		return true
 	}
 
@@ -612,7 +615,7 @@ func (o *Client) SetClientNames(v []TaggedValue) {
 
 // GetLogoUri returns the LogoUri field value if set, zero value otherwise.
 func (o *Client) GetLogoUri() string {
-	if o == nil || isNil(o.LogoUri) {
+	if o == nil || IsNil(o.LogoUri) {
 		var ret string
 		return ret
 	}
@@ -622,15 +625,15 @@ func (o *Client) GetLogoUri() string {
 // GetLogoUriOk returns a tuple with the LogoUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetLogoUriOk() (*string, bool) {
-	if o == nil || isNil(o.LogoUri) {
-    return nil, false
+	if o == nil || IsNil(o.LogoUri) {
+		return nil, false
 	}
 	return o.LogoUri, true
 }
 
 // HasLogoUri returns a boolean if a field has been set.
 func (o *Client) HasLogoUri() bool {
-	if o != nil && !isNil(o.LogoUri) {
+	if o != nil && !IsNil(o.LogoUri) {
 		return true
 	}
 
@@ -644,7 +647,7 @@ func (o *Client) SetLogoUri(v string) {
 
 // GetLogoUris returns the LogoUris field value if set, zero value otherwise.
 func (o *Client) GetLogoUris() []TaggedValue {
-	if o == nil || isNil(o.LogoUris) {
+	if o == nil || IsNil(o.LogoUris) {
 		var ret []TaggedValue
 		return ret
 	}
@@ -654,15 +657,15 @@ func (o *Client) GetLogoUris() []TaggedValue {
 // GetLogoUrisOk returns a tuple with the LogoUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetLogoUrisOk() ([]TaggedValue, bool) {
-	if o == nil || isNil(o.LogoUris) {
-    return nil, false
+	if o == nil || IsNil(o.LogoUris) {
+		return nil, false
 	}
 	return o.LogoUris, true
 }
 
 // HasLogoUris returns a boolean if a field has been set.
 func (o *Client) HasLogoUris() bool {
-	if o != nil && !isNil(o.LogoUris) {
+	if o != nil && !IsNil(o.LogoUris) {
 		return true
 	}
 
@@ -676,7 +679,7 @@ func (o *Client) SetLogoUris(v []TaggedValue) {
 
 // GetClientUri returns the ClientUri field value if set, zero value otherwise.
 func (o *Client) GetClientUri() string {
-	if o == nil || isNil(o.ClientUri) {
+	if o == nil || IsNil(o.ClientUri) {
 		var ret string
 		return ret
 	}
@@ -686,15 +689,15 @@ func (o *Client) GetClientUri() string {
 // GetClientUriOk returns a tuple with the ClientUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientUriOk() (*string, bool) {
-	if o == nil || isNil(o.ClientUri) {
-    return nil, false
+	if o == nil || IsNil(o.ClientUri) {
+		return nil, false
 	}
 	return o.ClientUri, true
 }
 
 // HasClientUri returns a boolean if a field has been set.
 func (o *Client) HasClientUri() bool {
-	if o != nil && !isNil(o.ClientUri) {
+	if o != nil && !IsNil(o.ClientUri) {
 		return true
 	}
 
@@ -708,7 +711,7 @@ func (o *Client) SetClientUri(v string) {
 
 // GetClientUris returns the ClientUris field value if set, zero value otherwise.
 func (o *Client) GetClientUris() []TaggedValue {
-	if o == nil || isNil(o.ClientUris) {
+	if o == nil || IsNil(o.ClientUris) {
 		var ret []TaggedValue
 		return ret
 	}
@@ -718,15 +721,15 @@ func (o *Client) GetClientUris() []TaggedValue {
 // GetClientUrisOk returns a tuple with the ClientUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientUrisOk() ([]TaggedValue, bool) {
-	if o == nil || isNil(o.ClientUris) {
-    return nil, false
+	if o == nil || IsNil(o.ClientUris) {
+		return nil, false
 	}
 	return o.ClientUris, true
 }
 
 // HasClientUris returns a boolean if a field has been set.
 func (o *Client) HasClientUris() bool {
-	if o != nil && !isNil(o.ClientUris) {
+	if o != nil && !IsNil(o.ClientUris) {
 		return true
 	}
 
@@ -740,7 +743,7 @@ func (o *Client) SetClientUris(v []TaggedValue) {
 
 // GetPolicyUri returns the PolicyUri field value if set, zero value otherwise.
 func (o *Client) GetPolicyUri() string {
-	if o == nil || isNil(o.PolicyUri) {
+	if o == nil || IsNil(o.PolicyUri) {
 		var ret string
 		return ret
 	}
@@ -750,15 +753,15 @@ func (o *Client) GetPolicyUri() string {
 // GetPolicyUriOk returns a tuple with the PolicyUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetPolicyUriOk() (*string, bool) {
-	if o == nil || isNil(o.PolicyUri) {
-    return nil, false
+	if o == nil || IsNil(o.PolicyUri) {
+		return nil, false
 	}
 	return o.PolicyUri, true
 }
 
 // HasPolicyUri returns a boolean if a field has been set.
 func (o *Client) HasPolicyUri() bool {
-	if o != nil && !isNil(o.PolicyUri) {
+	if o != nil && !IsNil(o.PolicyUri) {
 		return true
 	}
 
@@ -772,7 +775,7 @@ func (o *Client) SetPolicyUri(v string) {
 
 // GetPolicyUris returns the PolicyUris field value if set, zero value otherwise.
 func (o *Client) GetPolicyUris() []TaggedValue {
-	if o == nil || isNil(o.PolicyUris) {
+	if o == nil || IsNil(o.PolicyUris) {
 		var ret []TaggedValue
 		return ret
 	}
@@ -782,15 +785,15 @@ func (o *Client) GetPolicyUris() []TaggedValue {
 // GetPolicyUrisOk returns a tuple with the PolicyUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetPolicyUrisOk() ([]TaggedValue, bool) {
-	if o == nil || isNil(o.PolicyUris) {
-    return nil, false
+	if o == nil || IsNil(o.PolicyUris) {
+		return nil, false
 	}
 	return o.PolicyUris, true
 }
 
 // HasPolicyUris returns a boolean if a field has been set.
 func (o *Client) HasPolicyUris() bool {
-	if o != nil && !isNil(o.PolicyUris) {
+	if o != nil && !IsNil(o.PolicyUris) {
 		return true
 	}
 
@@ -804,7 +807,7 @@ func (o *Client) SetPolicyUris(v []TaggedValue) {
 
 // GetTosUri returns the TosUri field value if set, zero value otherwise.
 func (o *Client) GetTosUri() string {
-	if o == nil || isNil(o.TosUri) {
+	if o == nil || IsNil(o.TosUri) {
 		var ret string
 		return ret
 	}
@@ -814,15 +817,15 @@ func (o *Client) GetTosUri() string {
 // GetTosUriOk returns a tuple with the TosUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTosUriOk() (*string, bool) {
-	if o == nil || isNil(o.TosUri) {
-    return nil, false
+	if o == nil || IsNil(o.TosUri) {
+		return nil, false
 	}
 	return o.TosUri, true
 }
 
 // HasTosUri returns a boolean if a field has been set.
 func (o *Client) HasTosUri() bool {
-	if o != nil && !isNil(o.TosUri) {
+	if o != nil && !IsNil(o.TosUri) {
 		return true
 	}
 
@@ -836,7 +839,7 @@ func (o *Client) SetTosUri(v string) {
 
 // GetTosUris returns the TosUris field value if set, zero value otherwise.
 func (o *Client) GetTosUris() []TaggedValue {
-	if o == nil || isNil(o.TosUris) {
+	if o == nil || IsNil(o.TosUris) {
 		var ret []TaggedValue
 		return ret
 	}
@@ -846,15 +849,15 @@ func (o *Client) GetTosUris() []TaggedValue {
 // GetTosUrisOk returns a tuple with the TosUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTosUrisOk() ([]TaggedValue, bool) {
-	if o == nil || isNil(o.TosUris) {
-    return nil, false
+	if o == nil || IsNil(o.TosUris) {
+		return nil, false
 	}
 	return o.TosUris, true
 }
 
 // HasTosUris returns a boolean if a field has been set.
 func (o *Client) HasTosUris() bool {
-	if o != nil && !isNil(o.TosUris) {
+	if o != nil && !IsNil(o.TosUris) {
 		return true
 	}
 
@@ -868,7 +871,7 @@ func (o *Client) SetTosUris(v []TaggedValue) {
 
 // GetJwksUri returns the JwksUri field value if set, zero value otherwise.
 func (o *Client) GetJwksUri() string {
-	if o == nil || isNil(o.JwksUri) {
+	if o == nil || IsNil(o.JwksUri) {
 		var ret string
 		return ret
 	}
@@ -878,15 +881,15 @@ func (o *Client) GetJwksUri() string {
 // GetJwksUriOk returns a tuple with the JwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetJwksUriOk() (*string, bool) {
-	if o == nil || isNil(o.JwksUri) {
-    return nil, false
+	if o == nil || IsNil(o.JwksUri) {
+		return nil, false
 	}
 	return o.JwksUri, true
 }
 
 // HasJwksUri returns a boolean if a field has been set.
 func (o *Client) HasJwksUri() bool {
-	if o != nil && !isNil(o.JwksUri) {
+	if o != nil && !IsNil(o.JwksUri) {
 		return true
 	}
 
@@ -900,7 +903,7 @@ func (o *Client) SetJwksUri(v string) {
 
 // GetJwks returns the Jwks field value if set, zero value otherwise.
 func (o *Client) GetJwks() string {
-	if o == nil || isNil(o.Jwks) {
+	if o == nil || IsNil(o.Jwks) {
 		var ret string
 		return ret
 	}
@@ -910,15 +913,15 @@ func (o *Client) GetJwks() string {
 // GetJwksOk returns a tuple with the Jwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetJwksOk() (*string, bool) {
-	if o == nil || isNil(o.Jwks) {
-    return nil, false
+	if o == nil || IsNil(o.Jwks) {
+		return nil, false
 	}
 	return o.Jwks, true
 }
 
 // HasJwks returns a boolean if a field has been set.
 func (o *Client) HasJwks() bool {
-	if o != nil && !isNil(o.Jwks) {
+	if o != nil && !IsNil(o.Jwks) {
 		return true
 	}
 
@@ -932,7 +935,7 @@ func (o *Client) SetJwks(v string) {
 
 // GetDerivedSectorIdentifier returns the DerivedSectorIdentifier field value if set, zero value otherwise.
 func (o *Client) GetDerivedSectorIdentifier() string {
-	if o == nil || isNil(o.DerivedSectorIdentifier) {
+	if o == nil || IsNil(o.DerivedSectorIdentifier) {
 		var ret string
 		return ret
 	}
@@ -942,15 +945,15 @@ func (o *Client) GetDerivedSectorIdentifier() string {
 // GetDerivedSectorIdentifierOk returns a tuple with the DerivedSectorIdentifier field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDerivedSectorIdentifierOk() (*string, bool) {
-	if o == nil || isNil(o.DerivedSectorIdentifier) {
-    return nil, false
+	if o == nil || IsNil(o.DerivedSectorIdentifier) {
+		return nil, false
 	}
 	return o.DerivedSectorIdentifier, true
 }
 
 // HasDerivedSectorIdentifier returns a boolean if a field has been set.
 func (o *Client) HasDerivedSectorIdentifier() bool {
-	if o != nil && !isNil(o.DerivedSectorIdentifier) {
+	if o != nil && !IsNil(o.DerivedSectorIdentifier) {
 		return true
 	}
 
@@ -964,7 +967,7 @@ func (o *Client) SetDerivedSectorIdentifier(v string) {
 
 // GetSectorIdentifierUri returns the SectorIdentifierUri field value if set, zero value otherwise.
 func (o *Client) GetSectorIdentifierUri() string {
-	if o == nil || isNil(o.SectorIdentifierUri) {
+	if o == nil || IsNil(o.SectorIdentifierUri) {
 		var ret string
 		return ret
 	}
@@ -974,15 +977,15 @@ func (o *Client) GetSectorIdentifierUri() string {
 // GetSectorIdentifierUriOk returns a tuple with the SectorIdentifierUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSectorIdentifierUriOk() (*string, bool) {
-	if o == nil || isNil(o.SectorIdentifierUri) {
-    return nil, false
+	if o == nil || IsNil(o.SectorIdentifierUri) {
+		return nil, false
 	}
 	return o.SectorIdentifierUri, true
 }
 
 // HasSectorIdentifierUri returns a boolean if a field has been set.
 func (o *Client) HasSectorIdentifierUri() bool {
-	if o != nil && !isNil(o.SectorIdentifierUri) {
+	if o != nil && !IsNil(o.SectorIdentifierUri) {
 		return true
 	}
 
@@ -996,7 +999,7 @@ func (o *Client) SetSectorIdentifierUri(v string) {
 
 // GetSubjectType returns the SubjectType field value if set, zero value otherwise.
 func (o *Client) GetSubjectType() string {
-	if o == nil || isNil(o.SubjectType) {
+	if o == nil || IsNil(o.SubjectType) {
 		var ret string
 		return ret
 	}
@@ -1006,15 +1009,15 @@ func (o *Client) GetSubjectType() string {
 // GetSubjectTypeOk returns a tuple with the SubjectType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSubjectTypeOk() (*string, bool) {
-	if o == nil || isNil(o.SubjectType) {
-    return nil, false
+	if o == nil || IsNil(o.SubjectType) {
+		return nil, false
 	}
 	return o.SubjectType, true
 }
 
 // HasSubjectType returns a boolean if a field has been set.
 func (o *Client) HasSubjectType() bool {
-	if o != nil && !isNil(o.SubjectType) {
+	if o != nil && !IsNil(o.SubjectType) {
 		return true
 	}
 
@@ -1028,7 +1031,7 @@ func (o *Client) SetSubjectType(v string) {
 
 // GetIdTokenSignAlg returns the IdTokenSignAlg field value if set, zero value otherwise.
 func (o *Client) GetIdTokenSignAlg() string {
-	if o == nil || isNil(o.IdTokenSignAlg) {
+	if o == nil || IsNil(o.IdTokenSignAlg) {
 		var ret string
 		return ret
 	}
@@ -1038,15 +1041,15 @@ func (o *Client) GetIdTokenSignAlg() string {
 // GetIdTokenSignAlgOk returns a tuple with the IdTokenSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetIdTokenSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.IdTokenSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenSignAlg) {
+		return nil, false
 	}
 	return o.IdTokenSignAlg, true
 }
 
 // HasIdTokenSignAlg returns a boolean if a field has been set.
 func (o *Client) HasIdTokenSignAlg() bool {
-	if o != nil && !isNil(o.IdTokenSignAlg) {
+	if o != nil && !IsNil(o.IdTokenSignAlg) {
 		return true
 	}
 
@@ -1060,7 +1063,7 @@ func (o *Client) SetIdTokenSignAlg(v string) {
 
 // GetIdTokenEncryptionAlg returns the IdTokenEncryptionAlg field value if set, zero value otherwise.
 func (o *Client) GetIdTokenEncryptionAlg() string {
-	if o == nil || isNil(o.IdTokenEncryptionAlg) {
+	if o == nil || IsNil(o.IdTokenEncryptionAlg) {
 		var ret string
 		return ret
 	}
@@ -1070,15 +1073,15 @@ func (o *Client) GetIdTokenEncryptionAlg() string {
 // GetIdTokenEncryptionAlgOk returns a tuple with the IdTokenEncryptionAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetIdTokenEncryptionAlgOk() (*string, bool) {
-	if o == nil || isNil(o.IdTokenEncryptionAlg) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenEncryptionAlg) {
+		return nil, false
 	}
 	return o.IdTokenEncryptionAlg, true
 }
 
 // HasIdTokenEncryptionAlg returns a boolean if a field has been set.
 func (o *Client) HasIdTokenEncryptionAlg() bool {
-	if o != nil && !isNil(o.IdTokenEncryptionAlg) {
+	if o != nil && !IsNil(o.IdTokenEncryptionAlg) {
 		return true
 	}
 
@@ -1092,7 +1095,7 @@ func (o *Client) SetIdTokenEncryptionAlg(v string) {
 
 // GetIdTokenEncryptionEnc returns the IdTokenEncryptionEnc field value if set, zero value otherwise.
 func (o *Client) GetIdTokenEncryptionEnc() string {
-	if o == nil || isNil(o.IdTokenEncryptionEnc) {
+	if o == nil || IsNil(o.IdTokenEncryptionEnc) {
 		var ret string
 		return ret
 	}
@@ -1102,15 +1105,15 @@ func (o *Client) GetIdTokenEncryptionEnc() string {
 // GetIdTokenEncryptionEncOk returns a tuple with the IdTokenEncryptionEnc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetIdTokenEncryptionEncOk() (*string, bool) {
-	if o == nil || isNil(o.IdTokenEncryptionEnc) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenEncryptionEnc) {
+		return nil, false
 	}
 	return o.IdTokenEncryptionEnc, true
 }
 
 // HasIdTokenEncryptionEnc returns a boolean if a field has been set.
 func (o *Client) HasIdTokenEncryptionEnc() bool {
-	if o != nil && !isNil(o.IdTokenEncryptionEnc) {
+	if o != nil && !IsNil(o.IdTokenEncryptionEnc) {
 		return true
 	}
 
@@ -1124,7 +1127,7 @@ func (o *Client) SetIdTokenEncryptionEnc(v string) {
 
 // GetUserInfoSignAlg returns the UserInfoSignAlg field value if set, zero value otherwise.
 func (o *Client) GetUserInfoSignAlg() string {
-	if o == nil || isNil(o.UserInfoSignAlg) {
+	if o == nil || IsNil(o.UserInfoSignAlg) {
 		var ret string
 		return ret
 	}
@@ -1134,15 +1137,15 @@ func (o *Client) GetUserInfoSignAlg() string {
 // GetUserInfoSignAlgOk returns a tuple with the UserInfoSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetUserInfoSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.UserInfoSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.UserInfoSignAlg) {
+		return nil, false
 	}
 	return o.UserInfoSignAlg, true
 }
 
 // HasUserInfoSignAlg returns a boolean if a field has been set.
 func (o *Client) HasUserInfoSignAlg() bool {
-	if o != nil && !isNil(o.UserInfoSignAlg) {
+	if o != nil && !IsNil(o.UserInfoSignAlg) {
 		return true
 	}
 
@@ -1156,7 +1159,7 @@ func (o *Client) SetUserInfoSignAlg(v string) {
 
 // GetUserInfoEncryptionAlg returns the UserInfoEncryptionAlg field value if set, zero value otherwise.
 func (o *Client) GetUserInfoEncryptionAlg() string {
-	if o == nil || isNil(o.UserInfoEncryptionAlg) {
+	if o == nil || IsNil(o.UserInfoEncryptionAlg) {
 		var ret string
 		return ret
 	}
@@ -1166,15 +1169,15 @@ func (o *Client) GetUserInfoEncryptionAlg() string {
 // GetUserInfoEncryptionAlgOk returns a tuple with the UserInfoEncryptionAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetUserInfoEncryptionAlgOk() (*string, bool) {
-	if o == nil || isNil(o.UserInfoEncryptionAlg) {
-    return nil, false
+	if o == nil || IsNil(o.UserInfoEncryptionAlg) {
+		return nil, false
 	}
 	return o.UserInfoEncryptionAlg, true
 }
 
 // HasUserInfoEncryptionAlg returns a boolean if a field has been set.
 func (o *Client) HasUserInfoEncryptionAlg() bool {
-	if o != nil && !isNil(o.UserInfoEncryptionAlg) {
+	if o != nil && !IsNil(o.UserInfoEncryptionAlg) {
 		return true
 	}
 
@@ -1188,7 +1191,7 @@ func (o *Client) SetUserInfoEncryptionAlg(v string) {
 
 // GetUserInfoEncryptionEnc returns the UserInfoEncryptionEnc field value if set, zero value otherwise.
 func (o *Client) GetUserInfoEncryptionEnc() string {
-	if o == nil || isNil(o.UserInfoEncryptionEnc) {
+	if o == nil || IsNil(o.UserInfoEncryptionEnc) {
 		var ret string
 		return ret
 	}
@@ -1198,15 +1201,15 @@ func (o *Client) GetUserInfoEncryptionEnc() string {
 // GetUserInfoEncryptionEncOk returns a tuple with the UserInfoEncryptionEnc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetUserInfoEncryptionEncOk() (*string, bool) {
-	if o == nil || isNil(o.UserInfoEncryptionEnc) {
-    return nil, false
+	if o == nil || IsNil(o.UserInfoEncryptionEnc) {
+		return nil, false
 	}
 	return o.UserInfoEncryptionEnc, true
 }
 
 // HasUserInfoEncryptionEnc returns a boolean if a field has been set.
 func (o *Client) HasUserInfoEncryptionEnc() bool {
-	if o != nil && !isNil(o.UserInfoEncryptionEnc) {
+	if o != nil && !IsNil(o.UserInfoEncryptionEnc) {
 		return true
 	}
 
@@ -1220,7 +1223,7 @@ func (o *Client) SetUserInfoEncryptionEnc(v string) {
 
 // GetRequestSignAlg returns the RequestSignAlg field value if set, zero value otherwise.
 func (o *Client) GetRequestSignAlg() string {
-	if o == nil || isNil(o.RequestSignAlg) {
+	if o == nil || IsNil(o.RequestSignAlg) {
 		var ret string
 		return ret
 	}
@@ -1230,15 +1233,15 @@ func (o *Client) GetRequestSignAlg() string {
 // GetRequestSignAlgOk returns a tuple with the RequestSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.RequestSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.RequestSignAlg) {
+		return nil, false
 	}
 	return o.RequestSignAlg, true
 }
 
 // HasRequestSignAlg returns a boolean if a field has been set.
 func (o *Client) HasRequestSignAlg() bool {
-	if o != nil && !isNil(o.RequestSignAlg) {
+	if o != nil && !IsNil(o.RequestSignAlg) {
 		return true
 	}
 
@@ -1252,7 +1255,7 @@ func (o *Client) SetRequestSignAlg(v string) {
 
 // GetRequestEncryptionAlg returns the RequestEncryptionAlg field value if set, zero value otherwise.
 func (o *Client) GetRequestEncryptionAlg() string {
-	if o == nil || isNil(o.RequestEncryptionAlg) {
+	if o == nil || IsNil(o.RequestEncryptionAlg) {
 		var ret string
 		return ret
 	}
@@ -1262,15 +1265,15 @@ func (o *Client) GetRequestEncryptionAlg() string {
 // GetRequestEncryptionAlgOk returns a tuple with the RequestEncryptionAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestEncryptionAlgOk() (*string, bool) {
-	if o == nil || isNil(o.RequestEncryptionAlg) {
-    return nil, false
+	if o == nil || IsNil(o.RequestEncryptionAlg) {
+		return nil, false
 	}
 	return o.RequestEncryptionAlg, true
 }
 
 // HasRequestEncryptionAlg returns a boolean if a field has been set.
 func (o *Client) HasRequestEncryptionAlg() bool {
-	if o != nil && !isNil(o.RequestEncryptionAlg) {
+	if o != nil && !IsNil(o.RequestEncryptionAlg) {
 		return true
 	}
 
@@ -1284,7 +1287,7 @@ func (o *Client) SetRequestEncryptionAlg(v string) {
 
 // GetRequestEncryptionEnc returns the RequestEncryptionEnc field value if set, zero value otherwise.
 func (o *Client) GetRequestEncryptionEnc() string {
-	if o == nil || isNil(o.RequestEncryptionEnc) {
+	if o == nil || IsNil(o.RequestEncryptionEnc) {
 		var ret string
 		return ret
 	}
@@ -1294,15 +1297,15 @@ func (o *Client) GetRequestEncryptionEnc() string {
 // GetRequestEncryptionEncOk returns a tuple with the RequestEncryptionEnc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestEncryptionEncOk() (*string, bool) {
-	if o == nil || isNil(o.RequestEncryptionEnc) {
-    return nil, false
+	if o == nil || IsNil(o.RequestEncryptionEnc) {
+		return nil, false
 	}
 	return o.RequestEncryptionEnc, true
 }
 
 // HasRequestEncryptionEnc returns a boolean if a field has been set.
 func (o *Client) HasRequestEncryptionEnc() bool {
-	if o != nil && !isNil(o.RequestEncryptionEnc) {
+	if o != nil && !IsNil(o.RequestEncryptionEnc) {
 		return true
 	}
 
@@ -1316,7 +1319,7 @@ func (o *Client) SetRequestEncryptionEnc(v string) {
 
 // GetTokenAuthMethod returns the TokenAuthMethod field value if set, zero value otherwise.
 func (o *Client) GetTokenAuthMethod() string {
-	if o == nil || isNil(o.TokenAuthMethod) {
+	if o == nil || IsNil(o.TokenAuthMethod) {
 		var ret string
 		return ret
 	}
@@ -1326,15 +1329,15 @@ func (o *Client) GetTokenAuthMethod() string {
 // GetTokenAuthMethodOk returns a tuple with the TokenAuthMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTokenAuthMethodOk() (*string, bool) {
-	if o == nil || isNil(o.TokenAuthMethod) {
-    return nil, false
+	if o == nil || IsNil(o.TokenAuthMethod) {
+		return nil, false
 	}
 	return o.TokenAuthMethod, true
 }
 
 // HasTokenAuthMethod returns a boolean if a field has been set.
 func (o *Client) HasTokenAuthMethod() bool {
-	if o != nil && !isNil(o.TokenAuthMethod) {
+	if o != nil && !IsNil(o.TokenAuthMethod) {
 		return true
 	}
 
@@ -1348,7 +1351,7 @@ func (o *Client) SetTokenAuthMethod(v string) {
 
 // GetTokenAuthSignAlg returns the TokenAuthSignAlg field value if set, zero value otherwise.
 func (o *Client) GetTokenAuthSignAlg() string {
-	if o == nil || isNil(o.TokenAuthSignAlg) {
+	if o == nil || IsNil(o.TokenAuthSignAlg) {
 		var ret string
 		return ret
 	}
@@ -1358,15 +1361,15 @@ func (o *Client) GetTokenAuthSignAlg() string {
 // GetTokenAuthSignAlgOk returns a tuple with the TokenAuthSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTokenAuthSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.TokenAuthSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.TokenAuthSignAlg) {
+		return nil, false
 	}
 	return o.TokenAuthSignAlg, true
 }
 
 // HasTokenAuthSignAlg returns a boolean if a field has been set.
 func (o *Client) HasTokenAuthSignAlg() bool {
-	if o != nil && !isNil(o.TokenAuthSignAlg) {
+	if o != nil && !IsNil(o.TokenAuthSignAlg) {
 		return true
 	}
 
@@ -1380,7 +1383,7 @@ func (o *Client) SetTokenAuthSignAlg(v string) {
 
 // GetDefaultMaxAge returns the DefaultMaxAge field value if set, zero value otherwise.
 func (o *Client) GetDefaultMaxAge() int32 {
-	if o == nil || isNil(o.DefaultMaxAge) {
+	if o == nil || IsNil(o.DefaultMaxAge) {
 		var ret int32
 		return ret
 	}
@@ -1390,15 +1393,15 @@ func (o *Client) GetDefaultMaxAge() int32 {
 // GetDefaultMaxAgeOk returns a tuple with the DefaultMaxAge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDefaultMaxAgeOk() (*int32, bool) {
-	if o == nil || isNil(o.DefaultMaxAge) {
-    return nil, false
+	if o == nil || IsNil(o.DefaultMaxAge) {
+		return nil, false
 	}
 	return o.DefaultMaxAge, true
 }
 
 // HasDefaultMaxAge returns a boolean if a field has been set.
 func (o *Client) HasDefaultMaxAge() bool {
-	if o != nil && !isNil(o.DefaultMaxAge) {
+	if o != nil && !IsNil(o.DefaultMaxAge) {
 		return true
 	}
 
@@ -1412,7 +1415,7 @@ func (o *Client) SetDefaultMaxAge(v int32) {
 
 // GetDefaultAcrs returns the DefaultAcrs field value if set, zero value otherwise.
 func (o *Client) GetDefaultAcrs() []string {
-	if o == nil || isNil(o.DefaultAcrs) {
+	if o == nil || IsNil(o.DefaultAcrs) {
 		var ret []string
 		return ret
 	}
@@ -1422,15 +1425,15 @@ func (o *Client) GetDefaultAcrs() []string {
 // GetDefaultAcrsOk returns a tuple with the DefaultAcrs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDefaultAcrsOk() ([]string, bool) {
-	if o == nil || isNil(o.DefaultAcrs) {
-    return nil, false
+	if o == nil || IsNil(o.DefaultAcrs) {
+		return nil, false
 	}
 	return o.DefaultAcrs, true
 }
 
 // HasDefaultAcrs returns a boolean if a field has been set.
 func (o *Client) HasDefaultAcrs() bool {
-	if o != nil && !isNil(o.DefaultAcrs) {
+	if o != nil && !IsNil(o.DefaultAcrs) {
 		return true
 	}
 
@@ -1444,7 +1447,7 @@ func (o *Client) SetDefaultAcrs(v []string) {
 
 // GetAuthTimeRequired returns the AuthTimeRequired field value if set, zero value otherwise.
 func (o *Client) GetAuthTimeRequired() bool {
-	if o == nil || isNil(o.AuthTimeRequired) {
+	if o == nil || IsNil(o.AuthTimeRequired) {
 		var ret bool
 		return ret
 	}
@@ -1454,15 +1457,15 @@ func (o *Client) GetAuthTimeRequired() bool {
 // GetAuthTimeRequiredOk returns a tuple with the AuthTimeRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAuthTimeRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.AuthTimeRequired) {
-    return nil, false
+	if o == nil || IsNil(o.AuthTimeRequired) {
+		return nil, false
 	}
 	return o.AuthTimeRequired, true
 }
 
 // HasAuthTimeRequired returns a boolean if a field has been set.
 func (o *Client) HasAuthTimeRequired() bool {
-	if o != nil && !isNil(o.AuthTimeRequired) {
+	if o != nil && !IsNil(o.AuthTimeRequired) {
 		return true
 	}
 
@@ -1476,7 +1479,7 @@ func (o *Client) SetAuthTimeRequired(v bool) {
 
 // GetLoginUri returns the LoginUri field value if set, zero value otherwise.
 func (o *Client) GetLoginUri() string {
-	if o == nil || isNil(o.LoginUri) {
+	if o == nil || IsNil(o.LoginUri) {
 		var ret string
 		return ret
 	}
@@ -1486,15 +1489,15 @@ func (o *Client) GetLoginUri() string {
 // GetLoginUriOk returns a tuple with the LoginUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetLoginUriOk() (*string, bool) {
-	if o == nil || isNil(o.LoginUri) {
-    return nil, false
+	if o == nil || IsNil(o.LoginUri) {
+		return nil, false
 	}
 	return o.LoginUri, true
 }
 
 // HasLoginUri returns a boolean if a field has been set.
 func (o *Client) HasLoginUri() bool {
-	if o != nil && !isNil(o.LoginUri) {
+	if o != nil && !IsNil(o.LoginUri) {
 		return true
 	}
 
@@ -1508,7 +1511,7 @@ func (o *Client) SetLoginUri(v string) {
 
 // GetRequestUris returns the RequestUris field value if set, zero value otherwise.
 func (o *Client) GetRequestUris() []string {
-	if o == nil || isNil(o.RequestUris) {
+	if o == nil || IsNil(o.RequestUris) {
 		var ret []string
 		return ret
 	}
@@ -1518,15 +1521,15 @@ func (o *Client) GetRequestUris() []string {
 // GetRequestUrisOk returns a tuple with the RequestUris field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestUrisOk() ([]string, bool) {
-	if o == nil || isNil(o.RequestUris) {
-    return nil, false
+	if o == nil || IsNil(o.RequestUris) {
+		return nil, false
 	}
 	return o.RequestUris, true
 }
 
 // HasRequestUris returns a boolean if a field has been set.
 func (o *Client) HasRequestUris() bool {
-	if o != nil && !isNil(o.RequestUris) {
+	if o != nil && !IsNil(o.RequestUris) {
 		return true
 	}
 
@@ -1540,7 +1543,7 @@ func (o *Client) SetRequestUris(v []string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Client) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -1550,15 +1553,15 @@ func (o *Client) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Client) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -1572,7 +1575,7 @@ func (o *Client) SetDescription(v string) {
 
 // GetDescriptions returns the Descriptions field value if set, zero value otherwise.
 func (o *Client) GetDescriptions() []TaggedValue {
-	if o == nil || isNil(o.Descriptions) {
+	if o == nil || IsNil(o.Descriptions) {
 		var ret []TaggedValue
 		return ret
 	}
@@ -1582,15 +1585,15 @@ func (o *Client) GetDescriptions() []TaggedValue {
 // GetDescriptionsOk returns a tuple with the Descriptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDescriptionsOk() ([]TaggedValue, bool) {
-	if o == nil || isNil(o.Descriptions) {
-    return nil, false
+	if o == nil || IsNil(o.Descriptions) {
+		return nil, false
 	}
 	return o.Descriptions, true
 }
 
 // HasDescriptions returns a boolean if a field has been set.
 func (o *Client) HasDescriptions() bool {
-	if o != nil && !isNil(o.Descriptions) {
+	if o != nil && !IsNil(o.Descriptions) {
 		return true
 	}
 
@@ -1604,7 +1607,7 @@ func (o *Client) SetDescriptions(v []TaggedValue) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Client) GetCreatedAt() int64 {
-	if o == nil || isNil(o.CreatedAt) {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret int64
 		return ret
 	}
@@ -1614,15 +1617,15 @@ func (o *Client) GetCreatedAt() int64 {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetCreatedAtOk() (*int64, bool) {
-	if o == nil || isNil(o.CreatedAt) {
-    return nil, false
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
 	}
 	return o.CreatedAt, true
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Client) HasCreatedAt() bool {
-	if o != nil && !isNil(o.CreatedAt) {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -1636,7 +1639,7 @@ func (o *Client) SetCreatedAt(v int64) {
 
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
 func (o *Client) GetModifiedAt() int64 {
-	if o == nil || isNil(o.ModifiedAt) {
+	if o == nil || IsNil(o.ModifiedAt) {
 		var ret int64
 		return ret
 	}
@@ -1646,15 +1649,15 @@ func (o *Client) GetModifiedAt() int64 {
 // GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetModifiedAtOk() (*int64, bool) {
-	if o == nil || isNil(o.ModifiedAt) {
-    return nil, false
+	if o == nil || IsNil(o.ModifiedAt) {
+		return nil, false
 	}
 	return o.ModifiedAt, true
 }
 
 // HasModifiedAt returns a boolean if a field has been set.
 func (o *Client) HasModifiedAt() bool {
-	if o != nil && !isNil(o.ModifiedAt) {
+	if o != nil && !IsNil(o.ModifiedAt) {
 		return true
 	}
 
@@ -1668,7 +1671,7 @@ func (o *Client) SetModifiedAt(v int64) {
 
 // GetExtension returns the Extension field value if set, zero value otherwise.
 func (o *Client) GetExtension() ClientExtension {
-	if o == nil || isNil(o.Extension) {
+	if o == nil || IsNil(o.Extension) {
 		var ret ClientExtension
 		return ret
 	}
@@ -1678,15 +1681,15 @@ func (o *Client) GetExtension() ClientExtension {
 // GetExtensionOk returns a tuple with the Extension field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetExtensionOk() (*ClientExtension, bool) {
-	if o == nil || isNil(o.Extension) {
-    return nil, false
+	if o == nil || IsNil(o.Extension) {
+		return nil, false
 	}
 	return o.Extension, true
 }
 
 // HasExtension returns a boolean if a field has been set.
 func (o *Client) HasExtension() bool {
-	if o != nil && !isNil(o.Extension) {
+	if o != nil && !IsNil(o.Extension) {
 		return true
 	}
 
@@ -1700,7 +1703,7 @@ func (o *Client) SetExtension(v ClientExtension) {
 
 // GetTlsClientAuthSubjectDn returns the TlsClientAuthSubjectDn field value if set, zero value otherwise.
 func (o *Client) GetTlsClientAuthSubjectDn() string {
-	if o == nil || isNil(o.TlsClientAuthSubjectDn) {
+	if o == nil || IsNil(o.TlsClientAuthSubjectDn) {
 		var ret string
 		return ret
 	}
@@ -1710,15 +1713,15 @@ func (o *Client) GetTlsClientAuthSubjectDn() string {
 // GetTlsClientAuthSubjectDnOk returns a tuple with the TlsClientAuthSubjectDn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTlsClientAuthSubjectDnOk() (*string, bool) {
-	if o == nil || isNil(o.TlsClientAuthSubjectDn) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientAuthSubjectDn) {
+		return nil, false
 	}
 	return o.TlsClientAuthSubjectDn, true
 }
 
 // HasTlsClientAuthSubjectDn returns a boolean if a field has been set.
 func (o *Client) HasTlsClientAuthSubjectDn() bool {
-	if o != nil && !isNil(o.TlsClientAuthSubjectDn) {
+	if o != nil && !IsNil(o.TlsClientAuthSubjectDn) {
 		return true
 	}
 
@@ -1732,7 +1735,7 @@ func (o *Client) SetTlsClientAuthSubjectDn(v string) {
 
 // GetTlsClientAuthSanDns returns the TlsClientAuthSanDns field value if set, zero value otherwise.
 func (o *Client) GetTlsClientAuthSanDns() string {
-	if o == nil || isNil(o.TlsClientAuthSanDns) {
+	if o == nil || IsNil(o.TlsClientAuthSanDns) {
 		var ret string
 		return ret
 	}
@@ -1742,15 +1745,15 @@ func (o *Client) GetTlsClientAuthSanDns() string {
 // GetTlsClientAuthSanDnsOk returns a tuple with the TlsClientAuthSanDns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTlsClientAuthSanDnsOk() (*string, bool) {
-	if o == nil || isNil(o.TlsClientAuthSanDns) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientAuthSanDns) {
+		return nil, false
 	}
 	return o.TlsClientAuthSanDns, true
 }
 
 // HasTlsClientAuthSanDns returns a boolean if a field has been set.
 func (o *Client) HasTlsClientAuthSanDns() bool {
-	if o != nil && !isNil(o.TlsClientAuthSanDns) {
+	if o != nil && !IsNil(o.TlsClientAuthSanDns) {
 		return true
 	}
 
@@ -1764,7 +1767,7 @@ func (o *Client) SetTlsClientAuthSanDns(v string) {
 
 // GetTlsClientAuthSanUri returns the TlsClientAuthSanUri field value if set, zero value otherwise.
 func (o *Client) GetTlsClientAuthSanUri() string {
-	if o == nil || isNil(o.TlsClientAuthSanUri) {
+	if o == nil || IsNil(o.TlsClientAuthSanUri) {
 		var ret string
 		return ret
 	}
@@ -1774,15 +1777,15 @@ func (o *Client) GetTlsClientAuthSanUri() string {
 // GetTlsClientAuthSanUriOk returns a tuple with the TlsClientAuthSanUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTlsClientAuthSanUriOk() (*string, bool) {
-	if o == nil || isNil(o.TlsClientAuthSanUri) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientAuthSanUri) {
+		return nil, false
 	}
 	return o.TlsClientAuthSanUri, true
 }
 
 // HasTlsClientAuthSanUri returns a boolean if a field has been set.
 func (o *Client) HasTlsClientAuthSanUri() bool {
-	if o != nil && !isNil(o.TlsClientAuthSanUri) {
+	if o != nil && !IsNil(o.TlsClientAuthSanUri) {
 		return true
 	}
 
@@ -1796,7 +1799,7 @@ func (o *Client) SetTlsClientAuthSanUri(v string) {
 
 // GetTlsClientAuthSanIp returns the TlsClientAuthSanIp field value if set, zero value otherwise.
 func (o *Client) GetTlsClientAuthSanIp() string {
-	if o == nil || isNil(o.TlsClientAuthSanIp) {
+	if o == nil || IsNil(o.TlsClientAuthSanIp) {
 		var ret string
 		return ret
 	}
@@ -1806,15 +1809,15 @@ func (o *Client) GetTlsClientAuthSanIp() string {
 // GetTlsClientAuthSanIpOk returns a tuple with the TlsClientAuthSanIp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTlsClientAuthSanIpOk() (*string, bool) {
-	if o == nil || isNil(o.TlsClientAuthSanIp) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientAuthSanIp) {
+		return nil, false
 	}
 	return o.TlsClientAuthSanIp, true
 }
 
 // HasTlsClientAuthSanIp returns a boolean if a field has been set.
 func (o *Client) HasTlsClientAuthSanIp() bool {
-	if o != nil && !isNil(o.TlsClientAuthSanIp) {
+	if o != nil && !IsNil(o.TlsClientAuthSanIp) {
 		return true
 	}
 
@@ -1828,7 +1831,7 @@ func (o *Client) SetTlsClientAuthSanIp(v string) {
 
 // GetTlsClientAuthSanEmail returns the TlsClientAuthSanEmail field value if set, zero value otherwise.
 func (o *Client) GetTlsClientAuthSanEmail() string {
-	if o == nil || isNil(o.TlsClientAuthSanEmail) {
+	if o == nil || IsNil(o.TlsClientAuthSanEmail) {
 		var ret string
 		return ret
 	}
@@ -1838,15 +1841,15 @@ func (o *Client) GetTlsClientAuthSanEmail() string {
 // GetTlsClientAuthSanEmailOk returns a tuple with the TlsClientAuthSanEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTlsClientAuthSanEmailOk() (*string, bool) {
-	if o == nil || isNil(o.TlsClientAuthSanEmail) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientAuthSanEmail) {
+		return nil, false
 	}
 	return o.TlsClientAuthSanEmail, true
 }
 
 // HasTlsClientAuthSanEmail returns a boolean if a field has been set.
 func (o *Client) HasTlsClientAuthSanEmail() bool {
-	if o != nil && !isNil(o.TlsClientAuthSanEmail) {
+	if o != nil && !IsNil(o.TlsClientAuthSanEmail) {
 		return true
 	}
 
@@ -1860,7 +1863,7 @@ func (o *Client) SetTlsClientAuthSanEmail(v string) {
 
 // GetTlsClientCertificateBoundAccessTokens returns the TlsClientCertificateBoundAccessTokens field value if set, zero value otherwise.
 func (o *Client) GetTlsClientCertificateBoundAccessTokens() bool {
-	if o == nil || isNil(o.TlsClientCertificateBoundAccessTokens) {
+	if o == nil || IsNil(o.TlsClientCertificateBoundAccessTokens) {
 		var ret bool
 		return ret
 	}
@@ -1870,15 +1873,15 @@ func (o *Client) GetTlsClientCertificateBoundAccessTokens() bool {
 // GetTlsClientCertificateBoundAccessTokensOk returns a tuple with the TlsClientCertificateBoundAccessTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTlsClientCertificateBoundAccessTokensOk() (*bool, bool) {
-	if o == nil || isNil(o.TlsClientCertificateBoundAccessTokens) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientCertificateBoundAccessTokens) {
+		return nil, false
 	}
 	return o.TlsClientCertificateBoundAccessTokens, true
 }
 
 // HasTlsClientCertificateBoundAccessTokens returns a boolean if a field has been set.
 func (o *Client) HasTlsClientCertificateBoundAccessTokens() bool {
-	if o != nil && !isNil(o.TlsClientCertificateBoundAccessTokens) {
+	if o != nil && !IsNil(o.TlsClientCertificateBoundAccessTokens) {
 		return true
 	}
 
@@ -1892,7 +1895,7 @@ func (o *Client) SetTlsClientCertificateBoundAccessTokens(v bool) {
 
 // GetSelfSignedCertificateKeyId returns the SelfSignedCertificateKeyId field value if set, zero value otherwise.
 func (o *Client) GetSelfSignedCertificateKeyId() string {
-	if o == nil || isNil(o.SelfSignedCertificateKeyId) {
+	if o == nil || IsNil(o.SelfSignedCertificateKeyId) {
 		var ret string
 		return ret
 	}
@@ -1902,15 +1905,15 @@ func (o *Client) GetSelfSignedCertificateKeyId() string {
 // GetSelfSignedCertificateKeyIdOk returns a tuple with the SelfSignedCertificateKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSelfSignedCertificateKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.SelfSignedCertificateKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.SelfSignedCertificateKeyId) {
+		return nil, false
 	}
 	return o.SelfSignedCertificateKeyId, true
 }
 
 // HasSelfSignedCertificateKeyId returns a boolean if a field has been set.
 func (o *Client) HasSelfSignedCertificateKeyId() bool {
-	if o != nil && !isNil(o.SelfSignedCertificateKeyId) {
+	if o != nil && !IsNil(o.SelfSignedCertificateKeyId) {
 		return true
 	}
 
@@ -1924,7 +1927,7 @@ func (o *Client) SetSelfSignedCertificateKeyId(v string) {
 
 // GetSoftwareId returns the SoftwareId field value if set, zero value otherwise.
 func (o *Client) GetSoftwareId() string {
-	if o == nil || isNil(o.SoftwareId) {
+	if o == nil || IsNil(o.SoftwareId) {
 		var ret string
 		return ret
 	}
@@ -1934,15 +1937,15 @@ func (o *Client) GetSoftwareId() string {
 // GetSoftwareIdOk returns a tuple with the SoftwareId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSoftwareIdOk() (*string, bool) {
-	if o == nil || isNil(o.SoftwareId) {
-    return nil, false
+	if o == nil || IsNil(o.SoftwareId) {
+		return nil, false
 	}
 	return o.SoftwareId, true
 }
 
 // HasSoftwareId returns a boolean if a field has been set.
 func (o *Client) HasSoftwareId() bool {
-	if o != nil && !isNil(o.SoftwareId) {
+	if o != nil && !IsNil(o.SoftwareId) {
 		return true
 	}
 
@@ -1956,7 +1959,7 @@ func (o *Client) SetSoftwareId(v string) {
 
 // GetSoftwareVersion returns the SoftwareVersion field value if set, zero value otherwise.
 func (o *Client) GetSoftwareVersion() string {
-	if o == nil || isNil(o.SoftwareVersion) {
+	if o == nil || IsNil(o.SoftwareVersion) {
 		var ret string
 		return ret
 	}
@@ -1966,15 +1969,15 @@ func (o *Client) GetSoftwareVersion() string {
 // GetSoftwareVersionOk returns a tuple with the SoftwareVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSoftwareVersionOk() (*string, bool) {
-	if o == nil || isNil(o.SoftwareVersion) {
-    return nil, false
+	if o == nil || IsNil(o.SoftwareVersion) {
+		return nil, false
 	}
 	return o.SoftwareVersion, true
 }
 
 // HasSoftwareVersion returns a boolean if a field has been set.
 func (o *Client) HasSoftwareVersion() bool {
-	if o != nil && !isNil(o.SoftwareVersion) {
+	if o != nil && !IsNil(o.SoftwareVersion) {
 		return true
 	}
 
@@ -1988,7 +1991,7 @@ func (o *Client) SetSoftwareVersion(v string) {
 
 // GetAuthorizationSignAlg returns the AuthorizationSignAlg field value if set, zero value otherwise.
 func (o *Client) GetAuthorizationSignAlg() string {
-	if o == nil || isNil(o.AuthorizationSignAlg) {
+	if o == nil || IsNil(o.AuthorizationSignAlg) {
 		var ret string
 		return ret
 	}
@@ -1998,15 +2001,15 @@ func (o *Client) GetAuthorizationSignAlg() string {
 // GetAuthorizationSignAlgOk returns a tuple with the AuthorizationSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAuthorizationSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.AuthorizationSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationSignAlg) {
+		return nil, false
 	}
 	return o.AuthorizationSignAlg, true
 }
 
 // HasAuthorizationSignAlg returns a boolean if a field has been set.
 func (o *Client) HasAuthorizationSignAlg() bool {
-	if o != nil && !isNil(o.AuthorizationSignAlg) {
+	if o != nil && !IsNil(o.AuthorizationSignAlg) {
 		return true
 	}
 
@@ -2020,7 +2023,7 @@ func (o *Client) SetAuthorizationSignAlg(v string) {
 
 // GetAuthorizationEncryptionAlg returns the AuthorizationEncryptionAlg field value if set, zero value otherwise.
 func (o *Client) GetAuthorizationEncryptionAlg() string {
-	if o == nil || isNil(o.AuthorizationEncryptionAlg) {
+	if o == nil || IsNil(o.AuthorizationEncryptionAlg) {
 		var ret string
 		return ret
 	}
@@ -2030,15 +2033,15 @@ func (o *Client) GetAuthorizationEncryptionAlg() string {
 // GetAuthorizationEncryptionAlgOk returns a tuple with the AuthorizationEncryptionAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAuthorizationEncryptionAlgOk() (*string, bool) {
-	if o == nil || isNil(o.AuthorizationEncryptionAlg) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationEncryptionAlg) {
+		return nil, false
 	}
 	return o.AuthorizationEncryptionAlg, true
 }
 
 // HasAuthorizationEncryptionAlg returns a boolean if a field has been set.
 func (o *Client) HasAuthorizationEncryptionAlg() bool {
-	if o != nil && !isNil(o.AuthorizationEncryptionAlg) {
+	if o != nil && !IsNil(o.AuthorizationEncryptionAlg) {
 		return true
 	}
 
@@ -2052,7 +2055,7 @@ func (o *Client) SetAuthorizationEncryptionAlg(v string) {
 
 // GetAuthorizationEncryptionEnc returns the AuthorizationEncryptionEnc field value if set, zero value otherwise.
 func (o *Client) GetAuthorizationEncryptionEnc() string {
-	if o == nil || isNil(o.AuthorizationEncryptionEnc) {
+	if o == nil || IsNil(o.AuthorizationEncryptionEnc) {
 		var ret string
 		return ret
 	}
@@ -2062,15 +2065,15 @@ func (o *Client) GetAuthorizationEncryptionEnc() string {
 // GetAuthorizationEncryptionEncOk returns a tuple with the AuthorizationEncryptionEnc field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAuthorizationEncryptionEncOk() (*string, bool) {
-	if o == nil || isNil(o.AuthorizationEncryptionEnc) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationEncryptionEnc) {
+		return nil, false
 	}
 	return o.AuthorizationEncryptionEnc, true
 }
 
 // HasAuthorizationEncryptionEnc returns a boolean if a field has been set.
 func (o *Client) HasAuthorizationEncryptionEnc() bool {
-	if o != nil && !isNil(o.AuthorizationEncryptionEnc) {
+	if o != nil && !IsNil(o.AuthorizationEncryptionEnc) {
 		return true
 	}
 
@@ -2084,7 +2087,7 @@ func (o *Client) SetAuthorizationEncryptionEnc(v string) {
 
 // GetBcDeliveryMode returns the BcDeliveryMode field value if set, zero value otherwise.
 func (o *Client) GetBcDeliveryMode() string {
-	if o == nil || isNil(o.BcDeliveryMode) {
+	if o == nil || IsNil(o.BcDeliveryMode) {
 		var ret string
 		return ret
 	}
@@ -2094,15 +2097,15 @@ func (o *Client) GetBcDeliveryMode() string {
 // GetBcDeliveryModeOk returns a tuple with the BcDeliveryMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetBcDeliveryModeOk() (*string, bool) {
-	if o == nil || isNil(o.BcDeliveryMode) {
-    return nil, false
+	if o == nil || IsNil(o.BcDeliveryMode) {
+		return nil, false
 	}
 	return o.BcDeliveryMode, true
 }
 
 // HasBcDeliveryMode returns a boolean if a field has been set.
 func (o *Client) HasBcDeliveryMode() bool {
-	if o != nil && !isNil(o.BcDeliveryMode) {
+	if o != nil && !IsNil(o.BcDeliveryMode) {
 		return true
 	}
 
@@ -2116,7 +2119,7 @@ func (o *Client) SetBcDeliveryMode(v string) {
 
 // GetBcNotificationEndpoint returns the BcNotificationEndpoint field value if set, zero value otherwise.
 func (o *Client) GetBcNotificationEndpoint() string {
-	if o == nil || isNil(o.BcNotificationEndpoint) {
+	if o == nil || IsNil(o.BcNotificationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -2126,15 +2129,15 @@ func (o *Client) GetBcNotificationEndpoint() string {
 // GetBcNotificationEndpointOk returns a tuple with the BcNotificationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetBcNotificationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.BcNotificationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.BcNotificationEndpoint) {
+		return nil, false
 	}
 	return o.BcNotificationEndpoint, true
 }
 
 // HasBcNotificationEndpoint returns a boolean if a field has been set.
 func (o *Client) HasBcNotificationEndpoint() bool {
-	if o != nil && !isNil(o.BcNotificationEndpoint) {
+	if o != nil && !IsNil(o.BcNotificationEndpoint) {
 		return true
 	}
 
@@ -2148,7 +2151,7 @@ func (o *Client) SetBcNotificationEndpoint(v string) {
 
 // GetBcRequestSignAlg returns the BcRequestSignAlg field value if set, zero value otherwise.
 func (o *Client) GetBcRequestSignAlg() string {
-	if o == nil || isNil(o.BcRequestSignAlg) {
+	if o == nil || IsNil(o.BcRequestSignAlg) {
 		var ret string
 		return ret
 	}
@@ -2158,15 +2161,15 @@ func (o *Client) GetBcRequestSignAlg() string {
 // GetBcRequestSignAlgOk returns a tuple with the BcRequestSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetBcRequestSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.BcRequestSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.BcRequestSignAlg) {
+		return nil, false
 	}
 	return o.BcRequestSignAlg, true
 }
 
 // HasBcRequestSignAlg returns a boolean if a field has been set.
 func (o *Client) HasBcRequestSignAlg() bool {
-	if o != nil && !isNil(o.BcRequestSignAlg) {
+	if o != nil && !IsNil(o.BcRequestSignAlg) {
 		return true
 	}
 
@@ -2180,7 +2183,7 @@ func (o *Client) SetBcRequestSignAlg(v string) {
 
 // GetBcUserCodeRequired returns the BcUserCodeRequired field value if set, zero value otherwise.
 func (o *Client) GetBcUserCodeRequired() bool {
-	if o == nil || isNil(o.BcUserCodeRequired) {
+	if o == nil || IsNil(o.BcUserCodeRequired) {
 		var ret bool
 		return ret
 	}
@@ -2190,15 +2193,15 @@ func (o *Client) GetBcUserCodeRequired() bool {
 // GetBcUserCodeRequiredOk returns a tuple with the BcUserCodeRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetBcUserCodeRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.BcUserCodeRequired) {
-    return nil, false
+	if o == nil || IsNil(o.BcUserCodeRequired) {
+		return nil, false
 	}
 	return o.BcUserCodeRequired, true
 }
 
 // HasBcUserCodeRequired returns a boolean if a field has been set.
 func (o *Client) HasBcUserCodeRequired() bool {
-	if o != nil && !isNil(o.BcUserCodeRequired) {
+	if o != nil && !IsNil(o.BcUserCodeRequired) {
 		return true
 	}
 
@@ -2212,7 +2215,7 @@ func (o *Client) SetBcUserCodeRequired(v bool) {
 
 // GetDynamicallyRegistered returns the DynamicallyRegistered field value if set, zero value otherwise.
 func (o *Client) GetDynamicallyRegistered() bool {
-	if o == nil || isNil(o.DynamicallyRegistered) {
+	if o == nil || IsNil(o.DynamicallyRegistered) {
 		var ret bool
 		return ret
 	}
@@ -2222,15 +2225,15 @@ func (o *Client) GetDynamicallyRegistered() bool {
 // GetDynamicallyRegisteredOk returns a tuple with the DynamicallyRegistered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDynamicallyRegisteredOk() (*bool, bool) {
-	if o == nil || isNil(o.DynamicallyRegistered) {
-    return nil, false
+	if o == nil || IsNil(o.DynamicallyRegistered) {
+		return nil, false
 	}
 	return o.DynamicallyRegistered, true
 }
 
 // HasDynamicallyRegistered returns a boolean if a field has been set.
 func (o *Client) HasDynamicallyRegistered() bool {
-	if o != nil && !isNil(o.DynamicallyRegistered) {
+	if o != nil && !IsNil(o.DynamicallyRegistered) {
 		return true
 	}
 
@@ -2244,7 +2247,7 @@ func (o *Client) SetDynamicallyRegistered(v bool) {
 
 // GetRegistrationAccessTokenHash returns the RegistrationAccessTokenHash field value if set, zero value otherwise.
 func (o *Client) GetRegistrationAccessTokenHash() string {
-	if o == nil || isNil(o.RegistrationAccessTokenHash) {
+	if o == nil || IsNil(o.RegistrationAccessTokenHash) {
 		var ret string
 		return ret
 	}
@@ -2254,15 +2257,15 @@ func (o *Client) GetRegistrationAccessTokenHash() string {
 // GetRegistrationAccessTokenHashOk returns a tuple with the RegistrationAccessTokenHash field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRegistrationAccessTokenHashOk() (*string, bool) {
-	if o == nil || isNil(o.RegistrationAccessTokenHash) {
-    return nil, false
+	if o == nil || IsNil(o.RegistrationAccessTokenHash) {
+		return nil, false
 	}
 	return o.RegistrationAccessTokenHash, true
 }
 
 // HasRegistrationAccessTokenHash returns a boolean if a field has been set.
 func (o *Client) HasRegistrationAccessTokenHash() bool {
-	if o != nil && !isNil(o.RegistrationAccessTokenHash) {
+	if o != nil && !IsNil(o.RegistrationAccessTokenHash) {
 		return true
 	}
 
@@ -2276,7 +2279,7 @@ func (o *Client) SetRegistrationAccessTokenHash(v string) {
 
 // GetAuthorizationDetailsTypes returns the AuthorizationDetailsTypes field value if set, zero value otherwise.
 func (o *Client) GetAuthorizationDetailsTypes() []string {
-	if o == nil || isNil(o.AuthorizationDetailsTypes) {
+	if o == nil || IsNil(o.AuthorizationDetailsTypes) {
 		var ret []string
 		return ret
 	}
@@ -2286,15 +2289,15 @@ func (o *Client) GetAuthorizationDetailsTypes() []string {
 // GetAuthorizationDetailsTypesOk returns a tuple with the AuthorizationDetailsTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAuthorizationDetailsTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.AuthorizationDetailsTypes) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationDetailsTypes) {
+		return nil, false
 	}
 	return o.AuthorizationDetailsTypes, true
 }
 
 // HasAuthorizationDetailsTypes returns a boolean if a field has been set.
 func (o *Client) HasAuthorizationDetailsTypes() bool {
-	if o != nil && !isNil(o.AuthorizationDetailsTypes) {
+	if o != nil && !IsNil(o.AuthorizationDetailsTypes) {
 		return true
 	}
 
@@ -2308,7 +2311,7 @@ func (o *Client) SetAuthorizationDetailsTypes(v []string) {
 
 // GetParRequired returns the ParRequired field value if set, zero value otherwise.
 func (o *Client) GetParRequired() bool {
-	if o == nil || isNil(o.ParRequired) {
+	if o == nil || IsNil(o.ParRequired) {
 		var ret bool
 		return ret
 	}
@@ -2318,15 +2321,15 @@ func (o *Client) GetParRequired() bool {
 // GetParRequiredOk returns a tuple with the ParRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetParRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.ParRequired) {
-    return nil, false
+	if o == nil || IsNil(o.ParRequired) {
+		return nil, false
 	}
 	return o.ParRequired, true
 }
 
 // HasParRequired returns a boolean if a field has been set.
 func (o *Client) HasParRequired() bool {
-	if o != nil && !isNil(o.ParRequired) {
+	if o != nil && !IsNil(o.ParRequired) {
 		return true
 	}
 
@@ -2340,7 +2343,7 @@ func (o *Client) SetParRequired(v bool) {
 
 // GetRequestObjectRequired returns the RequestObjectRequired field value if set, zero value otherwise.
 func (o *Client) GetRequestObjectRequired() bool {
-	if o == nil || isNil(o.RequestObjectRequired) {
+	if o == nil || IsNil(o.RequestObjectRequired) {
 		var ret bool
 		return ret
 	}
@@ -2350,15 +2353,15 @@ func (o *Client) GetRequestObjectRequired() bool {
 // GetRequestObjectRequiredOk returns a tuple with the RequestObjectRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestObjectRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectRequired) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectRequired) {
+		return nil, false
 	}
 	return o.RequestObjectRequired, true
 }
 
 // HasRequestObjectRequired returns a boolean if a field has been set.
 func (o *Client) HasRequestObjectRequired() bool {
-	if o != nil && !isNil(o.RequestObjectRequired) {
+	if o != nil && !IsNil(o.RequestObjectRequired) {
 		return true
 	}
 
@@ -2372,7 +2375,7 @@ func (o *Client) SetRequestObjectRequired(v bool) {
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
 func (o *Client) GetAttributes() []Pair {
-	if o == nil || isNil(o.Attributes) {
+	if o == nil || IsNil(o.Attributes) {
 		var ret []Pair
 		return ret
 	}
@@ -2382,15 +2385,15 @@ func (o *Client) GetAttributes() []Pair {
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAttributesOk() ([]Pair, bool) {
-	if o == nil || isNil(o.Attributes) {
-    return nil, false
+	if o == nil || IsNil(o.Attributes) {
+		return nil, false
 	}
 	return o.Attributes, true
 }
 
 // HasAttributes returns a boolean if a field has been set.
 func (o *Client) HasAttributes() bool {
-	if o != nil && !isNil(o.Attributes) {
+	if o != nil && !IsNil(o.Attributes) {
 		return true
 	}
 
@@ -2404,7 +2407,7 @@ func (o *Client) SetAttributes(v []Pair) {
 
 // GetCustomMetadata returns the CustomMetadata field value if set, zero value otherwise.
 func (o *Client) GetCustomMetadata() string {
-	if o == nil || isNil(o.CustomMetadata) {
+	if o == nil || IsNil(o.CustomMetadata) {
 		var ret string
 		return ret
 	}
@@ -2414,15 +2417,15 @@ func (o *Client) GetCustomMetadata() string {
 // GetCustomMetadataOk returns a tuple with the CustomMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetCustomMetadataOk() (*string, bool) {
-	if o == nil || isNil(o.CustomMetadata) {
-    return nil, false
+	if o == nil || IsNil(o.CustomMetadata) {
+		return nil, false
 	}
 	return o.CustomMetadata, true
 }
 
 // HasCustomMetadata returns a boolean if a field has been set.
 func (o *Client) HasCustomMetadata() bool {
-	if o != nil && !isNil(o.CustomMetadata) {
+	if o != nil && !IsNil(o.CustomMetadata) {
 		return true
 	}
 
@@ -2436,7 +2439,7 @@ func (o *Client) SetCustomMetadata(v string) {
 
 // GetFrontChannelRequestObjectEncryptionRequired returns the FrontChannelRequestObjectEncryptionRequired field value if set, zero value otherwise.
 func (o *Client) GetFrontChannelRequestObjectEncryptionRequired() bool {
-	if o == nil || isNil(o.FrontChannelRequestObjectEncryptionRequired) {
+	if o == nil || IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
 		var ret bool
 		return ret
 	}
@@ -2446,15 +2449,15 @@ func (o *Client) GetFrontChannelRequestObjectEncryptionRequired() bool {
 // GetFrontChannelRequestObjectEncryptionRequiredOk returns a tuple with the FrontChannelRequestObjectEncryptionRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetFrontChannelRequestObjectEncryptionRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.FrontChannelRequestObjectEncryptionRequired) {
-    return nil, false
+	if o == nil || IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
+		return nil, false
 	}
 	return o.FrontChannelRequestObjectEncryptionRequired, true
 }
 
 // HasFrontChannelRequestObjectEncryptionRequired returns a boolean if a field has been set.
 func (o *Client) HasFrontChannelRequestObjectEncryptionRequired() bool {
-	if o != nil && !isNil(o.FrontChannelRequestObjectEncryptionRequired) {
+	if o != nil && !IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
 		return true
 	}
 
@@ -2468,7 +2471,7 @@ func (o *Client) SetFrontChannelRequestObjectEncryptionRequired(v bool) {
 
 // GetRequestObjectEncryptionAlgMatchRequired returns the RequestObjectEncryptionAlgMatchRequired field value if set, zero value otherwise.
 func (o *Client) GetRequestObjectEncryptionAlgMatchRequired() bool {
-	if o == nil || isNil(o.RequestObjectEncryptionAlgMatchRequired) {
+	if o == nil || IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
 		var ret bool
 		return ret
 	}
@@ -2478,15 +2481,15 @@ func (o *Client) GetRequestObjectEncryptionAlgMatchRequired() bool {
 // GetRequestObjectEncryptionAlgMatchRequiredOk returns a tuple with the RequestObjectEncryptionAlgMatchRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestObjectEncryptionAlgMatchRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectEncryptionAlgMatchRequired) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
+		return nil, false
 	}
 	return o.RequestObjectEncryptionAlgMatchRequired, true
 }
 
 // HasRequestObjectEncryptionAlgMatchRequired returns a boolean if a field has been set.
 func (o *Client) HasRequestObjectEncryptionAlgMatchRequired() bool {
-	if o != nil && !isNil(o.RequestObjectEncryptionAlgMatchRequired) {
+	if o != nil && !IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
 		return true
 	}
 
@@ -2500,7 +2503,7 @@ func (o *Client) SetRequestObjectEncryptionAlgMatchRequired(v bool) {
 
 // GetRequestObjectEncryptionEncMatchRequired returns the RequestObjectEncryptionEncMatchRequired field value if set, zero value otherwise.
 func (o *Client) GetRequestObjectEncryptionEncMatchRequired() bool {
-	if o == nil || isNil(o.RequestObjectEncryptionEncMatchRequired) {
+	if o == nil || IsNil(o.RequestObjectEncryptionEncMatchRequired) {
 		var ret bool
 		return ret
 	}
@@ -2510,15 +2513,15 @@ func (o *Client) GetRequestObjectEncryptionEncMatchRequired() bool {
 // GetRequestObjectEncryptionEncMatchRequiredOk returns a tuple with the RequestObjectEncryptionEncMatchRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRequestObjectEncryptionEncMatchRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectEncryptionEncMatchRequired) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectEncryptionEncMatchRequired) {
+		return nil, false
 	}
 	return o.RequestObjectEncryptionEncMatchRequired, true
 }
 
 // HasRequestObjectEncryptionEncMatchRequired returns a boolean if a field has been set.
 func (o *Client) HasRequestObjectEncryptionEncMatchRequired() bool {
-	if o != nil && !isNil(o.RequestObjectEncryptionEncMatchRequired) {
+	if o != nil && !IsNil(o.RequestObjectEncryptionEncMatchRequired) {
 		return true
 	}
 
@@ -2532,7 +2535,7 @@ func (o *Client) SetRequestObjectEncryptionEncMatchRequired(v bool) {
 
 // GetDigestAlgorithm returns the DigestAlgorithm field value if set, zero value otherwise.
 func (o *Client) GetDigestAlgorithm() string {
-	if o == nil || isNil(o.DigestAlgorithm) {
+	if o == nil || IsNil(o.DigestAlgorithm) {
 		var ret string
 		return ret
 	}
@@ -2542,15 +2545,15 @@ func (o *Client) GetDigestAlgorithm() string {
 // GetDigestAlgorithmOk returns a tuple with the DigestAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDigestAlgorithmOk() (*string, bool) {
-	if o == nil || isNil(o.DigestAlgorithm) {
-    return nil, false
+	if o == nil || IsNil(o.DigestAlgorithm) {
+		return nil, false
 	}
 	return o.DigestAlgorithm, true
 }
 
 // HasDigestAlgorithm returns a boolean if a field has been set.
 func (o *Client) HasDigestAlgorithm() bool {
-	if o != nil && !isNil(o.DigestAlgorithm) {
+	if o != nil && !IsNil(o.DigestAlgorithm) {
 		return true
 	}
 
@@ -2564,7 +2567,7 @@ func (o *Client) SetDigestAlgorithm(v string) {
 
 // GetSingleAccessTokenPerSubject returns the SingleAccessTokenPerSubject field value if set, zero value otherwise.
 func (o *Client) GetSingleAccessTokenPerSubject() bool {
-	if o == nil || isNil(o.SingleAccessTokenPerSubject) {
+	if o == nil || IsNil(o.SingleAccessTokenPerSubject) {
 		var ret bool
 		return ret
 	}
@@ -2574,15 +2577,15 @@ func (o *Client) GetSingleAccessTokenPerSubject() bool {
 // GetSingleAccessTokenPerSubjectOk returns a tuple with the SingleAccessTokenPerSubject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSingleAccessTokenPerSubjectOk() (*bool, bool) {
-	if o == nil || isNil(o.SingleAccessTokenPerSubject) {
-    return nil, false
+	if o == nil || IsNil(o.SingleAccessTokenPerSubject) {
+		return nil, false
 	}
 	return o.SingleAccessTokenPerSubject, true
 }
 
 // HasSingleAccessTokenPerSubject returns a boolean if a field has been set.
 func (o *Client) HasSingleAccessTokenPerSubject() bool {
-	if o != nil && !isNil(o.SingleAccessTokenPerSubject) {
+	if o != nil && !IsNil(o.SingleAccessTokenPerSubject) {
 		return true
 	}
 
@@ -2596,7 +2599,7 @@ func (o *Client) SetSingleAccessTokenPerSubject(v bool) {
 
 // GetPkceRequired returns the PkceRequired field value if set, zero value otherwise.
 func (o *Client) GetPkceRequired() bool {
-	if o == nil || isNil(o.PkceRequired) {
+	if o == nil || IsNil(o.PkceRequired) {
 		var ret bool
 		return ret
 	}
@@ -2606,15 +2609,15 @@ func (o *Client) GetPkceRequired() bool {
 // GetPkceRequiredOk returns a tuple with the PkceRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetPkceRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.PkceRequired) {
-    return nil, false
+	if o == nil || IsNil(o.PkceRequired) {
+		return nil, false
 	}
 	return o.PkceRequired, true
 }
 
 // HasPkceRequired returns a boolean if a field has been set.
 func (o *Client) HasPkceRequired() bool {
-	if o != nil && !isNil(o.PkceRequired) {
+	if o != nil && !IsNil(o.PkceRequired) {
 		return true
 	}
 
@@ -2628,7 +2631,7 @@ func (o *Client) SetPkceRequired(v bool) {
 
 // GetPkceS256Required returns the PkceS256Required field value if set, zero value otherwise.
 func (o *Client) GetPkceS256Required() bool {
-	if o == nil || isNil(o.PkceS256Required) {
+	if o == nil || IsNil(o.PkceS256Required) {
 		var ret bool
 		return ret
 	}
@@ -2638,15 +2641,15 @@ func (o *Client) GetPkceS256Required() bool {
 // GetPkceS256RequiredOk returns a tuple with the PkceS256Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetPkceS256RequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.PkceS256Required) {
-    return nil, false
+	if o == nil || IsNil(o.PkceS256Required) {
+		return nil, false
 	}
 	return o.PkceS256Required, true
 }
 
 // HasPkceS256Required returns a boolean if a field has been set.
 func (o *Client) HasPkceS256Required() bool {
-	if o != nil && !isNil(o.PkceS256Required) {
+	if o != nil && !IsNil(o.PkceS256Required) {
 		return true
 	}
 
@@ -2660,7 +2663,7 @@ func (o *Client) SetPkceS256Required(v bool) {
 
 // GetRsSignedRequestKeyId returns the RsSignedRequestKeyId field value if set, zero value otherwise.
 func (o *Client) GetRsSignedRequestKeyId() string {
-	if o == nil || isNil(o.RsSignedRequestKeyId) {
+	if o == nil || IsNil(o.RsSignedRequestKeyId) {
 		var ret string
 		return ret
 	}
@@ -2670,15 +2673,15 @@ func (o *Client) GetRsSignedRequestKeyId() string {
 // GetRsSignedRequestKeyIdOk returns a tuple with the RsSignedRequestKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRsSignedRequestKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.RsSignedRequestKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.RsSignedRequestKeyId) {
+		return nil, false
 	}
 	return o.RsSignedRequestKeyId, true
 }
 
 // HasRsSignedRequestKeyId returns a boolean if a field has been set.
 func (o *Client) HasRsSignedRequestKeyId() bool {
-	if o != nil && !isNil(o.RsSignedRequestKeyId) {
+	if o != nil && !IsNil(o.RsSignedRequestKeyId) {
 		return true
 	}
 
@@ -2692,7 +2695,7 @@ func (o *Client) SetRsSignedRequestKeyId(v string) {
 
 // GetRsRequestSigned returns the RsRequestSigned field value if set, zero value otherwise.
 func (o *Client) GetRsRequestSigned() bool {
-	if o == nil || isNil(o.RsRequestSigned) {
+	if o == nil || IsNil(o.RsRequestSigned) {
 		var ret bool
 		return ret
 	}
@@ -2702,15 +2705,15 @@ func (o *Client) GetRsRequestSigned() bool {
 // GetRsRequestSignedOk returns a tuple with the RsRequestSigned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetRsRequestSignedOk() (*bool, bool) {
-	if o == nil || isNil(o.RsRequestSigned) {
-    return nil, false
+	if o == nil || IsNil(o.RsRequestSigned) {
+		return nil, false
 	}
 	return o.RsRequestSigned, true
 }
 
 // HasRsRequestSigned returns a boolean if a field has been set.
 func (o *Client) HasRsRequestSigned() bool {
-	if o != nil && !isNil(o.RsRequestSigned) {
+	if o != nil && !IsNil(o.RsRequestSigned) {
 		return true
 	}
 
@@ -2724,7 +2727,7 @@ func (o *Client) SetRsRequestSigned(v bool) {
 
 // GetDpopRequired returns the DpopRequired field value if set, zero value otherwise.
 func (o *Client) GetDpopRequired() bool {
-	if o == nil || isNil(o.DpopRequired) {
+	if o == nil || IsNil(o.DpopRequired) {
 		var ret bool
 		return ret
 	}
@@ -2734,15 +2737,15 @@ func (o *Client) GetDpopRequired() bool {
 // GetDpopRequiredOk returns a tuple with the DpopRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetDpopRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.DpopRequired) {
-    return nil, false
+	if o == nil || IsNil(o.DpopRequired) {
+		return nil, false
 	}
 	return o.DpopRequired, true
 }
 
 // HasDpopRequired returns a boolean if a field has been set.
 func (o *Client) HasDpopRequired() bool {
-	if o != nil && !isNil(o.DpopRequired) {
+	if o != nil && !IsNil(o.DpopRequired) {
 		return true
 	}
 
@@ -2756,7 +2759,7 @@ func (o *Client) SetDpopRequired(v bool) {
 
 // GetEntityId returns the EntityId field value if set, zero value otherwise.
 func (o *Client) GetEntityId() string {
-	if o == nil || isNil(o.EntityId) {
+	if o == nil || IsNil(o.EntityId) {
 		var ret string
 		return ret
 	}
@@ -2766,15 +2769,15 @@ func (o *Client) GetEntityId() string {
 // GetEntityIdOk returns a tuple with the EntityId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetEntityIdOk() (*string, bool) {
-	if o == nil || isNil(o.EntityId) {
-    return nil, false
+	if o == nil || IsNil(o.EntityId) {
+		return nil, false
 	}
 	return o.EntityId, true
 }
 
 // HasEntityId returns a boolean if a field has been set.
 func (o *Client) HasEntityId() bool {
-	if o != nil && !isNil(o.EntityId) {
+	if o != nil && !IsNil(o.EntityId) {
 		return true
 	}
 
@@ -2788,7 +2791,7 @@ func (o *Client) SetEntityId(v string) {
 
 // GetTrustAnchorId returns the TrustAnchorId field value if set, zero value otherwise.
 func (o *Client) GetTrustAnchorId() string {
-	if o == nil || isNil(o.TrustAnchorId) {
+	if o == nil || IsNil(o.TrustAnchorId) {
 		var ret string
 		return ret
 	}
@@ -2798,15 +2801,15 @@ func (o *Client) GetTrustAnchorId() string {
 // GetTrustAnchorIdOk returns a tuple with the TrustAnchorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTrustAnchorIdOk() (*string, bool) {
-	if o == nil || isNil(o.TrustAnchorId) {
-    return nil, false
+	if o == nil || IsNil(o.TrustAnchorId) {
+		return nil, false
 	}
 	return o.TrustAnchorId, true
 }
 
 // HasTrustAnchorId returns a boolean if a field has been set.
 func (o *Client) HasTrustAnchorId() bool {
-	if o != nil && !isNil(o.TrustAnchorId) {
+	if o != nil && !IsNil(o.TrustAnchorId) {
 		return true
 	}
 
@@ -2820,7 +2823,7 @@ func (o *Client) SetTrustAnchorId(v string) {
 
 // GetTrustChain returns the TrustChain field value if set, zero value otherwise.
 func (o *Client) GetTrustChain() []string {
-	if o == nil || isNil(o.TrustChain) {
+	if o == nil || IsNil(o.TrustChain) {
 		var ret []string
 		return ret
 	}
@@ -2830,15 +2833,15 @@ func (o *Client) GetTrustChain() []string {
 // GetTrustChainOk returns a tuple with the TrustChain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTrustChainOk() ([]string, bool) {
-	if o == nil || isNil(o.TrustChain) {
-    return nil, false
+	if o == nil || IsNil(o.TrustChain) {
+		return nil, false
 	}
 	return o.TrustChain, true
 }
 
 // HasTrustChain returns a boolean if a field has been set.
 func (o *Client) HasTrustChain() bool {
-	if o != nil && !isNil(o.TrustChain) {
+	if o != nil && !IsNil(o.TrustChain) {
 		return true
 	}
 
@@ -2852,7 +2855,7 @@ func (o *Client) SetTrustChain(v []string) {
 
 // GetTrustChainExpiresAt returns the TrustChainExpiresAt field value if set, zero value otherwise.
 func (o *Client) GetTrustChainExpiresAt() int64 {
-	if o == nil || isNil(o.TrustChainExpiresAt) {
+	if o == nil || IsNil(o.TrustChainExpiresAt) {
 		var ret int64
 		return ret
 	}
@@ -2862,15 +2865,15 @@ func (o *Client) GetTrustChainExpiresAt() int64 {
 // GetTrustChainExpiresAtOk returns a tuple with the TrustChainExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTrustChainExpiresAtOk() (*int64, bool) {
-	if o == nil || isNil(o.TrustChainExpiresAt) {
-    return nil, false
+	if o == nil || IsNil(o.TrustChainExpiresAt) {
+		return nil, false
 	}
 	return o.TrustChainExpiresAt, true
 }
 
 // HasTrustChainExpiresAt returns a boolean if a field has been set.
 func (o *Client) HasTrustChainExpiresAt() bool {
-	if o != nil && !isNil(o.TrustChainExpiresAt) {
+	if o != nil && !IsNil(o.TrustChainExpiresAt) {
 		return true
 	}
 
@@ -2884,7 +2887,7 @@ func (o *Client) SetTrustChainExpiresAt(v int64) {
 
 // GetTrustChainUpdatedAt returns the TrustChainUpdatedAt field value if set, zero value otherwise.
 func (o *Client) GetTrustChainUpdatedAt() int64 {
-	if o == nil || isNil(o.TrustChainUpdatedAt) {
+	if o == nil || IsNil(o.TrustChainUpdatedAt) {
 		var ret int64
 		return ret
 	}
@@ -2894,15 +2897,15 @@ func (o *Client) GetTrustChainUpdatedAt() int64 {
 // GetTrustChainUpdatedAtOk returns a tuple with the TrustChainUpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetTrustChainUpdatedAtOk() (*int64, bool) {
-	if o == nil || isNil(o.TrustChainUpdatedAt) {
-    return nil, false
+	if o == nil || IsNil(o.TrustChainUpdatedAt) {
+		return nil, false
 	}
 	return o.TrustChainUpdatedAt, true
 }
 
 // HasTrustChainUpdatedAt returns a boolean if a field has been set.
 func (o *Client) HasTrustChainUpdatedAt() bool {
-	if o != nil && !isNil(o.TrustChainUpdatedAt) {
+	if o != nil && !IsNil(o.TrustChainUpdatedAt) {
 		return true
 	}
 
@@ -2916,7 +2919,7 @@ func (o *Client) SetTrustChainUpdatedAt(v int64) {
 
 // GetOrganizationName returns the OrganizationName field value if set, zero value otherwise.
 func (o *Client) GetOrganizationName() string {
-	if o == nil || isNil(o.OrganizationName) {
+	if o == nil || IsNil(o.OrganizationName) {
 		var ret string
 		return ret
 	}
@@ -2926,15 +2929,15 @@ func (o *Client) GetOrganizationName() string {
 // GetOrganizationNameOk returns a tuple with the OrganizationName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetOrganizationNameOk() (*string, bool) {
-	if o == nil || isNil(o.OrganizationName) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationName) {
+		return nil, false
 	}
 	return o.OrganizationName, true
 }
 
 // HasOrganizationName returns a boolean if a field has been set.
 func (o *Client) HasOrganizationName() bool {
-	if o != nil && !isNil(o.OrganizationName) {
+	if o != nil && !IsNil(o.OrganizationName) {
 		return true
 	}
 
@@ -2948,7 +2951,7 @@ func (o *Client) SetOrganizationName(v string) {
 
 // GetSignedJwksUri returns the SignedJwksUri field value if set, zero value otherwise.
 func (o *Client) GetSignedJwksUri() string {
-	if o == nil || isNil(o.SignedJwksUri) {
+	if o == nil || IsNil(o.SignedJwksUri) {
 		var ret string
 		return ret
 	}
@@ -2958,15 +2961,15 @@ func (o *Client) GetSignedJwksUri() string {
 // GetSignedJwksUriOk returns a tuple with the SignedJwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetSignedJwksUriOk() (*string, bool) {
-	if o == nil || isNil(o.SignedJwksUri) {
-    return nil, false
+	if o == nil || IsNil(o.SignedJwksUri) {
+		return nil, false
 	}
 	return o.SignedJwksUri, true
 }
 
 // HasSignedJwksUri returns a boolean if a field has been set.
 func (o *Client) HasSignedJwksUri() bool {
-	if o != nil && !isNil(o.SignedJwksUri) {
+	if o != nil && !IsNil(o.SignedJwksUri) {
 		return true
 	}
 
@@ -2980,7 +2983,7 @@ func (o *Client) SetSignedJwksUri(v string) {
 
 // GetClientRegistrationTypes returns the ClientRegistrationTypes field value if set, zero value otherwise.
 func (o *Client) GetClientRegistrationTypes() []string {
-	if o == nil || isNil(o.ClientRegistrationTypes) {
+	if o == nil || IsNil(o.ClientRegistrationTypes) {
 		var ret []string
 		return ret
 	}
@@ -2990,15 +2993,15 @@ func (o *Client) GetClientRegistrationTypes() []string {
 // GetClientRegistrationTypesOk returns a tuple with the ClientRegistrationTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetClientRegistrationTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.ClientRegistrationTypes) {
-    return nil, false
+	if o == nil || IsNil(o.ClientRegistrationTypes) {
+		return nil, false
 	}
 	return o.ClientRegistrationTypes, true
 }
 
 // HasClientRegistrationTypes returns a boolean if a field has been set.
 func (o *Client) HasClientRegistrationTypes() bool {
-	if o != nil && !isNil(o.ClientRegistrationTypes) {
+	if o != nil && !IsNil(o.ClientRegistrationTypes) {
 		return true
 	}
 
@@ -3012,7 +3015,7 @@ func (o *Client) SetClientRegistrationTypes(v []string) {
 
 // GetAutomaticallyRegistered returns the AutomaticallyRegistered field value if set, zero value otherwise.
 func (o *Client) GetAutomaticallyRegistered() bool {
-	if o == nil || isNil(o.AutomaticallyRegistered) {
+	if o == nil || IsNil(o.AutomaticallyRegistered) {
 		var ret bool
 		return ret
 	}
@@ -3022,15 +3025,15 @@ func (o *Client) GetAutomaticallyRegistered() bool {
 // GetAutomaticallyRegisteredOk returns a tuple with the AutomaticallyRegistered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetAutomaticallyRegisteredOk() (*bool, bool) {
-	if o == nil || isNil(o.AutomaticallyRegistered) {
-    return nil, false
+	if o == nil || IsNil(o.AutomaticallyRegistered) {
+		return nil, false
 	}
 	return o.AutomaticallyRegistered, true
 }
 
 // HasAutomaticallyRegistered returns a boolean if a field has been set.
 func (o *Client) HasAutomaticallyRegistered() bool {
-	if o != nil && !isNil(o.AutomaticallyRegistered) {
+	if o != nil && !IsNil(o.AutomaticallyRegistered) {
 		return true
 	}
 
@@ -3044,7 +3047,7 @@ func (o *Client) SetAutomaticallyRegistered(v bool) {
 
 // GetExplicitlyRegistered returns the ExplicitlyRegistered field value if set, zero value otherwise.
 func (o *Client) GetExplicitlyRegistered() bool {
-	if o == nil || isNil(o.ExplicitlyRegistered) {
+	if o == nil || IsNil(o.ExplicitlyRegistered) {
 		var ret bool
 		return ret
 	}
@@ -3054,15 +3057,15 @@ func (o *Client) GetExplicitlyRegistered() bool {
 // GetExplicitlyRegisteredOk returns a tuple with the ExplicitlyRegistered field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetExplicitlyRegisteredOk() (*bool, bool) {
-	if o == nil || isNil(o.ExplicitlyRegistered) {
-    return nil, false
+	if o == nil || IsNil(o.ExplicitlyRegistered) {
+		return nil, false
 	}
 	return o.ExplicitlyRegistered, true
 }
 
 // HasExplicitlyRegistered returns a boolean if a field has been set.
 func (o *Client) HasExplicitlyRegistered() bool {
-	if o != nil && !isNil(o.ExplicitlyRegistered) {
+	if o != nil && !IsNil(o.ExplicitlyRegistered) {
 		return true
 	}
 
@@ -3076,7 +3079,7 @@ func (o *Client) SetExplicitlyRegistered(v bool) {
 
 // GetCredentialOfferEndpoint returns the CredentialOfferEndpoint field value if set, zero value otherwise.
 func (o *Client) GetCredentialOfferEndpoint() string {
-	if o == nil || isNil(o.CredentialOfferEndpoint) {
+	if o == nil || IsNil(o.CredentialOfferEndpoint) {
 		var ret string
 		return ret
 	}
@@ -3086,15 +3089,15 @@ func (o *Client) GetCredentialOfferEndpoint() string {
 // GetCredentialOfferEndpointOk returns a tuple with the CredentialOfferEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Client) GetCredentialOfferEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.CredentialOfferEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialOfferEndpoint) {
+		return nil, false
 	}
 	return o.CredentialOfferEndpoint, true
 }
 
 // HasCredentialOfferEndpoint returns a boolean if a field has been set.
 func (o *Client) HasCredentialOfferEndpoint() bool {
-	if o != nil && !isNil(o.CredentialOfferEndpoint) {
+	if o != nil && !IsNil(o.CredentialOfferEndpoint) {
 		return true
 	}
 
@@ -3109,7 +3112,7 @@ func (o *Client) SetCredentialOfferEndpoint(v string) {
 // GetSectorIdentifier returns the SectorIdentifier field value if set, zero value otherwise.
 // Deprecated
 func (o *Client) GetSectorIdentifier() string {
-	if o == nil || isNil(o.SectorIdentifier) {
+	if o == nil || IsNil(o.SectorIdentifier) {
 		var ret string
 		return ret
 	}
@@ -3120,15 +3123,15 @@ func (o *Client) GetSectorIdentifier() string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *Client) GetSectorIdentifierOk() (*string, bool) {
-	if o == nil || isNil(o.SectorIdentifier) {
-    return nil, false
+	if o == nil || IsNil(o.SectorIdentifier) {
+		return nil, false
 	}
 	return o.SectorIdentifier, true
 }
 
 // HasSectorIdentifier returns a boolean if a field has been set.
 func (o *Client) HasSectorIdentifier() bool {
-	if o != nil && !isNil(o.SectorIdentifier) {
+	if o != nil && !IsNil(o.SectorIdentifier) {
 		return true
 	}
 
@@ -3142,290 +3145,298 @@ func (o *Client) SetSectorIdentifier(v string) {
 }
 
 func (o Client) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Number) {
-		toSerialize["number"] = o.Number
-	}
-	if !isNil(o.ServiceNumber) {
-		toSerialize["serviceNumber"] = o.ServiceNumber
-	}
-	if !isNil(o.Developer) {
-		toSerialize["developer"] = o.Developer
-	}
-	if !isNil(o.ClientId) {
-		toSerialize["clientId"] = o.ClientId
-	}
-	if !isNil(o.ClientIdAlias) {
-		toSerialize["clientIdAlias"] = o.ClientIdAlias
-	}
-	if !isNil(o.ClientIdAliasEnabled) {
-		toSerialize["clientIdAliasEnabled"] = o.ClientIdAliasEnabled
-	}
-	if !isNil(o.ClientSecret) {
-		toSerialize["clientSecret"] = o.ClientSecret
-	}
-	if !isNil(o.ClientType) {
-		toSerialize["clientType"] = o.ClientType
-	}
-	if !isNil(o.RedirectUris) {
-		toSerialize["redirectUris"] = o.RedirectUris
-	}
-	if !isNil(o.ResponseTypes) {
-		toSerialize["responseTypes"] = o.ResponseTypes
-	}
-	if !isNil(o.GrantTypes) {
-		toSerialize["grantTypes"] = o.GrantTypes
-	}
-	if !isNil(o.ApplicationType) {
-		toSerialize["applicationType"] = o.ApplicationType
-	}
-	if !isNil(o.Contacts) {
-		toSerialize["contacts"] = o.Contacts
-	}
-	if !isNil(o.ClientName) {
-		toSerialize["clientName"] = o.ClientName
-	}
-	if !isNil(o.ClientNames) {
-		toSerialize["clientNames"] = o.ClientNames
-	}
-	if !isNil(o.LogoUri) {
-		toSerialize["logoUri"] = o.LogoUri
-	}
-	if !isNil(o.LogoUris) {
-		toSerialize["logoUris"] = o.LogoUris
-	}
-	if !isNil(o.ClientUri) {
-		toSerialize["clientUri"] = o.ClientUri
-	}
-	if !isNil(o.ClientUris) {
-		toSerialize["clientUris"] = o.ClientUris
-	}
-	if !isNil(o.PolicyUri) {
-		toSerialize["policyUri"] = o.PolicyUri
-	}
-	if !isNil(o.PolicyUris) {
-		toSerialize["policyUris"] = o.PolicyUris
-	}
-	if !isNil(o.TosUri) {
-		toSerialize["tosUri"] = o.TosUri
-	}
-	if !isNil(o.TosUris) {
-		toSerialize["tosUris"] = o.TosUris
-	}
-	if !isNil(o.JwksUri) {
-		toSerialize["jwksUri"] = o.JwksUri
-	}
-	if !isNil(o.Jwks) {
-		toSerialize["jwks"] = o.Jwks
-	}
-	if !isNil(o.DerivedSectorIdentifier) {
-		toSerialize["derivedSectorIdentifier"] = o.DerivedSectorIdentifier
-	}
-	if !isNil(o.SectorIdentifierUri) {
-		toSerialize["sectorIdentifierUri"] = o.SectorIdentifierUri
-	}
-	if !isNil(o.SubjectType) {
-		toSerialize["subjectType"] = o.SubjectType
-	}
-	if !isNil(o.IdTokenSignAlg) {
-		toSerialize["idTokenSignAlg"] = o.IdTokenSignAlg
-	}
-	if !isNil(o.IdTokenEncryptionAlg) {
-		toSerialize["idTokenEncryptionAlg"] = o.IdTokenEncryptionAlg
-	}
-	if !isNil(o.IdTokenEncryptionEnc) {
-		toSerialize["idTokenEncryptionEnc"] = o.IdTokenEncryptionEnc
-	}
-	if !isNil(o.UserInfoSignAlg) {
-		toSerialize["userInfoSignAlg"] = o.UserInfoSignAlg
-	}
-	if !isNil(o.UserInfoEncryptionAlg) {
-		toSerialize["userInfoEncryptionAlg"] = o.UserInfoEncryptionAlg
-	}
-	if !isNil(o.UserInfoEncryptionEnc) {
-		toSerialize["userInfoEncryptionEnc"] = o.UserInfoEncryptionEnc
-	}
-	if !isNil(o.RequestSignAlg) {
-		toSerialize["requestSignAlg"] = o.RequestSignAlg
-	}
-	if !isNil(o.RequestEncryptionAlg) {
-		toSerialize["requestEncryptionAlg"] = o.RequestEncryptionAlg
-	}
-	if !isNil(o.RequestEncryptionEnc) {
-		toSerialize["requestEncryptionEnc"] = o.RequestEncryptionEnc
-	}
-	if !isNil(o.TokenAuthMethod) {
-		toSerialize["tokenAuthMethod"] = o.TokenAuthMethod
-	}
-	if !isNil(o.TokenAuthSignAlg) {
-		toSerialize["tokenAuthSignAlg"] = o.TokenAuthSignAlg
-	}
-	if !isNil(o.DefaultMaxAge) {
-		toSerialize["defaultMaxAge"] = o.DefaultMaxAge
-	}
-	if !isNil(o.DefaultAcrs) {
-		toSerialize["defaultAcrs"] = o.DefaultAcrs
-	}
-	if !isNil(o.AuthTimeRequired) {
-		toSerialize["authTimeRequired"] = o.AuthTimeRequired
-	}
-	if !isNil(o.LoginUri) {
-		toSerialize["loginUri"] = o.LoginUri
-	}
-	if !isNil(o.RequestUris) {
-		toSerialize["requestUris"] = o.RequestUris
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !isNil(o.Descriptions) {
-		toSerialize["descriptions"] = o.Descriptions
-	}
-	if !isNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if !isNil(o.ModifiedAt) {
-		toSerialize["modifiedAt"] = o.ModifiedAt
-	}
-	if !isNil(o.Extension) {
-		toSerialize["extension"] = o.Extension
-	}
-	if !isNil(o.TlsClientAuthSubjectDn) {
-		toSerialize["tlsClientAuthSubjectDn"] = o.TlsClientAuthSubjectDn
-	}
-	if !isNil(o.TlsClientAuthSanDns) {
-		toSerialize["tlsClientAuthSanDns"] = o.TlsClientAuthSanDns
-	}
-	if !isNil(o.TlsClientAuthSanUri) {
-		toSerialize["tlsClientAuthSanUri"] = o.TlsClientAuthSanUri
-	}
-	if !isNil(o.TlsClientAuthSanIp) {
-		toSerialize["tlsClientAuthSanIp"] = o.TlsClientAuthSanIp
-	}
-	if !isNil(o.TlsClientAuthSanEmail) {
-		toSerialize["tlsClientAuthSanEmail"] = o.TlsClientAuthSanEmail
-	}
-	if !isNil(o.TlsClientCertificateBoundAccessTokens) {
-		toSerialize["tlsClientCertificateBoundAccessTokens"] = o.TlsClientCertificateBoundAccessTokens
-	}
-	if !isNil(o.SelfSignedCertificateKeyId) {
-		toSerialize["selfSignedCertificateKeyId"] = o.SelfSignedCertificateKeyId
-	}
-	if !isNil(o.SoftwareId) {
-		toSerialize["softwareId"] = o.SoftwareId
-	}
-	if !isNil(o.SoftwareVersion) {
-		toSerialize["softwareVersion"] = o.SoftwareVersion
-	}
-	if !isNil(o.AuthorizationSignAlg) {
-		toSerialize["authorizationSignAlg"] = o.AuthorizationSignAlg
-	}
-	if !isNil(o.AuthorizationEncryptionAlg) {
-		toSerialize["authorizationEncryptionAlg"] = o.AuthorizationEncryptionAlg
-	}
-	if !isNil(o.AuthorizationEncryptionEnc) {
-		toSerialize["authorizationEncryptionEnc"] = o.AuthorizationEncryptionEnc
-	}
-	if !isNil(o.BcDeliveryMode) {
-		toSerialize["bcDeliveryMode"] = o.BcDeliveryMode
-	}
-	if !isNil(o.BcNotificationEndpoint) {
-		toSerialize["bcNotificationEndpoint"] = o.BcNotificationEndpoint
-	}
-	if !isNil(o.BcRequestSignAlg) {
-		toSerialize["bcRequestSignAlg"] = o.BcRequestSignAlg
-	}
-	if !isNil(o.BcUserCodeRequired) {
-		toSerialize["bcUserCodeRequired"] = o.BcUserCodeRequired
-	}
-	if !isNil(o.DynamicallyRegistered) {
-		toSerialize["dynamicallyRegistered"] = o.DynamicallyRegistered
-	}
-	if !isNil(o.RegistrationAccessTokenHash) {
-		toSerialize["registrationAccessTokenHash"] = o.RegistrationAccessTokenHash
-	}
-	if !isNil(o.AuthorizationDetailsTypes) {
-		toSerialize["authorizationDetailsTypes"] = o.AuthorizationDetailsTypes
-	}
-	if !isNil(o.ParRequired) {
-		toSerialize["parRequired"] = o.ParRequired
-	}
-	if !isNil(o.RequestObjectRequired) {
-		toSerialize["requestObjectRequired"] = o.RequestObjectRequired
-	}
-	if !isNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
-	}
-	if !isNil(o.CustomMetadata) {
-		toSerialize["customMetadata"] = o.CustomMetadata
-	}
-	if !isNil(o.FrontChannelRequestObjectEncryptionRequired) {
-		toSerialize["frontChannelRequestObjectEncryptionRequired"] = o.FrontChannelRequestObjectEncryptionRequired
-	}
-	if !isNil(o.RequestObjectEncryptionAlgMatchRequired) {
-		toSerialize["requestObjectEncryptionAlgMatchRequired"] = o.RequestObjectEncryptionAlgMatchRequired
-	}
-	if !isNil(o.RequestObjectEncryptionEncMatchRequired) {
-		toSerialize["requestObjectEncryptionEncMatchRequired"] = o.RequestObjectEncryptionEncMatchRequired
-	}
-	if !isNil(o.DigestAlgorithm) {
-		toSerialize["digestAlgorithm"] = o.DigestAlgorithm
-	}
-	if !isNil(o.SingleAccessTokenPerSubject) {
-		toSerialize["singleAccessTokenPerSubject"] = o.SingleAccessTokenPerSubject
-	}
-	if !isNil(o.PkceRequired) {
-		toSerialize["pkceRequired"] = o.PkceRequired
-	}
-	if !isNil(o.PkceS256Required) {
-		toSerialize["pkceS256Required"] = o.PkceS256Required
-	}
-	if !isNil(o.RsSignedRequestKeyId) {
-		toSerialize["rsSignedRequestKeyId"] = o.RsSignedRequestKeyId
-	}
-	if !isNil(o.RsRequestSigned) {
-		toSerialize["rsRequestSigned"] = o.RsRequestSigned
-	}
-	if !isNil(o.DpopRequired) {
-		toSerialize["dpopRequired"] = o.DpopRequired
-	}
-	if !isNil(o.EntityId) {
-		toSerialize["entityId"] = o.EntityId
-	}
-	if !isNil(o.TrustAnchorId) {
-		toSerialize["trustAnchorId"] = o.TrustAnchorId
-	}
-	if !isNil(o.TrustChain) {
-		toSerialize["trustChain"] = o.TrustChain
-	}
-	if !isNil(o.TrustChainExpiresAt) {
-		toSerialize["trustChainExpiresAt"] = o.TrustChainExpiresAt
-	}
-	if !isNil(o.TrustChainUpdatedAt) {
-		toSerialize["trustChainUpdatedAt"] = o.TrustChainUpdatedAt
-	}
-	if !isNil(o.OrganizationName) {
-		toSerialize["organizationName"] = o.OrganizationName
-	}
-	if !isNil(o.SignedJwksUri) {
-		toSerialize["signedJwksUri"] = o.SignedJwksUri
-	}
-	if !isNil(o.ClientRegistrationTypes) {
-		toSerialize["clientRegistrationTypes"] = o.ClientRegistrationTypes
-	}
-	if !isNil(o.AutomaticallyRegistered) {
-		toSerialize["automaticallyRegistered"] = o.AutomaticallyRegistered
-	}
-	if !isNil(o.ExplicitlyRegistered) {
-		toSerialize["explicitlyRegistered"] = o.ExplicitlyRegistered
-	}
-	if !isNil(o.CredentialOfferEndpoint) {
-		toSerialize["credentialOfferEndpoint"] = o.CredentialOfferEndpoint
-	}
-	if !isNil(o.SectorIdentifier) {
-		toSerialize["sectorIdentifier"] = o.SectorIdentifier
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Client) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Number) {
+		toSerialize["number"] = o.Number
+	}
+	if !IsNil(o.ServiceNumber) {
+		toSerialize["serviceNumber"] = o.ServiceNumber
+	}
+	if !IsNil(o.Developer) {
+		toSerialize["developer"] = o.Developer
+	}
+	if !IsNil(o.ClientId) {
+		toSerialize["clientId"] = o.ClientId
+	}
+	if !IsNil(o.ClientIdAlias) {
+		toSerialize["clientIdAlias"] = o.ClientIdAlias
+	}
+	if !IsNil(o.ClientIdAliasEnabled) {
+		toSerialize["clientIdAliasEnabled"] = o.ClientIdAliasEnabled
+	}
+	if !IsNil(o.ClientSecret) {
+		toSerialize["clientSecret"] = o.ClientSecret
+	}
+	if !IsNil(o.ClientType) {
+		toSerialize["clientType"] = o.ClientType
+	}
+	if !IsNil(o.RedirectUris) {
+		toSerialize["redirectUris"] = o.RedirectUris
+	}
+	if !IsNil(o.ResponseTypes) {
+		toSerialize["responseTypes"] = o.ResponseTypes
+	}
+	if !IsNil(o.GrantTypes) {
+		toSerialize["grantTypes"] = o.GrantTypes
+	}
+	if !IsNil(o.ApplicationType) {
+		toSerialize["applicationType"] = o.ApplicationType
+	}
+	if !IsNil(o.Contacts) {
+		toSerialize["contacts"] = o.Contacts
+	}
+	if !IsNil(o.ClientName) {
+		toSerialize["clientName"] = o.ClientName
+	}
+	if !IsNil(o.ClientNames) {
+		toSerialize["clientNames"] = o.ClientNames
+	}
+	if !IsNil(o.LogoUri) {
+		toSerialize["logoUri"] = o.LogoUri
+	}
+	if !IsNil(o.LogoUris) {
+		toSerialize["logoUris"] = o.LogoUris
+	}
+	if !IsNil(o.ClientUri) {
+		toSerialize["clientUri"] = o.ClientUri
+	}
+	if !IsNil(o.ClientUris) {
+		toSerialize["clientUris"] = o.ClientUris
+	}
+	if !IsNil(o.PolicyUri) {
+		toSerialize["policyUri"] = o.PolicyUri
+	}
+	if !IsNil(o.PolicyUris) {
+		toSerialize["policyUris"] = o.PolicyUris
+	}
+	if !IsNil(o.TosUri) {
+		toSerialize["tosUri"] = o.TosUri
+	}
+	if !IsNil(o.TosUris) {
+		toSerialize["tosUris"] = o.TosUris
+	}
+	if !IsNil(o.JwksUri) {
+		toSerialize["jwksUri"] = o.JwksUri
+	}
+	if !IsNil(o.Jwks) {
+		toSerialize["jwks"] = o.Jwks
+	}
+	if !IsNil(o.DerivedSectorIdentifier) {
+		toSerialize["derivedSectorIdentifier"] = o.DerivedSectorIdentifier
+	}
+	if !IsNil(o.SectorIdentifierUri) {
+		toSerialize["sectorIdentifierUri"] = o.SectorIdentifierUri
+	}
+	if !IsNil(o.SubjectType) {
+		toSerialize["subjectType"] = o.SubjectType
+	}
+	if !IsNil(o.IdTokenSignAlg) {
+		toSerialize["idTokenSignAlg"] = o.IdTokenSignAlg
+	}
+	if !IsNil(o.IdTokenEncryptionAlg) {
+		toSerialize["idTokenEncryptionAlg"] = o.IdTokenEncryptionAlg
+	}
+	if !IsNil(o.IdTokenEncryptionEnc) {
+		toSerialize["idTokenEncryptionEnc"] = o.IdTokenEncryptionEnc
+	}
+	if !IsNil(o.UserInfoSignAlg) {
+		toSerialize["userInfoSignAlg"] = o.UserInfoSignAlg
+	}
+	if !IsNil(o.UserInfoEncryptionAlg) {
+		toSerialize["userInfoEncryptionAlg"] = o.UserInfoEncryptionAlg
+	}
+	if !IsNil(o.UserInfoEncryptionEnc) {
+		toSerialize["userInfoEncryptionEnc"] = o.UserInfoEncryptionEnc
+	}
+	if !IsNil(o.RequestSignAlg) {
+		toSerialize["requestSignAlg"] = o.RequestSignAlg
+	}
+	if !IsNil(o.RequestEncryptionAlg) {
+		toSerialize["requestEncryptionAlg"] = o.RequestEncryptionAlg
+	}
+	if !IsNil(o.RequestEncryptionEnc) {
+		toSerialize["requestEncryptionEnc"] = o.RequestEncryptionEnc
+	}
+	if !IsNil(o.TokenAuthMethod) {
+		toSerialize["tokenAuthMethod"] = o.TokenAuthMethod
+	}
+	if !IsNil(o.TokenAuthSignAlg) {
+		toSerialize["tokenAuthSignAlg"] = o.TokenAuthSignAlg
+	}
+	if !IsNil(o.DefaultMaxAge) {
+		toSerialize["defaultMaxAge"] = o.DefaultMaxAge
+	}
+	if !IsNil(o.DefaultAcrs) {
+		toSerialize["defaultAcrs"] = o.DefaultAcrs
+	}
+	if !IsNil(o.AuthTimeRequired) {
+		toSerialize["authTimeRequired"] = o.AuthTimeRequired
+	}
+	if !IsNil(o.LoginUri) {
+		toSerialize["loginUri"] = o.LoginUri
+	}
+	if !IsNil(o.RequestUris) {
+		toSerialize["requestUris"] = o.RequestUris
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Descriptions) {
+		toSerialize["descriptions"] = o.Descriptions
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if !IsNil(o.ModifiedAt) {
+		toSerialize["modifiedAt"] = o.ModifiedAt
+	}
+	if !IsNil(o.Extension) {
+		toSerialize["extension"] = o.Extension
+	}
+	if !IsNil(o.TlsClientAuthSubjectDn) {
+		toSerialize["tlsClientAuthSubjectDn"] = o.TlsClientAuthSubjectDn
+	}
+	if !IsNil(o.TlsClientAuthSanDns) {
+		toSerialize["tlsClientAuthSanDns"] = o.TlsClientAuthSanDns
+	}
+	if !IsNil(o.TlsClientAuthSanUri) {
+		toSerialize["tlsClientAuthSanUri"] = o.TlsClientAuthSanUri
+	}
+	if !IsNil(o.TlsClientAuthSanIp) {
+		toSerialize["tlsClientAuthSanIp"] = o.TlsClientAuthSanIp
+	}
+	if !IsNil(o.TlsClientAuthSanEmail) {
+		toSerialize["tlsClientAuthSanEmail"] = o.TlsClientAuthSanEmail
+	}
+	if !IsNil(o.TlsClientCertificateBoundAccessTokens) {
+		toSerialize["tlsClientCertificateBoundAccessTokens"] = o.TlsClientCertificateBoundAccessTokens
+	}
+	if !IsNil(o.SelfSignedCertificateKeyId) {
+		toSerialize["selfSignedCertificateKeyId"] = o.SelfSignedCertificateKeyId
+	}
+	if !IsNil(o.SoftwareId) {
+		toSerialize["softwareId"] = o.SoftwareId
+	}
+	if !IsNil(o.SoftwareVersion) {
+		toSerialize["softwareVersion"] = o.SoftwareVersion
+	}
+	if !IsNil(o.AuthorizationSignAlg) {
+		toSerialize["authorizationSignAlg"] = o.AuthorizationSignAlg
+	}
+	if !IsNil(o.AuthorizationEncryptionAlg) {
+		toSerialize["authorizationEncryptionAlg"] = o.AuthorizationEncryptionAlg
+	}
+	if !IsNil(o.AuthorizationEncryptionEnc) {
+		toSerialize["authorizationEncryptionEnc"] = o.AuthorizationEncryptionEnc
+	}
+	if !IsNil(o.BcDeliveryMode) {
+		toSerialize["bcDeliveryMode"] = o.BcDeliveryMode
+	}
+	if !IsNil(o.BcNotificationEndpoint) {
+		toSerialize["bcNotificationEndpoint"] = o.BcNotificationEndpoint
+	}
+	if !IsNil(o.BcRequestSignAlg) {
+		toSerialize["bcRequestSignAlg"] = o.BcRequestSignAlg
+	}
+	if !IsNil(o.BcUserCodeRequired) {
+		toSerialize["bcUserCodeRequired"] = o.BcUserCodeRequired
+	}
+	if !IsNil(o.DynamicallyRegistered) {
+		toSerialize["dynamicallyRegistered"] = o.DynamicallyRegistered
+	}
+	if !IsNil(o.RegistrationAccessTokenHash) {
+		toSerialize["registrationAccessTokenHash"] = o.RegistrationAccessTokenHash
+	}
+	if !IsNil(o.AuthorizationDetailsTypes) {
+		toSerialize["authorizationDetailsTypes"] = o.AuthorizationDetailsTypes
+	}
+	if !IsNil(o.ParRequired) {
+		toSerialize["parRequired"] = o.ParRequired
+	}
+	if !IsNil(o.RequestObjectRequired) {
+		toSerialize["requestObjectRequired"] = o.RequestObjectRequired
+	}
+	if !IsNil(o.Attributes) {
+		toSerialize["attributes"] = o.Attributes
+	}
+	if !IsNil(o.CustomMetadata) {
+		toSerialize["customMetadata"] = o.CustomMetadata
+	}
+	if !IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
+		toSerialize["frontChannelRequestObjectEncryptionRequired"] = o.FrontChannelRequestObjectEncryptionRequired
+	}
+	if !IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
+		toSerialize["requestObjectEncryptionAlgMatchRequired"] = o.RequestObjectEncryptionAlgMatchRequired
+	}
+	if !IsNil(o.RequestObjectEncryptionEncMatchRequired) {
+		toSerialize["requestObjectEncryptionEncMatchRequired"] = o.RequestObjectEncryptionEncMatchRequired
+	}
+	if !IsNil(o.DigestAlgorithm) {
+		toSerialize["digestAlgorithm"] = o.DigestAlgorithm
+	}
+	if !IsNil(o.SingleAccessTokenPerSubject) {
+		toSerialize["singleAccessTokenPerSubject"] = o.SingleAccessTokenPerSubject
+	}
+	if !IsNil(o.PkceRequired) {
+		toSerialize["pkceRequired"] = o.PkceRequired
+	}
+	if !IsNil(o.PkceS256Required) {
+		toSerialize["pkceS256Required"] = o.PkceS256Required
+	}
+	if !IsNil(o.RsSignedRequestKeyId) {
+		toSerialize["rsSignedRequestKeyId"] = o.RsSignedRequestKeyId
+	}
+	if !IsNil(o.RsRequestSigned) {
+		toSerialize["rsRequestSigned"] = o.RsRequestSigned
+	}
+	if !IsNil(o.DpopRequired) {
+		toSerialize["dpopRequired"] = o.DpopRequired
+	}
+	if !IsNil(o.EntityId) {
+		toSerialize["entityId"] = o.EntityId
+	}
+	if !IsNil(o.TrustAnchorId) {
+		toSerialize["trustAnchorId"] = o.TrustAnchorId
+	}
+	if !IsNil(o.TrustChain) {
+		toSerialize["trustChain"] = o.TrustChain
+	}
+	if !IsNil(o.TrustChainExpiresAt) {
+		toSerialize["trustChainExpiresAt"] = o.TrustChainExpiresAt
+	}
+	if !IsNil(o.TrustChainUpdatedAt) {
+		toSerialize["trustChainUpdatedAt"] = o.TrustChainUpdatedAt
+	}
+	if !IsNil(o.OrganizationName) {
+		toSerialize["organizationName"] = o.OrganizationName
+	}
+	if !IsNil(o.SignedJwksUri) {
+		toSerialize["signedJwksUri"] = o.SignedJwksUri
+	}
+	if !IsNil(o.ClientRegistrationTypes) {
+		toSerialize["clientRegistrationTypes"] = o.ClientRegistrationTypes
+	}
+	if !IsNil(o.AutomaticallyRegistered) {
+		toSerialize["automaticallyRegistered"] = o.AutomaticallyRegistered
+	}
+	if !IsNil(o.ExplicitlyRegistered) {
+		toSerialize["explicitlyRegistered"] = o.ExplicitlyRegistered
+	}
+	if !IsNil(o.CredentialOfferEndpoint) {
+		toSerialize["credentialOfferEndpoint"] = o.CredentialOfferEndpoint
+	}
+	if !IsNil(o.SectorIdentifier) {
+		toSerialize["sectorIdentifier"] = o.SectorIdentifier
+	}
+	return toSerialize, nil
 }
 
 type NullableClient struct {
@@ -3463,5 +3474,3 @@ func (v *NullableClient) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the PendingAuthorization type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PendingAuthorization{}
+
 // PendingAuthorization struct for PendingAuthorization
 type PendingAuthorization struct {
 	AuthorizationResponse *AuthorizationResponse `json:"authorizationResponse,omitempty"`
-	Audience *string `json:"audience,omitempty"`
-	Resource *string `json:"resource,omitempty"`
+	Audience              *string                `json:"audience,omitempty"`
+	Resource              *string                `json:"resource,omitempty"`
 }
 
 // NewPendingAuthorization instantiates a new PendingAuthorization object
@@ -40,7 +43,7 @@ func NewPendingAuthorizationWithDefaults() *PendingAuthorization {
 
 // GetAuthorizationResponse returns the AuthorizationResponse field value if set, zero value otherwise.
 func (o *PendingAuthorization) GetAuthorizationResponse() AuthorizationResponse {
-	if o == nil || isNil(o.AuthorizationResponse) {
+	if o == nil || IsNil(o.AuthorizationResponse) {
 		var ret AuthorizationResponse
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *PendingAuthorization) GetAuthorizationResponse() AuthorizationResponse 
 // GetAuthorizationResponseOk returns a tuple with the AuthorizationResponse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PendingAuthorization) GetAuthorizationResponseOk() (*AuthorizationResponse, bool) {
-	if o == nil || isNil(o.AuthorizationResponse) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationResponse) {
+		return nil, false
 	}
 	return o.AuthorizationResponse, true
 }
 
 // HasAuthorizationResponse returns a boolean if a field has been set.
 func (o *PendingAuthorization) HasAuthorizationResponse() bool {
-	if o != nil && !isNil(o.AuthorizationResponse) {
+	if o != nil && !IsNil(o.AuthorizationResponse) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *PendingAuthorization) SetAuthorizationResponse(v AuthorizationResponse)
 
 // GetAudience returns the Audience field value if set, zero value otherwise.
 func (o *PendingAuthorization) GetAudience() string {
-	if o == nil || isNil(o.Audience) {
+	if o == nil || IsNil(o.Audience) {
 		var ret string
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *PendingAuthorization) GetAudience() string {
 // GetAudienceOk returns a tuple with the Audience field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PendingAuthorization) GetAudienceOk() (*string, bool) {
-	if o == nil || isNil(o.Audience) {
-    return nil, false
+	if o == nil || IsNil(o.Audience) {
+		return nil, false
 	}
 	return o.Audience, true
 }
 
 // HasAudience returns a boolean if a field has been set.
 func (o *PendingAuthorization) HasAudience() bool {
-	if o != nil && !isNil(o.Audience) {
+	if o != nil && !IsNil(o.Audience) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *PendingAuthorization) SetAudience(v string) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *PendingAuthorization) GetResource() string {
-	if o == nil || isNil(o.Resource) {
+	if o == nil || IsNil(o.Resource) {
 		var ret string
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *PendingAuthorization) GetResource() string {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PendingAuthorization) GetResourceOk() (*string, bool) {
-	if o == nil || isNil(o.Resource) {
-    return nil, false
+	if o == nil || IsNil(o.Resource) {
+		return nil, false
 	}
 	return o.Resource, true
 }
 
 // HasResource returns a boolean if a field has been set.
 func (o *PendingAuthorization) HasResource() bool {
-	if o != nil && !isNil(o.Resource) {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *PendingAuthorization) SetResource(v string) {
 }
 
 func (o PendingAuthorization) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.AuthorizationResponse) {
-		toSerialize["authorizationResponse"] = o.AuthorizationResponse
-	}
-	if !isNil(o.Audience) {
-		toSerialize["audience"] = o.Audience
-	}
-	if !isNil(o.Resource) {
-		toSerialize["resource"] = o.Resource
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PendingAuthorization) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AuthorizationResponse) {
+		toSerialize["authorizationResponse"] = o.AuthorizationResponse
+	}
+	if !IsNil(o.Audience) {
+		toSerialize["audience"] = o.Audience
+	}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	return toSerialize, nil
 }
 
 type NullablePendingAuthorization struct {
@@ -183,5 +194,3 @@ func (v *NullablePendingAuthorization) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

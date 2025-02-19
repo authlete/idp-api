@@ -14,15 +14,18 @@ import (
 	"encoding/json"
 )
 
+// checks if the CredentialIssuerMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CredentialIssuerMetadata{}
+
 // CredentialIssuerMetadata struct for CredentialIssuerMetadata
 type CredentialIssuerMetadata struct {
-	CredentialIssuer *string `json:"credentialIssuer,omitempty"`
-	AuthorizationServer *string `json:"authorizationServer,omitempty"`
-	CredentialEndpoint *string `json:"credentialEndpoint,omitempty"`
-	BatchCredentialEndpoint *string `json:"batchCredentialEndpoint,omitempty"`
+	CredentialIssuer           *string `json:"credentialIssuer,omitempty"`
+	AuthorizationServer        *string `json:"authorizationServer,omitempty"`
+	CredentialEndpoint         *string `json:"credentialEndpoint,omitempty"`
+	BatchCredentialEndpoint    *string `json:"batchCredentialEndpoint,omitempty"`
 	DeferredCredentialEndpoint *string `json:"deferredCredentialEndpoint,omitempty"`
-	CredentialsSupported *string `json:"credentialsSupported,omitempty"`
-	Empty *bool `json:"empty,omitempty"`
+	CredentialsSupported       *string `json:"credentialsSupported,omitempty"`
+	Empty                      *bool   `json:"empty,omitempty"`
 }
 
 // NewCredentialIssuerMetadata instantiates a new CredentialIssuerMetadata object
@@ -44,7 +47,7 @@ func NewCredentialIssuerMetadataWithDefaults() *CredentialIssuerMetadata {
 
 // GetCredentialIssuer returns the CredentialIssuer field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetCredentialIssuer() string {
-	if o == nil || isNil(o.CredentialIssuer) {
+	if o == nil || IsNil(o.CredentialIssuer) {
 		var ret string
 		return ret
 	}
@@ -54,15 +57,15 @@ func (o *CredentialIssuerMetadata) GetCredentialIssuer() string {
 // GetCredentialIssuerOk returns a tuple with the CredentialIssuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetCredentialIssuerOk() (*string, bool) {
-	if o == nil || isNil(o.CredentialIssuer) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialIssuer) {
+		return nil, false
 	}
 	return o.CredentialIssuer, true
 }
 
 // HasCredentialIssuer returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasCredentialIssuer() bool {
-	if o != nil && !isNil(o.CredentialIssuer) {
+	if o != nil && !IsNil(o.CredentialIssuer) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *CredentialIssuerMetadata) SetCredentialIssuer(v string) {
 
 // GetAuthorizationServer returns the AuthorizationServer field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetAuthorizationServer() string {
-	if o == nil || isNil(o.AuthorizationServer) {
+	if o == nil || IsNil(o.AuthorizationServer) {
 		var ret string
 		return ret
 	}
@@ -86,15 +89,15 @@ func (o *CredentialIssuerMetadata) GetAuthorizationServer() string {
 // GetAuthorizationServerOk returns a tuple with the AuthorizationServer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetAuthorizationServerOk() (*string, bool) {
-	if o == nil || isNil(o.AuthorizationServer) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationServer) {
+		return nil, false
 	}
 	return o.AuthorizationServer, true
 }
 
 // HasAuthorizationServer returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasAuthorizationServer() bool {
-	if o != nil && !isNil(o.AuthorizationServer) {
+	if o != nil && !IsNil(o.AuthorizationServer) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *CredentialIssuerMetadata) SetAuthorizationServer(v string) {
 
 // GetCredentialEndpoint returns the CredentialEndpoint field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetCredentialEndpoint() string {
-	if o == nil || isNil(o.CredentialEndpoint) {
+	if o == nil || IsNil(o.CredentialEndpoint) {
 		var ret string
 		return ret
 	}
@@ -118,15 +121,15 @@ func (o *CredentialIssuerMetadata) GetCredentialEndpoint() string {
 // GetCredentialEndpointOk returns a tuple with the CredentialEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetCredentialEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.CredentialEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialEndpoint) {
+		return nil, false
 	}
 	return o.CredentialEndpoint, true
 }
 
 // HasCredentialEndpoint returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasCredentialEndpoint() bool {
-	if o != nil && !isNil(o.CredentialEndpoint) {
+	if o != nil && !IsNil(o.CredentialEndpoint) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *CredentialIssuerMetadata) SetCredentialEndpoint(v string) {
 
 // GetBatchCredentialEndpoint returns the BatchCredentialEndpoint field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetBatchCredentialEndpoint() string {
-	if o == nil || isNil(o.BatchCredentialEndpoint) {
+	if o == nil || IsNil(o.BatchCredentialEndpoint) {
 		var ret string
 		return ret
 	}
@@ -150,15 +153,15 @@ func (o *CredentialIssuerMetadata) GetBatchCredentialEndpoint() string {
 // GetBatchCredentialEndpointOk returns a tuple with the BatchCredentialEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetBatchCredentialEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.BatchCredentialEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.BatchCredentialEndpoint) {
+		return nil, false
 	}
 	return o.BatchCredentialEndpoint, true
 }
 
 // HasBatchCredentialEndpoint returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasBatchCredentialEndpoint() bool {
-	if o != nil && !isNil(o.BatchCredentialEndpoint) {
+	if o != nil && !IsNil(o.BatchCredentialEndpoint) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *CredentialIssuerMetadata) SetBatchCredentialEndpoint(v string) {
 
 // GetDeferredCredentialEndpoint returns the DeferredCredentialEndpoint field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetDeferredCredentialEndpoint() string {
-	if o == nil || isNil(o.DeferredCredentialEndpoint) {
+	if o == nil || IsNil(o.DeferredCredentialEndpoint) {
 		var ret string
 		return ret
 	}
@@ -182,15 +185,15 @@ func (o *CredentialIssuerMetadata) GetDeferredCredentialEndpoint() string {
 // GetDeferredCredentialEndpointOk returns a tuple with the DeferredCredentialEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetDeferredCredentialEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.DeferredCredentialEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.DeferredCredentialEndpoint) {
+		return nil, false
 	}
 	return o.DeferredCredentialEndpoint, true
 }
 
 // HasDeferredCredentialEndpoint returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasDeferredCredentialEndpoint() bool {
-	if o != nil && !isNil(o.DeferredCredentialEndpoint) {
+	if o != nil && !IsNil(o.DeferredCredentialEndpoint) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *CredentialIssuerMetadata) SetDeferredCredentialEndpoint(v string) {
 
 // GetCredentialsSupported returns the CredentialsSupported field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetCredentialsSupported() string {
-	if o == nil || isNil(o.CredentialsSupported) {
+	if o == nil || IsNil(o.CredentialsSupported) {
 		var ret string
 		return ret
 	}
@@ -214,15 +217,15 @@ func (o *CredentialIssuerMetadata) GetCredentialsSupported() string {
 // GetCredentialsSupportedOk returns a tuple with the CredentialsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetCredentialsSupportedOk() (*string, bool) {
-	if o == nil || isNil(o.CredentialsSupported) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialsSupported) {
+		return nil, false
 	}
 	return o.CredentialsSupported, true
 }
 
 // HasCredentialsSupported returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasCredentialsSupported() bool {
-	if o != nil && !isNil(o.CredentialsSupported) {
+	if o != nil && !IsNil(o.CredentialsSupported) {
 		return true
 	}
 
@@ -236,7 +239,7 @@ func (o *CredentialIssuerMetadata) SetCredentialsSupported(v string) {
 
 // GetEmpty returns the Empty field value if set, zero value otherwise.
 func (o *CredentialIssuerMetadata) GetEmpty() bool {
-	if o == nil || isNil(o.Empty) {
+	if o == nil || IsNil(o.Empty) {
 		var ret bool
 		return ret
 	}
@@ -246,15 +249,15 @@ func (o *CredentialIssuerMetadata) GetEmpty() bool {
 // GetEmptyOk returns a tuple with the Empty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CredentialIssuerMetadata) GetEmptyOk() (*bool, bool) {
-	if o == nil || isNil(o.Empty) {
-    return nil, false
+	if o == nil || IsNil(o.Empty) {
+		return nil, false
 	}
 	return o.Empty, true
 }
 
 // HasEmpty returns a boolean if a field has been set.
 func (o *CredentialIssuerMetadata) HasEmpty() bool {
-	if o != nil && !isNil(o.Empty) {
+	if o != nil && !IsNil(o.Empty) {
 		return true
 	}
 
@@ -267,29 +270,37 @@ func (o *CredentialIssuerMetadata) SetEmpty(v bool) {
 }
 
 func (o CredentialIssuerMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.CredentialIssuer) {
-		toSerialize["credentialIssuer"] = o.CredentialIssuer
-	}
-	if !isNil(o.AuthorizationServer) {
-		toSerialize["authorizationServer"] = o.AuthorizationServer
-	}
-	if !isNil(o.CredentialEndpoint) {
-		toSerialize["credentialEndpoint"] = o.CredentialEndpoint
-	}
-	if !isNil(o.BatchCredentialEndpoint) {
-		toSerialize["batchCredentialEndpoint"] = o.BatchCredentialEndpoint
-	}
-	if !isNil(o.DeferredCredentialEndpoint) {
-		toSerialize["deferredCredentialEndpoint"] = o.DeferredCredentialEndpoint
-	}
-	if !isNil(o.CredentialsSupported) {
-		toSerialize["credentialsSupported"] = o.CredentialsSupported
-	}
-	if !isNil(o.Empty) {
-		toSerialize["empty"] = o.Empty
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CredentialIssuerMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CredentialIssuer) {
+		toSerialize["credentialIssuer"] = o.CredentialIssuer
+	}
+	if !IsNil(o.AuthorizationServer) {
+		toSerialize["authorizationServer"] = o.AuthorizationServer
+	}
+	if !IsNil(o.CredentialEndpoint) {
+		toSerialize["credentialEndpoint"] = o.CredentialEndpoint
+	}
+	if !IsNil(o.BatchCredentialEndpoint) {
+		toSerialize["batchCredentialEndpoint"] = o.BatchCredentialEndpoint
+	}
+	if !IsNil(o.DeferredCredentialEndpoint) {
+		toSerialize["deferredCredentialEndpoint"] = o.DeferredCredentialEndpoint
+	}
+	if !IsNil(o.CredentialsSupported) {
+		toSerialize["credentialsSupported"] = o.CredentialsSupported
+	}
+	if !IsNil(o.Empty) {
+		toSerialize["empty"] = o.Empty
+	}
+	return toSerialize, nil
 }
 
 type NullableCredentialIssuerMetadata struct {
@@ -327,5 +338,3 @@ func (v *NullableCredentialIssuerMetadata) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

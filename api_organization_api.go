@@ -13,22 +13,86 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+type OrganizationApiAPI interface {
 
-// OrganizationApiApiService OrganizationApiApi service
-type OrganizationApiApiService service
+	/*
+		CreateOrganization Method for CreateOrganization
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateOrganizationRequest
+	*/
+	CreateOrganization(ctx context.Context) ApiCreateOrganizationRequest
+
+	// CreateOrganizationExecute executes the request
+	//  @return OrganizationResponse
+	CreateOrganizationExecute(r ApiCreateOrganizationRequest) (*OrganizationResponse, *http.Response, error)
+
+	/*
+		DeleteOrganization Method for DeleteOrganization
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiDeleteOrganizationRequest
+	*/
+	DeleteOrganization(ctx context.Context, id int64) ApiDeleteOrganizationRequest
+
+	// DeleteOrganizationExecute executes the request
+	DeleteOrganizationExecute(r ApiDeleteOrganizationRequest) (*http.Response, error)
+
+	/*
+		GetAll Method for GetAll
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAllRequest
+	*/
+	GetAll(ctx context.Context) ApiGetAllRequest
+
+	// GetAllExecute executes the request
+	//  @return []OrganizationResponse
+	GetAllExecute(r ApiGetAllRequest) ([]OrganizationResponse, *http.Response, error)
+
+	/*
+		GetOrganization Method for GetOrganization
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiGetOrganizationRequest
+	*/
+	GetOrganization(ctx context.Context, id int64) ApiGetOrganizationRequest
+
+	// GetOrganizationExecute executes the request
+	//  @return OrganizationResponse
+	GetOrganizationExecute(r ApiGetOrganizationRequest) (*OrganizationResponse, *http.Response, error)
+
+	/*
+		UpdateOrganization Method for UpdateOrganization
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiUpdateOrganizationRequest
+	*/
+	UpdateOrganization(ctx context.Context, id int64) ApiUpdateOrganizationRequest
+
+	// UpdateOrganizationExecute executes the request
+	//  @return OrganizationResponse
+	UpdateOrganizationExecute(r ApiUpdateOrganizationRequest) (*OrganizationResponse, *http.Response, error)
+}
+
+// OrganizationApiAPIService OrganizationApiAPI service
+type OrganizationApiAPIService service
 
 type ApiCreateOrganizationRequest struct {
-	ctx context.Context
-	ApiService *OrganizationApiApiService
+	ctx                       context.Context
+	ApiService                OrganizationApiAPI
 	updateOrganizationRequest *UpdateOrganizationRequest
-	authorization *string
-	dPoP *string
+	authorization             *string
+	dPoP                      *string
 }
 
 func (r ApiCreateOrganizationRequest) UpdateOrganizationRequest(updateOrganizationRequest UpdateOrganizationRequest) ApiCreateOrganizationRequest {
@@ -53,27 +117,28 @@ func (r ApiCreateOrganizationRequest) Execute() (*OrganizationResponse, *http.Re
 /*
 CreateOrganization Method for CreateOrganization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateOrganizationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateOrganizationRequest
 */
-func (a *OrganizationApiApiService) CreateOrganization(ctx context.Context) ApiCreateOrganizationRequest {
+func (a *OrganizationApiAPIService) CreateOrganization(ctx context.Context) ApiCreateOrganizationRequest {
 	return ApiCreateOrganizationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationResponse
-func (a *OrganizationApiApiService) CreateOrganizationExecute(r ApiCreateOrganizationRequest) (*OrganizationResponse, *http.Response, error) {
+//
+//	@return OrganizationResponse
+func (a *OrganizationApiAPIService) CreateOrganizationExecute(r ApiCreateOrganizationRequest) (*OrganizationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiApiService.CreateOrganization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiAPIService.CreateOrganization")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -105,10 +170,10 @@ func (a *OrganizationApiApiService) CreateOrganizationExecute(r ApiCreateOrganiz
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateOrganizationRequest
@@ -122,9 +187,9 @@ func (a *OrganizationApiApiService) CreateOrganizationExecute(r ApiCreateOrganiz
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -150,11 +215,11 @@ func (a *OrganizationApiApiService) CreateOrganizationExecute(r ApiCreateOrganiz
 }
 
 type ApiDeleteOrganizationRequest struct {
-	ctx context.Context
-	ApiService *OrganizationApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    OrganizationApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiDeleteOrganizationRequest) Authorization(authorization string) ApiDeleteOrganizationRequest {
@@ -174,33 +239,33 @@ func (r ApiDeleteOrganizationRequest) Execute() (*http.Response, error) {
 /*
 DeleteOrganization Method for DeleteOrganization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteOrganizationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiDeleteOrganizationRequest
 */
-func (a *OrganizationApiApiService) DeleteOrganization(ctx context.Context, id int64) ApiDeleteOrganizationRequest {
+func (a *OrganizationApiAPIService) DeleteOrganization(ctx context.Context, id int64) ApiDeleteOrganizationRequest {
 	return ApiDeleteOrganizationRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-func (a *OrganizationApiApiService) DeleteOrganizationExecute(r ApiDeleteOrganizationRequest) (*http.Response, error) {
+func (a *OrganizationApiAPIService) DeleteOrganizationExecute(r ApiDeleteOrganizationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiApiService.DeleteOrganization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiAPIService.DeleteOrganization")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/organization/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -224,10 +289,10 @@ func (a *OrganizationApiApiService) DeleteOrganizationExecute(r ApiDeleteOrganiz
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -239,9 +304,9 @@ func (a *OrganizationApiApiService) DeleteOrganizationExecute(r ApiDeleteOrganiz
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -258,10 +323,10 @@ func (a *OrganizationApiApiService) DeleteOrganizationExecute(r ApiDeleteOrganiz
 }
 
 type ApiGetAllRequest struct {
-	ctx context.Context
-	ApiService *OrganizationApiApiService
+	ctx           context.Context
+	ApiService    OrganizationApiAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetAllRequest) Authorization(authorization string) ApiGetAllRequest {
@@ -281,27 +346,28 @@ func (r ApiGetAllRequest) Execute() ([]OrganizationResponse, *http.Response, err
 /*
 GetAll Method for GetAll
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAllRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAllRequest
 */
-func (a *OrganizationApiApiService) GetAll(ctx context.Context) ApiGetAllRequest {
+func (a *OrganizationApiAPIService) GetAll(ctx context.Context) ApiGetAllRequest {
 	return ApiGetAllRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []OrganizationResponse
-func (a *OrganizationApiApiService) GetAllExecute(r ApiGetAllRequest) ([]OrganizationResponse, *http.Response, error) {
+//
+//	@return []OrganizationResponse
+func (a *OrganizationApiAPIService) GetAllExecute(r ApiGetAllRequest) ([]OrganizationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []OrganizationResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []OrganizationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiApiService.GetAll")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiAPIService.GetAll")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -330,10 +396,10 @@ func (a *OrganizationApiApiService) GetAllExecute(r ApiGetAllRequest) ([]Organiz
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -345,9 +411,9 @@ func (a *OrganizationApiApiService) GetAllExecute(r ApiGetAllRequest) ([]Organiz
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -373,11 +439,11 @@ func (a *OrganizationApiApiService) GetAllExecute(r ApiGetAllRequest) ([]Organiz
 }
 
 type ApiGetOrganizationRequest struct {
-	ctx context.Context
-	ApiService *OrganizationApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    OrganizationApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetOrganizationRequest) Authorization(authorization string) ApiGetOrganizationRequest {
@@ -397,35 +463,36 @@ func (r ApiGetOrganizationRequest) Execute() (*OrganizationResponse, *http.Respo
 /*
 GetOrganization Method for GetOrganization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetOrganizationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiGetOrganizationRequest
 */
-func (a *OrganizationApiApiService) GetOrganization(ctx context.Context, id int64) ApiGetOrganizationRequest {
+func (a *OrganizationApiAPIService) GetOrganization(ctx context.Context, id int64) ApiGetOrganizationRequest {
 	return ApiGetOrganizationRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationResponse
-func (a *OrganizationApiApiService) GetOrganizationExecute(r ApiGetOrganizationRequest) (*OrganizationResponse, *http.Response, error) {
+//
+//	@return OrganizationResponse
+func (a *OrganizationApiAPIService) GetOrganizationExecute(r ApiGetOrganizationRequest) (*OrganizationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiApiService.GetOrganization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiAPIService.GetOrganization")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/organization/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -449,10 +516,10 @@ func (a *OrganizationApiApiService) GetOrganizationExecute(r ApiGetOrganizationR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -464,9 +531,9 @@ func (a *OrganizationApiApiService) GetOrganizationExecute(r ApiGetOrganizationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -492,12 +559,12 @@ func (a *OrganizationApiApiService) GetOrganizationExecute(r ApiGetOrganizationR
 }
 
 type ApiUpdateOrganizationRequest struct {
-	ctx context.Context
-	ApiService *OrganizationApiApiService
-	id int64
+	ctx                       context.Context
+	ApiService                OrganizationApiAPI
+	id                        int64
 	updateOrganizationRequest *UpdateOrganizationRequest
-	authorization *string
-	dPoP *string
+	authorization             *string
+	dPoP                      *string
 }
 
 func (r ApiUpdateOrganizationRequest) UpdateOrganizationRequest(updateOrganizationRequest UpdateOrganizationRequest) ApiUpdateOrganizationRequest {
@@ -522,35 +589,36 @@ func (r ApiUpdateOrganizationRequest) Execute() (*OrganizationResponse, *http.Re
 /*
 UpdateOrganization Method for UpdateOrganization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateOrganizationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiUpdateOrganizationRequest
 */
-func (a *OrganizationApiApiService) UpdateOrganization(ctx context.Context, id int64) ApiUpdateOrganizationRequest {
+func (a *OrganizationApiAPIService) UpdateOrganization(ctx context.Context, id int64) ApiUpdateOrganizationRequest {
 	return ApiUpdateOrganizationRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationResponse
-func (a *OrganizationApiApiService) UpdateOrganizationExecute(r ApiUpdateOrganizationRequest) (*OrganizationResponse, *http.Response, error) {
+//
+//	@return OrganizationResponse
+func (a *OrganizationApiAPIService) UpdateOrganizationExecute(r ApiUpdateOrganizationRequest) (*OrganizationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiApiService.UpdateOrganization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationApiAPIService.UpdateOrganization")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/organization/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -577,10 +645,10 @@ func (a *OrganizationApiApiService) UpdateOrganizationExecute(r ApiUpdateOrganiz
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateOrganizationRequest
@@ -594,9 +662,9 @@ func (a *OrganizationApiApiService) UpdateOrganizationExecute(r ApiUpdateOrganiz
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -13,20 +13,34 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type AccessMapApiAPI interface {
 
-// AccessMapApiApiService AccessMapApiApi service
-type AccessMapApiApiService service
+	/*
+		GetAccessMap Method for GetAccessMap
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAccessMapRequest
+	*/
+	GetAccessMap(ctx context.Context) ApiGetAccessMapRequest
+
+	// GetAccessMapExecute executes the request
+	//  @return UserServiceMembershipResponse
+	GetAccessMapExecute(r ApiGetAccessMapRequest) (*UserServiceMembershipResponse, *http.Response, error)
+}
+
+// AccessMapApiAPIService AccessMapApiAPI service
+type AccessMapApiAPIService service
 
 type ApiGetAccessMapRequest struct {
-	ctx context.Context
-	ApiService *AccessMapApiApiService
+	ctx           context.Context
+	ApiService    AccessMapApiAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetAccessMapRequest) Authorization(authorization string) ApiGetAccessMapRequest {
@@ -46,27 +60,28 @@ func (r ApiGetAccessMapRequest) Execute() (*UserServiceMembershipResponse, *http
 /*
 GetAccessMap Method for GetAccessMap
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAccessMapRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAccessMapRequest
 */
-func (a *AccessMapApiApiService) GetAccessMap(ctx context.Context) ApiGetAccessMapRequest {
+func (a *AccessMapApiAPIService) GetAccessMap(ctx context.Context) ApiGetAccessMapRequest {
 	return ApiGetAccessMapRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return UserServiceMembershipResponse
-func (a *AccessMapApiApiService) GetAccessMapExecute(r ApiGetAccessMapRequest) (*UserServiceMembershipResponse, *http.Response, error) {
+//
+//	@return UserServiceMembershipResponse
+func (a *AccessMapApiAPIService) GetAccessMapExecute(r ApiGetAccessMapRequest) (*UserServiceMembershipResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *UserServiceMembershipResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *UserServiceMembershipResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessMapApiApiService.GetAccessMap")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessMapApiAPIService.GetAccessMap")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -95,10 +110,10 @@ func (a *AccessMapApiApiService) GetAccessMapExecute(r ApiGetAccessMapRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -110,9 +125,9 @@ func (a *AccessMapApiApiService) GetAccessMapExecute(r ApiGetAccessMapRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

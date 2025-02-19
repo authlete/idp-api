@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrganizationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrganizationResponse{}
+
 // OrganizationResponse struct for OrganizationResponse
 type OrganizationResponse struct {
-	Id *int64 `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Plan *string `json:"plan,omitempty"`
+	Id      *int64                       `json:"id,omitempty"`
+	Name    *string                      `json:"name,omitempty"`
+	Plan    *string                      `json:"plan,omitempty"`
 	Members []OrganizationAccessResponse `json:"members,omitempty"`
 }
 
@@ -41,7 +44,7 @@ func NewOrganizationResponseWithDefaults() *OrganizationResponse {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *OrganizationResponse) GetId() int64 {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret int64
 		return ret
 	}
@@ -51,15 +54,15 @@ func (o *OrganizationResponse) GetId() int64 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationResponse) GetIdOk() (*int64, bool) {
-	if o == nil || isNil(o.Id) {
-    return nil, false
+	if o == nil || IsNil(o.Id) {
+		return nil, false
 	}
 	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *OrganizationResponse) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *OrganizationResponse) SetId(v int64) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *OrganizationResponse) GetName() string {
-	if o == nil || isNil(o.Name) {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -83,15 +86,15 @@ func (o *OrganizationResponse) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationResponse) GetNameOk() (*string, bool) {
-	if o == nil || isNil(o.Name) {
-    return nil, false
+	if o == nil || IsNil(o.Name) {
+		return nil, false
 	}
 	return o.Name, true
 }
 
 // HasName returns a boolean if a field has been set.
 func (o *OrganizationResponse) HasName() bool {
-	if o != nil && !isNil(o.Name) {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *OrganizationResponse) SetName(v string) {
 
 // GetPlan returns the Plan field value if set, zero value otherwise.
 func (o *OrganizationResponse) GetPlan() string {
-	if o == nil || isNil(o.Plan) {
+	if o == nil || IsNil(o.Plan) {
 		var ret string
 		return ret
 	}
@@ -115,15 +118,15 @@ func (o *OrganizationResponse) GetPlan() string {
 // GetPlanOk returns a tuple with the Plan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationResponse) GetPlanOk() (*string, bool) {
-	if o == nil || isNil(o.Plan) {
-    return nil, false
+	if o == nil || IsNil(o.Plan) {
+		return nil, false
 	}
 	return o.Plan, true
 }
 
 // HasPlan returns a boolean if a field has been set.
 func (o *OrganizationResponse) HasPlan() bool {
-	if o != nil && !isNil(o.Plan) {
+	if o != nil && !IsNil(o.Plan) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *OrganizationResponse) SetPlan(v string) {
 
 // GetMembers returns the Members field value if set, zero value otherwise.
 func (o *OrganizationResponse) GetMembers() []OrganizationAccessResponse {
-	if o == nil || isNil(o.Members) {
+	if o == nil || IsNil(o.Members) {
 		var ret []OrganizationAccessResponse
 		return ret
 	}
@@ -147,15 +150,15 @@ func (o *OrganizationResponse) GetMembers() []OrganizationAccessResponse {
 // GetMembersOk returns a tuple with the Members field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationResponse) GetMembersOk() ([]OrganizationAccessResponse, bool) {
-	if o == nil || isNil(o.Members) {
-    return nil, false
+	if o == nil || IsNil(o.Members) {
+		return nil, false
 	}
 	return o.Members, true
 }
 
 // HasMembers returns a boolean if a field has been set.
 func (o *OrganizationResponse) HasMembers() bool {
-	if o != nil && !isNil(o.Members) {
+	if o != nil && !IsNil(o.Members) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *OrganizationResponse) SetMembers(v []OrganizationAccessResponse) {
 }
 
 func (o OrganizationResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !isNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !isNil(o.Plan) {
-		toSerialize["plan"] = o.Plan
-	}
-	if !isNil(o.Members) {
-		toSerialize["members"] = o.Members
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OrganizationResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Plan) {
+		toSerialize["plan"] = o.Plan
+	}
+	if !IsNil(o.Members) {
+		toSerialize["members"] = o.Members
+	}
+	return toSerialize, nil
 }
 
 type NullableOrganizationResponse struct {
@@ -219,5 +230,3 @@ func (v *NullableOrganizationResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

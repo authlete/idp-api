@@ -14,14 +14,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the WebAuthnChallengeRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebAuthnChallengeRequest{}
+
 // WebAuthnChallengeRequest struct for WebAuthnChallengeRequest
 type WebAuthnChallengeRequest struct {
-	Id *string `json:"id,omitempty"`
+	Id                *string `json:"id,omitempty"`
 	AttestationObject *string `json:"attestationObject,omitempty"`
-	ClientData *string `json:"clientData,omitempty"`
-	Type *string `json:"type,omitempty"`
+	ClientData        *string `json:"clientData,omitempty"`
+	Type              *string `json:"type,omitempty"`
 	AuthenticatorData *string `json:"authenticatorData,omitempty"`
-	Signature *string `json:"signature,omitempty"`
+	Signature         *string `json:"signature,omitempty"`
 }
 
 // NewWebAuthnChallengeRequest instantiates a new WebAuthnChallengeRequest object
@@ -43,7 +46,7 @@ func NewWebAuthnChallengeRequestWithDefaults() *WebAuthnChallengeRequest {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *WebAuthnChallengeRequest) GetId() string {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -53,15 +56,15 @@ func (o *WebAuthnChallengeRequest) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeRequest) GetIdOk() (*string, bool) {
-	if o == nil || isNil(o.Id) {
-    return nil, false
+	if o == nil || IsNil(o.Id) {
+		return nil, false
 	}
 	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *WebAuthnChallengeRequest) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *WebAuthnChallengeRequest) SetId(v string) {
 
 // GetAttestationObject returns the AttestationObject field value if set, zero value otherwise.
 func (o *WebAuthnChallengeRequest) GetAttestationObject() string {
-	if o == nil || isNil(o.AttestationObject) {
+	if o == nil || IsNil(o.AttestationObject) {
 		var ret string
 		return ret
 	}
@@ -85,15 +88,15 @@ func (o *WebAuthnChallengeRequest) GetAttestationObject() string {
 // GetAttestationObjectOk returns a tuple with the AttestationObject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeRequest) GetAttestationObjectOk() (*string, bool) {
-	if o == nil || isNil(o.AttestationObject) {
-    return nil, false
+	if o == nil || IsNil(o.AttestationObject) {
+		return nil, false
 	}
 	return o.AttestationObject, true
 }
 
 // HasAttestationObject returns a boolean if a field has been set.
 func (o *WebAuthnChallengeRequest) HasAttestationObject() bool {
-	if o != nil && !isNil(o.AttestationObject) {
+	if o != nil && !IsNil(o.AttestationObject) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *WebAuthnChallengeRequest) SetAttestationObject(v string) {
 
 // GetClientData returns the ClientData field value if set, zero value otherwise.
 func (o *WebAuthnChallengeRequest) GetClientData() string {
-	if o == nil || isNil(o.ClientData) {
+	if o == nil || IsNil(o.ClientData) {
 		var ret string
 		return ret
 	}
@@ -117,15 +120,15 @@ func (o *WebAuthnChallengeRequest) GetClientData() string {
 // GetClientDataOk returns a tuple with the ClientData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeRequest) GetClientDataOk() (*string, bool) {
-	if o == nil || isNil(o.ClientData) {
-    return nil, false
+	if o == nil || IsNil(o.ClientData) {
+		return nil, false
 	}
 	return o.ClientData, true
 }
 
 // HasClientData returns a boolean if a field has been set.
 func (o *WebAuthnChallengeRequest) HasClientData() bool {
-	if o != nil && !isNil(o.ClientData) {
+	if o != nil && !IsNil(o.ClientData) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *WebAuthnChallengeRequest) SetClientData(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *WebAuthnChallengeRequest) GetType() string {
-	if o == nil || isNil(o.Type) {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -149,15 +152,15 @@ func (o *WebAuthnChallengeRequest) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeRequest) GetTypeOk() (*string, bool) {
-	if o == nil || isNil(o.Type) {
-    return nil, false
+	if o == nil || IsNil(o.Type) {
+		return nil, false
 	}
 	return o.Type, true
 }
 
 // HasType returns a boolean if a field has been set.
 func (o *WebAuthnChallengeRequest) HasType() bool {
-	if o != nil && !isNil(o.Type) {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *WebAuthnChallengeRequest) SetType(v string) {
 
 // GetAuthenticatorData returns the AuthenticatorData field value if set, zero value otherwise.
 func (o *WebAuthnChallengeRequest) GetAuthenticatorData() string {
-	if o == nil || isNil(o.AuthenticatorData) {
+	if o == nil || IsNil(o.AuthenticatorData) {
 		var ret string
 		return ret
 	}
@@ -181,15 +184,15 @@ func (o *WebAuthnChallengeRequest) GetAuthenticatorData() string {
 // GetAuthenticatorDataOk returns a tuple with the AuthenticatorData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeRequest) GetAuthenticatorDataOk() (*string, bool) {
-	if o == nil || isNil(o.AuthenticatorData) {
-    return nil, false
+	if o == nil || IsNil(o.AuthenticatorData) {
+		return nil, false
 	}
 	return o.AuthenticatorData, true
 }
 
 // HasAuthenticatorData returns a boolean if a field has been set.
 func (o *WebAuthnChallengeRequest) HasAuthenticatorData() bool {
-	if o != nil && !isNil(o.AuthenticatorData) {
+	if o != nil && !IsNil(o.AuthenticatorData) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *WebAuthnChallengeRequest) SetAuthenticatorData(v string) {
 
 // GetSignature returns the Signature field value if set, zero value otherwise.
 func (o *WebAuthnChallengeRequest) GetSignature() string {
-	if o == nil || isNil(o.Signature) {
+	if o == nil || IsNil(o.Signature) {
 		var ret string
 		return ret
 	}
@@ -213,15 +216,15 @@ func (o *WebAuthnChallengeRequest) GetSignature() string {
 // GetSignatureOk returns a tuple with the Signature field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeRequest) GetSignatureOk() (*string, bool) {
-	if o == nil || isNil(o.Signature) {
-    return nil, false
+	if o == nil || IsNil(o.Signature) {
+		return nil, false
 	}
 	return o.Signature, true
 }
 
 // HasSignature returns a boolean if a field has been set.
 func (o *WebAuthnChallengeRequest) HasSignature() bool {
-	if o != nil && !isNil(o.Signature) {
+	if o != nil && !IsNil(o.Signature) {
 		return true
 	}
 
@@ -234,26 +237,34 @@ func (o *WebAuthnChallengeRequest) SetSignature(v string) {
 }
 
 func (o WebAuthnChallengeRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !isNil(o.AttestationObject) {
-		toSerialize["attestationObject"] = o.AttestationObject
-	}
-	if !isNil(o.ClientData) {
-		toSerialize["clientData"] = o.ClientData
-	}
-	if !isNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !isNil(o.AuthenticatorData) {
-		toSerialize["authenticatorData"] = o.AuthenticatorData
-	}
-	if !isNil(o.Signature) {
-		toSerialize["signature"] = o.Signature
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o WebAuthnChallengeRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.AttestationObject) {
+		toSerialize["attestationObject"] = o.AttestationObject
+	}
+	if !IsNil(o.ClientData) {
+		toSerialize["clientData"] = o.ClientData
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.AuthenticatorData) {
+		toSerialize["authenticatorData"] = o.AuthenticatorData
+	}
+	if !IsNil(o.Signature) {
+		toSerialize["signature"] = o.Signature
+	}
+	return toSerialize, nil
 }
 
 type NullableWebAuthnChallengeRequest struct {
@@ -291,5 +302,3 @@ func (v *NullableWebAuthnChallengeRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

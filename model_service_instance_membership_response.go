@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServiceInstanceMembershipResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceInstanceMembershipResponse{}
+
 // ServiceInstanceMembershipResponse struct for ServiceInstanceMembershipResponse
 type ServiceInstanceMembershipResponse struct {
-	ServiceId *int64 `json:"serviceId,omitempty"`
-	Privileges []string `json:"privileges,omitempty"`
-	Clients []ClientAccessResponse `json:"clients,omitempty"`
-	ClientPrivileges []string `json:"clientPrivileges,omitempty"`
+	ServiceId        *int64                 `json:"serviceId,omitempty"`
+	Privileges       []string               `json:"privileges,omitempty"`
+	Clients          []ClientAccessResponse `json:"clients,omitempty"`
+	ClientPrivileges []string               `json:"clientPrivileges,omitempty"`
 }
 
 // NewServiceInstanceMembershipResponse instantiates a new ServiceInstanceMembershipResponse object
@@ -41,7 +44,7 @@ func NewServiceInstanceMembershipResponseWithDefaults() *ServiceInstanceMembersh
 
 // GetServiceId returns the ServiceId field value if set, zero value otherwise.
 func (o *ServiceInstanceMembershipResponse) GetServiceId() int64 {
-	if o == nil || isNil(o.ServiceId) {
+	if o == nil || IsNil(o.ServiceId) {
 		var ret int64
 		return ret
 	}
@@ -51,15 +54,15 @@ func (o *ServiceInstanceMembershipResponse) GetServiceId() int64 {
 // GetServiceIdOk returns a tuple with the ServiceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceMembershipResponse) GetServiceIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ServiceId) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceId) {
+		return nil, false
 	}
 	return o.ServiceId, true
 }
 
 // HasServiceId returns a boolean if a field has been set.
 func (o *ServiceInstanceMembershipResponse) HasServiceId() bool {
-	if o != nil && !isNil(o.ServiceId) {
+	if o != nil && !IsNil(o.ServiceId) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ServiceInstanceMembershipResponse) SetServiceId(v int64) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *ServiceInstanceMembershipResponse) GetPrivileges() []string {
-	if o == nil || isNil(o.Privileges) {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []string
 		return ret
 	}
@@ -83,15 +86,15 @@ func (o *ServiceInstanceMembershipResponse) GetPrivileges() []string {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceMembershipResponse) GetPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.Privileges) {
-    return nil, false
+	if o == nil || IsNil(o.Privileges) {
+		return nil, false
 	}
 	return o.Privileges, true
 }
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *ServiceInstanceMembershipResponse) HasPrivileges() bool {
-	if o != nil && !isNil(o.Privileges) {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *ServiceInstanceMembershipResponse) SetPrivileges(v []string) {
 
 // GetClients returns the Clients field value if set, zero value otherwise.
 func (o *ServiceInstanceMembershipResponse) GetClients() []ClientAccessResponse {
-	if o == nil || isNil(o.Clients) {
+	if o == nil || IsNil(o.Clients) {
 		var ret []ClientAccessResponse
 		return ret
 	}
@@ -115,15 +118,15 @@ func (o *ServiceInstanceMembershipResponse) GetClients() []ClientAccessResponse 
 // GetClientsOk returns a tuple with the Clients field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceMembershipResponse) GetClientsOk() ([]ClientAccessResponse, bool) {
-	if o == nil || isNil(o.Clients) {
-    return nil, false
+	if o == nil || IsNil(o.Clients) {
+		return nil, false
 	}
 	return o.Clients, true
 }
 
 // HasClients returns a boolean if a field has been set.
 func (o *ServiceInstanceMembershipResponse) HasClients() bool {
-	if o != nil && !isNil(o.Clients) {
+	if o != nil && !IsNil(o.Clients) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *ServiceInstanceMembershipResponse) SetClients(v []ClientAccessResponse)
 
 // GetClientPrivileges returns the ClientPrivileges field value if set, zero value otherwise.
 func (o *ServiceInstanceMembershipResponse) GetClientPrivileges() []string {
-	if o == nil || isNil(o.ClientPrivileges) {
+	if o == nil || IsNil(o.ClientPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -147,15 +150,15 @@ func (o *ServiceInstanceMembershipResponse) GetClientPrivileges() []string {
 // GetClientPrivilegesOk returns a tuple with the ClientPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceMembershipResponse) GetClientPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.ClientPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.ClientPrivileges) {
+		return nil, false
 	}
 	return o.ClientPrivileges, true
 }
 
 // HasClientPrivileges returns a boolean if a field has been set.
 func (o *ServiceInstanceMembershipResponse) HasClientPrivileges() bool {
-	if o != nil && !isNil(o.ClientPrivileges) {
+	if o != nil && !IsNil(o.ClientPrivileges) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *ServiceInstanceMembershipResponse) SetClientPrivileges(v []string) {
 }
 
 func (o ServiceInstanceMembershipResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ServiceId) {
-		toSerialize["serviceId"] = o.ServiceId
-	}
-	if !isNil(o.Privileges) {
-		toSerialize["privileges"] = o.Privileges
-	}
-	if !isNil(o.Clients) {
-		toSerialize["clients"] = o.Clients
-	}
-	if !isNil(o.ClientPrivileges) {
-		toSerialize["clientPrivileges"] = o.ClientPrivileges
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServiceInstanceMembershipResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ServiceId) {
+		toSerialize["serviceId"] = o.ServiceId
+	}
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	if !IsNil(o.Clients) {
+		toSerialize["clients"] = o.Clients
+	}
+	if !IsNil(o.ClientPrivileges) {
+		toSerialize["clientPrivileges"] = o.ClientPrivileges
+	}
+	return toSerialize, nil
 }
 
 type NullableServiceInstanceMembershipResponse struct {
@@ -219,5 +230,3 @@ func (v *NullableServiceInstanceMembershipResponse) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

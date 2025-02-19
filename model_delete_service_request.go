@@ -11,15 +11,22 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the DeleteServiceRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteServiceRequest{}
 
 // DeleteServiceRequest struct for DeleteServiceRequest
 type DeleteServiceRequest struct {
-	ApiServerId int64 `json:"apiServerId"`
+	ApiServerId    int64 `json:"apiServerId"`
 	OrganizationId int64 `json:"organizationId"`
-	ServiceId int64 `json:"serviceId"`
+	ServiceId      int64 `json:"serviceId"`
 }
+
+type _DeleteServiceRequest DeleteServiceRequest
 
 // NewDeleteServiceRequest instantiates a new DeleteServiceRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -55,7 +62,7 @@ func (o *DeleteServiceRequest) GetApiServerId() int64 {
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceRequest) GetApiServerIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerId, true
 }
@@ -79,7 +86,7 @@ func (o *DeleteServiceRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -103,7 +110,7 @@ func (o *DeleteServiceRequest) GetServiceId() int64 {
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceRequest) GetServiceIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ServiceId, true
 }
@@ -114,17 +121,58 @@ func (o *DeleteServiceRequest) SetServiceId(v int64) {
 }
 
 func (o DeleteServiceRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["serviceId"] = o.ServiceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteServiceRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["apiServerId"] = o.ApiServerId
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["serviceId"] = o.ServiceId
+	return toSerialize, nil
+}
+
+func (o *DeleteServiceRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"apiServerId",
+		"organizationId",
+		"serviceId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDeleteServiceRequest := _DeleteServiceRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDeleteServiceRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeleteServiceRequest(varDeleteServiceRequest)
+
+	return err
 }
 
 type NullableDeleteServiceRequest struct {
@@ -162,5 +210,3 @@ func (v *NullableDeleteServiceRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

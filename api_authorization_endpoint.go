@@ -13,18 +13,32 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type AuthorizationEndpointAPI interface {
 
-// AuthorizationEndpointApiService AuthorizationEndpointApi service
-type AuthorizationEndpointApiService service
+	/*
+		Get Method for Get
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRequest
+	*/
+	Get(ctx context.Context) ApiGetRequest
+
+	// GetExecute executes the request
+	//  @return map[string]interface{}
+	GetExecute(r ApiGetRequest) (map[string]interface{}, *http.Response, error)
+}
+
+// AuthorizationEndpointAPIService AuthorizationEndpointAPI service
+type AuthorizationEndpointAPIService service
 
 type ApiGetRequest struct {
-	ctx context.Context
-	ApiService *AuthorizationEndpointApiService
+	ctx        context.Context
+	ApiService AuthorizationEndpointAPI
 }
 
 func (r ApiGetRequest) Execute() (map[string]interface{}, *http.Response, error) {
@@ -34,27 +48,28 @@ func (r ApiGetRequest) Execute() (map[string]interface{}, *http.Response, error)
 /*
 Get Method for Get
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetRequest
 */
-func (a *AuthorizationEndpointApiService) Get(ctx context.Context) ApiGetRequest {
+func (a *AuthorizationEndpointAPIService) Get(ctx context.Context) ApiGetRequest {
 	return ApiGetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *AuthorizationEndpointApiService) GetExecute(r ApiGetRequest) (map[string]interface{}, *http.Response, error) {
+//
+//	@return map[string]interface{}
+func (a *AuthorizationEndpointAPIService) GetExecute(r ApiGetRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationEndpointApiService.Get")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationEndpointAPIService.Get")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -92,9 +107,9 @@ func (a *AuthorizationEndpointApiService) GetExecute(r ApiGetRequest) (map[strin
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

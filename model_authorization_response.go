@@ -14,45 +14,48 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthorizationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthorizationResponse{}
+
 // AuthorizationResponse struct for AuthorizationResponse
 type AuthorizationResponse struct {
-	ResultCode *string `json:"resultCode,omitempty"`
-	ResultMessage *string `json:"resultMessage,omitempty"`
-	Action *string `json:"action,omitempty"`
-	Service *Service `json:"service,omitempty"`
-	Client *Client `json:"client,omitempty"`
-	Display *string `json:"display,omitempty"`
-	MaxAge *int32 `json:"maxAge,omitempty"`
-	Scopes []Scope `json:"scopes,omitempty"`
-	DynamicScopes []DynamicScope `json:"dynamicScopes,omitempty"`
-	UiLocales []string `json:"uiLocales,omitempty"`
-	ClaimsLocales []string `json:"claimsLocales,omitempty"`
-	Claims []string `json:"claims,omitempty"`
-	ClaimsAtUserInfo []string `json:"claimsAtUserInfo,omitempty"`
-	AcrEssential *bool `json:"acrEssential,omitempty"`
-	ClientIdAliasUsed *bool `json:"clientIdAliasUsed,omitempty"`
-	ClientEntityIdUsed *bool `json:"clientEntityIdUsed,omitempty"`
-	Acrs []string `json:"acrs,omitempty"`
-	Subject *string `json:"subject,omitempty"`
-	LoginHint *string `json:"loginHint,omitempty"`
+	ResultCode         *string        `json:"resultCode,omitempty"`
+	ResultMessage      *string        `json:"resultMessage,omitempty"`
+	Action             *string        `json:"action,omitempty"`
+	Service            *Service       `json:"service,omitempty"`
+	Client             *Client        `json:"client,omitempty"`
+	Display            *string        `json:"display,omitempty"`
+	MaxAge             *int32         `json:"maxAge,omitempty"`
+	Scopes             []Scope        `json:"scopes,omitempty"`
+	DynamicScopes      []DynamicScope `json:"dynamicScopes,omitempty"`
+	UiLocales          []string       `json:"uiLocales,omitempty"`
+	ClaimsLocales      []string       `json:"claimsLocales,omitempty"`
+	Claims             []string       `json:"claims,omitempty"`
+	ClaimsAtUserInfo   []string       `json:"claimsAtUserInfo,omitempty"`
+	AcrEssential       *bool          `json:"acrEssential,omitempty"`
+	ClientIdAliasUsed  *bool          `json:"clientIdAliasUsed,omitempty"`
+	ClientEntityIdUsed *bool          `json:"clientEntityIdUsed,omitempty"`
+	Acrs               []string       `json:"acrs,omitempty"`
+	Subject            *string        `json:"subject,omitempty"`
+	LoginHint          *string        `json:"loginHint,omitempty"`
 	// Deprecated
-	LowestPrompt *string `json:"lowestPrompt,omitempty"`
-	Prompts []string `json:"prompts,omitempty"`
-	RequestObjectPayload *string `json:"requestObjectPayload,omitempty"`
-	IdTokenClaims *string `json:"idTokenClaims,omitempty"`
-	UserInfoClaims *string `json:"userInfoClaims,omitempty"`
-	TransformedClaims *string `json:"transformedClaims,omitempty"`
-	Resources []string `json:"resources,omitempty"`
-	AuthorizationDetails *AuthzDetails `json:"authorizationDetails,omitempty"`
-	Purpose *string `json:"purpose,omitempty"`
-	GmAction *string `json:"gmAction,omitempty"`
-	GrantId *string `json:"grantId,omitempty"`
-	GrantSubject *string `json:"grantSubject,omitempty"`
-	Grant *Grant `json:"grant,omitempty"`
-	RequestedClaimsForTx []string `json:"requestedClaimsForTx,omitempty"`
+	LowestPrompt                 *string       `json:"lowestPrompt,omitempty"`
+	Prompts                      []string      `json:"prompts,omitempty"`
+	RequestObjectPayload         *string       `json:"requestObjectPayload,omitempty"`
+	IdTokenClaims                *string       `json:"idTokenClaims,omitempty"`
+	UserInfoClaims               *string       `json:"userInfoClaims,omitempty"`
+	TransformedClaims            *string       `json:"transformedClaims,omitempty"`
+	Resources                    []string      `json:"resources,omitempty"`
+	AuthorizationDetails         *AuthzDetails `json:"authorizationDetails,omitempty"`
+	Purpose                      *string       `json:"purpose,omitempty"`
+	GmAction                     *string       `json:"gmAction,omitempty"`
+	GrantId                      *string       `json:"grantId,omitempty"`
+	GrantSubject                 *string       `json:"grantSubject,omitempty"`
+	Grant                        *Grant        `json:"grant,omitempty"`
+	RequestedClaimsForTx         []string      `json:"requestedClaimsForTx,omitempty"`
 	RequestedVerifiedClaimsForTx []StringArray `json:"requestedVerifiedClaimsForTx,omitempty"`
-	ResponseContent *string `json:"responseContent,omitempty"`
-	Ticket *string `json:"ticket,omitempty"`
+	ResponseContent              *string       `json:"responseContent,omitempty"`
+	Ticket                       *string       `json:"ticket,omitempty"`
 }
 
 // NewAuthorizationResponse instantiates a new AuthorizationResponse object
@@ -74,7 +77,7 @@ func NewAuthorizationResponseWithDefaults() *AuthorizationResponse {
 
 // GetResultCode returns the ResultCode field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetResultCode() string {
-	if o == nil || isNil(o.ResultCode) {
+	if o == nil || IsNil(o.ResultCode) {
 		var ret string
 		return ret
 	}
@@ -84,15 +87,15 @@ func (o *AuthorizationResponse) GetResultCode() string {
 // GetResultCodeOk returns a tuple with the ResultCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetResultCodeOk() (*string, bool) {
-	if o == nil || isNil(o.ResultCode) {
-    return nil, false
+	if o == nil || IsNil(o.ResultCode) {
+		return nil, false
 	}
 	return o.ResultCode, true
 }
 
 // HasResultCode returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasResultCode() bool {
-	if o != nil && !isNil(o.ResultCode) {
+	if o != nil && !IsNil(o.ResultCode) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *AuthorizationResponse) SetResultCode(v string) {
 
 // GetResultMessage returns the ResultMessage field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetResultMessage() string {
-	if o == nil || isNil(o.ResultMessage) {
+	if o == nil || IsNil(o.ResultMessage) {
 		var ret string
 		return ret
 	}
@@ -116,15 +119,15 @@ func (o *AuthorizationResponse) GetResultMessage() string {
 // GetResultMessageOk returns a tuple with the ResultMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetResultMessageOk() (*string, bool) {
-	if o == nil || isNil(o.ResultMessage) {
-    return nil, false
+	if o == nil || IsNil(o.ResultMessage) {
+		return nil, false
 	}
 	return o.ResultMessage, true
 }
 
 // HasResultMessage returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasResultMessage() bool {
-	if o != nil && !isNil(o.ResultMessage) {
+	if o != nil && !IsNil(o.ResultMessage) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *AuthorizationResponse) SetResultMessage(v string) {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetAction() string {
-	if o == nil || isNil(o.Action) {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -148,15 +151,15 @@ func (o *AuthorizationResponse) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetActionOk() (*string, bool) {
-	if o == nil || isNil(o.Action) {
-    return nil, false
+	if o == nil || IsNil(o.Action) {
+		return nil, false
 	}
 	return o.Action, true
 }
 
 // HasAction returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasAction() bool {
-	if o != nil && !isNil(o.Action) {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *AuthorizationResponse) SetAction(v string) {
 
 // GetService returns the Service field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetService() Service {
-	if o == nil || isNil(o.Service) {
+	if o == nil || IsNil(o.Service) {
 		var ret Service
 		return ret
 	}
@@ -180,15 +183,15 @@ func (o *AuthorizationResponse) GetService() Service {
 // GetServiceOk returns a tuple with the Service field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetServiceOk() (*Service, bool) {
-	if o == nil || isNil(o.Service) {
-    return nil, false
+	if o == nil || IsNil(o.Service) {
+		return nil, false
 	}
 	return o.Service, true
 }
 
 // HasService returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasService() bool {
-	if o != nil && !isNil(o.Service) {
+	if o != nil && !IsNil(o.Service) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *AuthorizationResponse) SetService(v Service) {
 
 // GetClient returns the Client field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetClient() Client {
-	if o == nil || isNil(o.Client) {
+	if o == nil || IsNil(o.Client) {
 		var ret Client
 		return ret
 	}
@@ -212,15 +215,15 @@ func (o *AuthorizationResponse) GetClient() Client {
 // GetClientOk returns a tuple with the Client field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetClientOk() (*Client, bool) {
-	if o == nil || isNil(o.Client) {
-    return nil, false
+	if o == nil || IsNil(o.Client) {
+		return nil, false
 	}
 	return o.Client, true
 }
 
 // HasClient returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasClient() bool {
-	if o != nil && !isNil(o.Client) {
+	if o != nil && !IsNil(o.Client) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *AuthorizationResponse) SetClient(v Client) {
 
 // GetDisplay returns the Display field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetDisplay() string {
-	if o == nil || isNil(o.Display) {
+	if o == nil || IsNil(o.Display) {
 		var ret string
 		return ret
 	}
@@ -244,15 +247,15 @@ func (o *AuthorizationResponse) GetDisplay() string {
 // GetDisplayOk returns a tuple with the Display field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetDisplayOk() (*string, bool) {
-	if o == nil || isNil(o.Display) {
-    return nil, false
+	if o == nil || IsNil(o.Display) {
+		return nil, false
 	}
 	return o.Display, true
 }
 
 // HasDisplay returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasDisplay() bool {
-	if o != nil && !isNil(o.Display) {
+	if o != nil && !IsNil(o.Display) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *AuthorizationResponse) SetDisplay(v string) {
 
 // GetMaxAge returns the MaxAge field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetMaxAge() int32 {
-	if o == nil || isNil(o.MaxAge) {
+	if o == nil || IsNil(o.MaxAge) {
 		var ret int32
 		return ret
 	}
@@ -276,15 +279,15 @@ func (o *AuthorizationResponse) GetMaxAge() int32 {
 // GetMaxAgeOk returns a tuple with the MaxAge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetMaxAgeOk() (*int32, bool) {
-	if o == nil || isNil(o.MaxAge) {
-    return nil, false
+	if o == nil || IsNil(o.MaxAge) {
+		return nil, false
 	}
 	return o.MaxAge, true
 }
 
 // HasMaxAge returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasMaxAge() bool {
-	if o != nil && !isNil(o.MaxAge) {
+	if o != nil && !IsNil(o.MaxAge) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *AuthorizationResponse) SetMaxAge(v int32) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetScopes() []Scope {
-	if o == nil || isNil(o.Scopes) {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []Scope
 		return ret
 	}
@@ -308,15 +311,15 @@ func (o *AuthorizationResponse) GetScopes() []Scope {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetScopesOk() ([]Scope, bool) {
-	if o == nil || isNil(o.Scopes) {
-    return nil, false
+	if o == nil || IsNil(o.Scopes) {
+		return nil, false
 	}
 	return o.Scopes, true
 }
 
 // HasScopes returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasScopes() bool {
-	if o != nil && !isNil(o.Scopes) {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *AuthorizationResponse) SetScopes(v []Scope) {
 
 // GetDynamicScopes returns the DynamicScopes field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetDynamicScopes() []DynamicScope {
-	if o == nil || isNil(o.DynamicScopes) {
+	if o == nil || IsNil(o.DynamicScopes) {
 		var ret []DynamicScope
 		return ret
 	}
@@ -340,15 +343,15 @@ func (o *AuthorizationResponse) GetDynamicScopes() []DynamicScope {
 // GetDynamicScopesOk returns a tuple with the DynamicScopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetDynamicScopesOk() ([]DynamicScope, bool) {
-	if o == nil || isNil(o.DynamicScopes) {
-    return nil, false
+	if o == nil || IsNil(o.DynamicScopes) {
+		return nil, false
 	}
 	return o.DynamicScopes, true
 }
 
 // HasDynamicScopes returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasDynamicScopes() bool {
-	if o != nil && !isNil(o.DynamicScopes) {
+	if o != nil && !IsNil(o.DynamicScopes) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *AuthorizationResponse) SetDynamicScopes(v []DynamicScope) {
 
 // GetUiLocales returns the UiLocales field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetUiLocales() []string {
-	if o == nil || isNil(o.UiLocales) {
+	if o == nil || IsNil(o.UiLocales) {
 		var ret []string
 		return ret
 	}
@@ -372,15 +375,15 @@ func (o *AuthorizationResponse) GetUiLocales() []string {
 // GetUiLocalesOk returns a tuple with the UiLocales field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetUiLocalesOk() ([]string, bool) {
-	if o == nil || isNil(o.UiLocales) {
-    return nil, false
+	if o == nil || IsNil(o.UiLocales) {
+		return nil, false
 	}
 	return o.UiLocales, true
 }
 
 // HasUiLocales returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasUiLocales() bool {
-	if o != nil && !isNil(o.UiLocales) {
+	if o != nil && !IsNil(o.UiLocales) {
 		return true
 	}
 
@@ -394,7 +397,7 @@ func (o *AuthorizationResponse) SetUiLocales(v []string) {
 
 // GetClaimsLocales returns the ClaimsLocales field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetClaimsLocales() []string {
-	if o == nil || isNil(o.ClaimsLocales) {
+	if o == nil || IsNil(o.ClaimsLocales) {
 		var ret []string
 		return ret
 	}
@@ -404,15 +407,15 @@ func (o *AuthorizationResponse) GetClaimsLocales() []string {
 // GetClaimsLocalesOk returns a tuple with the ClaimsLocales field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetClaimsLocalesOk() ([]string, bool) {
-	if o == nil || isNil(o.ClaimsLocales) {
-    return nil, false
+	if o == nil || IsNil(o.ClaimsLocales) {
+		return nil, false
 	}
 	return o.ClaimsLocales, true
 }
 
 // HasClaimsLocales returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasClaimsLocales() bool {
-	if o != nil && !isNil(o.ClaimsLocales) {
+	if o != nil && !IsNil(o.ClaimsLocales) {
 		return true
 	}
 
@@ -426,7 +429,7 @@ func (o *AuthorizationResponse) SetClaimsLocales(v []string) {
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetClaims() []string {
-	if o == nil || isNil(o.Claims) {
+	if o == nil || IsNil(o.Claims) {
 		var ret []string
 		return ret
 	}
@@ -436,15 +439,15 @@ func (o *AuthorizationResponse) GetClaims() []string {
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetClaimsOk() ([]string, bool) {
-	if o == nil || isNil(o.Claims) {
-    return nil, false
+	if o == nil || IsNil(o.Claims) {
+		return nil, false
 	}
 	return o.Claims, true
 }
 
 // HasClaims returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasClaims() bool {
-	if o != nil && !isNil(o.Claims) {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
@@ -458,7 +461,7 @@ func (o *AuthorizationResponse) SetClaims(v []string) {
 
 // GetClaimsAtUserInfo returns the ClaimsAtUserInfo field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetClaimsAtUserInfo() []string {
-	if o == nil || isNil(o.ClaimsAtUserInfo) {
+	if o == nil || IsNil(o.ClaimsAtUserInfo) {
 		var ret []string
 		return ret
 	}
@@ -468,15 +471,15 @@ func (o *AuthorizationResponse) GetClaimsAtUserInfo() []string {
 // GetClaimsAtUserInfoOk returns a tuple with the ClaimsAtUserInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetClaimsAtUserInfoOk() ([]string, bool) {
-	if o == nil || isNil(o.ClaimsAtUserInfo) {
-    return nil, false
+	if o == nil || IsNil(o.ClaimsAtUserInfo) {
+		return nil, false
 	}
 	return o.ClaimsAtUserInfo, true
 }
 
 // HasClaimsAtUserInfo returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasClaimsAtUserInfo() bool {
-	if o != nil && !isNil(o.ClaimsAtUserInfo) {
+	if o != nil && !IsNil(o.ClaimsAtUserInfo) {
 		return true
 	}
 
@@ -490,7 +493,7 @@ func (o *AuthorizationResponse) SetClaimsAtUserInfo(v []string) {
 
 // GetAcrEssential returns the AcrEssential field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetAcrEssential() bool {
-	if o == nil || isNil(o.AcrEssential) {
+	if o == nil || IsNil(o.AcrEssential) {
 		var ret bool
 		return ret
 	}
@@ -500,15 +503,15 @@ func (o *AuthorizationResponse) GetAcrEssential() bool {
 // GetAcrEssentialOk returns a tuple with the AcrEssential field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetAcrEssentialOk() (*bool, bool) {
-	if o == nil || isNil(o.AcrEssential) {
-    return nil, false
+	if o == nil || IsNil(o.AcrEssential) {
+		return nil, false
 	}
 	return o.AcrEssential, true
 }
 
 // HasAcrEssential returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasAcrEssential() bool {
-	if o != nil && !isNil(o.AcrEssential) {
+	if o != nil && !IsNil(o.AcrEssential) {
 		return true
 	}
 
@@ -522,7 +525,7 @@ func (o *AuthorizationResponse) SetAcrEssential(v bool) {
 
 // GetClientIdAliasUsed returns the ClientIdAliasUsed field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetClientIdAliasUsed() bool {
-	if o == nil || isNil(o.ClientIdAliasUsed) {
+	if o == nil || IsNil(o.ClientIdAliasUsed) {
 		var ret bool
 		return ret
 	}
@@ -532,15 +535,15 @@ func (o *AuthorizationResponse) GetClientIdAliasUsed() bool {
 // GetClientIdAliasUsedOk returns a tuple with the ClientIdAliasUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetClientIdAliasUsedOk() (*bool, bool) {
-	if o == nil || isNil(o.ClientIdAliasUsed) {
-    return nil, false
+	if o == nil || IsNil(o.ClientIdAliasUsed) {
+		return nil, false
 	}
 	return o.ClientIdAliasUsed, true
 }
 
 // HasClientIdAliasUsed returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasClientIdAliasUsed() bool {
-	if o != nil && !isNil(o.ClientIdAliasUsed) {
+	if o != nil && !IsNil(o.ClientIdAliasUsed) {
 		return true
 	}
 
@@ -554,7 +557,7 @@ func (o *AuthorizationResponse) SetClientIdAliasUsed(v bool) {
 
 // GetClientEntityIdUsed returns the ClientEntityIdUsed field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetClientEntityIdUsed() bool {
-	if o == nil || isNil(o.ClientEntityIdUsed) {
+	if o == nil || IsNil(o.ClientEntityIdUsed) {
 		var ret bool
 		return ret
 	}
@@ -564,15 +567,15 @@ func (o *AuthorizationResponse) GetClientEntityIdUsed() bool {
 // GetClientEntityIdUsedOk returns a tuple with the ClientEntityIdUsed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetClientEntityIdUsedOk() (*bool, bool) {
-	if o == nil || isNil(o.ClientEntityIdUsed) {
-    return nil, false
+	if o == nil || IsNil(o.ClientEntityIdUsed) {
+		return nil, false
 	}
 	return o.ClientEntityIdUsed, true
 }
 
 // HasClientEntityIdUsed returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasClientEntityIdUsed() bool {
-	if o != nil && !isNil(o.ClientEntityIdUsed) {
+	if o != nil && !IsNil(o.ClientEntityIdUsed) {
 		return true
 	}
 
@@ -586,7 +589,7 @@ func (o *AuthorizationResponse) SetClientEntityIdUsed(v bool) {
 
 // GetAcrs returns the Acrs field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetAcrs() []string {
-	if o == nil || isNil(o.Acrs) {
+	if o == nil || IsNil(o.Acrs) {
 		var ret []string
 		return ret
 	}
@@ -596,15 +599,15 @@ func (o *AuthorizationResponse) GetAcrs() []string {
 // GetAcrsOk returns a tuple with the Acrs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetAcrsOk() ([]string, bool) {
-	if o == nil || isNil(o.Acrs) {
-    return nil, false
+	if o == nil || IsNil(o.Acrs) {
+		return nil, false
 	}
 	return o.Acrs, true
 }
 
 // HasAcrs returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasAcrs() bool {
-	if o != nil && !isNil(o.Acrs) {
+	if o != nil && !IsNil(o.Acrs) {
 		return true
 	}
 
@@ -618,7 +621,7 @@ func (o *AuthorizationResponse) SetAcrs(v []string) {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetSubject() string {
-	if o == nil || isNil(o.Subject) {
+	if o == nil || IsNil(o.Subject) {
 		var ret string
 		return ret
 	}
@@ -628,15 +631,15 @@ func (o *AuthorizationResponse) GetSubject() string {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetSubjectOk() (*string, bool) {
-	if o == nil || isNil(o.Subject) {
-    return nil, false
+	if o == nil || IsNil(o.Subject) {
+		return nil, false
 	}
 	return o.Subject, true
 }
 
 // HasSubject returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasSubject() bool {
-	if o != nil && !isNil(o.Subject) {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -650,7 +653,7 @@ func (o *AuthorizationResponse) SetSubject(v string) {
 
 // GetLoginHint returns the LoginHint field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetLoginHint() string {
-	if o == nil || isNil(o.LoginHint) {
+	if o == nil || IsNil(o.LoginHint) {
 		var ret string
 		return ret
 	}
@@ -660,15 +663,15 @@ func (o *AuthorizationResponse) GetLoginHint() string {
 // GetLoginHintOk returns a tuple with the LoginHint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetLoginHintOk() (*string, bool) {
-	if o == nil || isNil(o.LoginHint) {
-    return nil, false
+	if o == nil || IsNil(o.LoginHint) {
+		return nil, false
 	}
 	return o.LoginHint, true
 }
 
 // HasLoginHint returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasLoginHint() bool {
-	if o != nil && !isNil(o.LoginHint) {
+	if o != nil && !IsNil(o.LoginHint) {
 		return true
 	}
 
@@ -683,7 +686,7 @@ func (o *AuthorizationResponse) SetLoginHint(v string) {
 // GetLowestPrompt returns the LowestPrompt field value if set, zero value otherwise.
 // Deprecated
 func (o *AuthorizationResponse) GetLowestPrompt() string {
-	if o == nil || isNil(o.LowestPrompt) {
+	if o == nil || IsNil(o.LowestPrompt) {
 		var ret string
 		return ret
 	}
@@ -694,15 +697,15 @@ func (o *AuthorizationResponse) GetLowestPrompt() string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *AuthorizationResponse) GetLowestPromptOk() (*string, bool) {
-	if o == nil || isNil(o.LowestPrompt) {
-    return nil, false
+	if o == nil || IsNil(o.LowestPrompt) {
+		return nil, false
 	}
 	return o.LowestPrompt, true
 }
 
 // HasLowestPrompt returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasLowestPrompt() bool {
-	if o != nil && !isNil(o.LowestPrompt) {
+	if o != nil && !IsNil(o.LowestPrompt) {
 		return true
 	}
 
@@ -717,7 +720,7 @@ func (o *AuthorizationResponse) SetLowestPrompt(v string) {
 
 // GetPrompts returns the Prompts field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetPrompts() []string {
-	if o == nil || isNil(o.Prompts) {
+	if o == nil || IsNil(o.Prompts) {
 		var ret []string
 		return ret
 	}
@@ -727,15 +730,15 @@ func (o *AuthorizationResponse) GetPrompts() []string {
 // GetPromptsOk returns a tuple with the Prompts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetPromptsOk() ([]string, bool) {
-	if o == nil || isNil(o.Prompts) {
-    return nil, false
+	if o == nil || IsNil(o.Prompts) {
+		return nil, false
 	}
 	return o.Prompts, true
 }
 
 // HasPrompts returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasPrompts() bool {
-	if o != nil && !isNil(o.Prompts) {
+	if o != nil && !IsNil(o.Prompts) {
 		return true
 	}
 
@@ -749,7 +752,7 @@ func (o *AuthorizationResponse) SetPrompts(v []string) {
 
 // GetRequestObjectPayload returns the RequestObjectPayload field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetRequestObjectPayload() string {
-	if o == nil || isNil(o.RequestObjectPayload) {
+	if o == nil || IsNil(o.RequestObjectPayload) {
 		var ret string
 		return ret
 	}
@@ -759,15 +762,15 @@ func (o *AuthorizationResponse) GetRequestObjectPayload() string {
 // GetRequestObjectPayloadOk returns a tuple with the RequestObjectPayload field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetRequestObjectPayloadOk() (*string, bool) {
-	if o == nil || isNil(o.RequestObjectPayload) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectPayload) {
+		return nil, false
 	}
 	return o.RequestObjectPayload, true
 }
 
 // HasRequestObjectPayload returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasRequestObjectPayload() bool {
-	if o != nil && !isNil(o.RequestObjectPayload) {
+	if o != nil && !IsNil(o.RequestObjectPayload) {
 		return true
 	}
 
@@ -781,7 +784,7 @@ func (o *AuthorizationResponse) SetRequestObjectPayload(v string) {
 
 // GetIdTokenClaims returns the IdTokenClaims field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetIdTokenClaims() string {
-	if o == nil || isNil(o.IdTokenClaims) {
+	if o == nil || IsNil(o.IdTokenClaims) {
 		var ret string
 		return ret
 	}
@@ -791,15 +794,15 @@ func (o *AuthorizationResponse) GetIdTokenClaims() string {
 // GetIdTokenClaimsOk returns a tuple with the IdTokenClaims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetIdTokenClaimsOk() (*string, bool) {
-	if o == nil || isNil(o.IdTokenClaims) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenClaims) {
+		return nil, false
 	}
 	return o.IdTokenClaims, true
 }
 
 // HasIdTokenClaims returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasIdTokenClaims() bool {
-	if o != nil && !isNil(o.IdTokenClaims) {
+	if o != nil && !IsNil(o.IdTokenClaims) {
 		return true
 	}
 
@@ -813,7 +816,7 @@ func (o *AuthorizationResponse) SetIdTokenClaims(v string) {
 
 // GetUserInfoClaims returns the UserInfoClaims field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetUserInfoClaims() string {
-	if o == nil || isNil(o.UserInfoClaims) {
+	if o == nil || IsNil(o.UserInfoClaims) {
 		var ret string
 		return ret
 	}
@@ -823,15 +826,15 @@ func (o *AuthorizationResponse) GetUserInfoClaims() string {
 // GetUserInfoClaimsOk returns a tuple with the UserInfoClaims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetUserInfoClaimsOk() (*string, bool) {
-	if o == nil || isNil(o.UserInfoClaims) {
-    return nil, false
+	if o == nil || IsNil(o.UserInfoClaims) {
+		return nil, false
 	}
 	return o.UserInfoClaims, true
 }
 
 // HasUserInfoClaims returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasUserInfoClaims() bool {
-	if o != nil && !isNil(o.UserInfoClaims) {
+	if o != nil && !IsNil(o.UserInfoClaims) {
 		return true
 	}
 
@@ -845,7 +848,7 @@ func (o *AuthorizationResponse) SetUserInfoClaims(v string) {
 
 // GetTransformedClaims returns the TransformedClaims field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetTransformedClaims() string {
-	if o == nil || isNil(o.TransformedClaims) {
+	if o == nil || IsNil(o.TransformedClaims) {
 		var ret string
 		return ret
 	}
@@ -855,15 +858,15 @@ func (o *AuthorizationResponse) GetTransformedClaims() string {
 // GetTransformedClaimsOk returns a tuple with the TransformedClaims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetTransformedClaimsOk() (*string, bool) {
-	if o == nil || isNil(o.TransformedClaims) {
-    return nil, false
+	if o == nil || IsNil(o.TransformedClaims) {
+		return nil, false
 	}
 	return o.TransformedClaims, true
 }
 
 // HasTransformedClaims returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasTransformedClaims() bool {
-	if o != nil && !isNil(o.TransformedClaims) {
+	if o != nil && !IsNil(o.TransformedClaims) {
 		return true
 	}
 
@@ -877,7 +880,7 @@ func (o *AuthorizationResponse) SetTransformedClaims(v string) {
 
 // GetResources returns the Resources field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetResources() []string {
-	if o == nil || isNil(o.Resources) {
+	if o == nil || IsNil(o.Resources) {
 		var ret []string
 		return ret
 	}
@@ -887,15 +890,15 @@ func (o *AuthorizationResponse) GetResources() []string {
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetResourcesOk() ([]string, bool) {
-	if o == nil || isNil(o.Resources) {
-    return nil, false
+	if o == nil || IsNil(o.Resources) {
+		return nil, false
 	}
 	return o.Resources, true
 }
 
 // HasResources returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasResources() bool {
-	if o != nil && !isNil(o.Resources) {
+	if o != nil && !IsNil(o.Resources) {
 		return true
 	}
 
@@ -909,7 +912,7 @@ func (o *AuthorizationResponse) SetResources(v []string) {
 
 // GetAuthorizationDetails returns the AuthorizationDetails field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetAuthorizationDetails() AuthzDetails {
-	if o == nil || isNil(o.AuthorizationDetails) {
+	if o == nil || IsNil(o.AuthorizationDetails) {
 		var ret AuthzDetails
 		return ret
 	}
@@ -919,15 +922,15 @@ func (o *AuthorizationResponse) GetAuthorizationDetails() AuthzDetails {
 // GetAuthorizationDetailsOk returns a tuple with the AuthorizationDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetAuthorizationDetailsOk() (*AuthzDetails, bool) {
-	if o == nil || isNil(o.AuthorizationDetails) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationDetails) {
+		return nil, false
 	}
 	return o.AuthorizationDetails, true
 }
 
 // HasAuthorizationDetails returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasAuthorizationDetails() bool {
-	if o != nil && !isNil(o.AuthorizationDetails) {
+	if o != nil && !IsNil(o.AuthorizationDetails) {
 		return true
 	}
 
@@ -941,7 +944,7 @@ func (o *AuthorizationResponse) SetAuthorizationDetails(v AuthzDetails) {
 
 // GetPurpose returns the Purpose field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetPurpose() string {
-	if o == nil || isNil(o.Purpose) {
+	if o == nil || IsNil(o.Purpose) {
 		var ret string
 		return ret
 	}
@@ -951,15 +954,15 @@ func (o *AuthorizationResponse) GetPurpose() string {
 // GetPurposeOk returns a tuple with the Purpose field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetPurposeOk() (*string, bool) {
-	if o == nil || isNil(o.Purpose) {
-    return nil, false
+	if o == nil || IsNil(o.Purpose) {
+		return nil, false
 	}
 	return o.Purpose, true
 }
 
 // HasPurpose returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasPurpose() bool {
-	if o != nil && !isNil(o.Purpose) {
+	if o != nil && !IsNil(o.Purpose) {
 		return true
 	}
 
@@ -973,7 +976,7 @@ func (o *AuthorizationResponse) SetPurpose(v string) {
 
 // GetGmAction returns the GmAction field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetGmAction() string {
-	if o == nil || isNil(o.GmAction) {
+	if o == nil || IsNil(o.GmAction) {
 		var ret string
 		return ret
 	}
@@ -983,15 +986,15 @@ func (o *AuthorizationResponse) GetGmAction() string {
 // GetGmActionOk returns a tuple with the GmAction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetGmActionOk() (*string, bool) {
-	if o == nil || isNil(o.GmAction) {
-    return nil, false
+	if o == nil || IsNil(o.GmAction) {
+		return nil, false
 	}
 	return o.GmAction, true
 }
 
 // HasGmAction returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasGmAction() bool {
-	if o != nil && !isNil(o.GmAction) {
+	if o != nil && !IsNil(o.GmAction) {
 		return true
 	}
 
@@ -1005,7 +1008,7 @@ func (o *AuthorizationResponse) SetGmAction(v string) {
 
 // GetGrantId returns the GrantId field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetGrantId() string {
-	if o == nil || isNil(o.GrantId) {
+	if o == nil || IsNil(o.GrantId) {
 		var ret string
 		return ret
 	}
@@ -1015,15 +1018,15 @@ func (o *AuthorizationResponse) GetGrantId() string {
 // GetGrantIdOk returns a tuple with the GrantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetGrantIdOk() (*string, bool) {
-	if o == nil || isNil(o.GrantId) {
-    return nil, false
+	if o == nil || IsNil(o.GrantId) {
+		return nil, false
 	}
 	return o.GrantId, true
 }
 
 // HasGrantId returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasGrantId() bool {
-	if o != nil && !isNil(o.GrantId) {
+	if o != nil && !IsNil(o.GrantId) {
 		return true
 	}
 
@@ -1037,7 +1040,7 @@ func (o *AuthorizationResponse) SetGrantId(v string) {
 
 // GetGrantSubject returns the GrantSubject field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetGrantSubject() string {
-	if o == nil || isNil(o.GrantSubject) {
+	if o == nil || IsNil(o.GrantSubject) {
 		var ret string
 		return ret
 	}
@@ -1047,15 +1050,15 @@ func (o *AuthorizationResponse) GetGrantSubject() string {
 // GetGrantSubjectOk returns a tuple with the GrantSubject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetGrantSubjectOk() (*string, bool) {
-	if o == nil || isNil(o.GrantSubject) {
-    return nil, false
+	if o == nil || IsNil(o.GrantSubject) {
+		return nil, false
 	}
 	return o.GrantSubject, true
 }
 
 // HasGrantSubject returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasGrantSubject() bool {
-	if o != nil && !isNil(o.GrantSubject) {
+	if o != nil && !IsNil(o.GrantSubject) {
 		return true
 	}
 
@@ -1069,7 +1072,7 @@ func (o *AuthorizationResponse) SetGrantSubject(v string) {
 
 // GetGrant returns the Grant field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetGrant() Grant {
-	if o == nil || isNil(o.Grant) {
+	if o == nil || IsNil(o.Grant) {
 		var ret Grant
 		return ret
 	}
@@ -1079,15 +1082,15 @@ func (o *AuthorizationResponse) GetGrant() Grant {
 // GetGrantOk returns a tuple with the Grant field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetGrantOk() (*Grant, bool) {
-	if o == nil || isNil(o.Grant) {
-    return nil, false
+	if o == nil || IsNil(o.Grant) {
+		return nil, false
 	}
 	return o.Grant, true
 }
 
 // HasGrant returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasGrant() bool {
-	if o != nil && !isNil(o.Grant) {
+	if o != nil && !IsNil(o.Grant) {
 		return true
 	}
 
@@ -1101,7 +1104,7 @@ func (o *AuthorizationResponse) SetGrant(v Grant) {
 
 // GetRequestedClaimsForTx returns the RequestedClaimsForTx field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetRequestedClaimsForTx() []string {
-	if o == nil || isNil(o.RequestedClaimsForTx) {
+	if o == nil || IsNil(o.RequestedClaimsForTx) {
 		var ret []string
 		return ret
 	}
@@ -1111,15 +1114,15 @@ func (o *AuthorizationResponse) GetRequestedClaimsForTx() []string {
 // GetRequestedClaimsForTxOk returns a tuple with the RequestedClaimsForTx field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetRequestedClaimsForTxOk() ([]string, bool) {
-	if o == nil || isNil(o.RequestedClaimsForTx) {
-    return nil, false
+	if o == nil || IsNil(o.RequestedClaimsForTx) {
+		return nil, false
 	}
 	return o.RequestedClaimsForTx, true
 }
 
 // HasRequestedClaimsForTx returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasRequestedClaimsForTx() bool {
-	if o != nil && !isNil(o.RequestedClaimsForTx) {
+	if o != nil && !IsNil(o.RequestedClaimsForTx) {
 		return true
 	}
 
@@ -1133,7 +1136,7 @@ func (o *AuthorizationResponse) SetRequestedClaimsForTx(v []string) {
 
 // GetRequestedVerifiedClaimsForTx returns the RequestedVerifiedClaimsForTx field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetRequestedVerifiedClaimsForTx() []StringArray {
-	if o == nil || isNil(o.RequestedVerifiedClaimsForTx) {
+	if o == nil || IsNil(o.RequestedVerifiedClaimsForTx) {
 		var ret []StringArray
 		return ret
 	}
@@ -1143,15 +1146,15 @@ func (o *AuthorizationResponse) GetRequestedVerifiedClaimsForTx() []StringArray 
 // GetRequestedVerifiedClaimsForTxOk returns a tuple with the RequestedVerifiedClaimsForTx field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetRequestedVerifiedClaimsForTxOk() ([]StringArray, bool) {
-	if o == nil || isNil(o.RequestedVerifiedClaimsForTx) {
-    return nil, false
+	if o == nil || IsNil(o.RequestedVerifiedClaimsForTx) {
+		return nil, false
 	}
 	return o.RequestedVerifiedClaimsForTx, true
 }
 
 // HasRequestedVerifiedClaimsForTx returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasRequestedVerifiedClaimsForTx() bool {
-	if o != nil && !isNil(o.RequestedVerifiedClaimsForTx) {
+	if o != nil && !IsNil(o.RequestedVerifiedClaimsForTx) {
 		return true
 	}
 
@@ -1165,7 +1168,7 @@ func (o *AuthorizationResponse) SetRequestedVerifiedClaimsForTx(v []StringArray)
 
 // GetResponseContent returns the ResponseContent field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetResponseContent() string {
-	if o == nil || isNil(o.ResponseContent) {
+	if o == nil || IsNil(o.ResponseContent) {
 		var ret string
 		return ret
 	}
@@ -1175,15 +1178,15 @@ func (o *AuthorizationResponse) GetResponseContent() string {
 // GetResponseContentOk returns a tuple with the ResponseContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetResponseContentOk() (*string, bool) {
-	if o == nil || isNil(o.ResponseContent) {
-    return nil, false
+	if o == nil || IsNil(o.ResponseContent) {
+		return nil, false
 	}
 	return o.ResponseContent, true
 }
 
 // HasResponseContent returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasResponseContent() bool {
-	if o != nil && !isNil(o.ResponseContent) {
+	if o != nil && !IsNil(o.ResponseContent) {
 		return true
 	}
 
@@ -1197,7 +1200,7 @@ func (o *AuthorizationResponse) SetResponseContent(v string) {
 
 // GetTicket returns the Ticket field value if set, zero value otherwise.
 func (o *AuthorizationResponse) GetTicket() string {
-	if o == nil || isNil(o.Ticket) {
+	if o == nil || IsNil(o.Ticket) {
 		var ret string
 		return ret
 	}
@@ -1207,15 +1210,15 @@ func (o *AuthorizationResponse) GetTicket() string {
 // GetTicketOk returns a tuple with the Ticket field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthorizationResponse) GetTicketOk() (*string, bool) {
-	if o == nil || isNil(o.Ticket) {
-    return nil, false
+	if o == nil || IsNil(o.Ticket) {
+		return nil, false
 	}
 	return o.Ticket, true
 }
 
 // HasTicket returns a boolean if a field has been set.
 func (o *AuthorizationResponse) HasTicket() bool {
-	if o != nil && !isNil(o.Ticket) {
+	if o != nil && !IsNil(o.Ticket) {
 		return true
 	}
 
@@ -1228,116 +1231,124 @@ func (o *AuthorizationResponse) SetTicket(v string) {
 }
 
 func (o AuthorizationResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ResultCode) {
-		toSerialize["resultCode"] = o.ResultCode
-	}
-	if !isNil(o.ResultMessage) {
-		toSerialize["resultMessage"] = o.ResultMessage
-	}
-	if !isNil(o.Action) {
-		toSerialize["action"] = o.Action
-	}
-	if !isNil(o.Service) {
-		toSerialize["service"] = o.Service
-	}
-	if !isNil(o.Client) {
-		toSerialize["client"] = o.Client
-	}
-	if !isNil(o.Display) {
-		toSerialize["display"] = o.Display
-	}
-	if !isNil(o.MaxAge) {
-		toSerialize["maxAge"] = o.MaxAge
-	}
-	if !isNil(o.Scopes) {
-		toSerialize["scopes"] = o.Scopes
-	}
-	if !isNil(o.DynamicScopes) {
-		toSerialize["dynamicScopes"] = o.DynamicScopes
-	}
-	if !isNil(o.UiLocales) {
-		toSerialize["uiLocales"] = o.UiLocales
-	}
-	if !isNil(o.ClaimsLocales) {
-		toSerialize["claimsLocales"] = o.ClaimsLocales
-	}
-	if !isNil(o.Claims) {
-		toSerialize["claims"] = o.Claims
-	}
-	if !isNil(o.ClaimsAtUserInfo) {
-		toSerialize["claimsAtUserInfo"] = o.ClaimsAtUserInfo
-	}
-	if !isNil(o.AcrEssential) {
-		toSerialize["acrEssential"] = o.AcrEssential
-	}
-	if !isNil(o.ClientIdAliasUsed) {
-		toSerialize["clientIdAliasUsed"] = o.ClientIdAliasUsed
-	}
-	if !isNil(o.ClientEntityIdUsed) {
-		toSerialize["clientEntityIdUsed"] = o.ClientEntityIdUsed
-	}
-	if !isNil(o.Acrs) {
-		toSerialize["acrs"] = o.Acrs
-	}
-	if !isNil(o.Subject) {
-		toSerialize["subject"] = o.Subject
-	}
-	if !isNil(o.LoginHint) {
-		toSerialize["loginHint"] = o.LoginHint
-	}
-	if !isNil(o.LowestPrompt) {
-		toSerialize["lowestPrompt"] = o.LowestPrompt
-	}
-	if !isNil(o.Prompts) {
-		toSerialize["prompts"] = o.Prompts
-	}
-	if !isNil(o.RequestObjectPayload) {
-		toSerialize["requestObjectPayload"] = o.RequestObjectPayload
-	}
-	if !isNil(o.IdTokenClaims) {
-		toSerialize["idTokenClaims"] = o.IdTokenClaims
-	}
-	if !isNil(o.UserInfoClaims) {
-		toSerialize["userInfoClaims"] = o.UserInfoClaims
-	}
-	if !isNil(o.TransformedClaims) {
-		toSerialize["transformedClaims"] = o.TransformedClaims
-	}
-	if !isNil(o.Resources) {
-		toSerialize["resources"] = o.Resources
-	}
-	if !isNil(o.AuthorizationDetails) {
-		toSerialize["authorizationDetails"] = o.AuthorizationDetails
-	}
-	if !isNil(o.Purpose) {
-		toSerialize["purpose"] = o.Purpose
-	}
-	if !isNil(o.GmAction) {
-		toSerialize["gmAction"] = o.GmAction
-	}
-	if !isNil(o.GrantId) {
-		toSerialize["grantId"] = o.GrantId
-	}
-	if !isNil(o.GrantSubject) {
-		toSerialize["grantSubject"] = o.GrantSubject
-	}
-	if !isNil(o.Grant) {
-		toSerialize["grant"] = o.Grant
-	}
-	if !isNil(o.RequestedClaimsForTx) {
-		toSerialize["requestedClaimsForTx"] = o.RequestedClaimsForTx
-	}
-	if !isNil(o.RequestedVerifiedClaimsForTx) {
-		toSerialize["requestedVerifiedClaimsForTx"] = o.RequestedVerifiedClaimsForTx
-	}
-	if !isNil(o.ResponseContent) {
-		toSerialize["responseContent"] = o.ResponseContent
-	}
-	if !isNil(o.Ticket) {
-		toSerialize["ticket"] = o.Ticket
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AuthorizationResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ResultCode) {
+		toSerialize["resultCode"] = o.ResultCode
+	}
+	if !IsNil(o.ResultMessage) {
+		toSerialize["resultMessage"] = o.ResultMessage
+	}
+	if !IsNil(o.Action) {
+		toSerialize["action"] = o.Action
+	}
+	if !IsNil(o.Service) {
+		toSerialize["service"] = o.Service
+	}
+	if !IsNil(o.Client) {
+		toSerialize["client"] = o.Client
+	}
+	if !IsNil(o.Display) {
+		toSerialize["display"] = o.Display
+	}
+	if !IsNil(o.MaxAge) {
+		toSerialize["maxAge"] = o.MaxAge
+	}
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
+	}
+	if !IsNil(o.DynamicScopes) {
+		toSerialize["dynamicScopes"] = o.DynamicScopes
+	}
+	if !IsNil(o.UiLocales) {
+		toSerialize["uiLocales"] = o.UiLocales
+	}
+	if !IsNil(o.ClaimsLocales) {
+		toSerialize["claimsLocales"] = o.ClaimsLocales
+	}
+	if !IsNil(o.Claims) {
+		toSerialize["claims"] = o.Claims
+	}
+	if !IsNil(o.ClaimsAtUserInfo) {
+		toSerialize["claimsAtUserInfo"] = o.ClaimsAtUserInfo
+	}
+	if !IsNil(o.AcrEssential) {
+		toSerialize["acrEssential"] = o.AcrEssential
+	}
+	if !IsNil(o.ClientIdAliasUsed) {
+		toSerialize["clientIdAliasUsed"] = o.ClientIdAliasUsed
+	}
+	if !IsNil(o.ClientEntityIdUsed) {
+		toSerialize["clientEntityIdUsed"] = o.ClientEntityIdUsed
+	}
+	if !IsNil(o.Acrs) {
+		toSerialize["acrs"] = o.Acrs
+	}
+	if !IsNil(o.Subject) {
+		toSerialize["subject"] = o.Subject
+	}
+	if !IsNil(o.LoginHint) {
+		toSerialize["loginHint"] = o.LoginHint
+	}
+	if !IsNil(o.LowestPrompt) {
+		toSerialize["lowestPrompt"] = o.LowestPrompt
+	}
+	if !IsNil(o.Prompts) {
+		toSerialize["prompts"] = o.Prompts
+	}
+	if !IsNil(o.RequestObjectPayload) {
+		toSerialize["requestObjectPayload"] = o.RequestObjectPayload
+	}
+	if !IsNil(o.IdTokenClaims) {
+		toSerialize["idTokenClaims"] = o.IdTokenClaims
+	}
+	if !IsNil(o.UserInfoClaims) {
+		toSerialize["userInfoClaims"] = o.UserInfoClaims
+	}
+	if !IsNil(o.TransformedClaims) {
+		toSerialize["transformedClaims"] = o.TransformedClaims
+	}
+	if !IsNil(o.Resources) {
+		toSerialize["resources"] = o.Resources
+	}
+	if !IsNil(o.AuthorizationDetails) {
+		toSerialize["authorizationDetails"] = o.AuthorizationDetails
+	}
+	if !IsNil(o.Purpose) {
+		toSerialize["purpose"] = o.Purpose
+	}
+	if !IsNil(o.GmAction) {
+		toSerialize["gmAction"] = o.GmAction
+	}
+	if !IsNil(o.GrantId) {
+		toSerialize["grantId"] = o.GrantId
+	}
+	if !IsNil(o.GrantSubject) {
+		toSerialize["grantSubject"] = o.GrantSubject
+	}
+	if !IsNil(o.Grant) {
+		toSerialize["grant"] = o.Grant
+	}
+	if !IsNil(o.RequestedClaimsForTx) {
+		toSerialize["requestedClaimsForTx"] = o.RequestedClaimsForTx
+	}
+	if !IsNil(o.RequestedVerifiedClaimsForTx) {
+		toSerialize["requestedVerifiedClaimsForTx"] = o.RequestedVerifiedClaimsForTx
+	}
+	if !IsNil(o.ResponseContent) {
+		toSerialize["responseContent"] = o.ResponseContent
+	}
+	if !IsNil(o.Ticket) {
+		toSerialize["ticket"] = o.Ticket
+	}
+	return toSerialize, nil
 }
 
 type NullableAuthorizationResponse struct {
@@ -1375,5 +1386,3 @@ func (v *NullableAuthorizationResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

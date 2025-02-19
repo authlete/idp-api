@@ -14,179 +14,182 @@ import (
 	"encoding/json"
 )
 
+// checks if the Service type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Service{}
+
 // Service struct for Service
 type Service struct {
-	Number *int32 `json:"number,omitempty"`
-	ServiceOwnerNumber *int32 `json:"serviceOwnerNumber,omitempty"`
-	ServiceName *string `json:"serviceName,omitempty"`
-	ApiKey *int64 `json:"apiKey,omitempty"`
-	ApiSecret *string `json:"apiSecret,omitempty"`
-	Issuer *string `json:"issuer,omitempty"`
-	AuthorizationEndpoint *string `json:"authorizationEndpoint,omitempty"`
-	TokenEndpoint *string `json:"tokenEndpoint,omitempty"`
-	RevocationEndpoint *string `json:"revocationEndpoint,omitempty"`
-	SupportedRevocationAuthMethods []string `json:"supportedRevocationAuthMethods,omitempty"`
-	UserInfoEndpoint *string `json:"userInfoEndpoint,omitempty"`
-	JwksUri *string `json:"jwksUri,omitempty"`
-	Jwks *string `json:"jwks,omitempty"`
-	RegistrationEndpoint *string `json:"registrationEndpoint,omitempty"`
-	RegistrationManagementEndpoint *string `json:"registrationManagementEndpoint,omitempty"`
-	SupportedScopes []Scope `json:"supportedScopes,omitempty"`
-	SupportedResponseTypes []string `json:"supportedResponseTypes,omitempty"`
-	SupportedGrantTypes []string `json:"supportedGrantTypes,omitempty"`
-	SupportedAcrs []string `json:"supportedAcrs,omitempty"`
-	SupportedTokenAuthMethods []string `json:"supportedTokenAuthMethods,omitempty"`
-	SupportedDisplays []string `json:"supportedDisplays,omitempty"`
-	SupportedClaimTypes []string `json:"supportedClaimTypes,omitempty"`
-	SupportedClaims []string `json:"supportedClaims,omitempty"`
-	ServiceDocumentation *string `json:"serviceDocumentation,omitempty"`
-	SupportedClaimLocales []string `json:"supportedClaimLocales,omitempty"`
-	SupportedUiLocales []string `json:"supportedUiLocales,omitempty"`
-	PolicyUri *string `json:"policyUri,omitempty"`
-	TosUri *string `json:"tosUri,omitempty"`
-	AuthenticationCallbackEndpoint *string `json:"authenticationCallbackEndpoint,omitempty"`
-	AuthenticationCallbackApiKey *string `json:"authenticationCallbackApiKey,omitempty"`
-	AuthenticationCallbackApiSecret *string `json:"authenticationCallbackApiSecret,omitempty"`
-	SupportedSnses []string `json:"supportedSnses,omitempty"`
-	SnsCredentials []SnsCredentials `json:"snsCredentials,omitempty"`
-	CreatedAt *int64 `json:"createdAt,omitempty"`
-	ModifiedAt *int64 `json:"modifiedAt,omitempty"`
-	DeveloperAuthenticationCallbackEndpoint *string `json:"developerAuthenticationCallbackEndpoint,omitempty"`
-	DeveloperAuthenticationCallbackApiKey *string `json:"developerAuthenticationCallbackApiKey,omitempty"`
-	DeveloperAuthenticationCallbackApiSecret *string `json:"developerAuthenticationCallbackApiSecret,omitempty"`
-	SupportedDeveloperSnses []string `json:"supportedDeveloperSnses,omitempty"`
-	DeveloperSnsCredentials []SnsCredentials `json:"developerSnsCredentials,omitempty"`
-	ClientsPerDeveloper *int32 `json:"clientsPerDeveloper,omitempty"`
-	DirectAuthorizationEndpointEnabled *bool `json:"directAuthorizationEndpointEnabled,omitempty"`
-	DirectTokenEndpointEnabled *bool `json:"directTokenEndpointEnabled,omitempty"`
-	DirectRevocationEndpointEnabled *bool `json:"directRevocationEndpointEnabled,omitempty"`
-	DirectUserInfoEndpointEnabled *bool `json:"directUserInfoEndpointEnabled,omitempty"`
-	DirectJwksEndpointEnabled *bool `json:"directJwksEndpointEnabled,omitempty"`
-	DirectIntrospectionEndpointEnabled *bool `json:"directIntrospectionEndpointEnabled,omitempty"`
-	SingleAccessTokenPerSubject *bool `json:"singleAccessTokenPerSubject,omitempty"`
-	PkceRequired *bool `json:"pkceRequired,omitempty"`
-	PkceS256Required *bool `json:"pkceS256Required,omitempty"`
-	RefreshTokenKept *bool `json:"refreshTokenKept,omitempty"`
-	RefreshTokenDurationKept *bool `json:"refreshTokenDurationKept,omitempty"`
-	RefreshTokenDurationReset *bool `json:"refreshTokenDurationReset,omitempty"`
-	ErrorDescriptionOmitted *bool `json:"errorDescriptionOmitted,omitempty"`
-	ErrorUriOmitted *bool `json:"errorUriOmitted,omitempty"`
-	ClientIdAliasEnabled *bool `json:"clientIdAliasEnabled,omitempty"`
-	SupportedServiceProfiles []string `json:"supportedServiceProfiles,omitempty"`
-	TlsClientCertificateBoundAccessTokens *bool `json:"tlsClientCertificateBoundAccessTokens,omitempty"`
-	IntrospectionEndpoint *string `json:"introspectionEndpoint,omitempty"`
-	SupportedIntrospectionAuthMethods []string `json:"supportedIntrospectionAuthMethods,omitempty"`
-	MutualTlsValidatePkiCertChain *bool `json:"mutualTlsValidatePkiCertChain,omitempty"`
-	TrustedRootCertificates []string `json:"trustedRootCertificates,omitempty"`
-	DynamicRegistrationSupported *bool `json:"dynamicRegistrationSupported,omitempty"`
-	EndSessionEndpoint *string `json:"endSessionEndpoint,omitempty"`
-	Description *string `json:"description,omitempty"`
-	AccessTokenType *string `json:"accessTokenType,omitempty"`
-	AccessTokenSignAlg *string `json:"accessTokenSignAlg,omitempty"`
-	AccessTokenDuration *int64 `json:"accessTokenDuration,omitempty"`
-	RefreshTokenDuration *int64 `json:"refreshTokenDuration,omitempty"`
-	IdTokenDuration *int64 `json:"idTokenDuration,omitempty"`
-	AuthorizationResponseDuration *int64 `json:"authorizationResponseDuration,omitempty"`
-	PushedAuthReqDuration *int64 `json:"pushedAuthReqDuration,omitempty"`
-	Metadata []Pair `json:"metadata,omitempty"`
-	AccessTokenSignatureKeyId *string `json:"accessTokenSignatureKeyId,omitempty"`
-	AuthorizationSignatureKeyId *string `json:"authorizationSignatureKeyId,omitempty"`
-	IdTokenSignatureKeyId *string `json:"idTokenSignatureKeyId,omitempty"`
-	UserInfoSignatureKeyId *string `json:"userInfoSignatureKeyId,omitempty"`
-	SupportedBackchannelTokenDeliveryModes []string `json:"supportedBackchannelTokenDeliveryModes,omitempty"`
-	BackchannelAuthenticationEndpoint *string `json:"backchannelAuthenticationEndpoint,omitempty"`
-	BackchannelUserCodeParameterSupported *bool `json:"backchannelUserCodeParameterSupported,omitempty"`
-	BackchannelAuthReqIdDuration *int32 `json:"backchannelAuthReqIdDuration,omitempty"`
-	BackchannelPollingInterval *int32 `json:"backchannelPollingInterval,omitempty"`
-	BackchannelBindingMessageRequiredInFapi *bool `json:"backchannelBindingMessageRequiredInFapi,omitempty"`
-	AllowableClockSkew *int32 `json:"allowableClockSkew,omitempty"`
-	DeviceAuthorizationEndpoint *string `json:"deviceAuthorizationEndpoint,omitempty"`
-	DeviceVerificationUri *string `json:"deviceVerificationUri,omitempty"`
-	DeviceVerificationUriComplete *string `json:"deviceVerificationUriComplete,omitempty"`
-	DeviceFlowCodeDuration *int32 `json:"deviceFlowCodeDuration,omitempty"`
-	DeviceFlowPollingInterval *int32 `json:"deviceFlowPollingInterval,omitempty"`
-	UserCodeCharset *string `json:"userCodeCharset,omitempty"`
-	UserCodeLength *int32 `json:"userCodeLength,omitempty"`
-	PushedAuthReqEndpoint *string `json:"pushedAuthReqEndpoint,omitempty"`
-	MtlsEndpointAliases []NamedUri `json:"mtlsEndpointAliases,omitempty"`
-	SupportedAuthorizationDetailsTypes []string `json:"supportedAuthorizationDetailsTypes,omitempty"`
-	SupportedTrustFrameworks []string `json:"supportedTrustFrameworks,omitempty"`
-	SupportedEvidence []string `json:"supportedEvidence,omitempty"`
+	Number                                   *int32           `json:"number,omitempty"`
+	ServiceOwnerNumber                       *int32           `json:"serviceOwnerNumber,omitempty"`
+	ServiceName                              *string          `json:"serviceName,omitempty"`
+	ApiKey                                   *int64           `json:"apiKey,omitempty"`
+	ApiSecret                                *string          `json:"apiSecret,omitempty"`
+	Issuer                                   *string          `json:"issuer,omitempty"`
+	AuthorizationEndpoint                    *string          `json:"authorizationEndpoint,omitempty"`
+	TokenEndpoint                            *string          `json:"tokenEndpoint,omitempty"`
+	RevocationEndpoint                       *string          `json:"revocationEndpoint,omitempty"`
+	SupportedRevocationAuthMethods           []string         `json:"supportedRevocationAuthMethods,omitempty"`
+	UserInfoEndpoint                         *string          `json:"userInfoEndpoint,omitempty"`
+	JwksUri                                  *string          `json:"jwksUri,omitempty"`
+	Jwks                                     *string          `json:"jwks,omitempty"`
+	RegistrationEndpoint                     *string          `json:"registrationEndpoint,omitempty"`
+	RegistrationManagementEndpoint           *string          `json:"registrationManagementEndpoint,omitempty"`
+	SupportedScopes                          []Scope          `json:"supportedScopes,omitempty"`
+	SupportedResponseTypes                   []string         `json:"supportedResponseTypes,omitempty"`
+	SupportedGrantTypes                      []string         `json:"supportedGrantTypes,omitempty"`
+	SupportedAcrs                            []string         `json:"supportedAcrs,omitempty"`
+	SupportedTokenAuthMethods                []string         `json:"supportedTokenAuthMethods,omitempty"`
+	SupportedDisplays                        []string         `json:"supportedDisplays,omitempty"`
+	SupportedClaimTypes                      []string         `json:"supportedClaimTypes,omitempty"`
+	SupportedClaims                          []string         `json:"supportedClaims,omitempty"`
+	ServiceDocumentation                     *string          `json:"serviceDocumentation,omitempty"`
+	SupportedClaimLocales                    []string         `json:"supportedClaimLocales,omitempty"`
+	SupportedUiLocales                       []string         `json:"supportedUiLocales,omitempty"`
+	PolicyUri                                *string          `json:"policyUri,omitempty"`
+	TosUri                                   *string          `json:"tosUri,omitempty"`
+	AuthenticationCallbackEndpoint           *string          `json:"authenticationCallbackEndpoint,omitempty"`
+	AuthenticationCallbackApiKey             *string          `json:"authenticationCallbackApiKey,omitempty"`
+	AuthenticationCallbackApiSecret          *string          `json:"authenticationCallbackApiSecret,omitempty"`
+	SupportedSnses                           []string         `json:"supportedSnses,omitempty"`
+	SnsCredentials                           []SnsCredentials `json:"snsCredentials,omitempty"`
+	CreatedAt                                *int64           `json:"createdAt,omitempty"`
+	ModifiedAt                               *int64           `json:"modifiedAt,omitempty"`
+	DeveloperAuthenticationCallbackEndpoint  *string          `json:"developerAuthenticationCallbackEndpoint,omitempty"`
+	DeveloperAuthenticationCallbackApiKey    *string          `json:"developerAuthenticationCallbackApiKey,omitempty"`
+	DeveloperAuthenticationCallbackApiSecret *string          `json:"developerAuthenticationCallbackApiSecret,omitempty"`
+	SupportedDeveloperSnses                  []string         `json:"supportedDeveloperSnses,omitempty"`
+	DeveloperSnsCredentials                  []SnsCredentials `json:"developerSnsCredentials,omitempty"`
+	ClientsPerDeveloper                      *int32           `json:"clientsPerDeveloper,omitempty"`
+	DirectAuthorizationEndpointEnabled       *bool            `json:"directAuthorizationEndpointEnabled,omitempty"`
+	DirectTokenEndpointEnabled               *bool            `json:"directTokenEndpointEnabled,omitempty"`
+	DirectRevocationEndpointEnabled          *bool            `json:"directRevocationEndpointEnabled,omitempty"`
+	DirectUserInfoEndpointEnabled            *bool            `json:"directUserInfoEndpointEnabled,omitempty"`
+	DirectJwksEndpointEnabled                *bool            `json:"directJwksEndpointEnabled,omitempty"`
+	DirectIntrospectionEndpointEnabled       *bool            `json:"directIntrospectionEndpointEnabled,omitempty"`
+	SingleAccessTokenPerSubject              *bool            `json:"singleAccessTokenPerSubject,omitempty"`
+	PkceRequired                             *bool            `json:"pkceRequired,omitempty"`
+	PkceS256Required                         *bool            `json:"pkceS256Required,omitempty"`
+	RefreshTokenKept                         *bool            `json:"refreshTokenKept,omitempty"`
+	RefreshTokenDurationKept                 *bool            `json:"refreshTokenDurationKept,omitempty"`
+	RefreshTokenDurationReset                *bool            `json:"refreshTokenDurationReset,omitempty"`
+	ErrorDescriptionOmitted                  *bool            `json:"errorDescriptionOmitted,omitempty"`
+	ErrorUriOmitted                          *bool            `json:"errorUriOmitted,omitempty"`
+	ClientIdAliasEnabled                     *bool            `json:"clientIdAliasEnabled,omitempty"`
+	SupportedServiceProfiles                 []string         `json:"supportedServiceProfiles,omitempty"`
+	TlsClientCertificateBoundAccessTokens    *bool            `json:"tlsClientCertificateBoundAccessTokens,omitempty"`
+	IntrospectionEndpoint                    *string          `json:"introspectionEndpoint,omitempty"`
+	SupportedIntrospectionAuthMethods        []string         `json:"supportedIntrospectionAuthMethods,omitempty"`
+	MutualTlsValidatePkiCertChain            *bool            `json:"mutualTlsValidatePkiCertChain,omitempty"`
+	TrustedRootCertificates                  []string         `json:"trustedRootCertificates,omitempty"`
+	DynamicRegistrationSupported             *bool            `json:"dynamicRegistrationSupported,omitempty"`
+	EndSessionEndpoint                       *string          `json:"endSessionEndpoint,omitempty"`
+	Description                              *string          `json:"description,omitempty"`
+	AccessTokenType                          *string          `json:"accessTokenType,omitempty"`
+	AccessTokenSignAlg                       *string          `json:"accessTokenSignAlg,omitempty"`
+	AccessTokenDuration                      *int64           `json:"accessTokenDuration,omitempty"`
+	RefreshTokenDuration                     *int64           `json:"refreshTokenDuration,omitempty"`
+	IdTokenDuration                          *int64           `json:"idTokenDuration,omitempty"`
+	AuthorizationResponseDuration            *int64           `json:"authorizationResponseDuration,omitempty"`
+	PushedAuthReqDuration                    *int64           `json:"pushedAuthReqDuration,omitempty"`
+	Metadata                                 []Pair           `json:"metadata,omitempty"`
+	AccessTokenSignatureKeyId                *string          `json:"accessTokenSignatureKeyId,omitempty"`
+	AuthorizationSignatureKeyId              *string          `json:"authorizationSignatureKeyId,omitempty"`
+	IdTokenSignatureKeyId                    *string          `json:"idTokenSignatureKeyId,omitempty"`
+	UserInfoSignatureKeyId                   *string          `json:"userInfoSignatureKeyId,omitempty"`
+	SupportedBackchannelTokenDeliveryModes   []string         `json:"supportedBackchannelTokenDeliveryModes,omitempty"`
+	BackchannelAuthenticationEndpoint        *string          `json:"backchannelAuthenticationEndpoint,omitempty"`
+	BackchannelUserCodeParameterSupported    *bool            `json:"backchannelUserCodeParameterSupported,omitempty"`
+	BackchannelAuthReqIdDuration             *int32           `json:"backchannelAuthReqIdDuration,omitempty"`
+	BackchannelPollingInterval               *int32           `json:"backchannelPollingInterval,omitempty"`
+	BackchannelBindingMessageRequiredInFapi  *bool            `json:"backchannelBindingMessageRequiredInFapi,omitempty"`
+	AllowableClockSkew                       *int32           `json:"allowableClockSkew,omitempty"`
+	DeviceAuthorizationEndpoint              *string          `json:"deviceAuthorizationEndpoint,omitempty"`
+	DeviceVerificationUri                    *string          `json:"deviceVerificationUri,omitempty"`
+	DeviceVerificationUriComplete            *string          `json:"deviceVerificationUriComplete,omitempty"`
+	DeviceFlowCodeDuration                   *int32           `json:"deviceFlowCodeDuration,omitempty"`
+	DeviceFlowPollingInterval                *int32           `json:"deviceFlowPollingInterval,omitempty"`
+	UserCodeCharset                          *string          `json:"userCodeCharset,omitempty"`
+	UserCodeLength                           *int32           `json:"userCodeLength,omitempty"`
+	PushedAuthReqEndpoint                    *string          `json:"pushedAuthReqEndpoint,omitempty"`
+	MtlsEndpointAliases                      []NamedUri       `json:"mtlsEndpointAliases,omitempty"`
+	SupportedAuthorizationDetailsTypes       []string         `json:"supportedAuthorizationDetailsTypes,omitempty"`
+	SupportedTrustFrameworks                 []string         `json:"supportedTrustFrameworks,omitempty"`
+	SupportedEvidence                        []string         `json:"supportedEvidence,omitempty"`
 	// Deprecated
 	SupportedIdentityDocuments []string `json:"supportedIdentityDocuments,omitempty"`
-	SupportedDocuments []string `json:"supportedDocuments,omitempty"`
+	SupportedDocuments         []string `json:"supportedDocuments,omitempty"`
 	// Deprecated
 	SupportedVerificationMethods []string `json:"supportedVerificationMethods,omitempty"`
-	SupportedDocumentsMethods []string `json:"supportedDocumentsMethods,omitempty"`
+	SupportedDocumentsMethods    []string `json:"supportedDocumentsMethods,omitempty"`
 	// Deprecated
 	SupportedDocumentsValidationMethods []string `json:"supportedDocumentsValidationMethods,omitempty"`
 	// Deprecated
-	SupportedDocumentsVerificationMethods []string `json:"supportedDocumentsVerificationMethods,omitempty"`
-	SupportedDocumentsCheckMethods []string `json:"supportedDocumentsCheckMethods,omitempty"`
-	SupportedElectronicRecords []string `json:"supportedElectronicRecords,omitempty"`
-	SupportedVerifiedClaims []string `json:"supportedVerifiedClaims,omitempty"`
-	SupportedAttachments []string `json:"supportedAttachments,omitempty"`
-	SupportedDigestAlgorithms []string `json:"supportedDigestAlgorithms,omitempty"`
-	MissingClientIdAllowed *bool `json:"missingClientIdAllowed,omitempty"`
-	ParRequired *bool `json:"parRequired,omitempty"`
-	RequestObjectRequired *bool `json:"requestObjectRequired,omitempty"`
-	TraditionalRequestObjectProcessingApplied *bool `json:"traditionalRequestObjectProcessingApplied,omitempty"`
-	ClaimShortcutRestrictive *bool `json:"claimShortcutRestrictive,omitempty"`
-	ScopeRequired *bool `json:"scopeRequired,omitempty"`
-	NbfOptional *bool `json:"nbfOptional,omitempty"`
-	IssSuppressed *bool `json:"issSuppressed,omitempty"`
-	Attributes []Pair `json:"attributes,omitempty"`
-	SupportedCustomClientMetadata []string `json:"supportedCustomClientMetadata,omitempty"`
-	TokenExpirationLinked *bool `json:"tokenExpirationLinked,omitempty"`
-	FrontChannelRequestObjectEncryptionRequired *bool `json:"frontChannelRequestObjectEncryptionRequired,omitempty"`
-	RequestObjectEncryptionAlgMatchRequired *bool `json:"requestObjectEncryptionAlgMatchRequired,omitempty"`
-	RequestObjectEncryptionEncMatchRequired *bool `json:"requestObjectEncryptionEncMatchRequired,omitempty"`
-	HsmEnabled *bool `json:"hsmEnabled,omitempty"`
-	Hsks []Hsk `json:"hsks,omitempty"`
-	GrantManagementEndpoint *string `json:"grantManagementEndpoint,omitempty"`
-	GrantManagementActionRequired *bool `json:"grantManagementActionRequired,omitempty"`
-	UnauthorizedOnClientConfigSupported *bool `json:"unauthorizedOnClientConfigSupported,omitempty"`
-	DcrScopeUsedAsRequestable *bool `json:"dcrScopeUsedAsRequestable,omitempty"`
-	PredefinedTransformedClaims *string `json:"predefinedTransformedClaims,omitempty"`
-	LoopbackRedirectionUriVariable *bool `json:"loopbackRedirectionUriVariable,omitempty"`
-	RequestObjectAudienceChecked *bool `json:"requestObjectAudienceChecked,omitempty"`
-	AccessTokenForExternalAttachmentEmbedded *bool `json:"accessTokenForExternalAttachmentEmbedded,omitempty"`
-	RefreshTokenIdempotent *bool `json:"refreshTokenIdempotent,omitempty"`
-	FederationEnabled *bool `json:"federationEnabled,omitempty"`
-	OrganizationName *string `json:"organizationName,omitempty"`
-	AuthorityHints []string `json:"authorityHints,omitempty"`
-	TrustAnchors []TrustAnchor `json:"trustAnchors,omitempty"`
-	FederationJwks *string `json:"federationJwks,omitempty"`
-	FederationSignatureKeyId *string `json:"federationSignatureKeyId,omitempty"`
-	FederationConfigurationDuration *int32 `json:"federationConfigurationDuration,omitempty"`
-	SignedJwksUri *string `json:"signedJwksUri,omitempty"`
-	FederationRegistrationEndpoint *string `json:"federationRegistrationEndpoint,omitempty"`
-	SupportedClientRegistrationTypes []string `json:"supportedClientRegistrationTypes,omitempty"`
-	TokenExchangeByIdentifiableClientsOnly *bool `json:"tokenExchangeByIdentifiableClientsOnly,omitempty"`
-	TokenExchangeByConfidentialClientsOnly *bool `json:"tokenExchangeByConfidentialClientsOnly,omitempty"`
-	TokenExchangeByPermittedClientsOnly *bool `json:"tokenExchangeByPermittedClientsOnly,omitempty"`
-	TokenExchangeEncryptedJwtRejected *bool `json:"tokenExchangeEncryptedJwtRejected,omitempty"`
-	TokenExchangeUnsignedJwtRejected *bool `json:"tokenExchangeUnsignedJwtRejected,omitempty"`
-	JwtGrantByIdentifiableClientsOnly *bool `json:"jwtGrantByIdentifiableClientsOnly,omitempty"`
-	JwtGrantEncryptedJwtRejected *bool `json:"jwtGrantEncryptedJwtRejected,omitempty"`
-	JwtGrantUnsignedJwtRejected *bool `json:"jwtGrantUnsignedJwtRejected,omitempty"`
-	DcrDuplicateSoftwareIdBlocked *bool `json:"dcrDuplicateSoftwareIdBlocked,omitempty"`
-	ResourceSignatureKeyId *string `json:"resourceSignatureKeyId,omitempty"`
-	RsResponseSigned *bool `json:"rsResponseSigned,omitempty"`
-	OpenidDroppedOnRefreshWithoutOfflineAccess *bool `json:"openidDroppedOnRefreshWithoutOfflineAccess,omitempty"`
-	VerifiableCredentialsEnabled *bool `json:"verifiableCredentialsEnabled,omitempty"`
-	CredentialIssuerMetadata *CredentialIssuerMetadata `json:"credentialIssuerMetadata,omitempty"`
-	CredentialOfferDuration *int64 `json:"credentialOfferDuration,omitempty"`
-	UserPinLength *int32 `json:"userPinLength,omitempty"`
-	IdTokenAudType *string `json:"idTokenAudType,omitempty"`
-	SupportedPromptValues []string `json:"supportedPromptValues,omitempty"`
-	VerifiedClaimsValidationSchemaSet *string `json:"verifiedClaimsValidationSchemaSet,omitempty"`
-	PreAuthorizedGrantAnonymousAccessSupported *bool `json:"preAuthorizedGrantAnonymousAccessSupported,omitempty"`
-	CredentialTransactionDuration *int64 `json:"credentialTransactionDuration,omitempty"`
-	CredentialDuration *int64 `json:"credentialDuration,omitempty"`
-	CredentialJwks *string `json:"credentialJwks,omitempty"`
-	IdTokenReissuable *bool `json:"idTokenReissuable,omitempty"`
-	CnonceDuration *int64 `json:"cnonceDuration,omitempty"`
+	SupportedDocumentsVerificationMethods       []string                  `json:"supportedDocumentsVerificationMethods,omitempty"`
+	SupportedDocumentsCheckMethods              []string                  `json:"supportedDocumentsCheckMethods,omitempty"`
+	SupportedElectronicRecords                  []string                  `json:"supportedElectronicRecords,omitempty"`
+	SupportedVerifiedClaims                     []string                  `json:"supportedVerifiedClaims,omitempty"`
+	SupportedAttachments                        []string                  `json:"supportedAttachments,omitempty"`
+	SupportedDigestAlgorithms                   []string                  `json:"supportedDigestAlgorithms,omitempty"`
+	MissingClientIdAllowed                      *bool                     `json:"missingClientIdAllowed,omitempty"`
+	ParRequired                                 *bool                     `json:"parRequired,omitempty"`
+	RequestObjectRequired                       *bool                     `json:"requestObjectRequired,omitempty"`
+	TraditionalRequestObjectProcessingApplied   *bool                     `json:"traditionalRequestObjectProcessingApplied,omitempty"`
+	ClaimShortcutRestrictive                    *bool                     `json:"claimShortcutRestrictive,omitempty"`
+	ScopeRequired                               *bool                     `json:"scopeRequired,omitempty"`
+	NbfOptional                                 *bool                     `json:"nbfOptional,omitempty"`
+	IssSuppressed                               *bool                     `json:"issSuppressed,omitempty"`
+	Attributes                                  []Pair                    `json:"attributes,omitempty"`
+	SupportedCustomClientMetadata               []string                  `json:"supportedCustomClientMetadata,omitempty"`
+	TokenExpirationLinked                       *bool                     `json:"tokenExpirationLinked,omitempty"`
+	FrontChannelRequestObjectEncryptionRequired *bool                     `json:"frontChannelRequestObjectEncryptionRequired,omitempty"`
+	RequestObjectEncryptionAlgMatchRequired     *bool                     `json:"requestObjectEncryptionAlgMatchRequired,omitempty"`
+	RequestObjectEncryptionEncMatchRequired     *bool                     `json:"requestObjectEncryptionEncMatchRequired,omitempty"`
+	HsmEnabled                                  *bool                     `json:"hsmEnabled,omitempty"`
+	Hsks                                        []Hsk                     `json:"hsks,omitempty"`
+	GrantManagementEndpoint                     *string                   `json:"grantManagementEndpoint,omitempty"`
+	GrantManagementActionRequired               *bool                     `json:"grantManagementActionRequired,omitempty"`
+	UnauthorizedOnClientConfigSupported         *bool                     `json:"unauthorizedOnClientConfigSupported,omitempty"`
+	DcrScopeUsedAsRequestable                   *bool                     `json:"dcrScopeUsedAsRequestable,omitempty"`
+	PredefinedTransformedClaims                 *string                   `json:"predefinedTransformedClaims,omitempty"`
+	LoopbackRedirectionUriVariable              *bool                     `json:"loopbackRedirectionUriVariable,omitempty"`
+	RequestObjectAudienceChecked                *bool                     `json:"requestObjectAudienceChecked,omitempty"`
+	AccessTokenForExternalAttachmentEmbedded    *bool                     `json:"accessTokenForExternalAttachmentEmbedded,omitempty"`
+	RefreshTokenIdempotent                      *bool                     `json:"refreshTokenIdempotent,omitempty"`
+	FederationEnabled                           *bool                     `json:"federationEnabled,omitempty"`
+	OrganizationName                            *string                   `json:"organizationName,omitempty"`
+	AuthorityHints                              []string                  `json:"authorityHints,omitempty"`
+	TrustAnchors                                []TrustAnchor             `json:"trustAnchors,omitempty"`
+	FederationJwks                              *string                   `json:"federationJwks,omitempty"`
+	FederationSignatureKeyId                    *string                   `json:"federationSignatureKeyId,omitempty"`
+	FederationConfigurationDuration             *int32                    `json:"federationConfigurationDuration,omitempty"`
+	SignedJwksUri                               *string                   `json:"signedJwksUri,omitempty"`
+	FederationRegistrationEndpoint              *string                   `json:"federationRegistrationEndpoint,omitempty"`
+	SupportedClientRegistrationTypes            []string                  `json:"supportedClientRegistrationTypes,omitempty"`
+	TokenExchangeByIdentifiableClientsOnly      *bool                     `json:"tokenExchangeByIdentifiableClientsOnly,omitempty"`
+	TokenExchangeByConfidentialClientsOnly      *bool                     `json:"tokenExchangeByConfidentialClientsOnly,omitempty"`
+	TokenExchangeByPermittedClientsOnly         *bool                     `json:"tokenExchangeByPermittedClientsOnly,omitempty"`
+	TokenExchangeEncryptedJwtRejected           *bool                     `json:"tokenExchangeEncryptedJwtRejected,omitempty"`
+	TokenExchangeUnsignedJwtRejected            *bool                     `json:"tokenExchangeUnsignedJwtRejected,omitempty"`
+	JwtGrantByIdentifiableClientsOnly           *bool                     `json:"jwtGrantByIdentifiableClientsOnly,omitempty"`
+	JwtGrantEncryptedJwtRejected                *bool                     `json:"jwtGrantEncryptedJwtRejected,omitempty"`
+	JwtGrantUnsignedJwtRejected                 *bool                     `json:"jwtGrantUnsignedJwtRejected,omitempty"`
+	DcrDuplicateSoftwareIdBlocked               *bool                     `json:"dcrDuplicateSoftwareIdBlocked,omitempty"`
+	ResourceSignatureKeyId                      *string                   `json:"resourceSignatureKeyId,omitempty"`
+	RsResponseSigned                            *bool                     `json:"rsResponseSigned,omitempty"`
+	OpenidDroppedOnRefreshWithoutOfflineAccess  *bool                     `json:"openidDroppedOnRefreshWithoutOfflineAccess,omitempty"`
+	VerifiableCredentialsEnabled                *bool                     `json:"verifiableCredentialsEnabled,omitempty"`
+	CredentialIssuerMetadata                    *CredentialIssuerMetadata `json:"credentialIssuerMetadata,omitempty"`
+	CredentialOfferDuration                     *int64                    `json:"credentialOfferDuration,omitempty"`
+	UserPinLength                               *int32                    `json:"userPinLength,omitempty"`
+	IdTokenAudType                              *string                   `json:"idTokenAudType,omitempty"`
+	SupportedPromptValues                       []string                  `json:"supportedPromptValues,omitempty"`
+	VerifiedClaimsValidationSchemaSet           *string                   `json:"verifiedClaimsValidationSchemaSet,omitempty"`
+	PreAuthorizedGrantAnonymousAccessSupported  *bool                     `json:"preAuthorizedGrantAnonymousAccessSupported,omitempty"`
+	CredentialTransactionDuration               *int64                    `json:"credentialTransactionDuration,omitempty"`
+	CredentialDuration                          *int64                    `json:"credentialDuration,omitempty"`
+	CredentialJwks                              *string                   `json:"credentialJwks,omitempty"`
+	IdTokenReissuable                           *bool                     `json:"idTokenReissuable,omitempty"`
+	CnonceDuration                              *int64                    `json:"cnonceDuration,omitempty"`
 }
 
 // NewService instantiates a new Service object
@@ -208,7 +211,7 @@ func NewServiceWithDefaults() *Service {
 
 // GetNumber returns the Number field value if set, zero value otherwise.
 func (o *Service) GetNumber() int32 {
-	if o == nil || isNil(o.Number) {
+	if o == nil || IsNil(o.Number) {
 		var ret int32
 		return ret
 	}
@@ -218,15 +221,15 @@ func (o *Service) GetNumber() int32 {
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetNumberOk() (*int32, bool) {
-	if o == nil || isNil(o.Number) {
-    return nil, false
+	if o == nil || IsNil(o.Number) {
+		return nil, false
 	}
 	return o.Number, true
 }
 
 // HasNumber returns a boolean if a field has been set.
 func (o *Service) HasNumber() bool {
-	if o != nil && !isNil(o.Number) {
+	if o != nil && !IsNil(o.Number) {
 		return true
 	}
 
@@ -240,7 +243,7 @@ func (o *Service) SetNumber(v int32) {
 
 // GetServiceOwnerNumber returns the ServiceOwnerNumber field value if set, zero value otherwise.
 func (o *Service) GetServiceOwnerNumber() int32 {
-	if o == nil || isNil(o.ServiceOwnerNumber) {
+	if o == nil || IsNil(o.ServiceOwnerNumber) {
 		var ret int32
 		return ret
 	}
@@ -250,15 +253,15 @@ func (o *Service) GetServiceOwnerNumber() int32 {
 // GetServiceOwnerNumberOk returns a tuple with the ServiceOwnerNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetServiceOwnerNumberOk() (*int32, bool) {
-	if o == nil || isNil(o.ServiceOwnerNumber) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceOwnerNumber) {
+		return nil, false
 	}
 	return o.ServiceOwnerNumber, true
 }
 
 // HasServiceOwnerNumber returns a boolean if a field has been set.
 func (o *Service) HasServiceOwnerNumber() bool {
-	if o != nil && !isNil(o.ServiceOwnerNumber) {
+	if o != nil && !IsNil(o.ServiceOwnerNumber) {
 		return true
 	}
 
@@ -272,7 +275,7 @@ func (o *Service) SetServiceOwnerNumber(v int32) {
 
 // GetServiceName returns the ServiceName field value if set, zero value otherwise.
 func (o *Service) GetServiceName() string {
-	if o == nil || isNil(o.ServiceName) {
+	if o == nil || IsNil(o.ServiceName) {
 		var ret string
 		return ret
 	}
@@ -282,15 +285,15 @@ func (o *Service) GetServiceName() string {
 // GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetServiceNameOk() (*string, bool) {
-	if o == nil || isNil(o.ServiceName) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceName) {
+		return nil, false
 	}
 	return o.ServiceName, true
 }
 
 // HasServiceName returns a boolean if a field has been set.
 func (o *Service) HasServiceName() bool {
-	if o != nil && !isNil(o.ServiceName) {
+	if o != nil && !IsNil(o.ServiceName) {
 		return true
 	}
 
@@ -304,7 +307,7 @@ func (o *Service) SetServiceName(v string) {
 
 // GetApiKey returns the ApiKey field value if set, zero value otherwise.
 func (o *Service) GetApiKey() int64 {
-	if o == nil || isNil(o.ApiKey) {
+	if o == nil || IsNil(o.ApiKey) {
 		var ret int64
 		return ret
 	}
@@ -314,15 +317,15 @@ func (o *Service) GetApiKey() int64 {
 // GetApiKeyOk returns a tuple with the ApiKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetApiKeyOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiKey) {
-    return nil, false
+	if o == nil || IsNil(o.ApiKey) {
+		return nil, false
 	}
 	return o.ApiKey, true
 }
 
 // HasApiKey returns a boolean if a field has been set.
 func (o *Service) HasApiKey() bool {
-	if o != nil && !isNil(o.ApiKey) {
+	if o != nil && !IsNil(o.ApiKey) {
 		return true
 	}
 
@@ -336,7 +339,7 @@ func (o *Service) SetApiKey(v int64) {
 
 // GetApiSecret returns the ApiSecret field value if set, zero value otherwise.
 func (o *Service) GetApiSecret() string {
-	if o == nil || isNil(o.ApiSecret) {
+	if o == nil || IsNil(o.ApiSecret) {
 		var ret string
 		return ret
 	}
@@ -346,15 +349,15 @@ func (o *Service) GetApiSecret() string {
 // GetApiSecretOk returns a tuple with the ApiSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetApiSecretOk() (*string, bool) {
-	if o == nil || isNil(o.ApiSecret) {
-    return nil, false
+	if o == nil || IsNil(o.ApiSecret) {
+		return nil, false
 	}
 	return o.ApiSecret, true
 }
 
 // HasApiSecret returns a boolean if a field has been set.
 func (o *Service) HasApiSecret() bool {
-	if o != nil && !isNil(o.ApiSecret) {
+	if o != nil && !IsNil(o.ApiSecret) {
 		return true
 	}
 
@@ -368,7 +371,7 @@ func (o *Service) SetApiSecret(v string) {
 
 // GetIssuer returns the Issuer field value if set, zero value otherwise.
 func (o *Service) GetIssuer() string {
-	if o == nil || isNil(o.Issuer) {
+	if o == nil || IsNil(o.Issuer) {
 		var ret string
 		return ret
 	}
@@ -378,15 +381,15 @@ func (o *Service) GetIssuer() string {
 // GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIssuerOk() (*string, bool) {
-	if o == nil || isNil(o.Issuer) {
-    return nil, false
+	if o == nil || IsNil(o.Issuer) {
+		return nil, false
 	}
 	return o.Issuer, true
 }
 
 // HasIssuer returns a boolean if a field has been set.
 func (o *Service) HasIssuer() bool {
-	if o != nil && !isNil(o.Issuer) {
+	if o != nil && !IsNil(o.Issuer) {
 		return true
 	}
 
@@ -400,7 +403,7 @@ func (o *Service) SetIssuer(v string) {
 
 // GetAuthorizationEndpoint returns the AuthorizationEndpoint field value if set, zero value otherwise.
 func (o *Service) GetAuthorizationEndpoint() string {
-	if o == nil || isNil(o.AuthorizationEndpoint) {
+	if o == nil || IsNil(o.AuthorizationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -410,15 +413,15 @@ func (o *Service) GetAuthorizationEndpoint() string {
 // GetAuthorizationEndpointOk returns a tuple with the AuthorizationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthorizationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.AuthorizationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationEndpoint) {
+		return nil, false
 	}
 	return o.AuthorizationEndpoint, true
 }
 
 // HasAuthorizationEndpoint returns a boolean if a field has been set.
 func (o *Service) HasAuthorizationEndpoint() bool {
-	if o != nil && !isNil(o.AuthorizationEndpoint) {
+	if o != nil && !IsNil(o.AuthorizationEndpoint) {
 		return true
 	}
 
@@ -432,7 +435,7 @@ func (o *Service) SetAuthorizationEndpoint(v string) {
 
 // GetTokenEndpoint returns the TokenEndpoint field value if set, zero value otherwise.
 func (o *Service) GetTokenEndpoint() string {
-	if o == nil || isNil(o.TokenEndpoint) {
+	if o == nil || IsNil(o.TokenEndpoint) {
 		var ret string
 		return ret
 	}
@@ -442,15 +445,15 @@ func (o *Service) GetTokenEndpoint() string {
 // GetTokenEndpointOk returns a tuple with the TokenEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.TokenEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.TokenEndpoint) {
+		return nil, false
 	}
 	return o.TokenEndpoint, true
 }
 
 // HasTokenEndpoint returns a boolean if a field has been set.
 func (o *Service) HasTokenEndpoint() bool {
-	if o != nil && !isNil(o.TokenEndpoint) {
+	if o != nil && !IsNil(o.TokenEndpoint) {
 		return true
 	}
 
@@ -464,7 +467,7 @@ func (o *Service) SetTokenEndpoint(v string) {
 
 // GetRevocationEndpoint returns the RevocationEndpoint field value if set, zero value otherwise.
 func (o *Service) GetRevocationEndpoint() string {
-	if o == nil || isNil(o.RevocationEndpoint) {
+	if o == nil || IsNil(o.RevocationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -474,15 +477,15 @@ func (o *Service) GetRevocationEndpoint() string {
 // GetRevocationEndpointOk returns a tuple with the RevocationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRevocationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.RevocationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.RevocationEndpoint) {
+		return nil, false
 	}
 	return o.RevocationEndpoint, true
 }
 
 // HasRevocationEndpoint returns a boolean if a field has been set.
 func (o *Service) HasRevocationEndpoint() bool {
-	if o != nil && !isNil(o.RevocationEndpoint) {
+	if o != nil && !IsNil(o.RevocationEndpoint) {
 		return true
 	}
 
@@ -496,7 +499,7 @@ func (o *Service) SetRevocationEndpoint(v string) {
 
 // GetSupportedRevocationAuthMethods returns the SupportedRevocationAuthMethods field value if set, zero value otherwise.
 func (o *Service) GetSupportedRevocationAuthMethods() []string {
-	if o == nil || isNil(o.SupportedRevocationAuthMethods) {
+	if o == nil || IsNil(o.SupportedRevocationAuthMethods) {
 		var ret []string
 		return ret
 	}
@@ -506,15 +509,15 @@ func (o *Service) GetSupportedRevocationAuthMethods() []string {
 // GetSupportedRevocationAuthMethodsOk returns a tuple with the SupportedRevocationAuthMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedRevocationAuthMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedRevocationAuthMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedRevocationAuthMethods) {
+		return nil, false
 	}
 	return o.SupportedRevocationAuthMethods, true
 }
 
 // HasSupportedRevocationAuthMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedRevocationAuthMethods() bool {
-	if o != nil && !isNil(o.SupportedRevocationAuthMethods) {
+	if o != nil && !IsNil(o.SupportedRevocationAuthMethods) {
 		return true
 	}
 
@@ -528,7 +531,7 @@ func (o *Service) SetSupportedRevocationAuthMethods(v []string) {
 
 // GetUserInfoEndpoint returns the UserInfoEndpoint field value if set, zero value otherwise.
 func (o *Service) GetUserInfoEndpoint() string {
-	if o == nil || isNil(o.UserInfoEndpoint) {
+	if o == nil || IsNil(o.UserInfoEndpoint) {
 		var ret string
 		return ret
 	}
@@ -538,15 +541,15 @@ func (o *Service) GetUserInfoEndpoint() string {
 // GetUserInfoEndpointOk returns a tuple with the UserInfoEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetUserInfoEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.UserInfoEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.UserInfoEndpoint) {
+		return nil, false
 	}
 	return o.UserInfoEndpoint, true
 }
 
 // HasUserInfoEndpoint returns a boolean if a field has been set.
 func (o *Service) HasUserInfoEndpoint() bool {
-	if o != nil && !isNil(o.UserInfoEndpoint) {
+	if o != nil && !IsNil(o.UserInfoEndpoint) {
 		return true
 	}
 
@@ -560,7 +563,7 @@ func (o *Service) SetUserInfoEndpoint(v string) {
 
 // GetJwksUri returns the JwksUri field value if set, zero value otherwise.
 func (o *Service) GetJwksUri() string {
-	if o == nil || isNil(o.JwksUri) {
+	if o == nil || IsNil(o.JwksUri) {
 		var ret string
 		return ret
 	}
@@ -570,15 +573,15 @@ func (o *Service) GetJwksUri() string {
 // GetJwksUriOk returns a tuple with the JwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetJwksUriOk() (*string, bool) {
-	if o == nil || isNil(o.JwksUri) {
-    return nil, false
+	if o == nil || IsNil(o.JwksUri) {
+		return nil, false
 	}
 	return o.JwksUri, true
 }
 
 // HasJwksUri returns a boolean if a field has been set.
 func (o *Service) HasJwksUri() bool {
-	if o != nil && !isNil(o.JwksUri) {
+	if o != nil && !IsNil(o.JwksUri) {
 		return true
 	}
 
@@ -592,7 +595,7 @@ func (o *Service) SetJwksUri(v string) {
 
 // GetJwks returns the Jwks field value if set, zero value otherwise.
 func (o *Service) GetJwks() string {
-	if o == nil || isNil(o.Jwks) {
+	if o == nil || IsNil(o.Jwks) {
 		var ret string
 		return ret
 	}
@@ -602,15 +605,15 @@ func (o *Service) GetJwks() string {
 // GetJwksOk returns a tuple with the Jwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetJwksOk() (*string, bool) {
-	if o == nil || isNil(o.Jwks) {
-    return nil, false
+	if o == nil || IsNil(o.Jwks) {
+		return nil, false
 	}
 	return o.Jwks, true
 }
 
 // HasJwks returns a boolean if a field has been set.
 func (o *Service) HasJwks() bool {
-	if o != nil && !isNil(o.Jwks) {
+	if o != nil && !IsNil(o.Jwks) {
 		return true
 	}
 
@@ -624,7 +627,7 @@ func (o *Service) SetJwks(v string) {
 
 // GetRegistrationEndpoint returns the RegistrationEndpoint field value if set, zero value otherwise.
 func (o *Service) GetRegistrationEndpoint() string {
-	if o == nil || isNil(o.RegistrationEndpoint) {
+	if o == nil || IsNil(o.RegistrationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -634,15 +637,15 @@ func (o *Service) GetRegistrationEndpoint() string {
 // GetRegistrationEndpointOk returns a tuple with the RegistrationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRegistrationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.RegistrationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.RegistrationEndpoint) {
+		return nil, false
 	}
 	return o.RegistrationEndpoint, true
 }
 
 // HasRegistrationEndpoint returns a boolean if a field has been set.
 func (o *Service) HasRegistrationEndpoint() bool {
-	if o != nil && !isNil(o.RegistrationEndpoint) {
+	if o != nil && !IsNil(o.RegistrationEndpoint) {
 		return true
 	}
 
@@ -656,7 +659,7 @@ func (o *Service) SetRegistrationEndpoint(v string) {
 
 // GetRegistrationManagementEndpoint returns the RegistrationManagementEndpoint field value if set, zero value otherwise.
 func (o *Service) GetRegistrationManagementEndpoint() string {
-	if o == nil || isNil(o.RegistrationManagementEndpoint) {
+	if o == nil || IsNil(o.RegistrationManagementEndpoint) {
 		var ret string
 		return ret
 	}
@@ -666,15 +669,15 @@ func (o *Service) GetRegistrationManagementEndpoint() string {
 // GetRegistrationManagementEndpointOk returns a tuple with the RegistrationManagementEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRegistrationManagementEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.RegistrationManagementEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.RegistrationManagementEndpoint) {
+		return nil, false
 	}
 	return o.RegistrationManagementEndpoint, true
 }
 
 // HasRegistrationManagementEndpoint returns a boolean if a field has been set.
 func (o *Service) HasRegistrationManagementEndpoint() bool {
-	if o != nil && !isNil(o.RegistrationManagementEndpoint) {
+	if o != nil && !IsNil(o.RegistrationManagementEndpoint) {
 		return true
 	}
 
@@ -688,7 +691,7 @@ func (o *Service) SetRegistrationManagementEndpoint(v string) {
 
 // GetSupportedScopes returns the SupportedScopes field value if set, zero value otherwise.
 func (o *Service) GetSupportedScopes() []Scope {
-	if o == nil || isNil(o.SupportedScopes) {
+	if o == nil || IsNil(o.SupportedScopes) {
 		var ret []Scope
 		return ret
 	}
@@ -698,15 +701,15 @@ func (o *Service) GetSupportedScopes() []Scope {
 // GetSupportedScopesOk returns a tuple with the SupportedScopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedScopesOk() ([]Scope, bool) {
-	if o == nil || isNil(o.SupportedScopes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedScopes) {
+		return nil, false
 	}
 	return o.SupportedScopes, true
 }
 
 // HasSupportedScopes returns a boolean if a field has been set.
 func (o *Service) HasSupportedScopes() bool {
-	if o != nil && !isNil(o.SupportedScopes) {
+	if o != nil && !IsNil(o.SupportedScopes) {
 		return true
 	}
 
@@ -720,7 +723,7 @@ func (o *Service) SetSupportedScopes(v []Scope) {
 
 // GetSupportedResponseTypes returns the SupportedResponseTypes field value if set, zero value otherwise.
 func (o *Service) GetSupportedResponseTypes() []string {
-	if o == nil || isNil(o.SupportedResponseTypes) {
+	if o == nil || IsNil(o.SupportedResponseTypes) {
 		var ret []string
 		return ret
 	}
@@ -730,15 +733,15 @@ func (o *Service) GetSupportedResponseTypes() []string {
 // GetSupportedResponseTypesOk returns a tuple with the SupportedResponseTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedResponseTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedResponseTypes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedResponseTypes) {
+		return nil, false
 	}
 	return o.SupportedResponseTypes, true
 }
 
 // HasSupportedResponseTypes returns a boolean if a field has been set.
 func (o *Service) HasSupportedResponseTypes() bool {
-	if o != nil && !isNil(o.SupportedResponseTypes) {
+	if o != nil && !IsNil(o.SupportedResponseTypes) {
 		return true
 	}
 
@@ -752,7 +755,7 @@ func (o *Service) SetSupportedResponseTypes(v []string) {
 
 // GetSupportedGrantTypes returns the SupportedGrantTypes field value if set, zero value otherwise.
 func (o *Service) GetSupportedGrantTypes() []string {
-	if o == nil || isNil(o.SupportedGrantTypes) {
+	if o == nil || IsNil(o.SupportedGrantTypes) {
 		var ret []string
 		return ret
 	}
@@ -762,15 +765,15 @@ func (o *Service) GetSupportedGrantTypes() []string {
 // GetSupportedGrantTypesOk returns a tuple with the SupportedGrantTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedGrantTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedGrantTypes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedGrantTypes) {
+		return nil, false
 	}
 	return o.SupportedGrantTypes, true
 }
 
 // HasSupportedGrantTypes returns a boolean if a field has been set.
 func (o *Service) HasSupportedGrantTypes() bool {
-	if o != nil && !isNil(o.SupportedGrantTypes) {
+	if o != nil && !IsNil(o.SupportedGrantTypes) {
 		return true
 	}
 
@@ -784,7 +787,7 @@ func (o *Service) SetSupportedGrantTypes(v []string) {
 
 // GetSupportedAcrs returns the SupportedAcrs field value if set, zero value otherwise.
 func (o *Service) GetSupportedAcrs() []string {
-	if o == nil || isNil(o.SupportedAcrs) {
+	if o == nil || IsNil(o.SupportedAcrs) {
 		var ret []string
 		return ret
 	}
@@ -794,15 +797,15 @@ func (o *Service) GetSupportedAcrs() []string {
 // GetSupportedAcrsOk returns a tuple with the SupportedAcrs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedAcrsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedAcrs) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedAcrs) {
+		return nil, false
 	}
 	return o.SupportedAcrs, true
 }
 
 // HasSupportedAcrs returns a boolean if a field has been set.
 func (o *Service) HasSupportedAcrs() bool {
-	if o != nil && !isNil(o.SupportedAcrs) {
+	if o != nil && !IsNil(o.SupportedAcrs) {
 		return true
 	}
 
@@ -816,7 +819,7 @@ func (o *Service) SetSupportedAcrs(v []string) {
 
 // GetSupportedTokenAuthMethods returns the SupportedTokenAuthMethods field value if set, zero value otherwise.
 func (o *Service) GetSupportedTokenAuthMethods() []string {
-	if o == nil || isNil(o.SupportedTokenAuthMethods) {
+	if o == nil || IsNil(o.SupportedTokenAuthMethods) {
 		var ret []string
 		return ret
 	}
@@ -826,15 +829,15 @@ func (o *Service) GetSupportedTokenAuthMethods() []string {
 // GetSupportedTokenAuthMethodsOk returns a tuple with the SupportedTokenAuthMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedTokenAuthMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedTokenAuthMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedTokenAuthMethods) {
+		return nil, false
 	}
 	return o.SupportedTokenAuthMethods, true
 }
 
 // HasSupportedTokenAuthMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedTokenAuthMethods() bool {
-	if o != nil && !isNil(o.SupportedTokenAuthMethods) {
+	if o != nil && !IsNil(o.SupportedTokenAuthMethods) {
 		return true
 	}
 
@@ -848,7 +851,7 @@ func (o *Service) SetSupportedTokenAuthMethods(v []string) {
 
 // GetSupportedDisplays returns the SupportedDisplays field value if set, zero value otherwise.
 func (o *Service) GetSupportedDisplays() []string {
-	if o == nil || isNil(o.SupportedDisplays) {
+	if o == nil || IsNil(o.SupportedDisplays) {
 		var ret []string
 		return ret
 	}
@@ -858,15 +861,15 @@ func (o *Service) GetSupportedDisplays() []string {
 // GetSupportedDisplaysOk returns a tuple with the SupportedDisplays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedDisplaysOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDisplays) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDisplays) {
+		return nil, false
 	}
 	return o.SupportedDisplays, true
 }
 
 // HasSupportedDisplays returns a boolean if a field has been set.
 func (o *Service) HasSupportedDisplays() bool {
-	if o != nil && !isNil(o.SupportedDisplays) {
+	if o != nil && !IsNil(o.SupportedDisplays) {
 		return true
 	}
 
@@ -880,7 +883,7 @@ func (o *Service) SetSupportedDisplays(v []string) {
 
 // GetSupportedClaimTypes returns the SupportedClaimTypes field value if set, zero value otherwise.
 func (o *Service) GetSupportedClaimTypes() []string {
-	if o == nil || isNil(o.SupportedClaimTypes) {
+	if o == nil || IsNil(o.SupportedClaimTypes) {
 		var ret []string
 		return ret
 	}
@@ -890,15 +893,15 @@ func (o *Service) GetSupportedClaimTypes() []string {
 // GetSupportedClaimTypesOk returns a tuple with the SupportedClaimTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedClaimTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedClaimTypes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedClaimTypes) {
+		return nil, false
 	}
 	return o.SupportedClaimTypes, true
 }
 
 // HasSupportedClaimTypes returns a boolean if a field has been set.
 func (o *Service) HasSupportedClaimTypes() bool {
-	if o != nil && !isNil(o.SupportedClaimTypes) {
+	if o != nil && !IsNil(o.SupportedClaimTypes) {
 		return true
 	}
 
@@ -912,7 +915,7 @@ func (o *Service) SetSupportedClaimTypes(v []string) {
 
 // GetSupportedClaims returns the SupportedClaims field value if set, zero value otherwise.
 func (o *Service) GetSupportedClaims() []string {
-	if o == nil || isNil(o.SupportedClaims) {
+	if o == nil || IsNil(o.SupportedClaims) {
 		var ret []string
 		return ret
 	}
@@ -922,15 +925,15 @@ func (o *Service) GetSupportedClaims() []string {
 // GetSupportedClaimsOk returns a tuple with the SupportedClaims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedClaimsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedClaims) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedClaims) {
+		return nil, false
 	}
 	return o.SupportedClaims, true
 }
 
 // HasSupportedClaims returns a boolean if a field has been set.
 func (o *Service) HasSupportedClaims() bool {
-	if o != nil && !isNil(o.SupportedClaims) {
+	if o != nil && !IsNil(o.SupportedClaims) {
 		return true
 	}
 
@@ -944,7 +947,7 @@ func (o *Service) SetSupportedClaims(v []string) {
 
 // GetServiceDocumentation returns the ServiceDocumentation field value if set, zero value otherwise.
 func (o *Service) GetServiceDocumentation() string {
-	if o == nil || isNil(o.ServiceDocumentation) {
+	if o == nil || IsNil(o.ServiceDocumentation) {
 		var ret string
 		return ret
 	}
@@ -954,15 +957,15 @@ func (o *Service) GetServiceDocumentation() string {
 // GetServiceDocumentationOk returns a tuple with the ServiceDocumentation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetServiceDocumentationOk() (*string, bool) {
-	if o == nil || isNil(o.ServiceDocumentation) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceDocumentation) {
+		return nil, false
 	}
 	return o.ServiceDocumentation, true
 }
 
 // HasServiceDocumentation returns a boolean if a field has been set.
 func (o *Service) HasServiceDocumentation() bool {
-	if o != nil && !isNil(o.ServiceDocumentation) {
+	if o != nil && !IsNil(o.ServiceDocumentation) {
 		return true
 	}
 
@@ -976,7 +979,7 @@ func (o *Service) SetServiceDocumentation(v string) {
 
 // GetSupportedClaimLocales returns the SupportedClaimLocales field value if set, zero value otherwise.
 func (o *Service) GetSupportedClaimLocales() []string {
-	if o == nil || isNil(o.SupportedClaimLocales) {
+	if o == nil || IsNil(o.SupportedClaimLocales) {
 		var ret []string
 		return ret
 	}
@@ -986,15 +989,15 @@ func (o *Service) GetSupportedClaimLocales() []string {
 // GetSupportedClaimLocalesOk returns a tuple with the SupportedClaimLocales field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedClaimLocalesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedClaimLocales) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedClaimLocales) {
+		return nil, false
 	}
 	return o.SupportedClaimLocales, true
 }
 
 // HasSupportedClaimLocales returns a boolean if a field has been set.
 func (o *Service) HasSupportedClaimLocales() bool {
-	if o != nil && !isNil(o.SupportedClaimLocales) {
+	if o != nil && !IsNil(o.SupportedClaimLocales) {
 		return true
 	}
 
@@ -1008,7 +1011,7 @@ func (o *Service) SetSupportedClaimLocales(v []string) {
 
 // GetSupportedUiLocales returns the SupportedUiLocales field value if set, zero value otherwise.
 func (o *Service) GetSupportedUiLocales() []string {
-	if o == nil || isNil(o.SupportedUiLocales) {
+	if o == nil || IsNil(o.SupportedUiLocales) {
 		var ret []string
 		return ret
 	}
@@ -1018,15 +1021,15 @@ func (o *Service) GetSupportedUiLocales() []string {
 // GetSupportedUiLocalesOk returns a tuple with the SupportedUiLocales field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedUiLocalesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedUiLocales) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedUiLocales) {
+		return nil, false
 	}
 	return o.SupportedUiLocales, true
 }
 
 // HasSupportedUiLocales returns a boolean if a field has been set.
 func (o *Service) HasSupportedUiLocales() bool {
-	if o != nil && !isNil(o.SupportedUiLocales) {
+	if o != nil && !IsNil(o.SupportedUiLocales) {
 		return true
 	}
 
@@ -1040,7 +1043,7 @@ func (o *Service) SetSupportedUiLocales(v []string) {
 
 // GetPolicyUri returns the PolicyUri field value if set, zero value otherwise.
 func (o *Service) GetPolicyUri() string {
-	if o == nil || isNil(o.PolicyUri) {
+	if o == nil || IsNil(o.PolicyUri) {
 		var ret string
 		return ret
 	}
@@ -1050,15 +1053,15 @@ func (o *Service) GetPolicyUri() string {
 // GetPolicyUriOk returns a tuple with the PolicyUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPolicyUriOk() (*string, bool) {
-	if o == nil || isNil(o.PolicyUri) {
-    return nil, false
+	if o == nil || IsNil(o.PolicyUri) {
+		return nil, false
 	}
 	return o.PolicyUri, true
 }
 
 // HasPolicyUri returns a boolean if a field has been set.
 func (o *Service) HasPolicyUri() bool {
-	if o != nil && !isNil(o.PolicyUri) {
+	if o != nil && !IsNil(o.PolicyUri) {
 		return true
 	}
 
@@ -1072,7 +1075,7 @@ func (o *Service) SetPolicyUri(v string) {
 
 // GetTosUri returns the TosUri field value if set, zero value otherwise.
 func (o *Service) GetTosUri() string {
-	if o == nil || isNil(o.TosUri) {
+	if o == nil || IsNil(o.TosUri) {
 		var ret string
 		return ret
 	}
@@ -1082,15 +1085,15 @@ func (o *Service) GetTosUri() string {
 // GetTosUriOk returns a tuple with the TosUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTosUriOk() (*string, bool) {
-	if o == nil || isNil(o.TosUri) {
-    return nil, false
+	if o == nil || IsNil(o.TosUri) {
+		return nil, false
 	}
 	return o.TosUri, true
 }
 
 // HasTosUri returns a boolean if a field has been set.
 func (o *Service) HasTosUri() bool {
-	if o != nil && !isNil(o.TosUri) {
+	if o != nil && !IsNil(o.TosUri) {
 		return true
 	}
 
@@ -1104,7 +1107,7 @@ func (o *Service) SetTosUri(v string) {
 
 // GetAuthenticationCallbackEndpoint returns the AuthenticationCallbackEndpoint field value if set, zero value otherwise.
 func (o *Service) GetAuthenticationCallbackEndpoint() string {
-	if o == nil || isNil(o.AuthenticationCallbackEndpoint) {
+	if o == nil || IsNil(o.AuthenticationCallbackEndpoint) {
 		var ret string
 		return ret
 	}
@@ -1114,15 +1117,15 @@ func (o *Service) GetAuthenticationCallbackEndpoint() string {
 // GetAuthenticationCallbackEndpointOk returns a tuple with the AuthenticationCallbackEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthenticationCallbackEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.AuthenticationCallbackEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.AuthenticationCallbackEndpoint) {
+		return nil, false
 	}
 	return o.AuthenticationCallbackEndpoint, true
 }
 
 // HasAuthenticationCallbackEndpoint returns a boolean if a field has been set.
 func (o *Service) HasAuthenticationCallbackEndpoint() bool {
-	if o != nil && !isNil(o.AuthenticationCallbackEndpoint) {
+	if o != nil && !IsNil(o.AuthenticationCallbackEndpoint) {
 		return true
 	}
 
@@ -1136,7 +1139,7 @@ func (o *Service) SetAuthenticationCallbackEndpoint(v string) {
 
 // GetAuthenticationCallbackApiKey returns the AuthenticationCallbackApiKey field value if set, zero value otherwise.
 func (o *Service) GetAuthenticationCallbackApiKey() string {
-	if o == nil || isNil(o.AuthenticationCallbackApiKey) {
+	if o == nil || IsNil(o.AuthenticationCallbackApiKey) {
 		var ret string
 		return ret
 	}
@@ -1146,15 +1149,15 @@ func (o *Service) GetAuthenticationCallbackApiKey() string {
 // GetAuthenticationCallbackApiKeyOk returns a tuple with the AuthenticationCallbackApiKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthenticationCallbackApiKeyOk() (*string, bool) {
-	if o == nil || isNil(o.AuthenticationCallbackApiKey) {
-    return nil, false
+	if o == nil || IsNil(o.AuthenticationCallbackApiKey) {
+		return nil, false
 	}
 	return o.AuthenticationCallbackApiKey, true
 }
 
 // HasAuthenticationCallbackApiKey returns a boolean if a field has been set.
 func (o *Service) HasAuthenticationCallbackApiKey() bool {
-	if o != nil && !isNil(o.AuthenticationCallbackApiKey) {
+	if o != nil && !IsNil(o.AuthenticationCallbackApiKey) {
 		return true
 	}
 
@@ -1168,7 +1171,7 @@ func (o *Service) SetAuthenticationCallbackApiKey(v string) {
 
 // GetAuthenticationCallbackApiSecret returns the AuthenticationCallbackApiSecret field value if set, zero value otherwise.
 func (o *Service) GetAuthenticationCallbackApiSecret() string {
-	if o == nil || isNil(o.AuthenticationCallbackApiSecret) {
+	if o == nil || IsNil(o.AuthenticationCallbackApiSecret) {
 		var ret string
 		return ret
 	}
@@ -1178,15 +1181,15 @@ func (o *Service) GetAuthenticationCallbackApiSecret() string {
 // GetAuthenticationCallbackApiSecretOk returns a tuple with the AuthenticationCallbackApiSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthenticationCallbackApiSecretOk() (*string, bool) {
-	if o == nil || isNil(o.AuthenticationCallbackApiSecret) {
-    return nil, false
+	if o == nil || IsNil(o.AuthenticationCallbackApiSecret) {
+		return nil, false
 	}
 	return o.AuthenticationCallbackApiSecret, true
 }
 
 // HasAuthenticationCallbackApiSecret returns a boolean if a field has been set.
 func (o *Service) HasAuthenticationCallbackApiSecret() bool {
-	if o != nil && !isNil(o.AuthenticationCallbackApiSecret) {
+	if o != nil && !IsNil(o.AuthenticationCallbackApiSecret) {
 		return true
 	}
 
@@ -1200,7 +1203,7 @@ func (o *Service) SetAuthenticationCallbackApiSecret(v string) {
 
 // GetSupportedSnses returns the SupportedSnses field value if set, zero value otherwise.
 func (o *Service) GetSupportedSnses() []string {
-	if o == nil || isNil(o.SupportedSnses) {
+	if o == nil || IsNil(o.SupportedSnses) {
 		var ret []string
 		return ret
 	}
@@ -1210,15 +1213,15 @@ func (o *Service) GetSupportedSnses() []string {
 // GetSupportedSnsesOk returns a tuple with the SupportedSnses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedSnsesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedSnses) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedSnses) {
+		return nil, false
 	}
 	return o.SupportedSnses, true
 }
 
 // HasSupportedSnses returns a boolean if a field has been set.
 func (o *Service) HasSupportedSnses() bool {
-	if o != nil && !isNil(o.SupportedSnses) {
+	if o != nil && !IsNil(o.SupportedSnses) {
 		return true
 	}
 
@@ -1232,7 +1235,7 @@ func (o *Service) SetSupportedSnses(v []string) {
 
 // GetSnsCredentials returns the SnsCredentials field value if set, zero value otherwise.
 func (o *Service) GetSnsCredentials() []SnsCredentials {
-	if o == nil || isNil(o.SnsCredentials) {
+	if o == nil || IsNil(o.SnsCredentials) {
 		var ret []SnsCredentials
 		return ret
 	}
@@ -1242,15 +1245,15 @@ func (o *Service) GetSnsCredentials() []SnsCredentials {
 // GetSnsCredentialsOk returns a tuple with the SnsCredentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSnsCredentialsOk() ([]SnsCredentials, bool) {
-	if o == nil || isNil(o.SnsCredentials) {
-    return nil, false
+	if o == nil || IsNil(o.SnsCredentials) {
+		return nil, false
 	}
 	return o.SnsCredentials, true
 }
 
 // HasSnsCredentials returns a boolean if a field has been set.
 func (o *Service) HasSnsCredentials() bool {
-	if o != nil && !isNil(o.SnsCredentials) {
+	if o != nil && !IsNil(o.SnsCredentials) {
 		return true
 	}
 
@@ -1264,7 +1267,7 @@ func (o *Service) SetSnsCredentials(v []SnsCredentials) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Service) GetCreatedAt() int64 {
-	if o == nil || isNil(o.CreatedAt) {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret int64
 		return ret
 	}
@@ -1274,15 +1277,15 @@ func (o *Service) GetCreatedAt() int64 {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCreatedAtOk() (*int64, bool) {
-	if o == nil || isNil(o.CreatedAt) {
-    return nil, false
+	if o == nil || IsNil(o.CreatedAt) {
+		return nil, false
 	}
 	return o.CreatedAt, true
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Service) HasCreatedAt() bool {
-	if o != nil && !isNil(o.CreatedAt) {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -1296,7 +1299,7 @@ func (o *Service) SetCreatedAt(v int64) {
 
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
 func (o *Service) GetModifiedAt() int64 {
-	if o == nil || isNil(o.ModifiedAt) {
+	if o == nil || IsNil(o.ModifiedAt) {
 		var ret int64
 		return ret
 	}
@@ -1306,15 +1309,15 @@ func (o *Service) GetModifiedAt() int64 {
 // GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetModifiedAtOk() (*int64, bool) {
-	if o == nil || isNil(o.ModifiedAt) {
-    return nil, false
+	if o == nil || IsNil(o.ModifiedAt) {
+		return nil, false
 	}
 	return o.ModifiedAt, true
 }
 
 // HasModifiedAt returns a boolean if a field has been set.
 func (o *Service) HasModifiedAt() bool {
-	if o != nil && !isNil(o.ModifiedAt) {
+	if o != nil && !IsNil(o.ModifiedAt) {
 		return true
 	}
 
@@ -1328,7 +1331,7 @@ func (o *Service) SetModifiedAt(v int64) {
 
 // GetDeveloperAuthenticationCallbackEndpoint returns the DeveloperAuthenticationCallbackEndpoint field value if set, zero value otherwise.
 func (o *Service) GetDeveloperAuthenticationCallbackEndpoint() string {
-	if o == nil || isNil(o.DeveloperAuthenticationCallbackEndpoint) {
+	if o == nil || IsNil(o.DeveloperAuthenticationCallbackEndpoint) {
 		var ret string
 		return ret
 	}
@@ -1338,15 +1341,15 @@ func (o *Service) GetDeveloperAuthenticationCallbackEndpoint() string {
 // GetDeveloperAuthenticationCallbackEndpointOk returns a tuple with the DeveloperAuthenticationCallbackEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeveloperAuthenticationCallbackEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.DeveloperAuthenticationCallbackEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.DeveloperAuthenticationCallbackEndpoint) {
+		return nil, false
 	}
 	return o.DeveloperAuthenticationCallbackEndpoint, true
 }
 
 // HasDeveloperAuthenticationCallbackEndpoint returns a boolean if a field has been set.
 func (o *Service) HasDeveloperAuthenticationCallbackEndpoint() bool {
-	if o != nil && !isNil(o.DeveloperAuthenticationCallbackEndpoint) {
+	if o != nil && !IsNil(o.DeveloperAuthenticationCallbackEndpoint) {
 		return true
 	}
 
@@ -1360,7 +1363,7 @@ func (o *Service) SetDeveloperAuthenticationCallbackEndpoint(v string) {
 
 // GetDeveloperAuthenticationCallbackApiKey returns the DeveloperAuthenticationCallbackApiKey field value if set, zero value otherwise.
 func (o *Service) GetDeveloperAuthenticationCallbackApiKey() string {
-	if o == nil || isNil(o.DeveloperAuthenticationCallbackApiKey) {
+	if o == nil || IsNil(o.DeveloperAuthenticationCallbackApiKey) {
 		var ret string
 		return ret
 	}
@@ -1370,15 +1373,15 @@ func (o *Service) GetDeveloperAuthenticationCallbackApiKey() string {
 // GetDeveloperAuthenticationCallbackApiKeyOk returns a tuple with the DeveloperAuthenticationCallbackApiKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeveloperAuthenticationCallbackApiKeyOk() (*string, bool) {
-	if o == nil || isNil(o.DeveloperAuthenticationCallbackApiKey) {
-    return nil, false
+	if o == nil || IsNil(o.DeveloperAuthenticationCallbackApiKey) {
+		return nil, false
 	}
 	return o.DeveloperAuthenticationCallbackApiKey, true
 }
 
 // HasDeveloperAuthenticationCallbackApiKey returns a boolean if a field has been set.
 func (o *Service) HasDeveloperAuthenticationCallbackApiKey() bool {
-	if o != nil && !isNil(o.DeveloperAuthenticationCallbackApiKey) {
+	if o != nil && !IsNil(o.DeveloperAuthenticationCallbackApiKey) {
 		return true
 	}
 
@@ -1392,7 +1395,7 @@ func (o *Service) SetDeveloperAuthenticationCallbackApiKey(v string) {
 
 // GetDeveloperAuthenticationCallbackApiSecret returns the DeveloperAuthenticationCallbackApiSecret field value if set, zero value otherwise.
 func (o *Service) GetDeveloperAuthenticationCallbackApiSecret() string {
-	if o == nil || isNil(o.DeveloperAuthenticationCallbackApiSecret) {
+	if o == nil || IsNil(o.DeveloperAuthenticationCallbackApiSecret) {
 		var ret string
 		return ret
 	}
@@ -1402,15 +1405,15 @@ func (o *Service) GetDeveloperAuthenticationCallbackApiSecret() string {
 // GetDeveloperAuthenticationCallbackApiSecretOk returns a tuple with the DeveloperAuthenticationCallbackApiSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeveloperAuthenticationCallbackApiSecretOk() (*string, bool) {
-	if o == nil || isNil(o.DeveloperAuthenticationCallbackApiSecret) {
-    return nil, false
+	if o == nil || IsNil(o.DeveloperAuthenticationCallbackApiSecret) {
+		return nil, false
 	}
 	return o.DeveloperAuthenticationCallbackApiSecret, true
 }
 
 // HasDeveloperAuthenticationCallbackApiSecret returns a boolean if a field has been set.
 func (o *Service) HasDeveloperAuthenticationCallbackApiSecret() bool {
-	if o != nil && !isNil(o.DeveloperAuthenticationCallbackApiSecret) {
+	if o != nil && !IsNil(o.DeveloperAuthenticationCallbackApiSecret) {
 		return true
 	}
 
@@ -1424,7 +1427,7 @@ func (o *Service) SetDeveloperAuthenticationCallbackApiSecret(v string) {
 
 // GetSupportedDeveloperSnses returns the SupportedDeveloperSnses field value if set, zero value otherwise.
 func (o *Service) GetSupportedDeveloperSnses() []string {
-	if o == nil || isNil(o.SupportedDeveloperSnses) {
+	if o == nil || IsNil(o.SupportedDeveloperSnses) {
 		var ret []string
 		return ret
 	}
@@ -1434,15 +1437,15 @@ func (o *Service) GetSupportedDeveloperSnses() []string {
 // GetSupportedDeveloperSnsesOk returns a tuple with the SupportedDeveloperSnses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedDeveloperSnsesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDeveloperSnses) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDeveloperSnses) {
+		return nil, false
 	}
 	return o.SupportedDeveloperSnses, true
 }
 
 // HasSupportedDeveloperSnses returns a boolean if a field has been set.
 func (o *Service) HasSupportedDeveloperSnses() bool {
-	if o != nil && !isNil(o.SupportedDeveloperSnses) {
+	if o != nil && !IsNil(o.SupportedDeveloperSnses) {
 		return true
 	}
 
@@ -1456,7 +1459,7 @@ func (o *Service) SetSupportedDeveloperSnses(v []string) {
 
 // GetDeveloperSnsCredentials returns the DeveloperSnsCredentials field value if set, zero value otherwise.
 func (o *Service) GetDeveloperSnsCredentials() []SnsCredentials {
-	if o == nil || isNil(o.DeveloperSnsCredentials) {
+	if o == nil || IsNil(o.DeveloperSnsCredentials) {
 		var ret []SnsCredentials
 		return ret
 	}
@@ -1466,15 +1469,15 @@ func (o *Service) GetDeveloperSnsCredentials() []SnsCredentials {
 // GetDeveloperSnsCredentialsOk returns a tuple with the DeveloperSnsCredentials field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeveloperSnsCredentialsOk() ([]SnsCredentials, bool) {
-	if o == nil || isNil(o.DeveloperSnsCredentials) {
-    return nil, false
+	if o == nil || IsNil(o.DeveloperSnsCredentials) {
+		return nil, false
 	}
 	return o.DeveloperSnsCredentials, true
 }
 
 // HasDeveloperSnsCredentials returns a boolean if a field has been set.
 func (o *Service) HasDeveloperSnsCredentials() bool {
-	if o != nil && !isNil(o.DeveloperSnsCredentials) {
+	if o != nil && !IsNil(o.DeveloperSnsCredentials) {
 		return true
 	}
 
@@ -1488,7 +1491,7 @@ func (o *Service) SetDeveloperSnsCredentials(v []SnsCredentials) {
 
 // GetClientsPerDeveloper returns the ClientsPerDeveloper field value if set, zero value otherwise.
 func (o *Service) GetClientsPerDeveloper() int32 {
-	if o == nil || isNil(o.ClientsPerDeveloper) {
+	if o == nil || IsNil(o.ClientsPerDeveloper) {
 		var ret int32
 		return ret
 	}
@@ -1498,15 +1501,15 @@ func (o *Service) GetClientsPerDeveloper() int32 {
 // GetClientsPerDeveloperOk returns a tuple with the ClientsPerDeveloper field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetClientsPerDeveloperOk() (*int32, bool) {
-	if o == nil || isNil(o.ClientsPerDeveloper) {
-    return nil, false
+	if o == nil || IsNil(o.ClientsPerDeveloper) {
+		return nil, false
 	}
 	return o.ClientsPerDeveloper, true
 }
 
 // HasClientsPerDeveloper returns a boolean if a field has been set.
 func (o *Service) HasClientsPerDeveloper() bool {
-	if o != nil && !isNil(o.ClientsPerDeveloper) {
+	if o != nil && !IsNil(o.ClientsPerDeveloper) {
 		return true
 	}
 
@@ -1520,7 +1523,7 @@ func (o *Service) SetClientsPerDeveloper(v int32) {
 
 // GetDirectAuthorizationEndpointEnabled returns the DirectAuthorizationEndpointEnabled field value if set, zero value otherwise.
 func (o *Service) GetDirectAuthorizationEndpointEnabled() bool {
-	if o == nil || isNil(o.DirectAuthorizationEndpointEnabled) {
+	if o == nil || IsNil(o.DirectAuthorizationEndpointEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1530,15 +1533,15 @@ func (o *Service) GetDirectAuthorizationEndpointEnabled() bool {
 // GetDirectAuthorizationEndpointEnabledOk returns a tuple with the DirectAuthorizationEndpointEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDirectAuthorizationEndpointEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.DirectAuthorizationEndpointEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.DirectAuthorizationEndpointEnabled) {
+		return nil, false
 	}
 	return o.DirectAuthorizationEndpointEnabled, true
 }
 
 // HasDirectAuthorizationEndpointEnabled returns a boolean if a field has been set.
 func (o *Service) HasDirectAuthorizationEndpointEnabled() bool {
-	if o != nil && !isNil(o.DirectAuthorizationEndpointEnabled) {
+	if o != nil && !IsNil(o.DirectAuthorizationEndpointEnabled) {
 		return true
 	}
 
@@ -1552,7 +1555,7 @@ func (o *Service) SetDirectAuthorizationEndpointEnabled(v bool) {
 
 // GetDirectTokenEndpointEnabled returns the DirectTokenEndpointEnabled field value if set, zero value otherwise.
 func (o *Service) GetDirectTokenEndpointEnabled() bool {
-	if o == nil || isNil(o.DirectTokenEndpointEnabled) {
+	if o == nil || IsNil(o.DirectTokenEndpointEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1562,15 +1565,15 @@ func (o *Service) GetDirectTokenEndpointEnabled() bool {
 // GetDirectTokenEndpointEnabledOk returns a tuple with the DirectTokenEndpointEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDirectTokenEndpointEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.DirectTokenEndpointEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.DirectTokenEndpointEnabled) {
+		return nil, false
 	}
 	return o.DirectTokenEndpointEnabled, true
 }
 
 // HasDirectTokenEndpointEnabled returns a boolean if a field has been set.
 func (o *Service) HasDirectTokenEndpointEnabled() bool {
-	if o != nil && !isNil(o.DirectTokenEndpointEnabled) {
+	if o != nil && !IsNil(o.DirectTokenEndpointEnabled) {
 		return true
 	}
 
@@ -1584,7 +1587,7 @@ func (o *Service) SetDirectTokenEndpointEnabled(v bool) {
 
 // GetDirectRevocationEndpointEnabled returns the DirectRevocationEndpointEnabled field value if set, zero value otherwise.
 func (o *Service) GetDirectRevocationEndpointEnabled() bool {
-	if o == nil || isNil(o.DirectRevocationEndpointEnabled) {
+	if o == nil || IsNil(o.DirectRevocationEndpointEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1594,15 +1597,15 @@ func (o *Service) GetDirectRevocationEndpointEnabled() bool {
 // GetDirectRevocationEndpointEnabledOk returns a tuple with the DirectRevocationEndpointEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDirectRevocationEndpointEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.DirectRevocationEndpointEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.DirectRevocationEndpointEnabled) {
+		return nil, false
 	}
 	return o.DirectRevocationEndpointEnabled, true
 }
 
 // HasDirectRevocationEndpointEnabled returns a boolean if a field has been set.
 func (o *Service) HasDirectRevocationEndpointEnabled() bool {
-	if o != nil && !isNil(o.DirectRevocationEndpointEnabled) {
+	if o != nil && !IsNil(o.DirectRevocationEndpointEnabled) {
 		return true
 	}
 
@@ -1616,7 +1619,7 @@ func (o *Service) SetDirectRevocationEndpointEnabled(v bool) {
 
 // GetDirectUserInfoEndpointEnabled returns the DirectUserInfoEndpointEnabled field value if set, zero value otherwise.
 func (o *Service) GetDirectUserInfoEndpointEnabled() bool {
-	if o == nil || isNil(o.DirectUserInfoEndpointEnabled) {
+	if o == nil || IsNil(o.DirectUserInfoEndpointEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1626,15 +1629,15 @@ func (o *Service) GetDirectUserInfoEndpointEnabled() bool {
 // GetDirectUserInfoEndpointEnabledOk returns a tuple with the DirectUserInfoEndpointEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDirectUserInfoEndpointEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.DirectUserInfoEndpointEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.DirectUserInfoEndpointEnabled) {
+		return nil, false
 	}
 	return o.DirectUserInfoEndpointEnabled, true
 }
 
 // HasDirectUserInfoEndpointEnabled returns a boolean if a field has been set.
 func (o *Service) HasDirectUserInfoEndpointEnabled() bool {
-	if o != nil && !isNil(o.DirectUserInfoEndpointEnabled) {
+	if o != nil && !IsNil(o.DirectUserInfoEndpointEnabled) {
 		return true
 	}
 
@@ -1648,7 +1651,7 @@ func (o *Service) SetDirectUserInfoEndpointEnabled(v bool) {
 
 // GetDirectJwksEndpointEnabled returns the DirectJwksEndpointEnabled field value if set, zero value otherwise.
 func (o *Service) GetDirectJwksEndpointEnabled() bool {
-	if o == nil || isNil(o.DirectJwksEndpointEnabled) {
+	if o == nil || IsNil(o.DirectJwksEndpointEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1658,15 +1661,15 @@ func (o *Service) GetDirectJwksEndpointEnabled() bool {
 // GetDirectJwksEndpointEnabledOk returns a tuple with the DirectJwksEndpointEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDirectJwksEndpointEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.DirectJwksEndpointEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.DirectJwksEndpointEnabled) {
+		return nil, false
 	}
 	return o.DirectJwksEndpointEnabled, true
 }
 
 // HasDirectJwksEndpointEnabled returns a boolean if a field has been set.
 func (o *Service) HasDirectJwksEndpointEnabled() bool {
-	if o != nil && !isNil(o.DirectJwksEndpointEnabled) {
+	if o != nil && !IsNil(o.DirectJwksEndpointEnabled) {
 		return true
 	}
 
@@ -1680,7 +1683,7 @@ func (o *Service) SetDirectJwksEndpointEnabled(v bool) {
 
 // GetDirectIntrospectionEndpointEnabled returns the DirectIntrospectionEndpointEnabled field value if set, zero value otherwise.
 func (o *Service) GetDirectIntrospectionEndpointEnabled() bool {
-	if o == nil || isNil(o.DirectIntrospectionEndpointEnabled) {
+	if o == nil || IsNil(o.DirectIntrospectionEndpointEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1690,15 +1693,15 @@ func (o *Service) GetDirectIntrospectionEndpointEnabled() bool {
 // GetDirectIntrospectionEndpointEnabledOk returns a tuple with the DirectIntrospectionEndpointEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDirectIntrospectionEndpointEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.DirectIntrospectionEndpointEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.DirectIntrospectionEndpointEnabled) {
+		return nil, false
 	}
 	return o.DirectIntrospectionEndpointEnabled, true
 }
 
 // HasDirectIntrospectionEndpointEnabled returns a boolean if a field has been set.
 func (o *Service) HasDirectIntrospectionEndpointEnabled() bool {
-	if o != nil && !isNil(o.DirectIntrospectionEndpointEnabled) {
+	if o != nil && !IsNil(o.DirectIntrospectionEndpointEnabled) {
 		return true
 	}
 
@@ -1712,7 +1715,7 @@ func (o *Service) SetDirectIntrospectionEndpointEnabled(v bool) {
 
 // GetSingleAccessTokenPerSubject returns the SingleAccessTokenPerSubject field value if set, zero value otherwise.
 func (o *Service) GetSingleAccessTokenPerSubject() bool {
-	if o == nil || isNil(o.SingleAccessTokenPerSubject) {
+	if o == nil || IsNil(o.SingleAccessTokenPerSubject) {
 		var ret bool
 		return ret
 	}
@@ -1722,15 +1725,15 @@ func (o *Service) GetSingleAccessTokenPerSubject() bool {
 // GetSingleAccessTokenPerSubjectOk returns a tuple with the SingleAccessTokenPerSubject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSingleAccessTokenPerSubjectOk() (*bool, bool) {
-	if o == nil || isNil(o.SingleAccessTokenPerSubject) {
-    return nil, false
+	if o == nil || IsNil(o.SingleAccessTokenPerSubject) {
+		return nil, false
 	}
 	return o.SingleAccessTokenPerSubject, true
 }
 
 // HasSingleAccessTokenPerSubject returns a boolean if a field has been set.
 func (o *Service) HasSingleAccessTokenPerSubject() bool {
-	if o != nil && !isNil(o.SingleAccessTokenPerSubject) {
+	if o != nil && !IsNil(o.SingleAccessTokenPerSubject) {
 		return true
 	}
 
@@ -1744,7 +1747,7 @@ func (o *Service) SetSingleAccessTokenPerSubject(v bool) {
 
 // GetPkceRequired returns the PkceRequired field value if set, zero value otherwise.
 func (o *Service) GetPkceRequired() bool {
-	if o == nil || isNil(o.PkceRequired) {
+	if o == nil || IsNil(o.PkceRequired) {
 		var ret bool
 		return ret
 	}
@@ -1754,15 +1757,15 @@ func (o *Service) GetPkceRequired() bool {
 // GetPkceRequiredOk returns a tuple with the PkceRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPkceRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.PkceRequired) {
-    return nil, false
+	if o == nil || IsNil(o.PkceRequired) {
+		return nil, false
 	}
 	return o.PkceRequired, true
 }
 
 // HasPkceRequired returns a boolean if a field has been set.
 func (o *Service) HasPkceRequired() bool {
-	if o != nil && !isNil(o.PkceRequired) {
+	if o != nil && !IsNil(o.PkceRequired) {
 		return true
 	}
 
@@ -1776,7 +1779,7 @@ func (o *Service) SetPkceRequired(v bool) {
 
 // GetPkceS256Required returns the PkceS256Required field value if set, zero value otherwise.
 func (o *Service) GetPkceS256Required() bool {
-	if o == nil || isNil(o.PkceS256Required) {
+	if o == nil || IsNil(o.PkceS256Required) {
 		var ret bool
 		return ret
 	}
@@ -1786,15 +1789,15 @@ func (o *Service) GetPkceS256Required() bool {
 // GetPkceS256RequiredOk returns a tuple with the PkceS256Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPkceS256RequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.PkceS256Required) {
-    return nil, false
+	if o == nil || IsNil(o.PkceS256Required) {
+		return nil, false
 	}
 	return o.PkceS256Required, true
 }
 
 // HasPkceS256Required returns a boolean if a field has been set.
 func (o *Service) HasPkceS256Required() bool {
-	if o != nil && !isNil(o.PkceS256Required) {
+	if o != nil && !IsNil(o.PkceS256Required) {
 		return true
 	}
 
@@ -1808,7 +1811,7 @@ func (o *Service) SetPkceS256Required(v bool) {
 
 // GetRefreshTokenKept returns the RefreshTokenKept field value if set, zero value otherwise.
 func (o *Service) GetRefreshTokenKept() bool {
-	if o == nil || isNil(o.RefreshTokenKept) {
+	if o == nil || IsNil(o.RefreshTokenKept) {
 		var ret bool
 		return ret
 	}
@@ -1818,15 +1821,15 @@ func (o *Service) GetRefreshTokenKept() bool {
 // GetRefreshTokenKeptOk returns a tuple with the RefreshTokenKept field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRefreshTokenKeptOk() (*bool, bool) {
-	if o == nil || isNil(o.RefreshTokenKept) {
-    return nil, false
+	if o == nil || IsNil(o.RefreshTokenKept) {
+		return nil, false
 	}
 	return o.RefreshTokenKept, true
 }
 
 // HasRefreshTokenKept returns a boolean if a field has been set.
 func (o *Service) HasRefreshTokenKept() bool {
-	if o != nil && !isNil(o.RefreshTokenKept) {
+	if o != nil && !IsNil(o.RefreshTokenKept) {
 		return true
 	}
 
@@ -1840,7 +1843,7 @@ func (o *Service) SetRefreshTokenKept(v bool) {
 
 // GetRefreshTokenDurationKept returns the RefreshTokenDurationKept field value if set, zero value otherwise.
 func (o *Service) GetRefreshTokenDurationKept() bool {
-	if o == nil || isNil(o.RefreshTokenDurationKept) {
+	if o == nil || IsNil(o.RefreshTokenDurationKept) {
 		var ret bool
 		return ret
 	}
@@ -1850,15 +1853,15 @@ func (o *Service) GetRefreshTokenDurationKept() bool {
 // GetRefreshTokenDurationKeptOk returns a tuple with the RefreshTokenDurationKept field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRefreshTokenDurationKeptOk() (*bool, bool) {
-	if o == nil || isNil(o.RefreshTokenDurationKept) {
-    return nil, false
+	if o == nil || IsNil(o.RefreshTokenDurationKept) {
+		return nil, false
 	}
 	return o.RefreshTokenDurationKept, true
 }
 
 // HasRefreshTokenDurationKept returns a boolean if a field has been set.
 func (o *Service) HasRefreshTokenDurationKept() bool {
-	if o != nil && !isNil(o.RefreshTokenDurationKept) {
+	if o != nil && !IsNil(o.RefreshTokenDurationKept) {
 		return true
 	}
 
@@ -1872,7 +1875,7 @@ func (o *Service) SetRefreshTokenDurationKept(v bool) {
 
 // GetRefreshTokenDurationReset returns the RefreshTokenDurationReset field value if set, zero value otherwise.
 func (o *Service) GetRefreshTokenDurationReset() bool {
-	if o == nil || isNil(o.RefreshTokenDurationReset) {
+	if o == nil || IsNil(o.RefreshTokenDurationReset) {
 		var ret bool
 		return ret
 	}
@@ -1882,15 +1885,15 @@ func (o *Service) GetRefreshTokenDurationReset() bool {
 // GetRefreshTokenDurationResetOk returns a tuple with the RefreshTokenDurationReset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRefreshTokenDurationResetOk() (*bool, bool) {
-	if o == nil || isNil(o.RefreshTokenDurationReset) {
-    return nil, false
+	if o == nil || IsNil(o.RefreshTokenDurationReset) {
+		return nil, false
 	}
 	return o.RefreshTokenDurationReset, true
 }
 
 // HasRefreshTokenDurationReset returns a boolean if a field has been set.
 func (o *Service) HasRefreshTokenDurationReset() bool {
-	if o != nil && !isNil(o.RefreshTokenDurationReset) {
+	if o != nil && !IsNil(o.RefreshTokenDurationReset) {
 		return true
 	}
 
@@ -1904,7 +1907,7 @@ func (o *Service) SetRefreshTokenDurationReset(v bool) {
 
 // GetErrorDescriptionOmitted returns the ErrorDescriptionOmitted field value if set, zero value otherwise.
 func (o *Service) GetErrorDescriptionOmitted() bool {
-	if o == nil || isNil(o.ErrorDescriptionOmitted) {
+	if o == nil || IsNil(o.ErrorDescriptionOmitted) {
 		var ret bool
 		return ret
 	}
@@ -1914,15 +1917,15 @@ func (o *Service) GetErrorDescriptionOmitted() bool {
 // GetErrorDescriptionOmittedOk returns a tuple with the ErrorDescriptionOmitted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetErrorDescriptionOmittedOk() (*bool, bool) {
-	if o == nil || isNil(o.ErrorDescriptionOmitted) {
-    return nil, false
+	if o == nil || IsNil(o.ErrorDescriptionOmitted) {
+		return nil, false
 	}
 	return o.ErrorDescriptionOmitted, true
 }
 
 // HasErrorDescriptionOmitted returns a boolean if a field has been set.
 func (o *Service) HasErrorDescriptionOmitted() bool {
-	if o != nil && !isNil(o.ErrorDescriptionOmitted) {
+	if o != nil && !IsNil(o.ErrorDescriptionOmitted) {
 		return true
 	}
 
@@ -1936,7 +1939,7 @@ func (o *Service) SetErrorDescriptionOmitted(v bool) {
 
 // GetErrorUriOmitted returns the ErrorUriOmitted field value if set, zero value otherwise.
 func (o *Service) GetErrorUriOmitted() bool {
-	if o == nil || isNil(o.ErrorUriOmitted) {
+	if o == nil || IsNil(o.ErrorUriOmitted) {
 		var ret bool
 		return ret
 	}
@@ -1946,15 +1949,15 @@ func (o *Service) GetErrorUriOmitted() bool {
 // GetErrorUriOmittedOk returns a tuple with the ErrorUriOmitted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetErrorUriOmittedOk() (*bool, bool) {
-	if o == nil || isNil(o.ErrorUriOmitted) {
-    return nil, false
+	if o == nil || IsNil(o.ErrorUriOmitted) {
+		return nil, false
 	}
 	return o.ErrorUriOmitted, true
 }
 
 // HasErrorUriOmitted returns a boolean if a field has been set.
 func (o *Service) HasErrorUriOmitted() bool {
-	if o != nil && !isNil(o.ErrorUriOmitted) {
+	if o != nil && !IsNil(o.ErrorUriOmitted) {
 		return true
 	}
 
@@ -1968,7 +1971,7 @@ func (o *Service) SetErrorUriOmitted(v bool) {
 
 // GetClientIdAliasEnabled returns the ClientIdAliasEnabled field value if set, zero value otherwise.
 func (o *Service) GetClientIdAliasEnabled() bool {
-	if o == nil || isNil(o.ClientIdAliasEnabled) {
+	if o == nil || IsNil(o.ClientIdAliasEnabled) {
 		var ret bool
 		return ret
 	}
@@ -1978,15 +1981,15 @@ func (o *Service) GetClientIdAliasEnabled() bool {
 // GetClientIdAliasEnabledOk returns a tuple with the ClientIdAliasEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetClientIdAliasEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.ClientIdAliasEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.ClientIdAliasEnabled) {
+		return nil, false
 	}
 	return o.ClientIdAliasEnabled, true
 }
 
 // HasClientIdAliasEnabled returns a boolean if a field has been set.
 func (o *Service) HasClientIdAliasEnabled() bool {
-	if o != nil && !isNil(o.ClientIdAliasEnabled) {
+	if o != nil && !IsNil(o.ClientIdAliasEnabled) {
 		return true
 	}
 
@@ -2000,7 +2003,7 @@ func (o *Service) SetClientIdAliasEnabled(v bool) {
 
 // GetSupportedServiceProfiles returns the SupportedServiceProfiles field value if set, zero value otherwise.
 func (o *Service) GetSupportedServiceProfiles() []string {
-	if o == nil || isNil(o.SupportedServiceProfiles) {
+	if o == nil || IsNil(o.SupportedServiceProfiles) {
 		var ret []string
 		return ret
 	}
@@ -2010,15 +2013,15 @@ func (o *Service) GetSupportedServiceProfiles() []string {
 // GetSupportedServiceProfilesOk returns a tuple with the SupportedServiceProfiles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedServiceProfilesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedServiceProfiles) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedServiceProfiles) {
+		return nil, false
 	}
 	return o.SupportedServiceProfiles, true
 }
 
 // HasSupportedServiceProfiles returns a boolean if a field has been set.
 func (o *Service) HasSupportedServiceProfiles() bool {
-	if o != nil && !isNil(o.SupportedServiceProfiles) {
+	if o != nil && !IsNil(o.SupportedServiceProfiles) {
 		return true
 	}
 
@@ -2032,7 +2035,7 @@ func (o *Service) SetSupportedServiceProfiles(v []string) {
 
 // GetTlsClientCertificateBoundAccessTokens returns the TlsClientCertificateBoundAccessTokens field value if set, zero value otherwise.
 func (o *Service) GetTlsClientCertificateBoundAccessTokens() bool {
-	if o == nil || isNil(o.TlsClientCertificateBoundAccessTokens) {
+	if o == nil || IsNil(o.TlsClientCertificateBoundAccessTokens) {
 		var ret bool
 		return ret
 	}
@@ -2042,15 +2045,15 @@ func (o *Service) GetTlsClientCertificateBoundAccessTokens() bool {
 // GetTlsClientCertificateBoundAccessTokensOk returns a tuple with the TlsClientCertificateBoundAccessTokens field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTlsClientCertificateBoundAccessTokensOk() (*bool, bool) {
-	if o == nil || isNil(o.TlsClientCertificateBoundAccessTokens) {
-    return nil, false
+	if o == nil || IsNil(o.TlsClientCertificateBoundAccessTokens) {
+		return nil, false
 	}
 	return o.TlsClientCertificateBoundAccessTokens, true
 }
 
 // HasTlsClientCertificateBoundAccessTokens returns a boolean if a field has been set.
 func (o *Service) HasTlsClientCertificateBoundAccessTokens() bool {
-	if o != nil && !isNil(o.TlsClientCertificateBoundAccessTokens) {
+	if o != nil && !IsNil(o.TlsClientCertificateBoundAccessTokens) {
 		return true
 	}
 
@@ -2064,7 +2067,7 @@ func (o *Service) SetTlsClientCertificateBoundAccessTokens(v bool) {
 
 // GetIntrospectionEndpoint returns the IntrospectionEndpoint field value if set, zero value otherwise.
 func (o *Service) GetIntrospectionEndpoint() string {
-	if o == nil || isNil(o.IntrospectionEndpoint) {
+	if o == nil || IsNil(o.IntrospectionEndpoint) {
 		var ret string
 		return ret
 	}
@@ -2074,15 +2077,15 @@ func (o *Service) GetIntrospectionEndpoint() string {
 // GetIntrospectionEndpointOk returns a tuple with the IntrospectionEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIntrospectionEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.IntrospectionEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.IntrospectionEndpoint) {
+		return nil, false
 	}
 	return o.IntrospectionEndpoint, true
 }
 
 // HasIntrospectionEndpoint returns a boolean if a field has been set.
 func (o *Service) HasIntrospectionEndpoint() bool {
-	if o != nil && !isNil(o.IntrospectionEndpoint) {
+	if o != nil && !IsNil(o.IntrospectionEndpoint) {
 		return true
 	}
 
@@ -2096,7 +2099,7 @@ func (o *Service) SetIntrospectionEndpoint(v string) {
 
 // GetSupportedIntrospectionAuthMethods returns the SupportedIntrospectionAuthMethods field value if set, zero value otherwise.
 func (o *Service) GetSupportedIntrospectionAuthMethods() []string {
-	if o == nil || isNil(o.SupportedIntrospectionAuthMethods) {
+	if o == nil || IsNil(o.SupportedIntrospectionAuthMethods) {
 		var ret []string
 		return ret
 	}
@@ -2106,15 +2109,15 @@ func (o *Service) GetSupportedIntrospectionAuthMethods() []string {
 // GetSupportedIntrospectionAuthMethodsOk returns a tuple with the SupportedIntrospectionAuthMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedIntrospectionAuthMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedIntrospectionAuthMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedIntrospectionAuthMethods) {
+		return nil, false
 	}
 	return o.SupportedIntrospectionAuthMethods, true
 }
 
 // HasSupportedIntrospectionAuthMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedIntrospectionAuthMethods() bool {
-	if o != nil && !isNil(o.SupportedIntrospectionAuthMethods) {
+	if o != nil && !IsNil(o.SupportedIntrospectionAuthMethods) {
 		return true
 	}
 
@@ -2128,7 +2131,7 @@ func (o *Service) SetSupportedIntrospectionAuthMethods(v []string) {
 
 // GetMutualTlsValidatePkiCertChain returns the MutualTlsValidatePkiCertChain field value if set, zero value otherwise.
 func (o *Service) GetMutualTlsValidatePkiCertChain() bool {
-	if o == nil || isNil(o.MutualTlsValidatePkiCertChain) {
+	if o == nil || IsNil(o.MutualTlsValidatePkiCertChain) {
 		var ret bool
 		return ret
 	}
@@ -2138,15 +2141,15 @@ func (o *Service) GetMutualTlsValidatePkiCertChain() bool {
 // GetMutualTlsValidatePkiCertChainOk returns a tuple with the MutualTlsValidatePkiCertChain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetMutualTlsValidatePkiCertChainOk() (*bool, bool) {
-	if o == nil || isNil(o.MutualTlsValidatePkiCertChain) {
-    return nil, false
+	if o == nil || IsNil(o.MutualTlsValidatePkiCertChain) {
+		return nil, false
 	}
 	return o.MutualTlsValidatePkiCertChain, true
 }
 
 // HasMutualTlsValidatePkiCertChain returns a boolean if a field has been set.
 func (o *Service) HasMutualTlsValidatePkiCertChain() bool {
-	if o != nil && !isNil(o.MutualTlsValidatePkiCertChain) {
+	if o != nil && !IsNil(o.MutualTlsValidatePkiCertChain) {
 		return true
 	}
 
@@ -2160,7 +2163,7 @@ func (o *Service) SetMutualTlsValidatePkiCertChain(v bool) {
 
 // GetTrustedRootCertificates returns the TrustedRootCertificates field value if set, zero value otherwise.
 func (o *Service) GetTrustedRootCertificates() []string {
-	if o == nil || isNil(o.TrustedRootCertificates) {
+	if o == nil || IsNil(o.TrustedRootCertificates) {
 		var ret []string
 		return ret
 	}
@@ -2170,15 +2173,15 @@ func (o *Service) GetTrustedRootCertificates() []string {
 // GetTrustedRootCertificatesOk returns a tuple with the TrustedRootCertificates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTrustedRootCertificatesOk() ([]string, bool) {
-	if o == nil || isNil(o.TrustedRootCertificates) {
-    return nil, false
+	if o == nil || IsNil(o.TrustedRootCertificates) {
+		return nil, false
 	}
 	return o.TrustedRootCertificates, true
 }
 
 // HasTrustedRootCertificates returns a boolean if a field has been set.
 func (o *Service) HasTrustedRootCertificates() bool {
-	if o != nil && !isNil(o.TrustedRootCertificates) {
+	if o != nil && !IsNil(o.TrustedRootCertificates) {
 		return true
 	}
 
@@ -2192,7 +2195,7 @@ func (o *Service) SetTrustedRootCertificates(v []string) {
 
 // GetDynamicRegistrationSupported returns the DynamicRegistrationSupported field value if set, zero value otherwise.
 func (o *Service) GetDynamicRegistrationSupported() bool {
-	if o == nil || isNil(o.DynamicRegistrationSupported) {
+	if o == nil || IsNil(o.DynamicRegistrationSupported) {
 		var ret bool
 		return ret
 	}
@@ -2202,15 +2205,15 @@ func (o *Service) GetDynamicRegistrationSupported() bool {
 // GetDynamicRegistrationSupportedOk returns a tuple with the DynamicRegistrationSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDynamicRegistrationSupportedOk() (*bool, bool) {
-	if o == nil || isNil(o.DynamicRegistrationSupported) {
-    return nil, false
+	if o == nil || IsNil(o.DynamicRegistrationSupported) {
+		return nil, false
 	}
 	return o.DynamicRegistrationSupported, true
 }
 
 // HasDynamicRegistrationSupported returns a boolean if a field has been set.
 func (o *Service) HasDynamicRegistrationSupported() bool {
-	if o != nil && !isNil(o.DynamicRegistrationSupported) {
+	if o != nil && !IsNil(o.DynamicRegistrationSupported) {
 		return true
 	}
 
@@ -2224,7 +2227,7 @@ func (o *Service) SetDynamicRegistrationSupported(v bool) {
 
 // GetEndSessionEndpoint returns the EndSessionEndpoint field value if set, zero value otherwise.
 func (o *Service) GetEndSessionEndpoint() string {
-	if o == nil || isNil(o.EndSessionEndpoint) {
+	if o == nil || IsNil(o.EndSessionEndpoint) {
 		var ret string
 		return ret
 	}
@@ -2234,15 +2237,15 @@ func (o *Service) GetEndSessionEndpoint() string {
 // GetEndSessionEndpointOk returns a tuple with the EndSessionEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetEndSessionEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.EndSessionEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.EndSessionEndpoint) {
+		return nil, false
 	}
 	return o.EndSessionEndpoint, true
 }
 
 // HasEndSessionEndpoint returns a boolean if a field has been set.
 func (o *Service) HasEndSessionEndpoint() bool {
-	if o != nil && !isNil(o.EndSessionEndpoint) {
+	if o != nil && !IsNil(o.EndSessionEndpoint) {
 		return true
 	}
 
@@ -2256,7 +2259,7 @@ func (o *Service) SetEndSessionEndpoint(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Service) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -2266,15 +2269,15 @@ func (o *Service) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Service) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -2288,7 +2291,7 @@ func (o *Service) SetDescription(v string) {
 
 // GetAccessTokenType returns the AccessTokenType field value if set, zero value otherwise.
 func (o *Service) GetAccessTokenType() string {
-	if o == nil || isNil(o.AccessTokenType) {
+	if o == nil || IsNil(o.AccessTokenType) {
 		var ret string
 		return ret
 	}
@@ -2298,15 +2301,15 @@ func (o *Service) GetAccessTokenType() string {
 // GetAccessTokenTypeOk returns a tuple with the AccessTokenType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAccessTokenTypeOk() (*string, bool) {
-	if o == nil || isNil(o.AccessTokenType) {
-    return nil, false
+	if o == nil || IsNil(o.AccessTokenType) {
+		return nil, false
 	}
 	return o.AccessTokenType, true
 }
 
 // HasAccessTokenType returns a boolean if a field has been set.
 func (o *Service) HasAccessTokenType() bool {
-	if o != nil && !isNil(o.AccessTokenType) {
+	if o != nil && !IsNil(o.AccessTokenType) {
 		return true
 	}
 
@@ -2320,7 +2323,7 @@ func (o *Service) SetAccessTokenType(v string) {
 
 // GetAccessTokenSignAlg returns the AccessTokenSignAlg field value if set, zero value otherwise.
 func (o *Service) GetAccessTokenSignAlg() string {
-	if o == nil || isNil(o.AccessTokenSignAlg) {
+	if o == nil || IsNil(o.AccessTokenSignAlg) {
 		var ret string
 		return ret
 	}
@@ -2330,15 +2333,15 @@ func (o *Service) GetAccessTokenSignAlg() string {
 // GetAccessTokenSignAlgOk returns a tuple with the AccessTokenSignAlg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAccessTokenSignAlgOk() (*string, bool) {
-	if o == nil || isNil(o.AccessTokenSignAlg) {
-    return nil, false
+	if o == nil || IsNil(o.AccessTokenSignAlg) {
+		return nil, false
 	}
 	return o.AccessTokenSignAlg, true
 }
 
 // HasAccessTokenSignAlg returns a boolean if a field has been set.
 func (o *Service) HasAccessTokenSignAlg() bool {
-	if o != nil && !isNil(o.AccessTokenSignAlg) {
+	if o != nil && !IsNil(o.AccessTokenSignAlg) {
 		return true
 	}
 
@@ -2352,7 +2355,7 @@ func (o *Service) SetAccessTokenSignAlg(v string) {
 
 // GetAccessTokenDuration returns the AccessTokenDuration field value if set, zero value otherwise.
 func (o *Service) GetAccessTokenDuration() int64 {
-	if o == nil || isNil(o.AccessTokenDuration) {
+	if o == nil || IsNil(o.AccessTokenDuration) {
 		var ret int64
 		return ret
 	}
@@ -2362,15 +2365,15 @@ func (o *Service) GetAccessTokenDuration() int64 {
 // GetAccessTokenDurationOk returns a tuple with the AccessTokenDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAccessTokenDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.AccessTokenDuration) {
-    return nil, false
+	if o == nil || IsNil(o.AccessTokenDuration) {
+		return nil, false
 	}
 	return o.AccessTokenDuration, true
 }
 
 // HasAccessTokenDuration returns a boolean if a field has been set.
 func (o *Service) HasAccessTokenDuration() bool {
-	if o != nil && !isNil(o.AccessTokenDuration) {
+	if o != nil && !IsNil(o.AccessTokenDuration) {
 		return true
 	}
 
@@ -2384,7 +2387,7 @@ func (o *Service) SetAccessTokenDuration(v int64) {
 
 // GetRefreshTokenDuration returns the RefreshTokenDuration field value if set, zero value otherwise.
 func (o *Service) GetRefreshTokenDuration() int64 {
-	if o == nil || isNil(o.RefreshTokenDuration) {
+	if o == nil || IsNil(o.RefreshTokenDuration) {
 		var ret int64
 		return ret
 	}
@@ -2394,15 +2397,15 @@ func (o *Service) GetRefreshTokenDuration() int64 {
 // GetRefreshTokenDurationOk returns a tuple with the RefreshTokenDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRefreshTokenDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.RefreshTokenDuration) {
-    return nil, false
+	if o == nil || IsNil(o.RefreshTokenDuration) {
+		return nil, false
 	}
 	return o.RefreshTokenDuration, true
 }
 
 // HasRefreshTokenDuration returns a boolean if a field has been set.
 func (o *Service) HasRefreshTokenDuration() bool {
-	if o != nil && !isNil(o.RefreshTokenDuration) {
+	if o != nil && !IsNil(o.RefreshTokenDuration) {
 		return true
 	}
 
@@ -2416,7 +2419,7 @@ func (o *Service) SetRefreshTokenDuration(v int64) {
 
 // GetIdTokenDuration returns the IdTokenDuration field value if set, zero value otherwise.
 func (o *Service) GetIdTokenDuration() int64 {
-	if o == nil || isNil(o.IdTokenDuration) {
+	if o == nil || IsNil(o.IdTokenDuration) {
 		var ret int64
 		return ret
 	}
@@ -2426,15 +2429,15 @@ func (o *Service) GetIdTokenDuration() int64 {
 // GetIdTokenDurationOk returns a tuple with the IdTokenDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIdTokenDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.IdTokenDuration) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenDuration) {
+		return nil, false
 	}
 	return o.IdTokenDuration, true
 }
 
 // HasIdTokenDuration returns a boolean if a field has been set.
 func (o *Service) HasIdTokenDuration() bool {
-	if o != nil && !isNil(o.IdTokenDuration) {
+	if o != nil && !IsNil(o.IdTokenDuration) {
 		return true
 	}
 
@@ -2448,7 +2451,7 @@ func (o *Service) SetIdTokenDuration(v int64) {
 
 // GetAuthorizationResponseDuration returns the AuthorizationResponseDuration field value if set, zero value otherwise.
 func (o *Service) GetAuthorizationResponseDuration() int64 {
-	if o == nil || isNil(o.AuthorizationResponseDuration) {
+	if o == nil || IsNil(o.AuthorizationResponseDuration) {
 		var ret int64
 		return ret
 	}
@@ -2458,15 +2461,15 @@ func (o *Service) GetAuthorizationResponseDuration() int64 {
 // GetAuthorizationResponseDurationOk returns a tuple with the AuthorizationResponseDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthorizationResponseDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.AuthorizationResponseDuration) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationResponseDuration) {
+		return nil, false
 	}
 	return o.AuthorizationResponseDuration, true
 }
 
 // HasAuthorizationResponseDuration returns a boolean if a field has been set.
 func (o *Service) HasAuthorizationResponseDuration() bool {
-	if o != nil && !isNil(o.AuthorizationResponseDuration) {
+	if o != nil && !IsNil(o.AuthorizationResponseDuration) {
 		return true
 	}
 
@@ -2480,7 +2483,7 @@ func (o *Service) SetAuthorizationResponseDuration(v int64) {
 
 // GetPushedAuthReqDuration returns the PushedAuthReqDuration field value if set, zero value otherwise.
 func (o *Service) GetPushedAuthReqDuration() int64 {
-	if o == nil || isNil(o.PushedAuthReqDuration) {
+	if o == nil || IsNil(o.PushedAuthReqDuration) {
 		var ret int64
 		return ret
 	}
@@ -2490,15 +2493,15 @@ func (o *Service) GetPushedAuthReqDuration() int64 {
 // GetPushedAuthReqDurationOk returns a tuple with the PushedAuthReqDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPushedAuthReqDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.PushedAuthReqDuration) {
-    return nil, false
+	if o == nil || IsNil(o.PushedAuthReqDuration) {
+		return nil, false
 	}
 	return o.PushedAuthReqDuration, true
 }
 
 // HasPushedAuthReqDuration returns a boolean if a field has been set.
 func (o *Service) HasPushedAuthReqDuration() bool {
-	if o != nil && !isNil(o.PushedAuthReqDuration) {
+	if o != nil && !IsNil(o.PushedAuthReqDuration) {
 		return true
 	}
 
@@ -2512,7 +2515,7 @@ func (o *Service) SetPushedAuthReqDuration(v int64) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Service) GetMetadata() []Pair {
-	if o == nil || isNil(o.Metadata) {
+	if o == nil || IsNil(o.Metadata) {
 		var ret []Pair
 		return ret
 	}
@@ -2522,15 +2525,15 @@ func (o *Service) GetMetadata() []Pair {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetMetadataOk() ([]Pair, bool) {
-	if o == nil || isNil(o.Metadata) {
-    return nil, false
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
 	}
 	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Service) HasMetadata() bool {
-	if o != nil && !isNil(o.Metadata) {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -2544,7 +2547,7 @@ func (o *Service) SetMetadata(v []Pair) {
 
 // GetAccessTokenSignatureKeyId returns the AccessTokenSignatureKeyId field value if set, zero value otherwise.
 func (o *Service) GetAccessTokenSignatureKeyId() string {
-	if o == nil || isNil(o.AccessTokenSignatureKeyId) {
+	if o == nil || IsNil(o.AccessTokenSignatureKeyId) {
 		var ret string
 		return ret
 	}
@@ -2554,15 +2557,15 @@ func (o *Service) GetAccessTokenSignatureKeyId() string {
 // GetAccessTokenSignatureKeyIdOk returns a tuple with the AccessTokenSignatureKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAccessTokenSignatureKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.AccessTokenSignatureKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.AccessTokenSignatureKeyId) {
+		return nil, false
 	}
 	return o.AccessTokenSignatureKeyId, true
 }
 
 // HasAccessTokenSignatureKeyId returns a boolean if a field has been set.
 func (o *Service) HasAccessTokenSignatureKeyId() bool {
-	if o != nil && !isNil(o.AccessTokenSignatureKeyId) {
+	if o != nil && !IsNil(o.AccessTokenSignatureKeyId) {
 		return true
 	}
 
@@ -2576,7 +2579,7 @@ func (o *Service) SetAccessTokenSignatureKeyId(v string) {
 
 // GetAuthorizationSignatureKeyId returns the AuthorizationSignatureKeyId field value if set, zero value otherwise.
 func (o *Service) GetAuthorizationSignatureKeyId() string {
-	if o == nil || isNil(o.AuthorizationSignatureKeyId) {
+	if o == nil || IsNil(o.AuthorizationSignatureKeyId) {
 		var ret string
 		return ret
 	}
@@ -2586,15 +2589,15 @@ func (o *Service) GetAuthorizationSignatureKeyId() string {
 // GetAuthorizationSignatureKeyIdOk returns a tuple with the AuthorizationSignatureKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthorizationSignatureKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.AuthorizationSignatureKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationSignatureKeyId) {
+		return nil, false
 	}
 	return o.AuthorizationSignatureKeyId, true
 }
 
 // HasAuthorizationSignatureKeyId returns a boolean if a field has been set.
 func (o *Service) HasAuthorizationSignatureKeyId() bool {
-	if o != nil && !isNil(o.AuthorizationSignatureKeyId) {
+	if o != nil && !IsNil(o.AuthorizationSignatureKeyId) {
 		return true
 	}
 
@@ -2608,7 +2611,7 @@ func (o *Service) SetAuthorizationSignatureKeyId(v string) {
 
 // GetIdTokenSignatureKeyId returns the IdTokenSignatureKeyId field value if set, zero value otherwise.
 func (o *Service) GetIdTokenSignatureKeyId() string {
-	if o == nil || isNil(o.IdTokenSignatureKeyId) {
+	if o == nil || IsNil(o.IdTokenSignatureKeyId) {
 		var ret string
 		return ret
 	}
@@ -2618,15 +2621,15 @@ func (o *Service) GetIdTokenSignatureKeyId() string {
 // GetIdTokenSignatureKeyIdOk returns a tuple with the IdTokenSignatureKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIdTokenSignatureKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.IdTokenSignatureKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenSignatureKeyId) {
+		return nil, false
 	}
 	return o.IdTokenSignatureKeyId, true
 }
 
 // HasIdTokenSignatureKeyId returns a boolean if a field has been set.
 func (o *Service) HasIdTokenSignatureKeyId() bool {
-	if o != nil && !isNil(o.IdTokenSignatureKeyId) {
+	if o != nil && !IsNil(o.IdTokenSignatureKeyId) {
 		return true
 	}
 
@@ -2640,7 +2643,7 @@ func (o *Service) SetIdTokenSignatureKeyId(v string) {
 
 // GetUserInfoSignatureKeyId returns the UserInfoSignatureKeyId field value if set, zero value otherwise.
 func (o *Service) GetUserInfoSignatureKeyId() string {
-	if o == nil || isNil(o.UserInfoSignatureKeyId) {
+	if o == nil || IsNil(o.UserInfoSignatureKeyId) {
 		var ret string
 		return ret
 	}
@@ -2650,15 +2653,15 @@ func (o *Service) GetUserInfoSignatureKeyId() string {
 // GetUserInfoSignatureKeyIdOk returns a tuple with the UserInfoSignatureKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetUserInfoSignatureKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.UserInfoSignatureKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.UserInfoSignatureKeyId) {
+		return nil, false
 	}
 	return o.UserInfoSignatureKeyId, true
 }
 
 // HasUserInfoSignatureKeyId returns a boolean if a field has been set.
 func (o *Service) HasUserInfoSignatureKeyId() bool {
-	if o != nil && !isNil(o.UserInfoSignatureKeyId) {
+	if o != nil && !IsNil(o.UserInfoSignatureKeyId) {
 		return true
 	}
 
@@ -2672,7 +2675,7 @@ func (o *Service) SetUserInfoSignatureKeyId(v string) {
 
 // GetSupportedBackchannelTokenDeliveryModes returns the SupportedBackchannelTokenDeliveryModes field value if set, zero value otherwise.
 func (o *Service) GetSupportedBackchannelTokenDeliveryModes() []string {
-	if o == nil || isNil(o.SupportedBackchannelTokenDeliveryModes) {
+	if o == nil || IsNil(o.SupportedBackchannelTokenDeliveryModes) {
 		var ret []string
 		return ret
 	}
@@ -2682,15 +2685,15 @@ func (o *Service) GetSupportedBackchannelTokenDeliveryModes() []string {
 // GetSupportedBackchannelTokenDeliveryModesOk returns a tuple with the SupportedBackchannelTokenDeliveryModes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedBackchannelTokenDeliveryModesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedBackchannelTokenDeliveryModes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedBackchannelTokenDeliveryModes) {
+		return nil, false
 	}
 	return o.SupportedBackchannelTokenDeliveryModes, true
 }
 
 // HasSupportedBackchannelTokenDeliveryModes returns a boolean if a field has been set.
 func (o *Service) HasSupportedBackchannelTokenDeliveryModes() bool {
-	if o != nil && !isNil(o.SupportedBackchannelTokenDeliveryModes) {
+	if o != nil && !IsNil(o.SupportedBackchannelTokenDeliveryModes) {
 		return true
 	}
 
@@ -2704,7 +2707,7 @@ func (o *Service) SetSupportedBackchannelTokenDeliveryModes(v []string) {
 
 // GetBackchannelAuthenticationEndpoint returns the BackchannelAuthenticationEndpoint field value if set, zero value otherwise.
 func (o *Service) GetBackchannelAuthenticationEndpoint() string {
-	if o == nil || isNil(o.BackchannelAuthenticationEndpoint) {
+	if o == nil || IsNil(o.BackchannelAuthenticationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -2714,15 +2717,15 @@ func (o *Service) GetBackchannelAuthenticationEndpoint() string {
 // GetBackchannelAuthenticationEndpointOk returns a tuple with the BackchannelAuthenticationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetBackchannelAuthenticationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.BackchannelAuthenticationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.BackchannelAuthenticationEndpoint) {
+		return nil, false
 	}
 	return o.BackchannelAuthenticationEndpoint, true
 }
 
 // HasBackchannelAuthenticationEndpoint returns a boolean if a field has been set.
 func (o *Service) HasBackchannelAuthenticationEndpoint() bool {
-	if o != nil && !isNil(o.BackchannelAuthenticationEndpoint) {
+	if o != nil && !IsNil(o.BackchannelAuthenticationEndpoint) {
 		return true
 	}
 
@@ -2736,7 +2739,7 @@ func (o *Service) SetBackchannelAuthenticationEndpoint(v string) {
 
 // GetBackchannelUserCodeParameterSupported returns the BackchannelUserCodeParameterSupported field value if set, zero value otherwise.
 func (o *Service) GetBackchannelUserCodeParameterSupported() bool {
-	if o == nil || isNil(o.BackchannelUserCodeParameterSupported) {
+	if o == nil || IsNil(o.BackchannelUserCodeParameterSupported) {
 		var ret bool
 		return ret
 	}
@@ -2746,15 +2749,15 @@ func (o *Service) GetBackchannelUserCodeParameterSupported() bool {
 // GetBackchannelUserCodeParameterSupportedOk returns a tuple with the BackchannelUserCodeParameterSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetBackchannelUserCodeParameterSupportedOk() (*bool, bool) {
-	if o == nil || isNil(o.BackchannelUserCodeParameterSupported) {
-    return nil, false
+	if o == nil || IsNil(o.BackchannelUserCodeParameterSupported) {
+		return nil, false
 	}
 	return o.BackchannelUserCodeParameterSupported, true
 }
 
 // HasBackchannelUserCodeParameterSupported returns a boolean if a field has been set.
 func (o *Service) HasBackchannelUserCodeParameterSupported() bool {
-	if o != nil && !isNil(o.BackchannelUserCodeParameterSupported) {
+	if o != nil && !IsNil(o.BackchannelUserCodeParameterSupported) {
 		return true
 	}
 
@@ -2768,7 +2771,7 @@ func (o *Service) SetBackchannelUserCodeParameterSupported(v bool) {
 
 // GetBackchannelAuthReqIdDuration returns the BackchannelAuthReqIdDuration field value if set, zero value otherwise.
 func (o *Service) GetBackchannelAuthReqIdDuration() int32 {
-	if o == nil || isNil(o.BackchannelAuthReqIdDuration) {
+	if o == nil || IsNil(o.BackchannelAuthReqIdDuration) {
 		var ret int32
 		return ret
 	}
@@ -2778,15 +2781,15 @@ func (o *Service) GetBackchannelAuthReqIdDuration() int32 {
 // GetBackchannelAuthReqIdDurationOk returns a tuple with the BackchannelAuthReqIdDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetBackchannelAuthReqIdDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.BackchannelAuthReqIdDuration) {
-    return nil, false
+	if o == nil || IsNil(o.BackchannelAuthReqIdDuration) {
+		return nil, false
 	}
 	return o.BackchannelAuthReqIdDuration, true
 }
 
 // HasBackchannelAuthReqIdDuration returns a boolean if a field has been set.
 func (o *Service) HasBackchannelAuthReqIdDuration() bool {
-	if o != nil && !isNil(o.BackchannelAuthReqIdDuration) {
+	if o != nil && !IsNil(o.BackchannelAuthReqIdDuration) {
 		return true
 	}
 
@@ -2800,7 +2803,7 @@ func (o *Service) SetBackchannelAuthReqIdDuration(v int32) {
 
 // GetBackchannelPollingInterval returns the BackchannelPollingInterval field value if set, zero value otherwise.
 func (o *Service) GetBackchannelPollingInterval() int32 {
-	if o == nil || isNil(o.BackchannelPollingInterval) {
+	if o == nil || IsNil(o.BackchannelPollingInterval) {
 		var ret int32
 		return ret
 	}
@@ -2810,15 +2813,15 @@ func (o *Service) GetBackchannelPollingInterval() int32 {
 // GetBackchannelPollingIntervalOk returns a tuple with the BackchannelPollingInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetBackchannelPollingIntervalOk() (*int32, bool) {
-	if o == nil || isNil(o.BackchannelPollingInterval) {
-    return nil, false
+	if o == nil || IsNil(o.BackchannelPollingInterval) {
+		return nil, false
 	}
 	return o.BackchannelPollingInterval, true
 }
 
 // HasBackchannelPollingInterval returns a boolean if a field has been set.
 func (o *Service) HasBackchannelPollingInterval() bool {
-	if o != nil && !isNil(o.BackchannelPollingInterval) {
+	if o != nil && !IsNil(o.BackchannelPollingInterval) {
 		return true
 	}
 
@@ -2832,7 +2835,7 @@ func (o *Service) SetBackchannelPollingInterval(v int32) {
 
 // GetBackchannelBindingMessageRequiredInFapi returns the BackchannelBindingMessageRequiredInFapi field value if set, zero value otherwise.
 func (o *Service) GetBackchannelBindingMessageRequiredInFapi() bool {
-	if o == nil || isNil(o.BackchannelBindingMessageRequiredInFapi) {
+	if o == nil || IsNil(o.BackchannelBindingMessageRequiredInFapi) {
 		var ret bool
 		return ret
 	}
@@ -2842,15 +2845,15 @@ func (o *Service) GetBackchannelBindingMessageRequiredInFapi() bool {
 // GetBackchannelBindingMessageRequiredInFapiOk returns a tuple with the BackchannelBindingMessageRequiredInFapi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetBackchannelBindingMessageRequiredInFapiOk() (*bool, bool) {
-	if o == nil || isNil(o.BackchannelBindingMessageRequiredInFapi) {
-    return nil, false
+	if o == nil || IsNil(o.BackchannelBindingMessageRequiredInFapi) {
+		return nil, false
 	}
 	return o.BackchannelBindingMessageRequiredInFapi, true
 }
 
 // HasBackchannelBindingMessageRequiredInFapi returns a boolean if a field has been set.
 func (o *Service) HasBackchannelBindingMessageRequiredInFapi() bool {
-	if o != nil && !isNil(o.BackchannelBindingMessageRequiredInFapi) {
+	if o != nil && !IsNil(o.BackchannelBindingMessageRequiredInFapi) {
 		return true
 	}
 
@@ -2864,7 +2867,7 @@ func (o *Service) SetBackchannelBindingMessageRequiredInFapi(v bool) {
 
 // GetAllowableClockSkew returns the AllowableClockSkew field value if set, zero value otherwise.
 func (o *Service) GetAllowableClockSkew() int32 {
-	if o == nil || isNil(o.AllowableClockSkew) {
+	if o == nil || IsNil(o.AllowableClockSkew) {
 		var ret int32
 		return ret
 	}
@@ -2874,15 +2877,15 @@ func (o *Service) GetAllowableClockSkew() int32 {
 // GetAllowableClockSkewOk returns a tuple with the AllowableClockSkew field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAllowableClockSkewOk() (*int32, bool) {
-	if o == nil || isNil(o.AllowableClockSkew) {
-    return nil, false
+	if o == nil || IsNil(o.AllowableClockSkew) {
+		return nil, false
 	}
 	return o.AllowableClockSkew, true
 }
 
 // HasAllowableClockSkew returns a boolean if a field has been set.
 func (o *Service) HasAllowableClockSkew() bool {
-	if o != nil && !isNil(o.AllowableClockSkew) {
+	if o != nil && !IsNil(o.AllowableClockSkew) {
 		return true
 	}
 
@@ -2896,7 +2899,7 @@ func (o *Service) SetAllowableClockSkew(v int32) {
 
 // GetDeviceAuthorizationEndpoint returns the DeviceAuthorizationEndpoint field value if set, zero value otherwise.
 func (o *Service) GetDeviceAuthorizationEndpoint() string {
-	if o == nil || isNil(o.DeviceAuthorizationEndpoint) {
+	if o == nil || IsNil(o.DeviceAuthorizationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -2906,15 +2909,15 @@ func (o *Service) GetDeviceAuthorizationEndpoint() string {
 // GetDeviceAuthorizationEndpointOk returns a tuple with the DeviceAuthorizationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeviceAuthorizationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.DeviceAuthorizationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.DeviceAuthorizationEndpoint) {
+		return nil, false
 	}
 	return o.DeviceAuthorizationEndpoint, true
 }
 
 // HasDeviceAuthorizationEndpoint returns a boolean if a field has been set.
 func (o *Service) HasDeviceAuthorizationEndpoint() bool {
-	if o != nil && !isNil(o.DeviceAuthorizationEndpoint) {
+	if o != nil && !IsNil(o.DeviceAuthorizationEndpoint) {
 		return true
 	}
 
@@ -2928,7 +2931,7 @@ func (o *Service) SetDeviceAuthorizationEndpoint(v string) {
 
 // GetDeviceVerificationUri returns the DeviceVerificationUri field value if set, zero value otherwise.
 func (o *Service) GetDeviceVerificationUri() string {
-	if o == nil || isNil(o.DeviceVerificationUri) {
+	if o == nil || IsNil(o.DeviceVerificationUri) {
 		var ret string
 		return ret
 	}
@@ -2938,15 +2941,15 @@ func (o *Service) GetDeviceVerificationUri() string {
 // GetDeviceVerificationUriOk returns a tuple with the DeviceVerificationUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeviceVerificationUriOk() (*string, bool) {
-	if o == nil || isNil(o.DeviceVerificationUri) {
-    return nil, false
+	if o == nil || IsNil(o.DeviceVerificationUri) {
+		return nil, false
 	}
 	return o.DeviceVerificationUri, true
 }
 
 // HasDeviceVerificationUri returns a boolean if a field has been set.
 func (o *Service) HasDeviceVerificationUri() bool {
-	if o != nil && !isNil(o.DeviceVerificationUri) {
+	if o != nil && !IsNil(o.DeviceVerificationUri) {
 		return true
 	}
 
@@ -2960,7 +2963,7 @@ func (o *Service) SetDeviceVerificationUri(v string) {
 
 // GetDeviceVerificationUriComplete returns the DeviceVerificationUriComplete field value if set, zero value otherwise.
 func (o *Service) GetDeviceVerificationUriComplete() string {
-	if o == nil || isNil(o.DeviceVerificationUriComplete) {
+	if o == nil || IsNil(o.DeviceVerificationUriComplete) {
 		var ret string
 		return ret
 	}
@@ -2970,15 +2973,15 @@ func (o *Service) GetDeviceVerificationUriComplete() string {
 // GetDeviceVerificationUriCompleteOk returns a tuple with the DeviceVerificationUriComplete field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeviceVerificationUriCompleteOk() (*string, bool) {
-	if o == nil || isNil(o.DeviceVerificationUriComplete) {
-    return nil, false
+	if o == nil || IsNil(o.DeviceVerificationUriComplete) {
+		return nil, false
 	}
 	return o.DeviceVerificationUriComplete, true
 }
 
 // HasDeviceVerificationUriComplete returns a boolean if a field has been set.
 func (o *Service) HasDeviceVerificationUriComplete() bool {
-	if o != nil && !isNil(o.DeviceVerificationUriComplete) {
+	if o != nil && !IsNil(o.DeviceVerificationUriComplete) {
 		return true
 	}
 
@@ -2992,7 +2995,7 @@ func (o *Service) SetDeviceVerificationUriComplete(v string) {
 
 // GetDeviceFlowCodeDuration returns the DeviceFlowCodeDuration field value if set, zero value otherwise.
 func (o *Service) GetDeviceFlowCodeDuration() int32 {
-	if o == nil || isNil(o.DeviceFlowCodeDuration) {
+	if o == nil || IsNil(o.DeviceFlowCodeDuration) {
 		var ret int32
 		return ret
 	}
@@ -3002,15 +3005,15 @@ func (o *Service) GetDeviceFlowCodeDuration() int32 {
 // GetDeviceFlowCodeDurationOk returns a tuple with the DeviceFlowCodeDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeviceFlowCodeDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.DeviceFlowCodeDuration) {
-    return nil, false
+	if o == nil || IsNil(o.DeviceFlowCodeDuration) {
+		return nil, false
 	}
 	return o.DeviceFlowCodeDuration, true
 }
 
 // HasDeviceFlowCodeDuration returns a boolean if a field has been set.
 func (o *Service) HasDeviceFlowCodeDuration() bool {
-	if o != nil && !isNil(o.DeviceFlowCodeDuration) {
+	if o != nil && !IsNil(o.DeviceFlowCodeDuration) {
 		return true
 	}
 
@@ -3024,7 +3027,7 @@ func (o *Service) SetDeviceFlowCodeDuration(v int32) {
 
 // GetDeviceFlowPollingInterval returns the DeviceFlowPollingInterval field value if set, zero value otherwise.
 func (o *Service) GetDeviceFlowPollingInterval() int32 {
-	if o == nil || isNil(o.DeviceFlowPollingInterval) {
+	if o == nil || IsNil(o.DeviceFlowPollingInterval) {
 		var ret int32
 		return ret
 	}
@@ -3034,15 +3037,15 @@ func (o *Service) GetDeviceFlowPollingInterval() int32 {
 // GetDeviceFlowPollingIntervalOk returns a tuple with the DeviceFlowPollingInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDeviceFlowPollingIntervalOk() (*int32, bool) {
-	if o == nil || isNil(o.DeviceFlowPollingInterval) {
-    return nil, false
+	if o == nil || IsNil(o.DeviceFlowPollingInterval) {
+		return nil, false
 	}
 	return o.DeviceFlowPollingInterval, true
 }
 
 // HasDeviceFlowPollingInterval returns a boolean if a field has been set.
 func (o *Service) HasDeviceFlowPollingInterval() bool {
-	if o != nil && !isNil(o.DeviceFlowPollingInterval) {
+	if o != nil && !IsNil(o.DeviceFlowPollingInterval) {
 		return true
 	}
 
@@ -3056,7 +3059,7 @@ func (o *Service) SetDeviceFlowPollingInterval(v int32) {
 
 // GetUserCodeCharset returns the UserCodeCharset field value if set, zero value otherwise.
 func (o *Service) GetUserCodeCharset() string {
-	if o == nil || isNil(o.UserCodeCharset) {
+	if o == nil || IsNil(o.UserCodeCharset) {
 		var ret string
 		return ret
 	}
@@ -3066,15 +3069,15 @@ func (o *Service) GetUserCodeCharset() string {
 // GetUserCodeCharsetOk returns a tuple with the UserCodeCharset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetUserCodeCharsetOk() (*string, bool) {
-	if o == nil || isNil(o.UserCodeCharset) {
-    return nil, false
+	if o == nil || IsNil(o.UserCodeCharset) {
+		return nil, false
 	}
 	return o.UserCodeCharset, true
 }
 
 // HasUserCodeCharset returns a boolean if a field has been set.
 func (o *Service) HasUserCodeCharset() bool {
-	if o != nil && !isNil(o.UserCodeCharset) {
+	if o != nil && !IsNil(o.UserCodeCharset) {
 		return true
 	}
 
@@ -3088,7 +3091,7 @@ func (o *Service) SetUserCodeCharset(v string) {
 
 // GetUserCodeLength returns the UserCodeLength field value if set, zero value otherwise.
 func (o *Service) GetUserCodeLength() int32 {
-	if o == nil || isNil(o.UserCodeLength) {
+	if o == nil || IsNil(o.UserCodeLength) {
 		var ret int32
 		return ret
 	}
@@ -3098,15 +3101,15 @@ func (o *Service) GetUserCodeLength() int32 {
 // GetUserCodeLengthOk returns a tuple with the UserCodeLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetUserCodeLengthOk() (*int32, bool) {
-	if o == nil || isNil(o.UserCodeLength) {
-    return nil, false
+	if o == nil || IsNil(o.UserCodeLength) {
+		return nil, false
 	}
 	return o.UserCodeLength, true
 }
 
 // HasUserCodeLength returns a boolean if a field has been set.
 func (o *Service) HasUserCodeLength() bool {
-	if o != nil && !isNil(o.UserCodeLength) {
+	if o != nil && !IsNil(o.UserCodeLength) {
 		return true
 	}
 
@@ -3120,7 +3123,7 @@ func (o *Service) SetUserCodeLength(v int32) {
 
 // GetPushedAuthReqEndpoint returns the PushedAuthReqEndpoint field value if set, zero value otherwise.
 func (o *Service) GetPushedAuthReqEndpoint() string {
-	if o == nil || isNil(o.PushedAuthReqEndpoint) {
+	if o == nil || IsNil(o.PushedAuthReqEndpoint) {
 		var ret string
 		return ret
 	}
@@ -3130,15 +3133,15 @@ func (o *Service) GetPushedAuthReqEndpoint() string {
 // GetPushedAuthReqEndpointOk returns a tuple with the PushedAuthReqEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPushedAuthReqEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.PushedAuthReqEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.PushedAuthReqEndpoint) {
+		return nil, false
 	}
 	return o.PushedAuthReqEndpoint, true
 }
 
 // HasPushedAuthReqEndpoint returns a boolean if a field has been set.
 func (o *Service) HasPushedAuthReqEndpoint() bool {
-	if o != nil && !isNil(o.PushedAuthReqEndpoint) {
+	if o != nil && !IsNil(o.PushedAuthReqEndpoint) {
 		return true
 	}
 
@@ -3152,7 +3155,7 @@ func (o *Service) SetPushedAuthReqEndpoint(v string) {
 
 // GetMtlsEndpointAliases returns the MtlsEndpointAliases field value if set, zero value otherwise.
 func (o *Service) GetMtlsEndpointAliases() []NamedUri {
-	if o == nil || isNil(o.MtlsEndpointAliases) {
+	if o == nil || IsNil(o.MtlsEndpointAliases) {
 		var ret []NamedUri
 		return ret
 	}
@@ -3162,15 +3165,15 @@ func (o *Service) GetMtlsEndpointAliases() []NamedUri {
 // GetMtlsEndpointAliasesOk returns a tuple with the MtlsEndpointAliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetMtlsEndpointAliasesOk() ([]NamedUri, bool) {
-	if o == nil || isNil(o.MtlsEndpointAliases) {
-    return nil, false
+	if o == nil || IsNil(o.MtlsEndpointAliases) {
+		return nil, false
 	}
 	return o.MtlsEndpointAliases, true
 }
 
 // HasMtlsEndpointAliases returns a boolean if a field has been set.
 func (o *Service) HasMtlsEndpointAliases() bool {
-	if o != nil && !isNil(o.MtlsEndpointAliases) {
+	if o != nil && !IsNil(o.MtlsEndpointAliases) {
 		return true
 	}
 
@@ -3184,7 +3187,7 @@ func (o *Service) SetMtlsEndpointAliases(v []NamedUri) {
 
 // GetSupportedAuthorizationDetailsTypes returns the SupportedAuthorizationDetailsTypes field value if set, zero value otherwise.
 func (o *Service) GetSupportedAuthorizationDetailsTypes() []string {
-	if o == nil || isNil(o.SupportedAuthorizationDetailsTypes) {
+	if o == nil || IsNil(o.SupportedAuthorizationDetailsTypes) {
 		var ret []string
 		return ret
 	}
@@ -3194,15 +3197,15 @@ func (o *Service) GetSupportedAuthorizationDetailsTypes() []string {
 // GetSupportedAuthorizationDetailsTypesOk returns a tuple with the SupportedAuthorizationDetailsTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedAuthorizationDetailsTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedAuthorizationDetailsTypes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedAuthorizationDetailsTypes) {
+		return nil, false
 	}
 	return o.SupportedAuthorizationDetailsTypes, true
 }
 
 // HasSupportedAuthorizationDetailsTypes returns a boolean if a field has been set.
 func (o *Service) HasSupportedAuthorizationDetailsTypes() bool {
-	if o != nil && !isNil(o.SupportedAuthorizationDetailsTypes) {
+	if o != nil && !IsNil(o.SupportedAuthorizationDetailsTypes) {
 		return true
 	}
 
@@ -3216,7 +3219,7 @@ func (o *Service) SetSupportedAuthorizationDetailsTypes(v []string) {
 
 // GetSupportedTrustFrameworks returns the SupportedTrustFrameworks field value if set, zero value otherwise.
 func (o *Service) GetSupportedTrustFrameworks() []string {
-	if o == nil || isNil(o.SupportedTrustFrameworks) {
+	if o == nil || IsNil(o.SupportedTrustFrameworks) {
 		var ret []string
 		return ret
 	}
@@ -3226,15 +3229,15 @@ func (o *Service) GetSupportedTrustFrameworks() []string {
 // GetSupportedTrustFrameworksOk returns a tuple with the SupportedTrustFrameworks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedTrustFrameworksOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedTrustFrameworks) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedTrustFrameworks) {
+		return nil, false
 	}
 	return o.SupportedTrustFrameworks, true
 }
 
 // HasSupportedTrustFrameworks returns a boolean if a field has been set.
 func (o *Service) HasSupportedTrustFrameworks() bool {
-	if o != nil && !isNil(o.SupportedTrustFrameworks) {
+	if o != nil && !IsNil(o.SupportedTrustFrameworks) {
 		return true
 	}
 
@@ -3248,7 +3251,7 @@ func (o *Service) SetSupportedTrustFrameworks(v []string) {
 
 // GetSupportedEvidence returns the SupportedEvidence field value if set, zero value otherwise.
 func (o *Service) GetSupportedEvidence() []string {
-	if o == nil || isNil(o.SupportedEvidence) {
+	if o == nil || IsNil(o.SupportedEvidence) {
 		var ret []string
 		return ret
 	}
@@ -3258,15 +3261,15 @@ func (o *Service) GetSupportedEvidence() []string {
 // GetSupportedEvidenceOk returns a tuple with the SupportedEvidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedEvidenceOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedEvidence) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedEvidence) {
+		return nil, false
 	}
 	return o.SupportedEvidence, true
 }
 
 // HasSupportedEvidence returns a boolean if a field has been set.
 func (o *Service) HasSupportedEvidence() bool {
-	if o != nil && !isNil(o.SupportedEvidence) {
+	if o != nil && !IsNil(o.SupportedEvidence) {
 		return true
 	}
 
@@ -3281,7 +3284,7 @@ func (o *Service) SetSupportedEvidence(v []string) {
 // GetSupportedIdentityDocuments returns the SupportedIdentityDocuments field value if set, zero value otherwise.
 // Deprecated
 func (o *Service) GetSupportedIdentityDocuments() []string {
-	if o == nil || isNil(o.SupportedIdentityDocuments) {
+	if o == nil || IsNil(o.SupportedIdentityDocuments) {
 		var ret []string
 		return ret
 	}
@@ -3292,15 +3295,15 @@ func (o *Service) GetSupportedIdentityDocuments() []string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *Service) GetSupportedIdentityDocumentsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedIdentityDocuments) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedIdentityDocuments) {
+		return nil, false
 	}
 	return o.SupportedIdentityDocuments, true
 }
 
 // HasSupportedIdentityDocuments returns a boolean if a field has been set.
 func (o *Service) HasSupportedIdentityDocuments() bool {
-	if o != nil && !isNil(o.SupportedIdentityDocuments) {
+	if o != nil && !IsNil(o.SupportedIdentityDocuments) {
 		return true
 	}
 
@@ -3315,7 +3318,7 @@ func (o *Service) SetSupportedIdentityDocuments(v []string) {
 
 // GetSupportedDocuments returns the SupportedDocuments field value if set, zero value otherwise.
 func (o *Service) GetSupportedDocuments() []string {
-	if o == nil || isNil(o.SupportedDocuments) {
+	if o == nil || IsNil(o.SupportedDocuments) {
 		var ret []string
 		return ret
 	}
@@ -3325,15 +3328,15 @@ func (o *Service) GetSupportedDocuments() []string {
 // GetSupportedDocumentsOk returns a tuple with the SupportedDocuments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedDocumentsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDocuments) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDocuments) {
+		return nil, false
 	}
 	return o.SupportedDocuments, true
 }
 
 // HasSupportedDocuments returns a boolean if a field has been set.
 func (o *Service) HasSupportedDocuments() bool {
-	if o != nil && !isNil(o.SupportedDocuments) {
+	if o != nil && !IsNil(o.SupportedDocuments) {
 		return true
 	}
 
@@ -3348,7 +3351,7 @@ func (o *Service) SetSupportedDocuments(v []string) {
 // GetSupportedVerificationMethods returns the SupportedVerificationMethods field value if set, zero value otherwise.
 // Deprecated
 func (o *Service) GetSupportedVerificationMethods() []string {
-	if o == nil || isNil(o.SupportedVerificationMethods) {
+	if o == nil || IsNil(o.SupportedVerificationMethods) {
 		var ret []string
 		return ret
 	}
@@ -3359,15 +3362,15 @@ func (o *Service) GetSupportedVerificationMethods() []string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *Service) GetSupportedVerificationMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedVerificationMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedVerificationMethods) {
+		return nil, false
 	}
 	return o.SupportedVerificationMethods, true
 }
 
 // HasSupportedVerificationMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedVerificationMethods() bool {
-	if o != nil && !isNil(o.SupportedVerificationMethods) {
+	if o != nil && !IsNil(o.SupportedVerificationMethods) {
 		return true
 	}
 
@@ -3382,7 +3385,7 @@ func (o *Service) SetSupportedVerificationMethods(v []string) {
 
 // GetSupportedDocumentsMethods returns the SupportedDocumentsMethods field value if set, zero value otherwise.
 func (o *Service) GetSupportedDocumentsMethods() []string {
-	if o == nil || isNil(o.SupportedDocumentsMethods) {
+	if o == nil || IsNil(o.SupportedDocumentsMethods) {
 		var ret []string
 		return ret
 	}
@@ -3392,15 +3395,15 @@ func (o *Service) GetSupportedDocumentsMethods() []string {
 // GetSupportedDocumentsMethodsOk returns a tuple with the SupportedDocumentsMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedDocumentsMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDocumentsMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDocumentsMethods) {
+		return nil, false
 	}
 	return o.SupportedDocumentsMethods, true
 }
 
 // HasSupportedDocumentsMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedDocumentsMethods() bool {
-	if o != nil && !isNil(o.SupportedDocumentsMethods) {
+	if o != nil && !IsNil(o.SupportedDocumentsMethods) {
 		return true
 	}
 
@@ -3415,7 +3418,7 @@ func (o *Service) SetSupportedDocumentsMethods(v []string) {
 // GetSupportedDocumentsValidationMethods returns the SupportedDocumentsValidationMethods field value if set, zero value otherwise.
 // Deprecated
 func (o *Service) GetSupportedDocumentsValidationMethods() []string {
-	if o == nil || isNil(o.SupportedDocumentsValidationMethods) {
+	if o == nil || IsNil(o.SupportedDocumentsValidationMethods) {
 		var ret []string
 		return ret
 	}
@@ -3426,15 +3429,15 @@ func (o *Service) GetSupportedDocumentsValidationMethods() []string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *Service) GetSupportedDocumentsValidationMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDocumentsValidationMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDocumentsValidationMethods) {
+		return nil, false
 	}
 	return o.SupportedDocumentsValidationMethods, true
 }
 
 // HasSupportedDocumentsValidationMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedDocumentsValidationMethods() bool {
-	if o != nil && !isNil(o.SupportedDocumentsValidationMethods) {
+	if o != nil && !IsNil(o.SupportedDocumentsValidationMethods) {
 		return true
 	}
 
@@ -3450,7 +3453,7 @@ func (o *Service) SetSupportedDocumentsValidationMethods(v []string) {
 // GetSupportedDocumentsVerificationMethods returns the SupportedDocumentsVerificationMethods field value if set, zero value otherwise.
 // Deprecated
 func (o *Service) GetSupportedDocumentsVerificationMethods() []string {
-	if o == nil || isNil(o.SupportedDocumentsVerificationMethods) {
+	if o == nil || IsNil(o.SupportedDocumentsVerificationMethods) {
 		var ret []string
 		return ret
 	}
@@ -3461,15 +3464,15 @@ func (o *Service) GetSupportedDocumentsVerificationMethods() []string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *Service) GetSupportedDocumentsVerificationMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDocumentsVerificationMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDocumentsVerificationMethods) {
+		return nil, false
 	}
 	return o.SupportedDocumentsVerificationMethods, true
 }
 
 // HasSupportedDocumentsVerificationMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedDocumentsVerificationMethods() bool {
-	if o != nil && !isNil(o.SupportedDocumentsVerificationMethods) {
+	if o != nil && !IsNil(o.SupportedDocumentsVerificationMethods) {
 		return true
 	}
 
@@ -3484,7 +3487,7 @@ func (o *Service) SetSupportedDocumentsVerificationMethods(v []string) {
 
 // GetSupportedDocumentsCheckMethods returns the SupportedDocumentsCheckMethods field value if set, zero value otherwise.
 func (o *Service) GetSupportedDocumentsCheckMethods() []string {
-	if o == nil || isNil(o.SupportedDocumentsCheckMethods) {
+	if o == nil || IsNil(o.SupportedDocumentsCheckMethods) {
 		var ret []string
 		return ret
 	}
@@ -3494,15 +3497,15 @@ func (o *Service) GetSupportedDocumentsCheckMethods() []string {
 // GetSupportedDocumentsCheckMethodsOk returns a tuple with the SupportedDocumentsCheckMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedDocumentsCheckMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDocumentsCheckMethods) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDocumentsCheckMethods) {
+		return nil, false
 	}
 	return o.SupportedDocumentsCheckMethods, true
 }
 
 // HasSupportedDocumentsCheckMethods returns a boolean if a field has been set.
 func (o *Service) HasSupportedDocumentsCheckMethods() bool {
-	if o != nil && !isNil(o.SupportedDocumentsCheckMethods) {
+	if o != nil && !IsNil(o.SupportedDocumentsCheckMethods) {
 		return true
 	}
 
@@ -3516,7 +3519,7 @@ func (o *Service) SetSupportedDocumentsCheckMethods(v []string) {
 
 // GetSupportedElectronicRecords returns the SupportedElectronicRecords field value if set, zero value otherwise.
 func (o *Service) GetSupportedElectronicRecords() []string {
-	if o == nil || isNil(o.SupportedElectronicRecords) {
+	if o == nil || IsNil(o.SupportedElectronicRecords) {
 		var ret []string
 		return ret
 	}
@@ -3526,15 +3529,15 @@ func (o *Service) GetSupportedElectronicRecords() []string {
 // GetSupportedElectronicRecordsOk returns a tuple with the SupportedElectronicRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedElectronicRecordsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedElectronicRecords) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedElectronicRecords) {
+		return nil, false
 	}
 	return o.SupportedElectronicRecords, true
 }
 
 // HasSupportedElectronicRecords returns a boolean if a field has been set.
 func (o *Service) HasSupportedElectronicRecords() bool {
-	if o != nil && !isNil(o.SupportedElectronicRecords) {
+	if o != nil && !IsNil(o.SupportedElectronicRecords) {
 		return true
 	}
 
@@ -3548,7 +3551,7 @@ func (o *Service) SetSupportedElectronicRecords(v []string) {
 
 // GetSupportedVerifiedClaims returns the SupportedVerifiedClaims field value if set, zero value otherwise.
 func (o *Service) GetSupportedVerifiedClaims() []string {
-	if o == nil || isNil(o.SupportedVerifiedClaims) {
+	if o == nil || IsNil(o.SupportedVerifiedClaims) {
 		var ret []string
 		return ret
 	}
@@ -3558,15 +3561,15 @@ func (o *Service) GetSupportedVerifiedClaims() []string {
 // GetSupportedVerifiedClaimsOk returns a tuple with the SupportedVerifiedClaims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedVerifiedClaimsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedVerifiedClaims) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedVerifiedClaims) {
+		return nil, false
 	}
 	return o.SupportedVerifiedClaims, true
 }
 
 // HasSupportedVerifiedClaims returns a boolean if a field has been set.
 func (o *Service) HasSupportedVerifiedClaims() bool {
-	if o != nil && !isNil(o.SupportedVerifiedClaims) {
+	if o != nil && !IsNil(o.SupportedVerifiedClaims) {
 		return true
 	}
 
@@ -3580,7 +3583,7 @@ func (o *Service) SetSupportedVerifiedClaims(v []string) {
 
 // GetSupportedAttachments returns the SupportedAttachments field value if set, zero value otherwise.
 func (o *Service) GetSupportedAttachments() []string {
-	if o == nil || isNil(o.SupportedAttachments) {
+	if o == nil || IsNil(o.SupportedAttachments) {
 		var ret []string
 		return ret
 	}
@@ -3590,15 +3593,15 @@ func (o *Service) GetSupportedAttachments() []string {
 // GetSupportedAttachmentsOk returns a tuple with the SupportedAttachments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedAttachmentsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedAttachments) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedAttachments) {
+		return nil, false
 	}
 	return o.SupportedAttachments, true
 }
 
 // HasSupportedAttachments returns a boolean if a field has been set.
 func (o *Service) HasSupportedAttachments() bool {
-	if o != nil && !isNil(o.SupportedAttachments) {
+	if o != nil && !IsNil(o.SupportedAttachments) {
 		return true
 	}
 
@@ -3612,7 +3615,7 @@ func (o *Service) SetSupportedAttachments(v []string) {
 
 // GetSupportedDigestAlgorithms returns the SupportedDigestAlgorithms field value if set, zero value otherwise.
 func (o *Service) GetSupportedDigestAlgorithms() []string {
-	if o == nil || isNil(o.SupportedDigestAlgorithms) {
+	if o == nil || IsNil(o.SupportedDigestAlgorithms) {
 		var ret []string
 		return ret
 	}
@@ -3622,15 +3625,15 @@ func (o *Service) GetSupportedDigestAlgorithms() []string {
 // GetSupportedDigestAlgorithmsOk returns a tuple with the SupportedDigestAlgorithms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedDigestAlgorithmsOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedDigestAlgorithms) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedDigestAlgorithms) {
+		return nil, false
 	}
 	return o.SupportedDigestAlgorithms, true
 }
 
 // HasSupportedDigestAlgorithms returns a boolean if a field has been set.
 func (o *Service) HasSupportedDigestAlgorithms() bool {
-	if o != nil && !isNil(o.SupportedDigestAlgorithms) {
+	if o != nil && !IsNil(o.SupportedDigestAlgorithms) {
 		return true
 	}
 
@@ -3644,7 +3647,7 @@ func (o *Service) SetSupportedDigestAlgorithms(v []string) {
 
 // GetMissingClientIdAllowed returns the MissingClientIdAllowed field value if set, zero value otherwise.
 func (o *Service) GetMissingClientIdAllowed() bool {
-	if o == nil || isNil(o.MissingClientIdAllowed) {
+	if o == nil || IsNil(o.MissingClientIdAllowed) {
 		var ret bool
 		return ret
 	}
@@ -3654,15 +3657,15 @@ func (o *Service) GetMissingClientIdAllowed() bool {
 // GetMissingClientIdAllowedOk returns a tuple with the MissingClientIdAllowed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetMissingClientIdAllowedOk() (*bool, bool) {
-	if o == nil || isNil(o.MissingClientIdAllowed) {
-    return nil, false
+	if o == nil || IsNil(o.MissingClientIdAllowed) {
+		return nil, false
 	}
 	return o.MissingClientIdAllowed, true
 }
 
 // HasMissingClientIdAllowed returns a boolean if a field has been set.
 func (o *Service) HasMissingClientIdAllowed() bool {
-	if o != nil && !isNil(o.MissingClientIdAllowed) {
+	if o != nil && !IsNil(o.MissingClientIdAllowed) {
 		return true
 	}
 
@@ -3676,7 +3679,7 @@ func (o *Service) SetMissingClientIdAllowed(v bool) {
 
 // GetParRequired returns the ParRequired field value if set, zero value otherwise.
 func (o *Service) GetParRequired() bool {
-	if o == nil || isNil(o.ParRequired) {
+	if o == nil || IsNil(o.ParRequired) {
 		var ret bool
 		return ret
 	}
@@ -3686,15 +3689,15 @@ func (o *Service) GetParRequired() bool {
 // GetParRequiredOk returns a tuple with the ParRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetParRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.ParRequired) {
-    return nil, false
+	if o == nil || IsNil(o.ParRequired) {
+		return nil, false
 	}
 	return o.ParRequired, true
 }
 
 // HasParRequired returns a boolean if a field has been set.
 func (o *Service) HasParRequired() bool {
-	if o != nil && !isNil(o.ParRequired) {
+	if o != nil && !IsNil(o.ParRequired) {
 		return true
 	}
 
@@ -3708,7 +3711,7 @@ func (o *Service) SetParRequired(v bool) {
 
 // GetRequestObjectRequired returns the RequestObjectRequired field value if set, zero value otherwise.
 func (o *Service) GetRequestObjectRequired() bool {
-	if o == nil || isNil(o.RequestObjectRequired) {
+	if o == nil || IsNil(o.RequestObjectRequired) {
 		var ret bool
 		return ret
 	}
@@ -3718,15 +3721,15 @@ func (o *Service) GetRequestObjectRequired() bool {
 // GetRequestObjectRequiredOk returns a tuple with the RequestObjectRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRequestObjectRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectRequired) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectRequired) {
+		return nil, false
 	}
 	return o.RequestObjectRequired, true
 }
 
 // HasRequestObjectRequired returns a boolean if a field has been set.
 func (o *Service) HasRequestObjectRequired() bool {
-	if o != nil && !isNil(o.RequestObjectRequired) {
+	if o != nil && !IsNil(o.RequestObjectRequired) {
 		return true
 	}
 
@@ -3740,7 +3743,7 @@ func (o *Service) SetRequestObjectRequired(v bool) {
 
 // GetTraditionalRequestObjectProcessingApplied returns the TraditionalRequestObjectProcessingApplied field value if set, zero value otherwise.
 func (o *Service) GetTraditionalRequestObjectProcessingApplied() bool {
-	if o == nil || isNil(o.TraditionalRequestObjectProcessingApplied) {
+	if o == nil || IsNil(o.TraditionalRequestObjectProcessingApplied) {
 		var ret bool
 		return ret
 	}
@@ -3750,15 +3753,15 @@ func (o *Service) GetTraditionalRequestObjectProcessingApplied() bool {
 // GetTraditionalRequestObjectProcessingAppliedOk returns a tuple with the TraditionalRequestObjectProcessingApplied field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTraditionalRequestObjectProcessingAppliedOk() (*bool, bool) {
-	if o == nil || isNil(o.TraditionalRequestObjectProcessingApplied) {
-    return nil, false
+	if o == nil || IsNil(o.TraditionalRequestObjectProcessingApplied) {
+		return nil, false
 	}
 	return o.TraditionalRequestObjectProcessingApplied, true
 }
 
 // HasTraditionalRequestObjectProcessingApplied returns a boolean if a field has been set.
 func (o *Service) HasTraditionalRequestObjectProcessingApplied() bool {
-	if o != nil && !isNil(o.TraditionalRequestObjectProcessingApplied) {
+	if o != nil && !IsNil(o.TraditionalRequestObjectProcessingApplied) {
 		return true
 	}
 
@@ -3772,7 +3775,7 @@ func (o *Service) SetTraditionalRequestObjectProcessingApplied(v bool) {
 
 // GetClaimShortcutRestrictive returns the ClaimShortcutRestrictive field value if set, zero value otherwise.
 func (o *Service) GetClaimShortcutRestrictive() bool {
-	if o == nil || isNil(o.ClaimShortcutRestrictive) {
+	if o == nil || IsNil(o.ClaimShortcutRestrictive) {
 		var ret bool
 		return ret
 	}
@@ -3782,15 +3785,15 @@ func (o *Service) GetClaimShortcutRestrictive() bool {
 // GetClaimShortcutRestrictiveOk returns a tuple with the ClaimShortcutRestrictive field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetClaimShortcutRestrictiveOk() (*bool, bool) {
-	if o == nil || isNil(o.ClaimShortcutRestrictive) {
-    return nil, false
+	if o == nil || IsNil(o.ClaimShortcutRestrictive) {
+		return nil, false
 	}
 	return o.ClaimShortcutRestrictive, true
 }
 
 // HasClaimShortcutRestrictive returns a boolean if a field has been set.
 func (o *Service) HasClaimShortcutRestrictive() bool {
-	if o != nil && !isNil(o.ClaimShortcutRestrictive) {
+	if o != nil && !IsNil(o.ClaimShortcutRestrictive) {
 		return true
 	}
 
@@ -3804,7 +3807,7 @@ func (o *Service) SetClaimShortcutRestrictive(v bool) {
 
 // GetScopeRequired returns the ScopeRequired field value if set, zero value otherwise.
 func (o *Service) GetScopeRequired() bool {
-	if o == nil || isNil(o.ScopeRequired) {
+	if o == nil || IsNil(o.ScopeRequired) {
 		var ret bool
 		return ret
 	}
@@ -3814,15 +3817,15 @@ func (o *Service) GetScopeRequired() bool {
 // GetScopeRequiredOk returns a tuple with the ScopeRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetScopeRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.ScopeRequired) {
-    return nil, false
+	if o == nil || IsNil(o.ScopeRequired) {
+		return nil, false
 	}
 	return o.ScopeRequired, true
 }
 
 // HasScopeRequired returns a boolean if a field has been set.
 func (o *Service) HasScopeRequired() bool {
-	if o != nil && !isNil(o.ScopeRequired) {
+	if o != nil && !IsNil(o.ScopeRequired) {
 		return true
 	}
 
@@ -3836,7 +3839,7 @@ func (o *Service) SetScopeRequired(v bool) {
 
 // GetNbfOptional returns the NbfOptional field value if set, zero value otherwise.
 func (o *Service) GetNbfOptional() bool {
-	if o == nil || isNil(o.NbfOptional) {
+	if o == nil || IsNil(o.NbfOptional) {
 		var ret bool
 		return ret
 	}
@@ -3846,15 +3849,15 @@ func (o *Service) GetNbfOptional() bool {
 // GetNbfOptionalOk returns a tuple with the NbfOptional field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetNbfOptionalOk() (*bool, bool) {
-	if o == nil || isNil(o.NbfOptional) {
-    return nil, false
+	if o == nil || IsNil(o.NbfOptional) {
+		return nil, false
 	}
 	return o.NbfOptional, true
 }
 
 // HasNbfOptional returns a boolean if a field has been set.
 func (o *Service) HasNbfOptional() bool {
-	if o != nil && !isNil(o.NbfOptional) {
+	if o != nil && !IsNil(o.NbfOptional) {
 		return true
 	}
 
@@ -3868,7 +3871,7 @@ func (o *Service) SetNbfOptional(v bool) {
 
 // GetIssSuppressed returns the IssSuppressed field value if set, zero value otherwise.
 func (o *Service) GetIssSuppressed() bool {
-	if o == nil || isNil(o.IssSuppressed) {
+	if o == nil || IsNil(o.IssSuppressed) {
 		var ret bool
 		return ret
 	}
@@ -3878,15 +3881,15 @@ func (o *Service) GetIssSuppressed() bool {
 // GetIssSuppressedOk returns a tuple with the IssSuppressed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIssSuppressedOk() (*bool, bool) {
-	if o == nil || isNil(o.IssSuppressed) {
-    return nil, false
+	if o == nil || IsNil(o.IssSuppressed) {
+		return nil, false
 	}
 	return o.IssSuppressed, true
 }
 
 // HasIssSuppressed returns a boolean if a field has been set.
 func (o *Service) HasIssSuppressed() bool {
-	if o != nil && !isNil(o.IssSuppressed) {
+	if o != nil && !IsNil(o.IssSuppressed) {
 		return true
 	}
 
@@ -3900,7 +3903,7 @@ func (o *Service) SetIssSuppressed(v bool) {
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
 func (o *Service) GetAttributes() []Pair {
-	if o == nil || isNil(o.Attributes) {
+	if o == nil || IsNil(o.Attributes) {
 		var ret []Pair
 		return ret
 	}
@@ -3910,15 +3913,15 @@ func (o *Service) GetAttributes() []Pair {
 // GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAttributesOk() ([]Pair, bool) {
-	if o == nil || isNil(o.Attributes) {
-    return nil, false
+	if o == nil || IsNil(o.Attributes) {
+		return nil, false
 	}
 	return o.Attributes, true
 }
 
 // HasAttributes returns a boolean if a field has been set.
 func (o *Service) HasAttributes() bool {
-	if o != nil && !isNil(o.Attributes) {
+	if o != nil && !IsNil(o.Attributes) {
 		return true
 	}
 
@@ -3932,7 +3935,7 @@ func (o *Service) SetAttributes(v []Pair) {
 
 // GetSupportedCustomClientMetadata returns the SupportedCustomClientMetadata field value if set, zero value otherwise.
 func (o *Service) GetSupportedCustomClientMetadata() []string {
-	if o == nil || isNil(o.SupportedCustomClientMetadata) {
+	if o == nil || IsNil(o.SupportedCustomClientMetadata) {
 		var ret []string
 		return ret
 	}
@@ -3942,15 +3945,15 @@ func (o *Service) GetSupportedCustomClientMetadata() []string {
 // GetSupportedCustomClientMetadataOk returns a tuple with the SupportedCustomClientMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedCustomClientMetadataOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedCustomClientMetadata) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedCustomClientMetadata) {
+		return nil, false
 	}
 	return o.SupportedCustomClientMetadata, true
 }
 
 // HasSupportedCustomClientMetadata returns a boolean if a field has been set.
 func (o *Service) HasSupportedCustomClientMetadata() bool {
-	if o != nil && !isNil(o.SupportedCustomClientMetadata) {
+	if o != nil && !IsNil(o.SupportedCustomClientMetadata) {
 		return true
 	}
 
@@ -3964,7 +3967,7 @@ func (o *Service) SetSupportedCustomClientMetadata(v []string) {
 
 // GetTokenExpirationLinked returns the TokenExpirationLinked field value if set, zero value otherwise.
 func (o *Service) GetTokenExpirationLinked() bool {
-	if o == nil || isNil(o.TokenExpirationLinked) {
+	if o == nil || IsNil(o.TokenExpirationLinked) {
 		var ret bool
 		return ret
 	}
@@ -3974,15 +3977,15 @@ func (o *Service) GetTokenExpirationLinked() bool {
 // GetTokenExpirationLinkedOk returns a tuple with the TokenExpirationLinked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenExpirationLinkedOk() (*bool, bool) {
-	if o == nil || isNil(o.TokenExpirationLinked) {
-    return nil, false
+	if o == nil || IsNil(o.TokenExpirationLinked) {
+		return nil, false
 	}
 	return o.TokenExpirationLinked, true
 }
 
 // HasTokenExpirationLinked returns a boolean if a field has been set.
 func (o *Service) HasTokenExpirationLinked() bool {
-	if o != nil && !isNil(o.TokenExpirationLinked) {
+	if o != nil && !IsNil(o.TokenExpirationLinked) {
 		return true
 	}
 
@@ -3996,7 +3999,7 @@ func (o *Service) SetTokenExpirationLinked(v bool) {
 
 // GetFrontChannelRequestObjectEncryptionRequired returns the FrontChannelRequestObjectEncryptionRequired field value if set, zero value otherwise.
 func (o *Service) GetFrontChannelRequestObjectEncryptionRequired() bool {
-	if o == nil || isNil(o.FrontChannelRequestObjectEncryptionRequired) {
+	if o == nil || IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
 		var ret bool
 		return ret
 	}
@@ -4006,15 +4009,15 @@ func (o *Service) GetFrontChannelRequestObjectEncryptionRequired() bool {
 // GetFrontChannelRequestObjectEncryptionRequiredOk returns a tuple with the FrontChannelRequestObjectEncryptionRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetFrontChannelRequestObjectEncryptionRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.FrontChannelRequestObjectEncryptionRequired) {
-    return nil, false
+	if o == nil || IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
+		return nil, false
 	}
 	return o.FrontChannelRequestObjectEncryptionRequired, true
 }
 
 // HasFrontChannelRequestObjectEncryptionRequired returns a boolean if a field has been set.
 func (o *Service) HasFrontChannelRequestObjectEncryptionRequired() bool {
-	if o != nil && !isNil(o.FrontChannelRequestObjectEncryptionRequired) {
+	if o != nil && !IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
 		return true
 	}
 
@@ -4028,7 +4031,7 @@ func (o *Service) SetFrontChannelRequestObjectEncryptionRequired(v bool) {
 
 // GetRequestObjectEncryptionAlgMatchRequired returns the RequestObjectEncryptionAlgMatchRequired field value if set, zero value otherwise.
 func (o *Service) GetRequestObjectEncryptionAlgMatchRequired() bool {
-	if o == nil || isNil(o.RequestObjectEncryptionAlgMatchRequired) {
+	if o == nil || IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
 		var ret bool
 		return ret
 	}
@@ -4038,15 +4041,15 @@ func (o *Service) GetRequestObjectEncryptionAlgMatchRequired() bool {
 // GetRequestObjectEncryptionAlgMatchRequiredOk returns a tuple with the RequestObjectEncryptionAlgMatchRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRequestObjectEncryptionAlgMatchRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectEncryptionAlgMatchRequired) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
+		return nil, false
 	}
 	return o.RequestObjectEncryptionAlgMatchRequired, true
 }
 
 // HasRequestObjectEncryptionAlgMatchRequired returns a boolean if a field has been set.
 func (o *Service) HasRequestObjectEncryptionAlgMatchRequired() bool {
-	if o != nil && !isNil(o.RequestObjectEncryptionAlgMatchRequired) {
+	if o != nil && !IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
 		return true
 	}
 
@@ -4060,7 +4063,7 @@ func (o *Service) SetRequestObjectEncryptionAlgMatchRequired(v bool) {
 
 // GetRequestObjectEncryptionEncMatchRequired returns the RequestObjectEncryptionEncMatchRequired field value if set, zero value otherwise.
 func (o *Service) GetRequestObjectEncryptionEncMatchRequired() bool {
-	if o == nil || isNil(o.RequestObjectEncryptionEncMatchRequired) {
+	if o == nil || IsNil(o.RequestObjectEncryptionEncMatchRequired) {
 		var ret bool
 		return ret
 	}
@@ -4070,15 +4073,15 @@ func (o *Service) GetRequestObjectEncryptionEncMatchRequired() bool {
 // GetRequestObjectEncryptionEncMatchRequiredOk returns a tuple with the RequestObjectEncryptionEncMatchRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRequestObjectEncryptionEncMatchRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectEncryptionEncMatchRequired) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectEncryptionEncMatchRequired) {
+		return nil, false
 	}
 	return o.RequestObjectEncryptionEncMatchRequired, true
 }
 
 // HasRequestObjectEncryptionEncMatchRequired returns a boolean if a field has been set.
 func (o *Service) HasRequestObjectEncryptionEncMatchRequired() bool {
-	if o != nil && !isNil(o.RequestObjectEncryptionEncMatchRequired) {
+	if o != nil && !IsNil(o.RequestObjectEncryptionEncMatchRequired) {
 		return true
 	}
 
@@ -4092,7 +4095,7 @@ func (o *Service) SetRequestObjectEncryptionEncMatchRequired(v bool) {
 
 // GetHsmEnabled returns the HsmEnabled field value if set, zero value otherwise.
 func (o *Service) GetHsmEnabled() bool {
-	if o == nil || isNil(o.HsmEnabled) {
+	if o == nil || IsNil(o.HsmEnabled) {
 		var ret bool
 		return ret
 	}
@@ -4102,15 +4105,15 @@ func (o *Service) GetHsmEnabled() bool {
 // GetHsmEnabledOk returns a tuple with the HsmEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetHsmEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.HsmEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.HsmEnabled) {
+		return nil, false
 	}
 	return o.HsmEnabled, true
 }
 
 // HasHsmEnabled returns a boolean if a field has been set.
 func (o *Service) HasHsmEnabled() bool {
-	if o != nil && !isNil(o.HsmEnabled) {
+	if o != nil && !IsNil(o.HsmEnabled) {
 		return true
 	}
 
@@ -4124,7 +4127,7 @@ func (o *Service) SetHsmEnabled(v bool) {
 
 // GetHsks returns the Hsks field value if set, zero value otherwise.
 func (o *Service) GetHsks() []Hsk {
-	if o == nil || isNil(o.Hsks) {
+	if o == nil || IsNil(o.Hsks) {
 		var ret []Hsk
 		return ret
 	}
@@ -4134,15 +4137,15 @@ func (o *Service) GetHsks() []Hsk {
 // GetHsksOk returns a tuple with the Hsks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetHsksOk() ([]Hsk, bool) {
-	if o == nil || isNil(o.Hsks) {
-    return nil, false
+	if o == nil || IsNil(o.Hsks) {
+		return nil, false
 	}
 	return o.Hsks, true
 }
 
 // HasHsks returns a boolean if a field has been set.
 func (o *Service) HasHsks() bool {
-	if o != nil && !isNil(o.Hsks) {
+	if o != nil && !IsNil(o.Hsks) {
 		return true
 	}
 
@@ -4156,7 +4159,7 @@ func (o *Service) SetHsks(v []Hsk) {
 
 // GetGrantManagementEndpoint returns the GrantManagementEndpoint field value if set, zero value otherwise.
 func (o *Service) GetGrantManagementEndpoint() string {
-	if o == nil || isNil(o.GrantManagementEndpoint) {
+	if o == nil || IsNil(o.GrantManagementEndpoint) {
 		var ret string
 		return ret
 	}
@@ -4166,15 +4169,15 @@ func (o *Service) GetGrantManagementEndpoint() string {
 // GetGrantManagementEndpointOk returns a tuple with the GrantManagementEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetGrantManagementEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.GrantManagementEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.GrantManagementEndpoint) {
+		return nil, false
 	}
 	return o.GrantManagementEndpoint, true
 }
 
 // HasGrantManagementEndpoint returns a boolean if a field has been set.
 func (o *Service) HasGrantManagementEndpoint() bool {
-	if o != nil && !isNil(o.GrantManagementEndpoint) {
+	if o != nil && !IsNil(o.GrantManagementEndpoint) {
 		return true
 	}
 
@@ -4188,7 +4191,7 @@ func (o *Service) SetGrantManagementEndpoint(v string) {
 
 // GetGrantManagementActionRequired returns the GrantManagementActionRequired field value if set, zero value otherwise.
 func (o *Service) GetGrantManagementActionRequired() bool {
-	if o == nil || isNil(o.GrantManagementActionRequired) {
+	if o == nil || IsNil(o.GrantManagementActionRequired) {
 		var ret bool
 		return ret
 	}
@@ -4198,15 +4201,15 @@ func (o *Service) GetGrantManagementActionRequired() bool {
 // GetGrantManagementActionRequiredOk returns a tuple with the GrantManagementActionRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetGrantManagementActionRequiredOk() (*bool, bool) {
-	if o == nil || isNil(o.GrantManagementActionRequired) {
-    return nil, false
+	if o == nil || IsNil(o.GrantManagementActionRequired) {
+		return nil, false
 	}
 	return o.GrantManagementActionRequired, true
 }
 
 // HasGrantManagementActionRequired returns a boolean if a field has been set.
 func (o *Service) HasGrantManagementActionRequired() bool {
-	if o != nil && !isNil(o.GrantManagementActionRequired) {
+	if o != nil && !IsNil(o.GrantManagementActionRequired) {
 		return true
 	}
 
@@ -4220,7 +4223,7 @@ func (o *Service) SetGrantManagementActionRequired(v bool) {
 
 // GetUnauthorizedOnClientConfigSupported returns the UnauthorizedOnClientConfigSupported field value if set, zero value otherwise.
 func (o *Service) GetUnauthorizedOnClientConfigSupported() bool {
-	if o == nil || isNil(o.UnauthorizedOnClientConfigSupported) {
+	if o == nil || IsNil(o.UnauthorizedOnClientConfigSupported) {
 		var ret bool
 		return ret
 	}
@@ -4230,15 +4233,15 @@ func (o *Service) GetUnauthorizedOnClientConfigSupported() bool {
 // GetUnauthorizedOnClientConfigSupportedOk returns a tuple with the UnauthorizedOnClientConfigSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetUnauthorizedOnClientConfigSupportedOk() (*bool, bool) {
-	if o == nil || isNil(o.UnauthorizedOnClientConfigSupported) {
-    return nil, false
+	if o == nil || IsNil(o.UnauthorizedOnClientConfigSupported) {
+		return nil, false
 	}
 	return o.UnauthorizedOnClientConfigSupported, true
 }
 
 // HasUnauthorizedOnClientConfigSupported returns a boolean if a field has been set.
 func (o *Service) HasUnauthorizedOnClientConfigSupported() bool {
-	if o != nil && !isNil(o.UnauthorizedOnClientConfigSupported) {
+	if o != nil && !IsNil(o.UnauthorizedOnClientConfigSupported) {
 		return true
 	}
 
@@ -4252,7 +4255,7 @@ func (o *Service) SetUnauthorizedOnClientConfigSupported(v bool) {
 
 // GetDcrScopeUsedAsRequestable returns the DcrScopeUsedAsRequestable field value if set, zero value otherwise.
 func (o *Service) GetDcrScopeUsedAsRequestable() bool {
-	if o == nil || isNil(o.DcrScopeUsedAsRequestable) {
+	if o == nil || IsNil(o.DcrScopeUsedAsRequestable) {
 		var ret bool
 		return ret
 	}
@@ -4262,15 +4265,15 @@ func (o *Service) GetDcrScopeUsedAsRequestable() bool {
 // GetDcrScopeUsedAsRequestableOk returns a tuple with the DcrScopeUsedAsRequestable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDcrScopeUsedAsRequestableOk() (*bool, bool) {
-	if o == nil || isNil(o.DcrScopeUsedAsRequestable) {
-    return nil, false
+	if o == nil || IsNil(o.DcrScopeUsedAsRequestable) {
+		return nil, false
 	}
 	return o.DcrScopeUsedAsRequestable, true
 }
 
 // HasDcrScopeUsedAsRequestable returns a boolean if a field has been set.
 func (o *Service) HasDcrScopeUsedAsRequestable() bool {
-	if o != nil && !isNil(o.DcrScopeUsedAsRequestable) {
+	if o != nil && !IsNil(o.DcrScopeUsedAsRequestable) {
 		return true
 	}
 
@@ -4284,7 +4287,7 @@ func (o *Service) SetDcrScopeUsedAsRequestable(v bool) {
 
 // GetPredefinedTransformedClaims returns the PredefinedTransformedClaims field value if set, zero value otherwise.
 func (o *Service) GetPredefinedTransformedClaims() string {
-	if o == nil || isNil(o.PredefinedTransformedClaims) {
+	if o == nil || IsNil(o.PredefinedTransformedClaims) {
 		var ret string
 		return ret
 	}
@@ -4294,15 +4297,15 @@ func (o *Service) GetPredefinedTransformedClaims() string {
 // GetPredefinedTransformedClaimsOk returns a tuple with the PredefinedTransformedClaims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPredefinedTransformedClaimsOk() (*string, bool) {
-	if o == nil || isNil(o.PredefinedTransformedClaims) {
-    return nil, false
+	if o == nil || IsNil(o.PredefinedTransformedClaims) {
+		return nil, false
 	}
 	return o.PredefinedTransformedClaims, true
 }
 
 // HasPredefinedTransformedClaims returns a boolean if a field has been set.
 func (o *Service) HasPredefinedTransformedClaims() bool {
-	if o != nil && !isNil(o.PredefinedTransformedClaims) {
+	if o != nil && !IsNil(o.PredefinedTransformedClaims) {
 		return true
 	}
 
@@ -4316,7 +4319,7 @@ func (o *Service) SetPredefinedTransformedClaims(v string) {
 
 // GetLoopbackRedirectionUriVariable returns the LoopbackRedirectionUriVariable field value if set, zero value otherwise.
 func (o *Service) GetLoopbackRedirectionUriVariable() bool {
-	if o == nil || isNil(o.LoopbackRedirectionUriVariable) {
+	if o == nil || IsNil(o.LoopbackRedirectionUriVariable) {
 		var ret bool
 		return ret
 	}
@@ -4326,15 +4329,15 @@ func (o *Service) GetLoopbackRedirectionUriVariable() bool {
 // GetLoopbackRedirectionUriVariableOk returns a tuple with the LoopbackRedirectionUriVariable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetLoopbackRedirectionUriVariableOk() (*bool, bool) {
-	if o == nil || isNil(o.LoopbackRedirectionUriVariable) {
-    return nil, false
+	if o == nil || IsNil(o.LoopbackRedirectionUriVariable) {
+		return nil, false
 	}
 	return o.LoopbackRedirectionUriVariable, true
 }
 
 // HasLoopbackRedirectionUriVariable returns a boolean if a field has been set.
 func (o *Service) HasLoopbackRedirectionUriVariable() bool {
-	if o != nil && !isNil(o.LoopbackRedirectionUriVariable) {
+	if o != nil && !IsNil(o.LoopbackRedirectionUriVariable) {
 		return true
 	}
 
@@ -4348,7 +4351,7 @@ func (o *Service) SetLoopbackRedirectionUriVariable(v bool) {
 
 // GetRequestObjectAudienceChecked returns the RequestObjectAudienceChecked field value if set, zero value otherwise.
 func (o *Service) GetRequestObjectAudienceChecked() bool {
-	if o == nil || isNil(o.RequestObjectAudienceChecked) {
+	if o == nil || IsNil(o.RequestObjectAudienceChecked) {
 		var ret bool
 		return ret
 	}
@@ -4358,15 +4361,15 @@ func (o *Service) GetRequestObjectAudienceChecked() bool {
 // GetRequestObjectAudienceCheckedOk returns a tuple with the RequestObjectAudienceChecked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRequestObjectAudienceCheckedOk() (*bool, bool) {
-	if o == nil || isNil(o.RequestObjectAudienceChecked) {
-    return nil, false
+	if o == nil || IsNil(o.RequestObjectAudienceChecked) {
+		return nil, false
 	}
 	return o.RequestObjectAudienceChecked, true
 }
 
 // HasRequestObjectAudienceChecked returns a boolean if a field has been set.
 func (o *Service) HasRequestObjectAudienceChecked() bool {
-	if o != nil && !isNil(o.RequestObjectAudienceChecked) {
+	if o != nil && !IsNil(o.RequestObjectAudienceChecked) {
 		return true
 	}
 
@@ -4380,7 +4383,7 @@ func (o *Service) SetRequestObjectAudienceChecked(v bool) {
 
 // GetAccessTokenForExternalAttachmentEmbedded returns the AccessTokenForExternalAttachmentEmbedded field value if set, zero value otherwise.
 func (o *Service) GetAccessTokenForExternalAttachmentEmbedded() bool {
-	if o == nil || isNil(o.AccessTokenForExternalAttachmentEmbedded) {
+	if o == nil || IsNil(o.AccessTokenForExternalAttachmentEmbedded) {
 		var ret bool
 		return ret
 	}
@@ -4390,15 +4393,15 @@ func (o *Service) GetAccessTokenForExternalAttachmentEmbedded() bool {
 // GetAccessTokenForExternalAttachmentEmbeddedOk returns a tuple with the AccessTokenForExternalAttachmentEmbedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAccessTokenForExternalAttachmentEmbeddedOk() (*bool, bool) {
-	if o == nil || isNil(o.AccessTokenForExternalAttachmentEmbedded) {
-    return nil, false
+	if o == nil || IsNil(o.AccessTokenForExternalAttachmentEmbedded) {
+		return nil, false
 	}
 	return o.AccessTokenForExternalAttachmentEmbedded, true
 }
 
 // HasAccessTokenForExternalAttachmentEmbedded returns a boolean if a field has been set.
 func (o *Service) HasAccessTokenForExternalAttachmentEmbedded() bool {
-	if o != nil && !isNil(o.AccessTokenForExternalAttachmentEmbedded) {
+	if o != nil && !IsNil(o.AccessTokenForExternalAttachmentEmbedded) {
 		return true
 	}
 
@@ -4412,7 +4415,7 @@ func (o *Service) SetAccessTokenForExternalAttachmentEmbedded(v bool) {
 
 // GetRefreshTokenIdempotent returns the RefreshTokenIdempotent field value if set, zero value otherwise.
 func (o *Service) GetRefreshTokenIdempotent() bool {
-	if o == nil || isNil(o.RefreshTokenIdempotent) {
+	if o == nil || IsNil(o.RefreshTokenIdempotent) {
 		var ret bool
 		return ret
 	}
@@ -4422,15 +4425,15 @@ func (o *Service) GetRefreshTokenIdempotent() bool {
 // GetRefreshTokenIdempotentOk returns a tuple with the RefreshTokenIdempotent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRefreshTokenIdempotentOk() (*bool, bool) {
-	if o == nil || isNil(o.RefreshTokenIdempotent) {
-    return nil, false
+	if o == nil || IsNil(o.RefreshTokenIdempotent) {
+		return nil, false
 	}
 	return o.RefreshTokenIdempotent, true
 }
 
 // HasRefreshTokenIdempotent returns a boolean if a field has been set.
 func (o *Service) HasRefreshTokenIdempotent() bool {
-	if o != nil && !isNil(o.RefreshTokenIdempotent) {
+	if o != nil && !IsNil(o.RefreshTokenIdempotent) {
 		return true
 	}
 
@@ -4444,7 +4447,7 @@ func (o *Service) SetRefreshTokenIdempotent(v bool) {
 
 // GetFederationEnabled returns the FederationEnabled field value if set, zero value otherwise.
 func (o *Service) GetFederationEnabled() bool {
-	if o == nil || isNil(o.FederationEnabled) {
+	if o == nil || IsNil(o.FederationEnabled) {
 		var ret bool
 		return ret
 	}
@@ -4454,15 +4457,15 @@ func (o *Service) GetFederationEnabled() bool {
 // GetFederationEnabledOk returns a tuple with the FederationEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetFederationEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.FederationEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.FederationEnabled) {
+		return nil, false
 	}
 	return o.FederationEnabled, true
 }
 
 // HasFederationEnabled returns a boolean if a field has been set.
 func (o *Service) HasFederationEnabled() bool {
-	if o != nil && !isNil(o.FederationEnabled) {
+	if o != nil && !IsNil(o.FederationEnabled) {
 		return true
 	}
 
@@ -4476,7 +4479,7 @@ func (o *Service) SetFederationEnabled(v bool) {
 
 // GetOrganizationName returns the OrganizationName field value if set, zero value otherwise.
 func (o *Service) GetOrganizationName() string {
-	if o == nil || isNil(o.OrganizationName) {
+	if o == nil || IsNil(o.OrganizationName) {
 		var ret string
 		return ret
 	}
@@ -4486,15 +4489,15 @@ func (o *Service) GetOrganizationName() string {
 // GetOrganizationNameOk returns a tuple with the OrganizationName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetOrganizationNameOk() (*string, bool) {
-	if o == nil || isNil(o.OrganizationName) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationName) {
+		return nil, false
 	}
 	return o.OrganizationName, true
 }
 
 // HasOrganizationName returns a boolean if a field has been set.
 func (o *Service) HasOrganizationName() bool {
-	if o != nil && !isNil(o.OrganizationName) {
+	if o != nil && !IsNil(o.OrganizationName) {
 		return true
 	}
 
@@ -4508,7 +4511,7 @@ func (o *Service) SetOrganizationName(v string) {
 
 // GetAuthorityHints returns the AuthorityHints field value if set, zero value otherwise.
 func (o *Service) GetAuthorityHints() []string {
-	if o == nil || isNil(o.AuthorityHints) {
+	if o == nil || IsNil(o.AuthorityHints) {
 		var ret []string
 		return ret
 	}
@@ -4518,15 +4521,15 @@ func (o *Service) GetAuthorityHints() []string {
 // GetAuthorityHintsOk returns a tuple with the AuthorityHints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetAuthorityHintsOk() ([]string, bool) {
-	if o == nil || isNil(o.AuthorityHints) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorityHints) {
+		return nil, false
 	}
 	return o.AuthorityHints, true
 }
 
 // HasAuthorityHints returns a boolean if a field has been set.
 func (o *Service) HasAuthorityHints() bool {
-	if o != nil && !isNil(o.AuthorityHints) {
+	if o != nil && !IsNil(o.AuthorityHints) {
 		return true
 	}
 
@@ -4540,7 +4543,7 @@ func (o *Service) SetAuthorityHints(v []string) {
 
 // GetTrustAnchors returns the TrustAnchors field value if set, zero value otherwise.
 func (o *Service) GetTrustAnchors() []TrustAnchor {
-	if o == nil || isNil(o.TrustAnchors) {
+	if o == nil || IsNil(o.TrustAnchors) {
 		var ret []TrustAnchor
 		return ret
 	}
@@ -4550,15 +4553,15 @@ func (o *Service) GetTrustAnchors() []TrustAnchor {
 // GetTrustAnchorsOk returns a tuple with the TrustAnchors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTrustAnchorsOk() ([]TrustAnchor, bool) {
-	if o == nil || isNil(o.TrustAnchors) {
-    return nil, false
+	if o == nil || IsNil(o.TrustAnchors) {
+		return nil, false
 	}
 	return o.TrustAnchors, true
 }
 
 // HasTrustAnchors returns a boolean if a field has been set.
 func (o *Service) HasTrustAnchors() bool {
-	if o != nil && !isNil(o.TrustAnchors) {
+	if o != nil && !IsNil(o.TrustAnchors) {
 		return true
 	}
 
@@ -4572,7 +4575,7 @@ func (o *Service) SetTrustAnchors(v []TrustAnchor) {
 
 // GetFederationJwks returns the FederationJwks field value if set, zero value otherwise.
 func (o *Service) GetFederationJwks() string {
-	if o == nil || isNil(o.FederationJwks) {
+	if o == nil || IsNil(o.FederationJwks) {
 		var ret string
 		return ret
 	}
@@ -4582,15 +4585,15 @@ func (o *Service) GetFederationJwks() string {
 // GetFederationJwksOk returns a tuple with the FederationJwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetFederationJwksOk() (*string, bool) {
-	if o == nil || isNil(o.FederationJwks) {
-    return nil, false
+	if o == nil || IsNil(o.FederationJwks) {
+		return nil, false
 	}
 	return o.FederationJwks, true
 }
 
 // HasFederationJwks returns a boolean if a field has been set.
 func (o *Service) HasFederationJwks() bool {
-	if o != nil && !isNil(o.FederationJwks) {
+	if o != nil && !IsNil(o.FederationJwks) {
 		return true
 	}
 
@@ -4604,7 +4607,7 @@ func (o *Service) SetFederationJwks(v string) {
 
 // GetFederationSignatureKeyId returns the FederationSignatureKeyId field value if set, zero value otherwise.
 func (o *Service) GetFederationSignatureKeyId() string {
-	if o == nil || isNil(o.FederationSignatureKeyId) {
+	if o == nil || IsNil(o.FederationSignatureKeyId) {
 		var ret string
 		return ret
 	}
@@ -4614,15 +4617,15 @@ func (o *Service) GetFederationSignatureKeyId() string {
 // GetFederationSignatureKeyIdOk returns a tuple with the FederationSignatureKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetFederationSignatureKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.FederationSignatureKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.FederationSignatureKeyId) {
+		return nil, false
 	}
 	return o.FederationSignatureKeyId, true
 }
 
 // HasFederationSignatureKeyId returns a boolean if a field has been set.
 func (o *Service) HasFederationSignatureKeyId() bool {
-	if o != nil && !isNil(o.FederationSignatureKeyId) {
+	if o != nil && !IsNil(o.FederationSignatureKeyId) {
 		return true
 	}
 
@@ -4636,7 +4639,7 @@ func (o *Service) SetFederationSignatureKeyId(v string) {
 
 // GetFederationConfigurationDuration returns the FederationConfigurationDuration field value if set, zero value otherwise.
 func (o *Service) GetFederationConfigurationDuration() int32 {
-	if o == nil || isNil(o.FederationConfigurationDuration) {
+	if o == nil || IsNil(o.FederationConfigurationDuration) {
 		var ret int32
 		return ret
 	}
@@ -4646,15 +4649,15 @@ func (o *Service) GetFederationConfigurationDuration() int32 {
 // GetFederationConfigurationDurationOk returns a tuple with the FederationConfigurationDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetFederationConfigurationDurationOk() (*int32, bool) {
-	if o == nil || isNil(o.FederationConfigurationDuration) {
-    return nil, false
+	if o == nil || IsNil(o.FederationConfigurationDuration) {
+		return nil, false
 	}
 	return o.FederationConfigurationDuration, true
 }
 
 // HasFederationConfigurationDuration returns a boolean if a field has been set.
 func (o *Service) HasFederationConfigurationDuration() bool {
-	if o != nil && !isNil(o.FederationConfigurationDuration) {
+	if o != nil && !IsNil(o.FederationConfigurationDuration) {
 		return true
 	}
 
@@ -4668,7 +4671,7 @@ func (o *Service) SetFederationConfigurationDuration(v int32) {
 
 // GetSignedJwksUri returns the SignedJwksUri field value if set, zero value otherwise.
 func (o *Service) GetSignedJwksUri() string {
-	if o == nil || isNil(o.SignedJwksUri) {
+	if o == nil || IsNil(o.SignedJwksUri) {
 		var ret string
 		return ret
 	}
@@ -4678,15 +4681,15 @@ func (o *Service) GetSignedJwksUri() string {
 // GetSignedJwksUriOk returns a tuple with the SignedJwksUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSignedJwksUriOk() (*string, bool) {
-	if o == nil || isNil(o.SignedJwksUri) {
-    return nil, false
+	if o == nil || IsNil(o.SignedJwksUri) {
+		return nil, false
 	}
 	return o.SignedJwksUri, true
 }
 
 // HasSignedJwksUri returns a boolean if a field has been set.
 func (o *Service) HasSignedJwksUri() bool {
-	if o != nil && !isNil(o.SignedJwksUri) {
+	if o != nil && !IsNil(o.SignedJwksUri) {
 		return true
 	}
 
@@ -4700,7 +4703,7 @@ func (o *Service) SetSignedJwksUri(v string) {
 
 // GetFederationRegistrationEndpoint returns the FederationRegistrationEndpoint field value if set, zero value otherwise.
 func (o *Service) GetFederationRegistrationEndpoint() string {
-	if o == nil || isNil(o.FederationRegistrationEndpoint) {
+	if o == nil || IsNil(o.FederationRegistrationEndpoint) {
 		var ret string
 		return ret
 	}
@@ -4710,15 +4713,15 @@ func (o *Service) GetFederationRegistrationEndpoint() string {
 // GetFederationRegistrationEndpointOk returns a tuple with the FederationRegistrationEndpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetFederationRegistrationEndpointOk() (*string, bool) {
-	if o == nil || isNil(o.FederationRegistrationEndpoint) {
-    return nil, false
+	if o == nil || IsNil(o.FederationRegistrationEndpoint) {
+		return nil, false
 	}
 	return o.FederationRegistrationEndpoint, true
 }
 
 // HasFederationRegistrationEndpoint returns a boolean if a field has been set.
 func (o *Service) HasFederationRegistrationEndpoint() bool {
-	if o != nil && !isNil(o.FederationRegistrationEndpoint) {
+	if o != nil && !IsNil(o.FederationRegistrationEndpoint) {
 		return true
 	}
 
@@ -4732,7 +4735,7 @@ func (o *Service) SetFederationRegistrationEndpoint(v string) {
 
 // GetSupportedClientRegistrationTypes returns the SupportedClientRegistrationTypes field value if set, zero value otherwise.
 func (o *Service) GetSupportedClientRegistrationTypes() []string {
-	if o == nil || isNil(o.SupportedClientRegistrationTypes) {
+	if o == nil || IsNil(o.SupportedClientRegistrationTypes) {
 		var ret []string
 		return ret
 	}
@@ -4742,15 +4745,15 @@ func (o *Service) GetSupportedClientRegistrationTypes() []string {
 // GetSupportedClientRegistrationTypesOk returns a tuple with the SupportedClientRegistrationTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedClientRegistrationTypesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedClientRegistrationTypes) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedClientRegistrationTypes) {
+		return nil, false
 	}
 	return o.SupportedClientRegistrationTypes, true
 }
 
 // HasSupportedClientRegistrationTypes returns a boolean if a field has been set.
 func (o *Service) HasSupportedClientRegistrationTypes() bool {
-	if o != nil && !isNil(o.SupportedClientRegistrationTypes) {
+	if o != nil && !IsNil(o.SupportedClientRegistrationTypes) {
 		return true
 	}
 
@@ -4764,7 +4767,7 @@ func (o *Service) SetSupportedClientRegistrationTypes(v []string) {
 
 // GetTokenExchangeByIdentifiableClientsOnly returns the TokenExchangeByIdentifiableClientsOnly field value if set, zero value otherwise.
 func (o *Service) GetTokenExchangeByIdentifiableClientsOnly() bool {
-	if o == nil || isNil(o.TokenExchangeByIdentifiableClientsOnly) {
+	if o == nil || IsNil(o.TokenExchangeByIdentifiableClientsOnly) {
 		var ret bool
 		return ret
 	}
@@ -4774,15 +4777,15 @@ func (o *Service) GetTokenExchangeByIdentifiableClientsOnly() bool {
 // GetTokenExchangeByIdentifiableClientsOnlyOk returns a tuple with the TokenExchangeByIdentifiableClientsOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenExchangeByIdentifiableClientsOnlyOk() (*bool, bool) {
-	if o == nil || isNil(o.TokenExchangeByIdentifiableClientsOnly) {
-    return nil, false
+	if o == nil || IsNil(o.TokenExchangeByIdentifiableClientsOnly) {
+		return nil, false
 	}
 	return o.TokenExchangeByIdentifiableClientsOnly, true
 }
 
 // HasTokenExchangeByIdentifiableClientsOnly returns a boolean if a field has been set.
 func (o *Service) HasTokenExchangeByIdentifiableClientsOnly() bool {
-	if o != nil && !isNil(o.TokenExchangeByIdentifiableClientsOnly) {
+	if o != nil && !IsNil(o.TokenExchangeByIdentifiableClientsOnly) {
 		return true
 	}
 
@@ -4796,7 +4799,7 @@ func (o *Service) SetTokenExchangeByIdentifiableClientsOnly(v bool) {
 
 // GetTokenExchangeByConfidentialClientsOnly returns the TokenExchangeByConfidentialClientsOnly field value if set, zero value otherwise.
 func (o *Service) GetTokenExchangeByConfidentialClientsOnly() bool {
-	if o == nil || isNil(o.TokenExchangeByConfidentialClientsOnly) {
+	if o == nil || IsNil(o.TokenExchangeByConfidentialClientsOnly) {
 		var ret bool
 		return ret
 	}
@@ -4806,15 +4809,15 @@ func (o *Service) GetTokenExchangeByConfidentialClientsOnly() bool {
 // GetTokenExchangeByConfidentialClientsOnlyOk returns a tuple with the TokenExchangeByConfidentialClientsOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenExchangeByConfidentialClientsOnlyOk() (*bool, bool) {
-	if o == nil || isNil(o.TokenExchangeByConfidentialClientsOnly) {
-    return nil, false
+	if o == nil || IsNil(o.TokenExchangeByConfidentialClientsOnly) {
+		return nil, false
 	}
 	return o.TokenExchangeByConfidentialClientsOnly, true
 }
 
 // HasTokenExchangeByConfidentialClientsOnly returns a boolean if a field has been set.
 func (o *Service) HasTokenExchangeByConfidentialClientsOnly() bool {
-	if o != nil && !isNil(o.TokenExchangeByConfidentialClientsOnly) {
+	if o != nil && !IsNil(o.TokenExchangeByConfidentialClientsOnly) {
 		return true
 	}
 
@@ -4828,7 +4831,7 @@ func (o *Service) SetTokenExchangeByConfidentialClientsOnly(v bool) {
 
 // GetTokenExchangeByPermittedClientsOnly returns the TokenExchangeByPermittedClientsOnly field value if set, zero value otherwise.
 func (o *Service) GetTokenExchangeByPermittedClientsOnly() bool {
-	if o == nil || isNil(o.TokenExchangeByPermittedClientsOnly) {
+	if o == nil || IsNil(o.TokenExchangeByPermittedClientsOnly) {
 		var ret bool
 		return ret
 	}
@@ -4838,15 +4841,15 @@ func (o *Service) GetTokenExchangeByPermittedClientsOnly() bool {
 // GetTokenExchangeByPermittedClientsOnlyOk returns a tuple with the TokenExchangeByPermittedClientsOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenExchangeByPermittedClientsOnlyOk() (*bool, bool) {
-	if o == nil || isNil(o.TokenExchangeByPermittedClientsOnly) {
-    return nil, false
+	if o == nil || IsNil(o.TokenExchangeByPermittedClientsOnly) {
+		return nil, false
 	}
 	return o.TokenExchangeByPermittedClientsOnly, true
 }
 
 // HasTokenExchangeByPermittedClientsOnly returns a boolean if a field has been set.
 func (o *Service) HasTokenExchangeByPermittedClientsOnly() bool {
-	if o != nil && !isNil(o.TokenExchangeByPermittedClientsOnly) {
+	if o != nil && !IsNil(o.TokenExchangeByPermittedClientsOnly) {
 		return true
 	}
 
@@ -4860,7 +4863,7 @@ func (o *Service) SetTokenExchangeByPermittedClientsOnly(v bool) {
 
 // GetTokenExchangeEncryptedJwtRejected returns the TokenExchangeEncryptedJwtRejected field value if set, zero value otherwise.
 func (o *Service) GetTokenExchangeEncryptedJwtRejected() bool {
-	if o == nil || isNil(o.TokenExchangeEncryptedJwtRejected) {
+	if o == nil || IsNil(o.TokenExchangeEncryptedJwtRejected) {
 		var ret bool
 		return ret
 	}
@@ -4870,15 +4873,15 @@ func (o *Service) GetTokenExchangeEncryptedJwtRejected() bool {
 // GetTokenExchangeEncryptedJwtRejectedOk returns a tuple with the TokenExchangeEncryptedJwtRejected field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenExchangeEncryptedJwtRejectedOk() (*bool, bool) {
-	if o == nil || isNil(o.TokenExchangeEncryptedJwtRejected) {
-    return nil, false
+	if o == nil || IsNil(o.TokenExchangeEncryptedJwtRejected) {
+		return nil, false
 	}
 	return o.TokenExchangeEncryptedJwtRejected, true
 }
 
 // HasTokenExchangeEncryptedJwtRejected returns a boolean if a field has been set.
 func (o *Service) HasTokenExchangeEncryptedJwtRejected() bool {
-	if o != nil && !isNil(o.TokenExchangeEncryptedJwtRejected) {
+	if o != nil && !IsNil(o.TokenExchangeEncryptedJwtRejected) {
 		return true
 	}
 
@@ -4892,7 +4895,7 @@ func (o *Service) SetTokenExchangeEncryptedJwtRejected(v bool) {
 
 // GetTokenExchangeUnsignedJwtRejected returns the TokenExchangeUnsignedJwtRejected field value if set, zero value otherwise.
 func (o *Service) GetTokenExchangeUnsignedJwtRejected() bool {
-	if o == nil || isNil(o.TokenExchangeUnsignedJwtRejected) {
+	if o == nil || IsNil(o.TokenExchangeUnsignedJwtRejected) {
 		var ret bool
 		return ret
 	}
@@ -4902,15 +4905,15 @@ func (o *Service) GetTokenExchangeUnsignedJwtRejected() bool {
 // GetTokenExchangeUnsignedJwtRejectedOk returns a tuple with the TokenExchangeUnsignedJwtRejected field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetTokenExchangeUnsignedJwtRejectedOk() (*bool, bool) {
-	if o == nil || isNil(o.TokenExchangeUnsignedJwtRejected) {
-    return nil, false
+	if o == nil || IsNil(o.TokenExchangeUnsignedJwtRejected) {
+		return nil, false
 	}
 	return o.TokenExchangeUnsignedJwtRejected, true
 }
 
 // HasTokenExchangeUnsignedJwtRejected returns a boolean if a field has been set.
 func (o *Service) HasTokenExchangeUnsignedJwtRejected() bool {
-	if o != nil && !isNil(o.TokenExchangeUnsignedJwtRejected) {
+	if o != nil && !IsNil(o.TokenExchangeUnsignedJwtRejected) {
 		return true
 	}
 
@@ -4924,7 +4927,7 @@ func (o *Service) SetTokenExchangeUnsignedJwtRejected(v bool) {
 
 // GetJwtGrantByIdentifiableClientsOnly returns the JwtGrantByIdentifiableClientsOnly field value if set, zero value otherwise.
 func (o *Service) GetJwtGrantByIdentifiableClientsOnly() bool {
-	if o == nil || isNil(o.JwtGrantByIdentifiableClientsOnly) {
+	if o == nil || IsNil(o.JwtGrantByIdentifiableClientsOnly) {
 		var ret bool
 		return ret
 	}
@@ -4934,15 +4937,15 @@ func (o *Service) GetJwtGrantByIdentifiableClientsOnly() bool {
 // GetJwtGrantByIdentifiableClientsOnlyOk returns a tuple with the JwtGrantByIdentifiableClientsOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetJwtGrantByIdentifiableClientsOnlyOk() (*bool, bool) {
-	if o == nil || isNil(o.JwtGrantByIdentifiableClientsOnly) {
-    return nil, false
+	if o == nil || IsNil(o.JwtGrantByIdentifiableClientsOnly) {
+		return nil, false
 	}
 	return o.JwtGrantByIdentifiableClientsOnly, true
 }
 
 // HasJwtGrantByIdentifiableClientsOnly returns a boolean if a field has been set.
 func (o *Service) HasJwtGrantByIdentifiableClientsOnly() bool {
-	if o != nil && !isNil(o.JwtGrantByIdentifiableClientsOnly) {
+	if o != nil && !IsNil(o.JwtGrantByIdentifiableClientsOnly) {
 		return true
 	}
 
@@ -4956,7 +4959,7 @@ func (o *Service) SetJwtGrantByIdentifiableClientsOnly(v bool) {
 
 // GetJwtGrantEncryptedJwtRejected returns the JwtGrantEncryptedJwtRejected field value if set, zero value otherwise.
 func (o *Service) GetJwtGrantEncryptedJwtRejected() bool {
-	if o == nil || isNil(o.JwtGrantEncryptedJwtRejected) {
+	if o == nil || IsNil(o.JwtGrantEncryptedJwtRejected) {
 		var ret bool
 		return ret
 	}
@@ -4966,15 +4969,15 @@ func (o *Service) GetJwtGrantEncryptedJwtRejected() bool {
 // GetJwtGrantEncryptedJwtRejectedOk returns a tuple with the JwtGrantEncryptedJwtRejected field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetJwtGrantEncryptedJwtRejectedOk() (*bool, bool) {
-	if o == nil || isNil(o.JwtGrantEncryptedJwtRejected) {
-    return nil, false
+	if o == nil || IsNil(o.JwtGrantEncryptedJwtRejected) {
+		return nil, false
 	}
 	return o.JwtGrantEncryptedJwtRejected, true
 }
 
 // HasJwtGrantEncryptedJwtRejected returns a boolean if a field has been set.
 func (o *Service) HasJwtGrantEncryptedJwtRejected() bool {
-	if o != nil && !isNil(o.JwtGrantEncryptedJwtRejected) {
+	if o != nil && !IsNil(o.JwtGrantEncryptedJwtRejected) {
 		return true
 	}
 
@@ -4988,7 +4991,7 @@ func (o *Service) SetJwtGrantEncryptedJwtRejected(v bool) {
 
 // GetJwtGrantUnsignedJwtRejected returns the JwtGrantUnsignedJwtRejected field value if set, zero value otherwise.
 func (o *Service) GetJwtGrantUnsignedJwtRejected() bool {
-	if o == nil || isNil(o.JwtGrantUnsignedJwtRejected) {
+	if o == nil || IsNil(o.JwtGrantUnsignedJwtRejected) {
 		var ret bool
 		return ret
 	}
@@ -4998,15 +5001,15 @@ func (o *Service) GetJwtGrantUnsignedJwtRejected() bool {
 // GetJwtGrantUnsignedJwtRejectedOk returns a tuple with the JwtGrantUnsignedJwtRejected field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetJwtGrantUnsignedJwtRejectedOk() (*bool, bool) {
-	if o == nil || isNil(o.JwtGrantUnsignedJwtRejected) {
-    return nil, false
+	if o == nil || IsNil(o.JwtGrantUnsignedJwtRejected) {
+		return nil, false
 	}
 	return o.JwtGrantUnsignedJwtRejected, true
 }
 
 // HasJwtGrantUnsignedJwtRejected returns a boolean if a field has been set.
 func (o *Service) HasJwtGrantUnsignedJwtRejected() bool {
-	if o != nil && !isNil(o.JwtGrantUnsignedJwtRejected) {
+	if o != nil && !IsNil(o.JwtGrantUnsignedJwtRejected) {
 		return true
 	}
 
@@ -5020,7 +5023,7 @@ func (o *Service) SetJwtGrantUnsignedJwtRejected(v bool) {
 
 // GetDcrDuplicateSoftwareIdBlocked returns the DcrDuplicateSoftwareIdBlocked field value if set, zero value otherwise.
 func (o *Service) GetDcrDuplicateSoftwareIdBlocked() bool {
-	if o == nil || isNil(o.DcrDuplicateSoftwareIdBlocked) {
+	if o == nil || IsNil(o.DcrDuplicateSoftwareIdBlocked) {
 		var ret bool
 		return ret
 	}
@@ -5030,15 +5033,15 @@ func (o *Service) GetDcrDuplicateSoftwareIdBlocked() bool {
 // GetDcrDuplicateSoftwareIdBlockedOk returns a tuple with the DcrDuplicateSoftwareIdBlocked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetDcrDuplicateSoftwareIdBlockedOk() (*bool, bool) {
-	if o == nil || isNil(o.DcrDuplicateSoftwareIdBlocked) {
-    return nil, false
+	if o == nil || IsNil(o.DcrDuplicateSoftwareIdBlocked) {
+		return nil, false
 	}
 	return o.DcrDuplicateSoftwareIdBlocked, true
 }
 
 // HasDcrDuplicateSoftwareIdBlocked returns a boolean if a field has been set.
 func (o *Service) HasDcrDuplicateSoftwareIdBlocked() bool {
-	if o != nil && !isNil(o.DcrDuplicateSoftwareIdBlocked) {
+	if o != nil && !IsNil(o.DcrDuplicateSoftwareIdBlocked) {
 		return true
 	}
 
@@ -5052,7 +5055,7 @@ func (o *Service) SetDcrDuplicateSoftwareIdBlocked(v bool) {
 
 // GetResourceSignatureKeyId returns the ResourceSignatureKeyId field value if set, zero value otherwise.
 func (o *Service) GetResourceSignatureKeyId() string {
-	if o == nil || isNil(o.ResourceSignatureKeyId) {
+	if o == nil || IsNil(o.ResourceSignatureKeyId) {
 		var ret string
 		return ret
 	}
@@ -5062,15 +5065,15 @@ func (o *Service) GetResourceSignatureKeyId() string {
 // GetResourceSignatureKeyIdOk returns a tuple with the ResourceSignatureKeyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetResourceSignatureKeyIdOk() (*string, bool) {
-	if o == nil || isNil(o.ResourceSignatureKeyId) {
-    return nil, false
+	if o == nil || IsNil(o.ResourceSignatureKeyId) {
+		return nil, false
 	}
 	return o.ResourceSignatureKeyId, true
 }
 
 // HasResourceSignatureKeyId returns a boolean if a field has been set.
 func (o *Service) HasResourceSignatureKeyId() bool {
-	if o != nil && !isNil(o.ResourceSignatureKeyId) {
+	if o != nil && !IsNil(o.ResourceSignatureKeyId) {
 		return true
 	}
 
@@ -5084,7 +5087,7 @@ func (o *Service) SetResourceSignatureKeyId(v string) {
 
 // GetRsResponseSigned returns the RsResponseSigned field value if set, zero value otherwise.
 func (o *Service) GetRsResponseSigned() bool {
-	if o == nil || isNil(o.RsResponseSigned) {
+	if o == nil || IsNil(o.RsResponseSigned) {
 		var ret bool
 		return ret
 	}
@@ -5094,15 +5097,15 @@ func (o *Service) GetRsResponseSigned() bool {
 // GetRsResponseSignedOk returns a tuple with the RsResponseSigned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetRsResponseSignedOk() (*bool, bool) {
-	if o == nil || isNil(o.RsResponseSigned) {
-    return nil, false
+	if o == nil || IsNil(o.RsResponseSigned) {
+		return nil, false
 	}
 	return o.RsResponseSigned, true
 }
 
 // HasRsResponseSigned returns a boolean if a field has been set.
 func (o *Service) HasRsResponseSigned() bool {
-	if o != nil && !isNil(o.RsResponseSigned) {
+	if o != nil && !IsNil(o.RsResponseSigned) {
 		return true
 	}
 
@@ -5116,7 +5119,7 @@ func (o *Service) SetRsResponseSigned(v bool) {
 
 // GetOpenidDroppedOnRefreshWithoutOfflineAccess returns the OpenidDroppedOnRefreshWithoutOfflineAccess field value if set, zero value otherwise.
 func (o *Service) GetOpenidDroppedOnRefreshWithoutOfflineAccess() bool {
-	if o == nil || isNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
+	if o == nil || IsNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
 		var ret bool
 		return ret
 	}
@@ -5126,15 +5129,15 @@ func (o *Service) GetOpenidDroppedOnRefreshWithoutOfflineAccess() bool {
 // GetOpenidDroppedOnRefreshWithoutOfflineAccessOk returns a tuple with the OpenidDroppedOnRefreshWithoutOfflineAccess field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetOpenidDroppedOnRefreshWithoutOfflineAccessOk() (*bool, bool) {
-	if o == nil || isNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
-    return nil, false
+	if o == nil || IsNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
+		return nil, false
 	}
 	return o.OpenidDroppedOnRefreshWithoutOfflineAccess, true
 }
 
 // HasOpenidDroppedOnRefreshWithoutOfflineAccess returns a boolean if a field has been set.
 func (o *Service) HasOpenidDroppedOnRefreshWithoutOfflineAccess() bool {
-	if o != nil && !isNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
+	if o != nil && !IsNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
 		return true
 	}
 
@@ -5148,7 +5151,7 @@ func (o *Service) SetOpenidDroppedOnRefreshWithoutOfflineAccess(v bool) {
 
 // GetVerifiableCredentialsEnabled returns the VerifiableCredentialsEnabled field value if set, zero value otherwise.
 func (o *Service) GetVerifiableCredentialsEnabled() bool {
-	if o == nil || isNil(o.VerifiableCredentialsEnabled) {
+	if o == nil || IsNil(o.VerifiableCredentialsEnabled) {
 		var ret bool
 		return ret
 	}
@@ -5158,15 +5161,15 @@ func (o *Service) GetVerifiableCredentialsEnabled() bool {
 // GetVerifiableCredentialsEnabledOk returns a tuple with the VerifiableCredentialsEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetVerifiableCredentialsEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.VerifiableCredentialsEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.VerifiableCredentialsEnabled) {
+		return nil, false
 	}
 	return o.VerifiableCredentialsEnabled, true
 }
 
 // HasVerifiableCredentialsEnabled returns a boolean if a field has been set.
 func (o *Service) HasVerifiableCredentialsEnabled() bool {
-	if o != nil && !isNil(o.VerifiableCredentialsEnabled) {
+	if o != nil && !IsNil(o.VerifiableCredentialsEnabled) {
 		return true
 	}
 
@@ -5180,7 +5183,7 @@ func (o *Service) SetVerifiableCredentialsEnabled(v bool) {
 
 // GetCredentialIssuerMetadata returns the CredentialIssuerMetadata field value if set, zero value otherwise.
 func (o *Service) GetCredentialIssuerMetadata() CredentialIssuerMetadata {
-	if o == nil || isNil(o.CredentialIssuerMetadata) {
+	if o == nil || IsNil(o.CredentialIssuerMetadata) {
 		var ret CredentialIssuerMetadata
 		return ret
 	}
@@ -5190,15 +5193,15 @@ func (o *Service) GetCredentialIssuerMetadata() CredentialIssuerMetadata {
 // GetCredentialIssuerMetadataOk returns a tuple with the CredentialIssuerMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCredentialIssuerMetadataOk() (*CredentialIssuerMetadata, bool) {
-	if o == nil || isNil(o.CredentialIssuerMetadata) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialIssuerMetadata) {
+		return nil, false
 	}
 	return o.CredentialIssuerMetadata, true
 }
 
 // HasCredentialIssuerMetadata returns a boolean if a field has been set.
 func (o *Service) HasCredentialIssuerMetadata() bool {
-	if o != nil && !isNil(o.CredentialIssuerMetadata) {
+	if o != nil && !IsNil(o.CredentialIssuerMetadata) {
 		return true
 	}
 
@@ -5212,7 +5215,7 @@ func (o *Service) SetCredentialIssuerMetadata(v CredentialIssuerMetadata) {
 
 // GetCredentialOfferDuration returns the CredentialOfferDuration field value if set, zero value otherwise.
 func (o *Service) GetCredentialOfferDuration() int64 {
-	if o == nil || isNil(o.CredentialOfferDuration) {
+	if o == nil || IsNil(o.CredentialOfferDuration) {
 		var ret int64
 		return ret
 	}
@@ -5222,15 +5225,15 @@ func (o *Service) GetCredentialOfferDuration() int64 {
 // GetCredentialOfferDurationOk returns a tuple with the CredentialOfferDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCredentialOfferDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.CredentialOfferDuration) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialOfferDuration) {
+		return nil, false
 	}
 	return o.CredentialOfferDuration, true
 }
 
 // HasCredentialOfferDuration returns a boolean if a field has been set.
 func (o *Service) HasCredentialOfferDuration() bool {
-	if o != nil && !isNil(o.CredentialOfferDuration) {
+	if o != nil && !IsNil(o.CredentialOfferDuration) {
 		return true
 	}
 
@@ -5244,7 +5247,7 @@ func (o *Service) SetCredentialOfferDuration(v int64) {
 
 // GetUserPinLength returns the UserPinLength field value if set, zero value otherwise.
 func (o *Service) GetUserPinLength() int32 {
-	if o == nil || isNil(o.UserPinLength) {
+	if o == nil || IsNil(o.UserPinLength) {
 		var ret int32
 		return ret
 	}
@@ -5254,15 +5257,15 @@ func (o *Service) GetUserPinLength() int32 {
 // GetUserPinLengthOk returns a tuple with the UserPinLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetUserPinLengthOk() (*int32, bool) {
-	if o == nil || isNil(o.UserPinLength) {
-    return nil, false
+	if o == nil || IsNil(o.UserPinLength) {
+		return nil, false
 	}
 	return o.UserPinLength, true
 }
 
 // HasUserPinLength returns a boolean if a field has been set.
 func (o *Service) HasUserPinLength() bool {
-	if o != nil && !isNil(o.UserPinLength) {
+	if o != nil && !IsNil(o.UserPinLength) {
 		return true
 	}
 
@@ -5276,7 +5279,7 @@ func (o *Service) SetUserPinLength(v int32) {
 
 // GetIdTokenAudType returns the IdTokenAudType field value if set, zero value otherwise.
 func (o *Service) GetIdTokenAudType() string {
-	if o == nil || isNil(o.IdTokenAudType) {
+	if o == nil || IsNil(o.IdTokenAudType) {
 		var ret string
 		return ret
 	}
@@ -5286,15 +5289,15 @@ func (o *Service) GetIdTokenAudType() string {
 // GetIdTokenAudTypeOk returns a tuple with the IdTokenAudType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIdTokenAudTypeOk() (*string, bool) {
-	if o == nil || isNil(o.IdTokenAudType) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenAudType) {
+		return nil, false
 	}
 	return o.IdTokenAudType, true
 }
 
 // HasIdTokenAudType returns a boolean if a field has been set.
 func (o *Service) HasIdTokenAudType() bool {
-	if o != nil && !isNil(o.IdTokenAudType) {
+	if o != nil && !IsNil(o.IdTokenAudType) {
 		return true
 	}
 
@@ -5308,7 +5311,7 @@ func (o *Service) SetIdTokenAudType(v string) {
 
 // GetSupportedPromptValues returns the SupportedPromptValues field value if set, zero value otherwise.
 func (o *Service) GetSupportedPromptValues() []string {
-	if o == nil || isNil(o.SupportedPromptValues) {
+	if o == nil || IsNil(o.SupportedPromptValues) {
 		var ret []string
 		return ret
 	}
@@ -5318,15 +5321,15 @@ func (o *Service) GetSupportedPromptValues() []string {
 // GetSupportedPromptValuesOk returns a tuple with the SupportedPromptValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetSupportedPromptValuesOk() ([]string, bool) {
-	if o == nil || isNil(o.SupportedPromptValues) {
-    return nil, false
+	if o == nil || IsNil(o.SupportedPromptValues) {
+		return nil, false
 	}
 	return o.SupportedPromptValues, true
 }
 
 // HasSupportedPromptValues returns a boolean if a field has been set.
 func (o *Service) HasSupportedPromptValues() bool {
-	if o != nil && !isNil(o.SupportedPromptValues) {
+	if o != nil && !IsNil(o.SupportedPromptValues) {
 		return true
 	}
 
@@ -5340,7 +5343,7 @@ func (o *Service) SetSupportedPromptValues(v []string) {
 
 // GetVerifiedClaimsValidationSchemaSet returns the VerifiedClaimsValidationSchemaSet field value if set, zero value otherwise.
 func (o *Service) GetVerifiedClaimsValidationSchemaSet() string {
-	if o == nil || isNil(o.VerifiedClaimsValidationSchemaSet) {
+	if o == nil || IsNil(o.VerifiedClaimsValidationSchemaSet) {
 		var ret string
 		return ret
 	}
@@ -5350,15 +5353,15 @@ func (o *Service) GetVerifiedClaimsValidationSchemaSet() string {
 // GetVerifiedClaimsValidationSchemaSetOk returns a tuple with the VerifiedClaimsValidationSchemaSet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetVerifiedClaimsValidationSchemaSetOk() (*string, bool) {
-	if o == nil || isNil(o.VerifiedClaimsValidationSchemaSet) {
-    return nil, false
+	if o == nil || IsNil(o.VerifiedClaimsValidationSchemaSet) {
+		return nil, false
 	}
 	return o.VerifiedClaimsValidationSchemaSet, true
 }
 
 // HasVerifiedClaimsValidationSchemaSet returns a boolean if a field has been set.
 func (o *Service) HasVerifiedClaimsValidationSchemaSet() bool {
-	if o != nil && !isNil(o.VerifiedClaimsValidationSchemaSet) {
+	if o != nil && !IsNil(o.VerifiedClaimsValidationSchemaSet) {
 		return true
 	}
 
@@ -5372,7 +5375,7 @@ func (o *Service) SetVerifiedClaimsValidationSchemaSet(v string) {
 
 // GetPreAuthorizedGrantAnonymousAccessSupported returns the PreAuthorizedGrantAnonymousAccessSupported field value if set, zero value otherwise.
 func (o *Service) GetPreAuthorizedGrantAnonymousAccessSupported() bool {
-	if o == nil || isNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
+	if o == nil || IsNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
 		var ret bool
 		return ret
 	}
@@ -5382,15 +5385,15 @@ func (o *Service) GetPreAuthorizedGrantAnonymousAccessSupported() bool {
 // GetPreAuthorizedGrantAnonymousAccessSupportedOk returns a tuple with the PreAuthorizedGrantAnonymousAccessSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetPreAuthorizedGrantAnonymousAccessSupportedOk() (*bool, bool) {
-	if o == nil || isNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
-    return nil, false
+	if o == nil || IsNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
+		return nil, false
 	}
 	return o.PreAuthorizedGrantAnonymousAccessSupported, true
 }
 
 // HasPreAuthorizedGrantAnonymousAccessSupported returns a boolean if a field has been set.
 func (o *Service) HasPreAuthorizedGrantAnonymousAccessSupported() bool {
-	if o != nil && !isNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
+	if o != nil && !IsNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
 		return true
 	}
 
@@ -5404,7 +5407,7 @@ func (o *Service) SetPreAuthorizedGrantAnonymousAccessSupported(v bool) {
 
 // GetCredentialTransactionDuration returns the CredentialTransactionDuration field value if set, zero value otherwise.
 func (o *Service) GetCredentialTransactionDuration() int64 {
-	if o == nil || isNil(o.CredentialTransactionDuration) {
+	if o == nil || IsNil(o.CredentialTransactionDuration) {
 		var ret int64
 		return ret
 	}
@@ -5414,15 +5417,15 @@ func (o *Service) GetCredentialTransactionDuration() int64 {
 // GetCredentialTransactionDurationOk returns a tuple with the CredentialTransactionDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCredentialTransactionDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.CredentialTransactionDuration) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialTransactionDuration) {
+		return nil, false
 	}
 	return o.CredentialTransactionDuration, true
 }
 
 // HasCredentialTransactionDuration returns a boolean if a field has been set.
 func (o *Service) HasCredentialTransactionDuration() bool {
-	if o != nil && !isNil(o.CredentialTransactionDuration) {
+	if o != nil && !IsNil(o.CredentialTransactionDuration) {
 		return true
 	}
 
@@ -5436,7 +5439,7 @@ func (o *Service) SetCredentialTransactionDuration(v int64) {
 
 // GetCredentialDuration returns the CredentialDuration field value if set, zero value otherwise.
 func (o *Service) GetCredentialDuration() int64 {
-	if o == nil || isNil(o.CredentialDuration) {
+	if o == nil || IsNil(o.CredentialDuration) {
 		var ret int64
 		return ret
 	}
@@ -5446,15 +5449,15 @@ func (o *Service) GetCredentialDuration() int64 {
 // GetCredentialDurationOk returns a tuple with the CredentialDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCredentialDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.CredentialDuration) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialDuration) {
+		return nil, false
 	}
 	return o.CredentialDuration, true
 }
 
 // HasCredentialDuration returns a boolean if a field has been set.
 func (o *Service) HasCredentialDuration() bool {
-	if o != nil && !isNil(o.CredentialDuration) {
+	if o != nil && !IsNil(o.CredentialDuration) {
 		return true
 	}
 
@@ -5468,7 +5471,7 @@ func (o *Service) SetCredentialDuration(v int64) {
 
 // GetCredentialJwks returns the CredentialJwks field value if set, zero value otherwise.
 func (o *Service) GetCredentialJwks() string {
-	if o == nil || isNil(o.CredentialJwks) {
+	if o == nil || IsNil(o.CredentialJwks) {
 		var ret string
 		return ret
 	}
@@ -5478,15 +5481,15 @@ func (o *Service) GetCredentialJwks() string {
 // GetCredentialJwksOk returns a tuple with the CredentialJwks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCredentialJwksOk() (*string, bool) {
-	if o == nil || isNil(o.CredentialJwks) {
-    return nil, false
+	if o == nil || IsNil(o.CredentialJwks) {
+		return nil, false
 	}
 	return o.CredentialJwks, true
 }
 
 // HasCredentialJwks returns a boolean if a field has been set.
 func (o *Service) HasCredentialJwks() bool {
-	if o != nil && !isNil(o.CredentialJwks) {
+	if o != nil && !IsNil(o.CredentialJwks) {
 		return true
 	}
 
@@ -5500,7 +5503,7 @@ func (o *Service) SetCredentialJwks(v string) {
 
 // GetIdTokenReissuable returns the IdTokenReissuable field value if set, zero value otherwise.
 func (o *Service) GetIdTokenReissuable() bool {
-	if o == nil || isNil(o.IdTokenReissuable) {
+	if o == nil || IsNil(o.IdTokenReissuable) {
 		var ret bool
 		return ret
 	}
@@ -5510,15 +5513,15 @@ func (o *Service) GetIdTokenReissuable() bool {
 // GetIdTokenReissuableOk returns a tuple with the IdTokenReissuable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetIdTokenReissuableOk() (*bool, bool) {
-	if o == nil || isNil(o.IdTokenReissuable) {
-    return nil, false
+	if o == nil || IsNil(o.IdTokenReissuable) {
+		return nil, false
 	}
 	return o.IdTokenReissuable, true
 }
 
 // HasIdTokenReissuable returns a boolean if a field has been set.
 func (o *Service) HasIdTokenReissuable() bool {
-	if o != nil && !isNil(o.IdTokenReissuable) {
+	if o != nil && !IsNil(o.IdTokenReissuable) {
 		return true
 	}
 
@@ -5532,7 +5535,7 @@ func (o *Service) SetIdTokenReissuable(v bool) {
 
 // GetCnonceDuration returns the CnonceDuration field value if set, zero value otherwise.
 func (o *Service) GetCnonceDuration() int64 {
-	if o == nil || isNil(o.CnonceDuration) {
+	if o == nil || IsNil(o.CnonceDuration) {
 		var ret int64
 		return ret
 	}
@@ -5542,15 +5545,15 @@ func (o *Service) GetCnonceDuration() int64 {
 // GetCnonceDurationOk returns a tuple with the CnonceDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetCnonceDurationOk() (*int64, bool) {
-	if o == nil || isNil(o.CnonceDuration) {
-    return nil, false
+	if o == nil || IsNil(o.CnonceDuration) {
+		return nil, false
 	}
 	return o.CnonceDuration, true
 }
 
 // HasCnonceDuration returns a boolean if a field has been set.
 func (o *Service) HasCnonceDuration() bool {
-	if o != nil && !isNil(o.CnonceDuration) {
+	if o != nil && !IsNil(o.CnonceDuration) {
 		return true
 	}
 
@@ -5563,509 +5566,517 @@ func (o *Service) SetCnonceDuration(v int64) {
 }
 
 func (o Service) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Number) {
-		toSerialize["number"] = o.Number
-	}
-	if !isNil(o.ServiceOwnerNumber) {
-		toSerialize["serviceOwnerNumber"] = o.ServiceOwnerNumber
-	}
-	if !isNil(o.ServiceName) {
-		toSerialize["serviceName"] = o.ServiceName
-	}
-	if !isNil(o.ApiKey) {
-		toSerialize["apiKey"] = o.ApiKey
-	}
-	if !isNil(o.ApiSecret) {
-		toSerialize["apiSecret"] = o.ApiSecret
-	}
-	if !isNil(o.Issuer) {
-		toSerialize["issuer"] = o.Issuer
-	}
-	if !isNil(o.AuthorizationEndpoint) {
-		toSerialize["authorizationEndpoint"] = o.AuthorizationEndpoint
-	}
-	if !isNil(o.TokenEndpoint) {
-		toSerialize["tokenEndpoint"] = o.TokenEndpoint
-	}
-	if !isNil(o.RevocationEndpoint) {
-		toSerialize["revocationEndpoint"] = o.RevocationEndpoint
-	}
-	if !isNil(o.SupportedRevocationAuthMethods) {
-		toSerialize["supportedRevocationAuthMethods"] = o.SupportedRevocationAuthMethods
-	}
-	if !isNil(o.UserInfoEndpoint) {
-		toSerialize["userInfoEndpoint"] = o.UserInfoEndpoint
-	}
-	if !isNil(o.JwksUri) {
-		toSerialize["jwksUri"] = o.JwksUri
-	}
-	if !isNil(o.Jwks) {
-		toSerialize["jwks"] = o.Jwks
-	}
-	if !isNil(o.RegistrationEndpoint) {
-		toSerialize["registrationEndpoint"] = o.RegistrationEndpoint
-	}
-	if !isNil(o.RegistrationManagementEndpoint) {
-		toSerialize["registrationManagementEndpoint"] = o.RegistrationManagementEndpoint
-	}
-	if !isNil(o.SupportedScopes) {
-		toSerialize["supportedScopes"] = o.SupportedScopes
-	}
-	if !isNil(o.SupportedResponseTypes) {
-		toSerialize["supportedResponseTypes"] = o.SupportedResponseTypes
-	}
-	if !isNil(o.SupportedGrantTypes) {
-		toSerialize["supportedGrantTypes"] = o.SupportedGrantTypes
-	}
-	if !isNil(o.SupportedAcrs) {
-		toSerialize["supportedAcrs"] = o.SupportedAcrs
-	}
-	if !isNil(o.SupportedTokenAuthMethods) {
-		toSerialize["supportedTokenAuthMethods"] = o.SupportedTokenAuthMethods
-	}
-	if !isNil(o.SupportedDisplays) {
-		toSerialize["supportedDisplays"] = o.SupportedDisplays
-	}
-	if !isNil(o.SupportedClaimTypes) {
-		toSerialize["supportedClaimTypes"] = o.SupportedClaimTypes
-	}
-	if !isNil(o.SupportedClaims) {
-		toSerialize["supportedClaims"] = o.SupportedClaims
-	}
-	if !isNil(o.ServiceDocumentation) {
-		toSerialize["serviceDocumentation"] = o.ServiceDocumentation
-	}
-	if !isNil(o.SupportedClaimLocales) {
-		toSerialize["supportedClaimLocales"] = o.SupportedClaimLocales
-	}
-	if !isNil(o.SupportedUiLocales) {
-		toSerialize["supportedUiLocales"] = o.SupportedUiLocales
-	}
-	if !isNil(o.PolicyUri) {
-		toSerialize["policyUri"] = o.PolicyUri
-	}
-	if !isNil(o.TosUri) {
-		toSerialize["tosUri"] = o.TosUri
-	}
-	if !isNil(o.AuthenticationCallbackEndpoint) {
-		toSerialize["authenticationCallbackEndpoint"] = o.AuthenticationCallbackEndpoint
-	}
-	if !isNil(o.AuthenticationCallbackApiKey) {
-		toSerialize["authenticationCallbackApiKey"] = o.AuthenticationCallbackApiKey
-	}
-	if !isNil(o.AuthenticationCallbackApiSecret) {
-		toSerialize["authenticationCallbackApiSecret"] = o.AuthenticationCallbackApiSecret
-	}
-	if !isNil(o.SupportedSnses) {
-		toSerialize["supportedSnses"] = o.SupportedSnses
-	}
-	if !isNil(o.SnsCredentials) {
-		toSerialize["snsCredentials"] = o.SnsCredentials
-	}
-	if !isNil(o.CreatedAt) {
-		toSerialize["createdAt"] = o.CreatedAt
-	}
-	if !isNil(o.ModifiedAt) {
-		toSerialize["modifiedAt"] = o.ModifiedAt
-	}
-	if !isNil(o.DeveloperAuthenticationCallbackEndpoint) {
-		toSerialize["developerAuthenticationCallbackEndpoint"] = o.DeveloperAuthenticationCallbackEndpoint
-	}
-	if !isNil(o.DeveloperAuthenticationCallbackApiKey) {
-		toSerialize["developerAuthenticationCallbackApiKey"] = o.DeveloperAuthenticationCallbackApiKey
-	}
-	if !isNil(o.DeveloperAuthenticationCallbackApiSecret) {
-		toSerialize["developerAuthenticationCallbackApiSecret"] = o.DeveloperAuthenticationCallbackApiSecret
-	}
-	if !isNil(o.SupportedDeveloperSnses) {
-		toSerialize["supportedDeveloperSnses"] = o.SupportedDeveloperSnses
-	}
-	if !isNil(o.DeveloperSnsCredentials) {
-		toSerialize["developerSnsCredentials"] = o.DeveloperSnsCredentials
-	}
-	if !isNil(o.ClientsPerDeveloper) {
-		toSerialize["clientsPerDeveloper"] = o.ClientsPerDeveloper
-	}
-	if !isNil(o.DirectAuthorizationEndpointEnabled) {
-		toSerialize["directAuthorizationEndpointEnabled"] = o.DirectAuthorizationEndpointEnabled
-	}
-	if !isNil(o.DirectTokenEndpointEnabled) {
-		toSerialize["directTokenEndpointEnabled"] = o.DirectTokenEndpointEnabled
-	}
-	if !isNil(o.DirectRevocationEndpointEnabled) {
-		toSerialize["directRevocationEndpointEnabled"] = o.DirectRevocationEndpointEnabled
-	}
-	if !isNil(o.DirectUserInfoEndpointEnabled) {
-		toSerialize["directUserInfoEndpointEnabled"] = o.DirectUserInfoEndpointEnabled
-	}
-	if !isNil(o.DirectJwksEndpointEnabled) {
-		toSerialize["directJwksEndpointEnabled"] = o.DirectJwksEndpointEnabled
-	}
-	if !isNil(o.DirectIntrospectionEndpointEnabled) {
-		toSerialize["directIntrospectionEndpointEnabled"] = o.DirectIntrospectionEndpointEnabled
-	}
-	if !isNil(o.SingleAccessTokenPerSubject) {
-		toSerialize["singleAccessTokenPerSubject"] = o.SingleAccessTokenPerSubject
-	}
-	if !isNil(o.PkceRequired) {
-		toSerialize["pkceRequired"] = o.PkceRequired
-	}
-	if !isNil(o.PkceS256Required) {
-		toSerialize["pkceS256Required"] = o.PkceS256Required
-	}
-	if !isNil(o.RefreshTokenKept) {
-		toSerialize["refreshTokenKept"] = o.RefreshTokenKept
-	}
-	if !isNil(o.RefreshTokenDurationKept) {
-		toSerialize["refreshTokenDurationKept"] = o.RefreshTokenDurationKept
-	}
-	if !isNil(o.RefreshTokenDurationReset) {
-		toSerialize["refreshTokenDurationReset"] = o.RefreshTokenDurationReset
-	}
-	if !isNil(o.ErrorDescriptionOmitted) {
-		toSerialize["errorDescriptionOmitted"] = o.ErrorDescriptionOmitted
-	}
-	if !isNil(o.ErrorUriOmitted) {
-		toSerialize["errorUriOmitted"] = o.ErrorUriOmitted
-	}
-	if !isNil(o.ClientIdAliasEnabled) {
-		toSerialize["clientIdAliasEnabled"] = o.ClientIdAliasEnabled
-	}
-	if !isNil(o.SupportedServiceProfiles) {
-		toSerialize["supportedServiceProfiles"] = o.SupportedServiceProfiles
-	}
-	if !isNil(o.TlsClientCertificateBoundAccessTokens) {
-		toSerialize["tlsClientCertificateBoundAccessTokens"] = o.TlsClientCertificateBoundAccessTokens
-	}
-	if !isNil(o.IntrospectionEndpoint) {
-		toSerialize["introspectionEndpoint"] = o.IntrospectionEndpoint
-	}
-	if !isNil(o.SupportedIntrospectionAuthMethods) {
-		toSerialize["supportedIntrospectionAuthMethods"] = o.SupportedIntrospectionAuthMethods
-	}
-	if !isNil(o.MutualTlsValidatePkiCertChain) {
-		toSerialize["mutualTlsValidatePkiCertChain"] = o.MutualTlsValidatePkiCertChain
-	}
-	if !isNil(o.TrustedRootCertificates) {
-		toSerialize["trustedRootCertificates"] = o.TrustedRootCertificates
-	}
-	if !isNil(o.DynamicRegistrationSupported) {
-		toSerialize["dynamicRegistrationSupported"] = o.DynamicRegistrationSupported
-	}
-	if !isNil(o.EndSessionEndpoint) {
-		toSerialize["endSessionEndpoint"] = o.EndSessionEndpoint
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !isNil(o.AccessTokenType) {
-		toSerialize["accessTokenType"] = o.AccessTokenType
-	}
-	if !isNil(o.AccessTokenSignAlg) {
-		toSerialize["accessTokenSignAlg"] = o.AccessTokenSignAlg
-	}
-	if !isNil(o.AccessTokenDuration) {
-		toSerialize["accessTokenDuration"] = o.AccessTokenDuration
-	}
-	if !isNil(o.RefreshTokenDuration) {
-		toSerialize["refreshTokenDuration"] = o.RefreshTokenDuration
-	}
-	if !isNil(o.IdTokenDuration) {
-		toSerialize["idTokenDuration"] = o.IdTokenDuration
-	}
-	if !isNil(o.AuthorizationResponseDuration) {
-		toSerialize["authorizationResponseDuration"] = o.AuthorizationResponseDuration
-	}
-	if !isNil(o.PushedAuthReqDuration) {
-		toSerialize["pushedAuthReqDuration"] = o.PushedAuthReqDuration
-	}
-	if !isNil(o.Metadata) {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if !isNil(o.AccessTokenSignatureKeyId) {
-		toSerialize["accessTokenSignatureKeyId"] = o.AccessTokenSignatureKeyId
-	}
-	if !isNil(o.AuthorizationSignatureKeyId) {
-		toSerialize["authorizationSignatureKeyId"] = o.AuthorizationSignatureKeyId
-	}
-	if !isNil(o.IdTokenSignatureKeyId) {
-		toSerialize["idTokenSignatureKeyId"] = o.IdTokenSignatureKeyId
-	}
-	if !isNil(o.UserInfoSignatureKeyId) {
-		toSerialize["userInfoSignatureKeyId"] = o.UserInfoSignatureKeyId
-	}
-	if !isNil(o.SupportedBackchannelTokenDeliveryModes) {
-		toSerialize["supportedBackchannelTokenDeliveryModes"] = o.SupportedBackchannelTokenDeliveryModes
-	}
-	if !isNil(o.BackchannelAuthenticationEndpoint) {
-		toSerialize["backchannelAuthenticationEndpoint"] = o.BackchannelAuthenticationEndpoint
-	}
-	if !isNil(o.BackchannelUserCodeParameterSupported) {
-		toSerialize["backchannelUserCodeParameterSupported"] = o.BackchannelUserCodeParameterSupported
-	}
-	if !isNil(o.BackchannelAuthReqIdDuration) {
-		toSerialize["backchannelAuthReqIdDuration"] = o.BackchannelAuthReqIdDuration
-	}
-	if !isNil(o.BackchannelPollingInterval) {
-		toSerialize["backchannelPollingInterval"] = o.BackchannelPollingInterval
-	}
-	if !isNil(o.BackchannelBindingMessageRequiredInFapi) {
-		toSerialize["backchannelBindingMessageRequiredInFapi"] = o.BackchannelBindingMessageRequiredInFapi
-	}
-	if !isNil(o.AllowableClockSkew) {
-		toSerialize["allowableClockSkew"] = o.AllowableClockSkew
-	}
-	if !isNil(o.DeviceAuthorizationEndpoint) {
-		toSerialize["deviceAuthorizationEndpoint"] = o.DeviceAuthorizationEndpoint
-	}
-	if !isNil(o.DeviceVerificationUri) {
-		toSerialize["deviceVerificationUri"] = o.DeviceVerificationUri
-	}
-	if !isNil(o.DeviceVerificationUriComplete) {
-		toSerialize["deviceVerificationUriComplete"] = o.DeviceVerificationUriComplete
-	}
-	if !isNil(o.DeviceFlowCodeDuration) {
-		toSerialize["deviceFlowCodeDuration"] = o.DeviceFlowCodeDuration
-	}
-	if !isNil(o.DeviceFlowPollingInterval) {
-		toSerialize["deviceFlowPollingInterval"] = o.DeviceFlowPollingInterval
-	}
-	if !isNil(o.UserCodeCharset) {
-		toSerialize["userCodeCharset"] = o.UserCodeCharset
-	}
-	if !isNil(o.UserCodeLength) {
-		toSerialize["userCodeLength"] = o.UserCodeLength
-	}
-	if !isNil(o.PushedAuthReqEndpoint) {
-		toSerialize["pushedAuthReqEndpoint"] = o.PushedAuthReqEndpoint
-	}
-	if !isNil(o.MtlsEndpointAliases) {
-		toSerialize["mtlsEndpointAliases"] = o.MtlsEndpointAliases
-	}
-	if !isNil(o.SupportedAuthorizationDetailsTypes) {
-		toSerialize["supportedAuthorizationDetailsTypes"] = o.SupportedAuthorizationDetailsTypes
-	}
-	if !isNil(o.SupportedTrustFrameworks) {
-		toSerialize["supportedTrustFrameworks"] = o.SupportedTrustFrameworks
-	}
-	if !isNil(o.SupportedEvidence) {
-		toSerialize["supportedEvidence"] = o.SupportedEvidence
-	}
-	if !isNil(o.SupportedIdentityDocuments) {
-		toSerialize["supportedIdentityDocuments"] = o.SupportedIdentityDocuments
-	}
-	if !isNil(o.SupportedDocuments) {
-		toSerialize["supportedDocuments"] = o.SupportedDocuments
-	}
-	if !isNil(o.SupportedVerificationMethods) {
-		toSerialize["supportedVerificationMethods"] = o.SupportedVerificationMethods
-	}
-	if !isNil(o.SupportedDocumentsMethods) {
-		toSerialize["supportedDocumentsMethods"] = o.SupportedDocumentsMethods
-	}
-	if !isNil(o.SupportedDocumentsValidationMethods) {
-		toSerialize["supportedDocumentsValidationMethods"] = o.SupportedDocumentsValidationMethods
-	}
-	if !isNil(o.SupportedDocumentsVerificationMethods) {
-		toSerialize["supportedDocumentsVerificationMethods"] = o.SupportedDocumentsVerificationMethods
-	}
-	if !isNil(o.SupportedDocumentsCheckMethods) {
-		toSerialize["supportedDocumentsCheckMethods"] = o.SupportedDocumentsCheckMethods
-	}
-	if !isNil(o.SupportedElectronicRecords) {
-		toSerialize["supportedElectronicRecords"] = o.SupportedElectronicRecords
-	}
-	if !isNil(o.SupportedVerifiedClaims) {
-		toSerialize["supportedVerifiedClaims"] = o.SupportedVerifiedClaims
-	}
-	if !isNil(o.SupportedAttachments) {
-		toSerialize["supportedAttachments"] = o.SupportedAttachments
-	}
-	if !isNil(o.SupportedDigestAlgorithms) {
-		toSerialize["supportedDigestAlgorithms"] = o.SupportedDigestAlgorithms
-	}
-	if !isNil(o.MissingClientIdAllowed) {
-		toSerialize["missingClientIdAllowed"] = o.MissingClientIdAllowed
-	}
-	if !isNil(o.ParRequired) {
-		toSerialize["parRequired"] = o.ParRequired
-	}
-	if !isNil(o.RequestObjectRequired) {
-		toSerialize["requestObjectRequired"] = o.RequestObjectRequired
-	}
-	if !isNil(o.TraditionalRequestObjectProcessingApplied) {
-		toSerialize["traditionalRequestObjectProcessingApplied"] = o.TraditionalRequestObjectProcessingApplied
-	}
-	if !isNil(o.ClaimShortcutRestrictive) {
-		toSerialize["claimShortcutRestrictive"] = o.ClaimShortcutRestrictive
-	}
-	if !isNil(o.ScopeRequired) {
-		toSerialize["scopeRequired"] = o.ScopeRequired
-	}
-	if !isNil(o.NbfOptional) {
-		toSerialize["nbfOptional"] = o.NbfOptional
-	}
-	if !isNil(o.IssSuppressed) {
-		toSerialize["issSuppressed"] = o.IssSuppressed
-	}
-	if !isNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
-	}
-	if !isNil(o.SupportedCustomClientMetadata) {
-		toSerialize["supportedCustomClientMetadata"] = o.SupportedCustomClientMetadata
-	}
-	if !isNil(o.TokenExpirationLinked) {
-		toSerialize["tokenExpirationLinked"] = o.TokenExpirationLinked
-	}
-	if !isNil(o.FrontChannelRequestObjectEncryptionRequired) {
-		toSerialize["frontChannelRequestObjectEncryptionRequired"] = o.FrontChannelRequestObjectEncryptionRequired
-	}
-	if !isNil(o.RequestObjectEncryptionAlgMatchRequired) {
-		toSerialize["requestObjectEncryptionAlgMatchRequired"] = o.RequestObjectEncryptionAlgMatchRequired
-	}
-	if !isNil(o.RequestObjectEncryptionEncMatchRequired) {
-		toSerialize["requestObjectEncryptionEncMatchRequired"] = o.RequestObjectEncryptionEncMatchRequired
-	}
-	if !isNil(o.HsmEnabled) {
-		toSerialize["hsmEnabled"] = o.HsmEnabled
-	}
-	if !isNil(o.Hsks) {
-		toSerialize["hsks"] = o.Hsks
-	}
-	if !isNil(o.GrantManagementEndpoint) {
-		toSerialize["grantManagementEndpoint"] = o.GrantManagementEndpoint
-	}
-	if !isNil(o.GrantManagementActionRequired) {
-		toSerialize["grantManagementActionRequired"] = o.GrantManagementActionRequired
-	}
-	if !isNil(o.UnauthorizedOnClientConfigSupported) {
-		toSerialize["unauthorizedOnClientConfigSupported"] = o.UnauthorizedOnClientConfigSupported
-	}
-	if !isNil(o.DcrScopeUsedAsRequestable) {
-		toSerialize["dcrScopeUsedAsRequestable"] = o.DcrScopeUsedAsRequestable
-	}
-	if !isNil(o.PredefinedTransformedClaims) {
-		toSerialize["predefinedTransformedClaims"] = o.PredefinedTransformedClaims
-	}
-	if !isNil(o.LoopbackRedirectionUriVariable) {
-		toSerialize["loopbackRedirectionUriVariable"] = o.LoopbackRedirectionUriVariable
-	}
-	if !isNil(o.RequestObjectAudienceChecked) {
-		toSerialize["requestObjectAudienceChecked"] = o.RequestObjectAudienceChecked
-	}
-	if !isNil(o.AccessTokenForExternalAttachmentEmbedded) {
-		toSerialize["accessTokenForExternalAttachmentEmbedded"] = o.AccessTokenForExternalAttachmentEmbedded
-	}
-	if !isNil(o.RefreshTokenIdempotent) {
-		toSerialize["refreshTokenIdempotent"] = o.RefreshTokenIdempotent
-	}
-	if !isNil(o.FederationEnabled) {
-		toSerialize["federationEnabled"] = o.FederationEnabled
-	}
-	if !isNil(o.OrganizationName) {
-		toSerialize["organizationName"] = o.OrganizationName
-	}
-	if !isNil(o.AuthorityHints) {
-		toSerialize["authorityHints"] = o.AuthorityHints
-	}
-	if !isNil(o.TrustAnchors) {
-		toSerialize["trustAnchors"] = o.TrustAnchors
-	}
-	if !isNil(o.FederationJwks) {
-		toSerialize["federationJwks"] = o.FederationJwks
-	}
-	if !isNil(o.FederationSignatureKeyId) {
-		toSerialize["federationSignatureKeyId"] = o.FederationSignatureKeyId
-	}
-	if !isNil(o.FederationConfigurationDuration) {
-		toSerialize["federationConfigurationDuration"] = o.FederationConfigurationDuration
-	}
-	if !isNil(o.SignedJwksUri) {
-		toSerialize["signedJwksUri"] = o.SignedJwksUri
-	}
-	if !isNil(o.FederationRegistrationEndpoint) {
-		toSerialize["federationRegistrationEndpoint"] = o.FederationRegistrationEndpoint
-	}
-	if !isNil(o.SupportedClientRegistrationTypes) {
-		toSerialize["supportedClientRegistrationTypes"] = o.SupportedClientRegistrationTypes
-	}
-	if !isNil(o.TokenExchangeByIdentifiableClientsOnly) {
-		toSerialize["tokenExchangeByIdentifiableClientsOnly"] = o.TokenExchangeByIdentifiableClientsOnly
-	}
-	if !isNil(o.TokenExchangeByConfidentialClientsOnly) {
-		toSerialize["tokenExchangeByConfidentialClientsOnly"] = o.TokenExchangeByConfidentialClientsOnly
-	}
-	if !isNil(o.TokenExchangeByPermittedClientsOnly) {
-		toSerialize["tokenExchangeByPermittedClientsOnly"] = o.TokenExchangeByPermittedClientsOnly
-	}
-	if !isNil(o.TokenExchangeEncryptedJwtRejected) {
-		toSerialize["tokenExchangeEncryptedJwtRejected"] = o.TokenExchangeEncryptedJwtRejected
-	}
-	if !isNil(o.TokenExchangeUnsignedJwtRejected) {
-		toSerialize["tokenExchangeUnsignedJwtRejected"] = o.TokenExchangeUnsignedJwtRejected
-	}
-	if !isNil(o.JwtGrantByIdentifiableClientsOnly) {
-		toSerialize["jwtGrantByIdentifiableClientsOnly"] = o.JwtGrantByIdentifiableClientsOnly
-	}
-	if !isNil(o.JwtGrantEncryptedJwtRejected) {
-		toSerialize["jwtGrantEncryptedJwtRejected"] = o.JwtGrantEncryptedJwtRejected
-	}
-	if !isNil(o.JwtGrantUnsignedJwtRejected) {
-		toSerialize["jwtGrantUnsignedJwtRejected"] = o.JwtGrantUnsignedJwtRejected
-	}
-	if !isNil(o.DcrDuplicateSoftwareIdBlocked) {
-		toSerialize["dcrDuplicateSoftwareIdBlocked"] = o.DcrDuplicateSoftwareIdBlocked
-	}
-	if !isNil(o.ResourceSignatureKeyId) {
-		toSerialize["resourceSignatureKeyId"] = o.ResourceSignatureKeyId
-	}
-	if !isNil(o.RsResponseSigned) {
-		toSerialize["rsResponseSigned"] = o.RsResponseSigned
-	}
-	if !isNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
-		toSerialize["openidDroppedOnRefreshWithoutOfflineAccess"] = o.OpenidDroppedOnRefreshWithoutOfflineAccess
-	}
-	if !isNil(o.VerifiableCredentialsEnabled) {
-		toSerialize["verifiableCredentialsEnabled"] = o.VerifiableCredentialsEnabled
-	}
-	if !isNil(o.CredentialIssuerMetadata) {
-		toSerialize["credentialIssuerMetadata"] = o.CredentialIssuerMetadata
-	}
-	if !isNil(o.CredentialOfferDuration) {
-		toSerialize["credentialOfferDuration"] = o.CredentialOfferDuration
-	}
-	if !isNil(o.UserPinLength) {
-		toSerialize["userPinLength"] = o.UserPinLength
-	}
-	if !isNil(o.IdTokenAudType) {
-		toSerialize["idTokenAudType"] = o.IdTokenAudType
-	}
-	if !isNil(o.SupportedPromptValues) {
-		toSerialize["supportedPromptValues"] = o.SupportedPromptValues
-	}
-	if !isNil(o.VerifiedClaimsValidationSchemaSet) {
-		toSerialize["verifiedClaimsValidationSchemaSet"] = o.VerifiedClaimsValidationSchemaSet
-	}
-	if !isNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
-		toSerialize["preAuthorizedGrantAnonymousAccessSupported"] = o.PreAuthorizedGrantAnonymousAccessSupported
-	}
-	if !isNil(o.CredentialTransactionDuration) {
-		toSerialize["credentialTransactionDuration"] = o.CredentialTransactionDuration
-	}
-	if !isNil(o.CredentialDuration) {
-		toSerialize["credentialDuration"] = o.CredentialDuration
-	}
-	if !isNil(o.CredentialJwks) {
-		toSerialize["credentialJwks"] = o.CredentialJwks
-	}
-	if !isNil(o.IdTokenReissuable) {
-		toSerialize["idTokenReissuable"] = o.IdTokenReissuable
-	}
-	if !isNil(o.CnonceDuration) {
-		toSerialize["cnonceDuration"] = o.CnonceDuration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Service) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Number) {
+		toSerialize["number"] = o.Number
+	}
+	if !IsNil(o.ServiceOwnerNumber) {
+		toSerialize["serviceOwnerNumber"] = o.ServiceOwnerNumber
+	}
+	if !IsNil(o.ServiceName) {
+		toSerialize["serviceName"] = o.ServiceName
+	}
+	if !IsNil(o.ApiKey) {
+		toSerialize["apiKey"] = o.ApiKey
+	}
+	if !IsNil(o.ApiSecret) {
+		toSerialize["apiSecret"] = o.ApiSecret
+	}
+	if !IsNil(o.Issuer) {
+		toSerialize["issuer"] = o.Issuer
+	}
+	if !IsNil(o.AuthorizationEndpoint) {
+		toSerialize["authorizationEndpoint"] = o.AuthorizationEndpoint
+	}
+	if !IsNil(o.TokenEndpoint) {
+		toSerialize["tokenEndpoint"] = o.TokenEndpoint
+	}
+	if !IsNil(o.RevocationEndpoint) {
+		toSerialize["revocationEndpoint"] = o.RevocationEndpoint
+	}
+	if !IsNil(o.SupportedRevocationAuthMethods) {
+		toSerialize["supportedRevocationAuthMethods"] = o.SupportedRevocationAuthMethods
+	}
+	if !IsNil(o.UserInfoEndpoint) {
+		toSerialize["userInfoEndpoint"] = o.UserInfoEndpoint
+	}
+	if !IsNil(o.JwksUri) {
+		toSerialize["jwksUri"] = o.JwksUri
+	}
+	if !IsNil(o.Jwks) {
+		toSerialize["jwks"] = o.Jwks
+	}
+	if !IsNil(o.RegistrationEndpoint) {
+		toSerialize["registrationEndpoint"] = o.RegistrationEndpoint
+	}
+	if !IsNil(o.RegistrationManagementEndpoint) {
+		toSerialize["registrationManagementEndpoint"] = o.RegistrationManagementEndpoint
+	}
+	if !IsNil(o.SupportedScopes) {
+		toSerialize["supportedScopes"] = o.SupportedScopes
+	}
+	if !IsNil(o.SupportedResponseTypes) {
+		toSerialize["supportedResponseTypes"] = o.SupportedResponseTypes
+	}
+	if !IsNil(o.SupportedGrantTypes) {
+		toSerialize["supportedGrantTypes"] = o.SupportedGrantTypes
+	}
+	if !IsNil(o.SupportedAcrs) {
+		toSerialize["supportedAcrs"] = o.SupportedAcrs
+	}
+	if !IsNil(o.SupportedTokenAuthMethods) {
+		toSerialize["supportedTokenAuthMethods"] = o.SupportedTokenAuthMethods
+	}
+	if !IsNil(o.SupportedDisplays) {
+		toSerialize["supportedDisplays"] = o.SupportedDisplays
+	}
+	if !IsNil(o.SupportedClaimTypes) {
+		toSerialize["supportedClaimTypes"] = o.SupportedClaimTypes
+	}
+	if !IsNil(o.SupportedClaims) {
+		toSerialize["supportedClaims"] = o.SupportedClaims
+	}
+	if !IsNil(o.ServiceDocumentation) {
+		toSerialize["serviceDocumentation"] = o.ServiceDocumentation
+	}
+	if !IsNil(o.SupportedClaimLocales) {
+		toSerialize["supportedClaimLocales"] = o.SupportedClaimLocales
+	}
+	if !IsNil(o.SupportedUiLocales) {
+		toSerialize["supportedUiLocales"] = o.SupportedUiLocales
+	}
+	if !IsNil(o.PolicyUri) {
+		toSerialize["policyUri"] = o.PolicyUri
+	}
+	if !IsNil(o.TosUri) {
+		toSerialize["tosUri"] = o.TosUri
+	}
+	if !IsNil(o.AuthenticationCallbackEndpoint) {
+		toSerialize["authenticationCallbackEndpoint"] = o.AuthenticationCallbackEndpoint
+	}
+	if !IsNil(o.AuthenticationCallbackApiKey) {
+		toSerialize["authenticationCallbackApiKey"] = o.AuthenticationCallbackApiKey
+	}
+	if !IsNil(o.AuthenticationCallbackApiSecret) {
+		toSerialize["authenticationCallbackApiSecret"] = o.AuthenticationCallbackApiSecret
+	}
+	if !IsNil(o.SupportedSnses) {
+		toSerialize["supportedSnses"] = o.SupportedSnses
+	}
+	if !IsNil(o.SnsCredentials) {
+		toSerialize["snsCredentials"] = o.SnsCredentials
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["createdAt"] = o.CreatedAt
+	}
+	if !IsNil(o.ModifiedAt) {
+		toSerialize["modifiedAt"] = o.ModifiedAt
+	}
+	if !IsNil(o.DeveloperAuthenticationCallbackEndpoint) {
+		toSerialize["developerAuthenticationCallbackEndpoint"] = o.DeveloperAuthenticationCallbackEndpoint
+	}
+	if !IsNil(o.DeveloperAuthenticationCallbackApiKey) {
+		toSerialize["developerAuthenticationCallbackApiKey"] = o.DeveloperAuthenticationCallbackApiKey
+	}
+	if !IsNil(o.DeveloperAuthenticationCallbackApiSecret) {
+		toSerialize["developerAuthenticationCallbackApiSecret"] = o.DeveloperAuthenticationCallbackApiSecret
+	}
+	if !IsNil(o.SupportedDeveloperSnses) {
+		toSerialize["supportedDeveloperSnses"] = o.SupportedDeveloperSnses
+	}
+	if !IsNil(o.DeveloperSnsCredentials) {
+		toSerialize["developerSnsCredentials"] = o.DeveloperSnsCredentials
+	}
+	if !IsNil(o.ClientsPerDeveloper) {
+		toSerialize["clientsPerDeveloper"] = o.ClientsPerDeveloper
+	}
+	if !IsNil(o.DirectAuthorizationEndpointEnabled) {
+		toSerialize["directAuthorizationEndpointEnabled"] = o.DirectAuthorizationEndpointEnabled
+	}
+	if !IsNil(o.DirectTokenEndpointEnabled) {
+		toSerialize["directTokenEndpointEnabled"] = o.DirectTokenEndpointEnabled
+	}
+	if !IsNil(o.DirectRevocationEndpointEnabled) {
+		toSerialize["directRevocationEndpointEnabled"] = o.DirectRevocationEndpointEnabled
+	}
+	if !IsNil(o.DirectUserInfoEndpointEnabled) {
+		toSerialize["directUserInfoEndpointEnabled"] = o.DirectUserInfoEndpointEnabled
+	}
+	if !IsNil(o.DirectJwksEndpointEnabled) {
+		toSerialize["directJwksEndpointEnabled"] = o.DirectJwksEndpointEnabled
+	}
+	if !IsNil(o.DirectIntrospectionEndpointEnabled) {
+		toSerialize["directIntrospectionEndpointEnabled"] = o.DirectIntrospectionEndpointEnabled
+	}
+	if !IsNil(o.SingleAccessTokenPerSubject) {
+		toSerialize["singleAccessTokenPerSubject"] = o.SingleAccessTokenPerSubject
+	}
+	if !IsNil(o.PkceRequired) {
+		toSerialize["pkceRequired"] = o.PkceRequired
+	}
+	if !IsNil(o.PkceS256Required) {
+		toSerialize["pkceS256Required"] = o.PkceS256Required
+	}
+	if !IsNil(o.RefreshTokenKept) {
+		toSerialize["refreshTokenKept"] = o.RefreshTokenKept
+	}
+	if !IsNil(o.RefreshTokenDurationKept) {
+		toSerialize["refreshTokenDurationKept"] = o.RefreshTokenDurationKept
+	}
+	if !IsNil(o.RefreshTokenDurationReset) {
+		toSerialize["refreshTokenDurationReset"] = o.RefreshTokenDurationReset
+	}
+	if !IsNil(o.ErrorDescriptionOmitted) {
+		toSerialize["errorDescriptionOmitted"] = o.ErrorDescriptionOmitted
+	}
+	if !IsNil(o.ErrorUriOmitted) {
+		toSerialize["errorUriOmitted"] = o.ErrorUriOmitted
+	}
+	if !IsNil(o.ClientIdAliasEnabled) {
+		toSerialize["clientIdAliasEnabled"] = o.ClientIdAliasEnabled
+	}
+	if !IsNil(o.SupportedServiceProfiles) {
+		toSerialize["supportedServiceProfiles"] = o.SupportedServiceProfiles
+	}
+	if !IsNil(o.TlsClientCertificateBoundAccessTokens) {
+		toSerialize["tlsClientCertificateBoundAccessTokens"] = o.TlsClientCertificateBoundAccessTokens
+	}
+	if !IsNil(o.IntrospectionEndpoint) {
+		toSerialize["introspectionEndpoint"] = o.IntrospectionEndpoint
+	}
+	if !IsNil(o.SupportedIntrospectionAuthMethods) {
+		toSerialize["supportedIntrospectionAuthMethods"] = o.SupportedIntrospectionAuthMethods
+	}
+	if !IsNil(o.MutualTlsValidatePkiCertChain) {
+		toSerialize["mutualTlsValidatePkiCertChain"] = o.MutualTlsValidatePkiCertChain
+	}
+	if !IsNil(o.TrustedRootCertificates) {
+		toSerialize["trustedRootCertificates"] = o.TrustedRootCertificates
+	}
+	if !IsNil(o.DynamicRegistrationSupported) {
+		toSerialize["dynamicRegistrationSupported"] = o.DynamicRegistrationSupported
+	}
+	if !IsNil(o.EndSessionEndpoint) {
+		toSerialize["endSessionEndpoint"] = o.EndSessionEndpoint
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.AccessTokenType) {
+		toSerialize["accessTokenType"] = o.AccessTokenType
+	}
+	if !IsNil(o.AccessTokenSignAlg) {
+		toSerialize["accessTokenSignAlg"] = o.AccessTokenSignAlg
+	}
+	if !IsNil(o.AccessTokenDuration) {
+		toSerialize["accessTokenDuration"] = o.AccessTokenDuration
+	}
+	if !IsNil(o.RefreshTokenDuration) {
+		toSerialize["refreshTokenDuration"] = o.RefreshTokenDuration
+	}
+	if !IsNil(o.IdTokenDuration) {
+		toSerialize["idTokenDuration"] = o.IdTokenDuration
+	}
+	if !IsNil(o.AuthorizationResponseDuration) {
+		toSerialize["authorizationResponseDuration"] = o.AuthorizationResponseDuration
+	}
+	if !IsNil(o.PushedAuthReqDuration) {
+		toSerialize["pushedAuthReqDuration"] = o.PushedAuthReqDuration
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.AccessTokenSignatureKeyId) {
+		toSerialize["accessTokenSignatureKeyId"] = o.AccessTokenSignatureKeyId
+	}
+	if !IsNil(o.AuthorizationSignatureKeyId) {
+		toSerialize["authorizationSignatureKeyId"] = o.AuthorizationSignatureKeyId
+	}
+	if !IsNil(o.IdTokenSignatureKeyId) {
+		toSerialize["idTokenSignatureKeyId"] = o.IdTokenSignatureKeyId
+	}
+	if !IsNil(o.UserInfoSignatureKeyId) {
+		toSerialize["userInfoSignatureKeyId"] = o.UserInfoSignatureKeyId
+	}
+	if !IsNil(o.SupportedBackchannelTokenDeliveryModes) {
+		toSerialize["supportedBackchannelTokenDeliveryModes"] = o.SupportedBackchannelTokenDeliveryModes
+	}
+	if !IsNil(o.BackchannelAuthenticationEndpoint) {
+		toSerialize["backchannelAuthenticationEndpoint"] = o.BackchannelAuthenticationEndpoint
+	}
+	if !IsNil(o.BackchannelUserCodeParameterSupported) {
+		toSerialize["backchannelUserCodeParameterSupported"] = o.BackchannelUserCodeParameterSupported
+	}
+	if !IsNil(o.BackchannelAuthReqIdDuration) {
+		toSerialize["backchannelAuthReqIdDuration"] = o.BackchannelAuthReqIdDuration
+	}
+	if !IsNil(o.BackchannelPollingInterval) {
+		toSerialize["backchannelPollingInterval"] = o.BackchannelPollingInterval
+	}
+	if !IsNil(o.BackchannelBindingMessageRequiredInFapi) {
+		toSerialize["backchannelBindingMessageRequiredInFapi"] = o.BackchannelBindingMessageRequiredInFapi
+	}
+	if !IsNil(o.AllowableClockSkew) {
+		toSerialize["allowableClockSkew"] = o.AllowableClockSkew
+	}
+	if !IsNil(o.DeviceAuthorizationEndpoint) {
+		toSerialize["deviceAuthorizationEndpoint"] = o.DeviceAuthorizationEndpoint
+	}
+	if !IsNil(o.DeviceVerificationUri) {
+		toSerialize["deviceVerificationUri"] = o.DeviceVerificationUri
+	}
+	if !IsNil(o.DeviceVerificationUriComplete) {
+		toSerialize["deviceVerificationUriComplete"] = o.DeviceVerificationUriComplete
+	}
+	if !IsNil(o.DeviceFlowCodeDuration) {
+		toSerialize["deviceFlowCodeDuration"] = o.DeviceFlowCodeDuration
+	}
+	if !IsNil(o.DeviceFlowPollingInterval) {
+		toSerialize["deviceFlowPollingInterval"] = o.DeviceFlowPollingInterval
+	}
+	if !IsNil(o.UserCodeCharset) {
+		toSerialize["userCodeCharset"] = o.UserCodeCharset
+	}
+	if !IsNil(o.UserCodeLength) {
+		toSerialize["userCodeLength"] = o.UserCodeLength
+	}
+	if !IsNil(o.PushedAuthReqEndpoint) {
+		toSerialize["pushedAuthReqEndpoint"] = o.PushedAuthReqEndpoint
+	}
+	if !IsNil(o.MtlsEndpointAliases) {
+		toSerialize["mtlsEndpointAliases"] = o.MtlsEndpointAliases
+	}
+	if !IsNil(o.SupportedAuthorizationDetailsTypes) {
+		toSerialize["supportedAuthorizationDetailsTypes"] = o.SupportedAuthorizationDetailsTypes
+	}
+	if !IsNil(o.SupportedTrustFrameworks) {
+		toSerialize["supportedTrustFrameworks"] = o.SupportedTrustFrameworks
+	}
+	if !IsNil(o.SupportedEvidence) {
+		toSerialize["supportedEvidence"] = o.SupportedEvidence
+	}
+	if !IsNil(o.SupportedIdentityDocuments) {
+		toSerialize["supportedIdentityDocuments"] = o.SupportedIdentityDocuments
+	}
+	if !IsNil(o.SupportedDocuments) {
+		toSerialize["supportedDocuments"] = o.SupportedDocuments
+	}
+	if !IsNil(o.SupportedVerificationMethods) {
+		toSerialize["supportedVerificationMethods"] = o.SupportedVerificationMethods
+	}
+	if !IsNil(o.SupportedDocumentsMethods) {
+		toSerialize["supportedDocumentsMethods"] = o.SupportedDocumentsMethods
+	}
+	if !IsNil(o.SupportedDocumentsValidationMethods) {
+		toSerialize["supportedDocumentsValidationMethods"] = o.SupportedDocumentsValidationMethods
+	}
+	if !IsNil(o.SupportedDocumentsVerificationMethods) {
+		toSerialize["supportedDocumentsVerificationMethods"] = o.SupportedDocumentsVerificationMethods
+	}
+	if !IsNil(o.SupportedDocumentsCheckMethods) {
+		toSerialize["supportedDocumentsCheckMethods"] = o.SupportedDocumentsCheckMethods
+	}
+	if !IsNil(o.SupportedElectronicRecords) {
+		toSerialize["supportedElectronicRecords"] = o.SupportedElectronicRecords
+	}
+	if !IsNil(o.SupportedVerifiedClaims) {
+		toSerialize["supportedVerifiedClaims"] = o.SupportedVerifiedClaims
+	}
+	if !IsNil(o.SupportedAttachments) {
+		toSerialize["supportedAttachments"] = o.SupportedAttachments
+	}
+	if !IsNil(o.SupportedDigestAlgorithms) {
+		toSerialize["supportedDigestAlgorithms"] = o.SupportedDigestAlgorithms
+	}
+	if !IsNil(o.MissingClientIdAllowed) {
+		toSerialize["missingClientIdAllowed"] = o.MissingClientIdAllowed
+	}
+	if !IsNil(o.ParRequired) {
+		toSerialize["parRequired"] = o.ParRequired
+	}
+	if !IsNil(o.RequestObjectRequired) {
+		toSerialize["requestObjectRequired"] = o.RequestObjectRequired
+	}
+	if !IsNil(o.TraditionalRequestObjectProcessingApplied) {
+		toSerialize["traditionalRequestObjectProcessingApplied"] = o.TraditionalRequestObjectProcessingApplied
+	}
+	if !IsNil(o.ClaimShortcutRestrictive) {
+		toSerialize["claimShortcutRestrictive"] = o.ClaimShortcutRestrictive
+	}
+	if !IsNil(o.ScopeRequired) {
+		toSerialize["scopeRequired"] = o.ScopeRequired
+	}
+	if !IsNil(o.NbfOptional) {
+		toSerialize["nbfOptional"] = o.NbfOptional
+	}
+	if !IsNil(o.IssSuppressed) {
+		toSerialize["issSuppressed"] = o.IssSuppressed
+	}
+	if !IsNil(o.Attributes) {
+		toSerialize["attributes"] = o.Attributes
+	}
+	if !IsNil(o.SupportedCustomClientMetadata) {
+		toSerialize["supportedCustomClientMetadata"] = o.SupportedCustomClientMetadata
+	}
+	if !IsNil(o.TokenExpirationLinked) {
+		toSerialize["tokenExpirationLinked"] = o.TokenExpirationLinked
+	}
+	if !IsNil(o.FrontChannelRequestObjectEncryptionRequired) {
+		toSerialize["frontChannelRequestObjectEncryptionRequired"] = o.FrontChannelRequestObjectEncryptionRequired
+	}
+	if !IsNil(o.RequestObjectEncryptionAlgMatchRequired) {
+		toSerialize["requestObjectEncryptionAlgMatchRequired"] = o.RequestObjectEncryptionAlgMatchRequired
+	}
+	if !IsNil(o.RequestObjectEncryptionEncMatchRequired) {
+		toSerialize["requestObjectEncryptionEncMatchRequired"] = o.RequestObjectEncryptionEncMatchRequired
+	}
+	if !IsNil(o.HsmEnabled) {
+		toSerialize["hsmEnabled"] = o.HsmEnabled
+	}
+	if !IsNil(o.Hsks) {
+		toSerialize["hsks"] = o.Hsks
+	}
+	if !IsNil(o.GrantManagementEndpoint) {
+		toSerialize["grantManagementEndpoint"] = o.GrantManagementEndpoint
+	}
+	if !IsNil(o.GrantManagementActionRequired) {
+		toSerialize["grantManagementActionRequired"] = o.GrantManagementActionRequired
+	}
+	if !IsNil(o.UnauthorizedOnClientConfigSupported) {
+		toSerialize["unauthorizedOnClientConfigSupported"] = o.UnauthorizedOnClientConfigSupported
+	}
+	if !IsNil(o.DcrScopeUsedAsRequestable) {
+		toSerialize["dcrScopeUsedAsRequestable"] = o.DcrScopeUsedAsRequestable
+	}
+	if !IsNil(o.PredefinedTransformedClaims) {
+		toSerialize["predefinedTransformedClaims"] = o.PredefinedTransformedClaims
+	}
+	if !IsNil(o.LoopbackRedirectionUriVariable) {
+		toSerialize["loopbackRedirectionUriVariable"] = o.LoopbackRedirectionUriVariable
+	}
+	if !IsNil(o.RequestObjectAudienceChecked) {
+		toSerialize["requestObjectAudienceChecked"] = o.RequestObjectAudienceChecked
+	}
+	if !IsNil(o.AccessTokenForExternalAttachmentEmbedded) {
+		toSerialize["accessTokenForExternalAttachmentEmbedded"] = o.AccessTokenForExternalAttachmentEmbedded
+	}
+	if !IsNil(o.RefreshTokenIdempotent) {
+		toSerialize["refreshTokenIdempotent"] = o.RefreshTokenIdempotent
+	}
+	if !IsNil(o.FederationEnabled) {
+		toSerialize["federationEnabled"] = o.FederationEnabled
+	}
+	if !IsNil(o.OrganizationName) {
+		toSerialize["organizationName"] = o.OrganizationName
+	}
+	if !IsNil(o.AuthorityHints) {
+		toSerialize["authorityHints"] = o.AuthorityHints
+	}
+	if !IsNil(o.TrustAnchors) {
+		toSerialize["trustAnchors"] = o.TrustAnchors
+	}
+	if !IsNil(o.FederationJwks) {
+		toSerialize["federationJwks"] = o.FederationJwks
+	}
+	if !IsNil(o.FederationSignatureKeyId) {
+		toSerialize["federationSignatureKeyId"] = o.FederationSignatureKeyId
+	}
+	if !IsNil(o.FederationConfigurationDuration) {
+		toSerialize["federationConfigurationDuration"] = o.FederationConfigurationDuration
+	}
+	if !IsNil(o.SignedJwksUri) {
+		toSerialize["signedJwksUri"] = o.SignedJwksUri
+	}
+	if !IsNil(o.FederationRegistrationEndpoint) {
+		toSerialize["federationRegistrationEndpoint"] = o.FederationRegistrationEndpoint
+	}
+	if !IsNil(o.SupportedClientRegistrationTypes) {
+		toSerialize["supportedClientRegistrationTypes"] = o.SupportedClientRegistrationTypes
+	}
+	if !IsNil(o.TokenExchangeByIdentifiableClientsOnly) {
+		toSerialize["tokenExchangeByIdentifiableClientsOnly"] = o.TokenExchangeByIdentifiableClientsOnly
+	}
+	if !IsNil(o.TokenExchangeByConfidentialClientsOnly) {
+		toSerialize["tokenExchangeByConfidentialClientsOnly"] = o.TokenExchangeByConfidentialClientsOnly
+	}
+	if !IsNil(o.TokenExchangeByPermittedClientsOnly) {
+		toSerialize["tokenExchangeByPermittedClientsOnly"] = o.TokenExchangeByPermittedClientsOnly
+	}
+	if !IsNil(o.TokenExchangeEncryptedJwtRejected) {
+		toSerialize["tokenExchangeEncryptedJwtRejected"] = o.TokenExchangeEncryptedJwtRejected
+	}
+	if !IsNil(o.TokenExchangeUnsignedJwtRejected) {
+		toSerialize["tokenExchangeUnsignedJwtRejected"] = o.TokenExchangeUnsignedJwtRejected
+	}
+	if !IsNil(o.JwtGrantByIdentifiableClientsOnly) {
+		toSerialize["jwtGrantByIdentifiableClientsOnly"] = o.JwtGrantByIdentifiableClientsOnly
+	}
+	if !IsNil(o.JwtGrantEncryptedJwtRejected) {
+		toSerialize["jwtGrantEncryptedJwtRejected"] = o.JwtGrantEncryptedJwtRejected
+	}
+	if !IsNil(o.JwtGrantUnsignedJwtRejected) {
+		toSerialize["jwtGrantUnsignedJwtRejected"] = o.JwtGrantUnsignedJwtRejected
+	}
+	if !IsNil(o.DcrDuplicateSoftwareIdBlocked) {
+		toSerialize["dcrDuplicateSoftwareIdBlocked"] = o.DcrDuplicateSoftwareIdBlocked
+	}
+	if !IsNil(o.ResourceSignatureKeyId) {
+		toSerialize["resourceSignatureKeyId"] = o.ResourceSignatureKeyId
+	}
+	if !IsNil(o.RsResponseSigned) {
+		toSerialize["rsResponseSigned"] = o.RsResponseSigned
+	}
+	if !IsNil(o.OpenidDroppedOnRefreshWithoutOfflineAccess) {
+		toSerialize["openidDroppedOnRefreshWithoutOfflineAccess"] = o.OpenidDroppedOnRefreshWithoutOfflineAccess
+	}
+	if !IsNil(o.VerifiableCredentialsEnabled) {
+		toSerialize["verifiableCredentialsEnabled"] = o.VerifiableCredentialsEnabled
+	}
+	if !IsNil(o.CredentialIssuerMetadata) {
+		toSerialize["credentialIssuerMetadata"] = o.CredentialIssuerMetadata
+	}
+	if !IsNil(o.CredentialOfferDuration) {
+		toSerialize["credentialOfferDuration"] = o.CredentialOfferDuration
+	}
+	if !IsNil(o.UserPinLength) {
+		toSerialize["userPinLength"] = o.UserPinLength
+	}
+	if !IsNil(o.IdTokenAudType) {
+		toSerialize["idTokenAudType"] = o.IdTokenAudType
+	}
+	if !IsNil(o.SupportedPromptValues) {
+		toSerialize["supportedPromptValues"] = o.SupportedPromptValues
+	}
+	if !IsNil(o.VerifiedClaimsValidationSchemaSet) {
+		toSerialize["verifiedClaimsValidationSchemaSet"] = o.VerifiedClaimsValidationSchemaSet
+	}
+	if !IsNil(o.PreAuthorizedGrantAnonymousAccessSupported) {
+		toSerialize["preAuthorizedGrantAnonymousAccessSupported"] = o.PreAuthorizedGrantAnonymousAccessSupported
+	}
+	if !IsNil(o.CredentialTransactionDuration) {
+		toSerialize["credentialTransactionDuration"] = o.CredentialTransactionDuration
+	}
+	if !IsNil(o.CredentialDuration) {
+		toSerialize["credentialDuration"] = o.CredentialDuration
+	}
+	if !IsNil(o.CredentialJwks) {
+		toSerialize["credentialJwks"] = o.CredentialJwks
+	}
+	if !IsNil(o.IdTokenReissuable) {
+		toSerialize["idTokenReissuable"] = o.IdTokenReissuable
+	}
+	if !IsNil(o.CnonceDuration) {
+		toSerialize["cnonceDuration"] = o.CnonceDuration
+	}
+	return toSerialize, nil
 }
 
 type NullableService struct {
@@ -6103,5 +6114,3 @@ func (v *NullableService) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

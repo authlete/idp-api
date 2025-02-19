@@ -11,18 +11,25 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateClientPrivilegesRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateClientPrivilegesRequest{}
 
 // UpdateClientPrivilegesRequest struct for UpdateClientPrivilegesRequest
 type UpdateClientPrivilegesRequest struct {
-	ApiServerId int64 `json:"apiServerId"`
-	OrganizationId int64 `json:"organizationId"`
-	UserId int64 `json:"userId"`
-	ServiceId int64 `json:"serviceId"`
-	ClientId int64 `json:"clientId"`
-	Privileges []string `json:"privileges,omitempty"`
+	ApiServerId    int64    `json:"apiServerId"`
+	OrganizationId int64    `json:"organizationId"`
+	UserId         int64    `json:"userId"`
+	ServiceId      int64    `json:"serviceId"`
+	ClientId       int64    `json:"clientId"`
+	Privileges     []string `json:"privileges,omitempty"`
 }
+
+type _UpdateClientPrivilegesRequest UpdateClientPrivilegesRequest
 
 // NewUpdateClientPrivilegesRequest instantiates a new UpdateClientPrivilegesRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -60,7 +67,7 @@ func (o *UpdateClientPrivilegesRequest) GetApiServerId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateClientPrivilegesRequest) GetApiServerIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerId, true
 }
@@ -84,7 +91,7 @@ func (o *UpdateClientPrivilegesRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateClientPrivilegesRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -108,7 +115,7 @@ func (o *UpdateClientPrivilegesRequest) GetUserId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateClientPrivilegesRequest) GetUserIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.UserId, true
 }
@@ -132,7 +139,7 @@ func (o *UpdateClientPrivilegesRequest) GetServiceId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateClientPrivilegesRequest) GetServiceIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ServiceId, true
 }
@@ -156,7 +163,7 @@ func (o *UpdateClientPrivilegesRequest) GetClientId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateClientPrivilegesRequest) GetClientIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ClientId, true
 }
@@ -168,7 +175,7 @@ func (o *UpdateClientPrivilegesRequest) SetClientId(v int64) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *UpdateClientPrivilegesRequest) GetPrivileges() []string {
-	if o == nil || isNil(o.Privileges) {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []string
 		return ret
 	}
@@ -178,15 +185,15 @@ func (o *UpdateClientPrivilegesRequest) GetPrivileges() []string {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateClientPrivilegesRequest) GetPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.Privileges) {
-    return nil, false
+	if o == nil || IsNil(o.Privileges) {
+		return nil, false
 	}
 	return o.Privileges, true
 }
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *UpdateClientPrivilegesRequest) HasPrivileges() bool {
-	if o != nil && !isNil(o.Privileges) {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -199,26 +206,65 @@ func (o *UpdateClientPrivilegesRequest) SetPrivileges(v []string) {
 }
 
 func (o UpdateClientPrivilegesRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["serviceId"] = o.ServiceId
-	}
-	if true {
-		toSerialize["clientId"] = o.ClientId
-	}
-	if !isNil(o.Privileges) {
-		toSerialize["privileges"] = o.Privileges
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateClientPrivilegesRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["apiServerId"] = o.ApiServerId
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["userId"] = o.UserId
+	toSerialize["serviceId"] = o.ServiceId
+	toSerialize["clientId"] = o.ClientId
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	return toSerialize, nil
+}
+
+func (o *UpdateClientPrivilegesRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"apiServerId",
+		"organizationId",
+		"userId",
+		"serviceId",
+		"clientId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateClientPrivilegesRequest := _UpdateClientPrivilegesRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUpdateClientPrivilegesRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateClientPrivilegesRequest(varUpdateClientPrivilegesRequest)
+
+	return err
 }
 
 type NullableUpdateClientPrivilegesRequest struct {
@@ -256,5 +302,3 @@ func (v *NullableUpdateClientPrivilegesRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

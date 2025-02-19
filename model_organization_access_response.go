@@ -14,16 +14,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrganizationAccessResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrganizationAccessResponse{}
+
 // OrganizationAccessResponse struct for OrganizationAccessResponse
 type OrganizationAccessResponse struct {
-	User *LogInResponse `json:"user,omitempty"`
-	UserId *int64 `json:"userId,omitempty"`
-	OrganizationId *int64 `json:"organizationId,omitempty"`
-	Privileges []string `json:"privileges,omitempty"`
-	AllApiServerPrivileges []string `json:"allApiServerPrivileges,omitempty"`
-	AllServicePrivileges []string `json:"allServicePrivileges,omitempty"`
-	AllClientPrivileges []string `json:"allClientPrivileges,omitempty"`
-	ApiServerAccess []ApiServerAccessResponse `json:"apiServerAccess,omitempty"`
+	User                   *LogInResponse            `json:"user,omitempty"`
+	UserId                 *int64                    `json:"userId,omitempty"`
+	OrganizationId         *int64                    `json:"organizationId,omitempty"`
+	Privileges             []string                  `json:"privileges,omitempty"`
+	AllApiServerPrivileges []string                  `json:"allApiServerPrivileges,omitempty"`
+	AllServicePrivileges   []string                  `json:"allServicePrivileges,omitempty"`
+	AllClientPrivileges    []string                  `json:"allClientPrivileges,omitempty"`
+	ApiServerAccess        []ApiServerAccessResponse `json:"apiServerAccess,omitempty"`
 }
 
 // NewOrganizationAccessResponse instantiates a new OrganizationAccessResponse object
@@ -45,7 +48,7 @@ func NewOrganizationAccessResponseWithDefaults() *OrganizationAccessResponse {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetUser() LogInResponse {
-	if o == nil || isNil(o.User) {
+	if o == nil || IsNil(o.User) {
 		var ret LogInResponse
 		return ret
 	}
@@ -55,15 +58,15 @@ func (o *OrganizationAccessResponse) GetUser() LogInResponse {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetUserOk() (*LogInResponse, bool) {
-	if o == nil || isNil(o.User) {
-    return nil, false
+	if o == nil || IsNil(o.User) {
+		return nil, false
 	}
 	return o.User, true
 }
 
 // HasUser returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasUser() bool {
-	if o != nil && !isNil(o.User) {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *OrganizationAccessResponse) SetUser(v LogInResponse) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetUserId() int64 {
-	if o == nil || isNil(o.UserId) {
+	if o == nil || IsNil(o.UserId) {
 		var ret int64
 		return ret
 	}
@@ -87,15 +90,15 @@ func (o *OrganizationAccessResponse) GetUserId() int64 {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetUserIdOk() (*int64, bool) {
-	if o == nil || isNil(o.UserId) {
-    return nil, false
+	if o == nil || IsNil(o.UserId) {
+		return nil, false
 	}
 	return o.UserId, true
 }
 
 // HasUserId returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasUserId() bool {
-	if o != nil && !isNil(o.UserId) {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *OrganizationAccessResponse) SetUserId(v int64) {
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -119,15 +122,15 @@ func (o *OrganizationAccessResponse) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *OrganizationAccessResponse) SetOrganizationId(v int64) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetPrivileges() []string {
-	if o == nil || isNil(o.Privileges) {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []string
 		return ret
 	}
@@ -151,15 +154,15 @@ func (o *OrganizationAccessResponse) GetPrivileges() []string {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.Privileges) {
-    return nil, false
+	if o == nil || IsNil(o.Privileges) {
+		return nil, false
 	}
 	return o.Privileges, true
 }
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasPrivileges() bool {
-	if o != nil && !isNil(o.Privileges) {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *OrganizationAccessResponse) SetPrivileges(v []string) {
 
 // GetAllApiServerPrivileges returns the AllApiServerPrivileges field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetAllApiServerPrivileges() []string {
-	if o == nil || isNil(o.AllApiServerPrivileges) {
+	if o == nil || IsNil(o.AllApiServerPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -183,15 +186,15 @@ func (o *OrganizationAccessResponse) GetAllApiServerPrivileges() []string {
 // GetAllApiServerPrivilegesOk returns a tuple with the AllApiServerPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetAllApiServerPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.AllApiServerPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.AllApiServerPrivileges) {
+		return nil, false
 	}
 	return o.AllApiServerPrivileges, true
 }
 
 // HasAllApiServerPrivileges returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasAllApiServerPrivileges() bool {
-	if o != nil && !isNil(o.AllApiServerPrivileges) {
+	if o != nil && !IsNil(o.AllApiServerPrivileges) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *OrganizationAccessResponse) SetAllApiServerPrivileges(v []string) {
 
 // GetAllServicePrivileges returns the AllServicePrivileges field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetAllServicePrivileges() []string {
-	if o == nil || isNil(o.AllServicePrivileges) {
+	if o == nil || IsNil(o.AllServicePrivileges) {
 		var ret []string
 		return ret
 	}
@@ -215,15 +218,15 @@ func (o *OrganizationAccessResponse) GetAllServicePrivileges() []string {
 // GetAllServicePrivilegesOk returns a tuple with the AllServicePrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetAllServicePrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.AllServicePrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.AllServicePrivileges) {
+		return nil, false
 	}
 	return o.AllServicePrivileges, true
 }
 
 // HasAllServicePrivileges returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasAllServicePrivileges() bool {
-	if o != nil && !isNil(o.AllServicePrivileges) {
+	if o != nil && !IsNil(o.AllServicePrivileges) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *OrganizationAccessResponse) SetAllServicePrivileges(v []string) {
 
 // GetAllClientPrivileges returns the AllClientPrivileges field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetAllClientPrivileges() []string {
-	if o == nil || isNil(o.AllClientPrivileges) {
+	if o == nil || IsNil(o.AllClientPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -247,15 +250,15 @@ func (o *OrganizationAccessResponse) GetAllClientPrivileges() []string {
 // GetAllClientPrivilegesOk returns a tuple with the AllClientPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetAllClientPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.AllClientPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.AllClientPrivileges) {
+		return nil, false
 	}
 	return o.AllClientPrivileges, true
 }
 
 // HasAllClientPrivileges returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasAllClientPrivileges() bool {
-	if o != nil && !isNil(o.AllClientPrivileges) {
+	if o != nil && !IsNil(o.AllClientPrivileges) {
 		return true
 	}
 
@@ -269,7 +272,7 @@ func (o *OrganizationAccessResponse) SetAllClientPrivileges(v []string) {
 
 // GetApiServerAccess returns the ApiServerAccess field value if set, zero value otherwise.
 func (o *OrganizationAccessResponse) GetApiServerAccess() []ApiServerAccessResponse {
-	if o == nil || isNil(o.ApiServerAccess) {
+	if o == nil || IsNil(o.ApiServerAccess) {
 		var ret []ApiServerAccessResponse
 		return ret
 	}
@@ -279,15 +282,15 @@ func (o *OrganizationAccessResponse) GetApiServerAccess() []ApiServerAccessRespo
 // GetApiServerAccessOk returns a tuple with the ApiServerAccess field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrganizationAccessResponse) GetApiServerAccessOk() ([]ApiServerAccessResponse, bool) {
-	if o == nil || isNil(o.ApiServerAccess) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerAccess) {
+		return nil, false
 	}
 	return o.ApiServerAccess, true
 }
 
 // HasApiServerAccess returns a boolean if a field has been set.
 func (o *OrganizationAccessResponse) HasApiServerAccess() bool {
-	if o != nil && !isNil(o.ApiServerAccess) {
+	if o != nil && !IsNil(o.ApiServerAccess) {
 		return true
 	}
 
@@ -300,32 +303,40 @@ func (o *OrganizationAccessResponse) SetApiServerAccess(v []ApiServerAccessRespo
 }
 
 func (o OrganizationAccessResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.User) {
-		toSerialize["user"] = o.User
-	}
-	if !isNil(o.UserId) {
-		toSerialize["userId"] = o.UserId
-	}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.Privileges) {
-		toSerialize["privileges"] = o.Privileges
-	}
-	if !isNil(o.AllApiServerPrivileges) {
-		toSerialize["allApiServerPrivileges"] = o.AllApiServerPrivileges
-	}
-	if !isNil(o.AllServicePrivileges) {
-		toSerialize["allServicePrivileges"] = o.AllServicePrivileges
-	}
-	if !isNil(o.AllClientPrivileges) {
-		toSerialize["allClientPrivileges"] = o.AllClientPrivileges
-	}
-	if !isNil(o.ApiServerAccess) {
-		toSerialize["apiServerAccess"] = o.ApiServerAccess
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OrganizationAccessResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	if !IsNil(o.UserId) {
+		toSerialize["userId"] = o.UserId
+	}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	if !IsNil(o.AllApiServerPrivileges) {
+		toSerialize["allApiServerPrivileges"] = o.AllApiServerPrivileges
+	}
+	if !IsNil(o.AllServicePrivileges) {
+		toSerialize["allServicePrivileges"] = o.AllServicePrivileges
+	}
+	if !IsNil(o.AllClientPrivileges) {
+		toSerialize["allClientPrivileges"] = o.AllClientPrivileges
+	}
+	if !IsNil(o.ApiServerAccess) {
+		toSerialize["apiServerAccess"] = o.ApiServerAccess
+	}
+	return toSerialize, nil
 }
 
 type NullableOrganizationAccessResponse struct {
@@ -363,5 +374,3 @@ func (v *NullableOrganizationAccessResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

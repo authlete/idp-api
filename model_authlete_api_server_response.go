@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthleteApiServerResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthleteApiServerResponse{}
+
 // AuthleteApiServerResponse struct for AuthleteApiServerResponse
 type AuthleteApiServerResponse struct {
-	Id *int64 `json:"id,omitempty"`
+	Id           *int64  `json:"id,omitempty"`
 	ApiServerUrl *string `json:"apiServerUrl,omitempty"`
-	Description *string `json:"description,omitempty"`
-	OwnedBy *int64 `json:"ownedBy,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	OwnedBy      *int64  `json:"ownedBy,omitempty"`
 }
 
 // NewAuthleteApiServerResponse instantiates a new AuthleteApiServerResponse object
@@ -41,7 +44,7 @@ func NewAuthleteApiServerResponseWithDefaults() *AuthleteApiServerResponse {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthleteApiServerResponse) GetId() int64 {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret int64
 		return ret
 	}
@@ -51,15 +54,15 @@ func (o *AuthleteApiServerResponse) GetId() int64 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerResponse) GetIdOk() (*int64, bool) {
-	if o == nil || isNil(o.Id) {
-    return nil, false
+	if o == nil || IsNil(o.Id) {
+		return nil, false
 	}
 	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthleteApiServerResponse) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *AuthleteApiServerResponse) SetId(v int64) {
 
 // GetApiServerUrl returns the ApiServerUrl field value if set, zero value otherwise.
 func (o *AuthleteApiServerResponse) GetApiServerUrl() string {
-	if o == nil || isNil(o.ApiServerUrl) {
+	if o == nil || IsNil(o.ApiServerUrl) {
 		var ret string
 		return ret
 	}
@@ -83,15 +86,15 @@ func (o *AuthleteApiServerResponse) GetApiServerUrl() string {
 // GetApiServerUrlOk returns a tuple with the ApiServerUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerResponse) GetApiServerUrlOk() (*string, bool) {
-	if o == nil || isNil(o.ApiServerUrl) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerUrl) {
+		return nil, false
 	}
 	return o.ApiServerUrl, true
 }
 
 // HasApiServerUrl returns a boolean if a field has been set.
 func (o *AuthleteApiServerResponse) HasApiServerUrl() bool {
-	if o != nil && !isNil(o.ApiServerUrl) {
+	if o != nil && !IsNil(o.ApiServerUrl) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *AuthleteApiServerResponse) SetApiServerUrl(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AuthleteApiServerResponse) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -115,15 +118,15 @@ func (o *AuthleteApiServerResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *AuthleteApiServerResponse) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *AuthleteApiServerResponse) SetDescription(v string) {
 
 // GetOwnedBy returns the OwnedBy field value if set, zero value otherwise.
 func (o *AuthleteApiServerResponse) GetOwnedBy() int64 {
-	if o == nil || isNil(o.OwnedBy) {
+	if o == nil || IsNil(o.OwnedBy) {
 		var ret int64
 		return ret
 	}
@@ -147,15 +150,15 @@ func (o *AuthleteApiServerResponse) GetOwnedBy() int64 {
 // GetOwnedByOk returns a tuple with the OwnedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerResponse) GetOwnedByOk() (*int64, bool) {
-	if o == nil || isNil(o.OwnedBy) {
-    return nil, false
+	if o == nil || IsNil(o.OwnedBy) {
+		return nil, false
 	}
 	return o.OwnedBy, true
 }
 
 // HasOwnedBy returns a boolean if a field has been set.
 func (o *AuthleteApiServerResponse) HasOwnedBy() bool {
-	if o != nil && !isNil(o.OwnedBy) {
+	if o != nil && !IsNil(o.OwnedBy) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *AuthleteApiServerResponse) SetOwnedBy(v int64) {
 }
 
 func (o AuthleteApiServerResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !isNil(o.ApiServerUrl) {
-		toSerialize["apiServerUrl"] = o.ApiServerUrl
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !isNil(o.OwnedBy) {
-		toSerialize["ownedBy"] = o.OwnedBy
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AuthleteApiServerResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.ApiServerUrl) {
+		toSerialize["apiServerUrl"] = o.ApiServerUrl
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.OwnedBy) {
+		toSerialize["ownedBy"] = o.OwnedBy
+	}
+	return toSerialize, nil
 }
 
 type NullableAuthleteApiServerResponse struct {
@@ -219,5 +230,3 @@ func (v *NullableAuthleteApiServerResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

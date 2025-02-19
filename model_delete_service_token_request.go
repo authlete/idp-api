@@ -14,13 +14,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteServiceTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteServiceTokenRequest{}
+
 // DeleteServiceTokenRequest struct for DeleteServiceTokenRequest
 type DeleteServiceTokenRequest struct {
-	ServiceId *int64 `json:"serviceId,omitempty"`
-	OrganizationId *int64 `json:"organizationId,omitempty"`
-	ApiServerId *int64 `json:"apiServerId,omitempty"`
-	TokenId *string `json:"tokenId,omitempty"`
-	Description *string `json:"description,omitempty"`
+	ServiceId      *int64  `json:"serviceId,omitempty"`
+	OrganizationId *int64  `json:"organizationId,omitempty"`
+	ApiServerId    *int64  `json:"apiServerId,omitempty"`
+	TokenId        *string `json:"tokenId,omitempty"`
+	Description    *string `json:"description,omitempty"`
 }
 
 // NewDeleteServiceTokenRequest instantiates a new DeleteServiceTokenRequest object
@@ -42,7 +45,7 @@ func NewDeleteServiceTokenRequestWithDefaults() *DeleteServiceTokenRequest {
 
 // GetServiceId returns the ServiceId field value if set, zero value otherwise.
 func (o *DeleteServiceTokenRequest) GetServiceId() int64 {
-	if o == nil || isNil(o.ServiceId) {
+	if o == nil || IsNil(o.ServiceId) {
 		var ret int64
 		return ret
 	}
@@ -52,15 +55,15 @@ func (o *DeleteServiceTokenRequest) GetServiceId() int64 {
 // GetServiceIdOk returns a tuple with the ServiceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceTokenRequest) GetServiceIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ServiceId) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceId) {
+		return nil, false
 	}
 	return o.ServiceId, true
 }
 
 // HasServiceId returns a boolean if a field has been set.
 func (o *DeleteServiceTokenRequest) HasServiceId() bool {
-	if o != nil && !isNil(o.ServiceId) {
+	if o != nil && !IsNil(o.ServiceId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *DeleteServiceTokenRequest) SetServiceId(v int64) {
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *DeleteServiceTokenRequest) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -84,15 +87,15 @@ func (o *DeleteServiceTokenRequest) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceTokenRequest) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *DeleteServiceTokenRequest) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *DeleteServiceTokenRequest) SetOrganizationId(v int64) {
 
 // GetApiServerId returns the ApiServerId field value if set, zero value otherwise.
 func (o *DeleteServiceTokenRequest) GetApiServerId() int64 {
-	if o == nil || isNil(o.ApiServerId) {
+	if o == nil || IsNil(o.ApiServerId) {
 		var ret int64
 		return ret
 	}
@@ -116,15 +119,15 @@ func (o *DeleteServiceTokenRequest) GetApiServerId() int64 {
 // GetApiServerIdOk returns a tuple with the ApiServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceTokenRequest) GetApiServerIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiServerId) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerId) {
+		return nil, false
 	}
 	return o.ApiServerId, true
 }
 
 // HasApiServerId returns a boolean if a field has been set.
 func (o *DeleteServiceTokenRequest) HasApiServerId() bool {
-	if o != nil && !isNil(o.ApiServerId) {
+	if o != nil && !IsNil(o.ApiServerId) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *DeleteServiceTokenRequest) SetApiServerId(v int64) {
 
 // GetTokenId returns the TokenId field value if set, zero value otherwise.
 func (o *DeleteServiceTokenRequest) GetTokenId() string {
-	if o == nil || isNil(o.TokenId) {
+	if o == nil || IsNil(o.TokenId) {
 		var ret string
 		return ret
 	}
@@ -148,15 +151,15 @@ func (o *DeleteServiceTokenRequest) GetTokenId() string {
 // GetTokenIdOk returns a tuple with the TokenId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceTokenRequest) GetTokenIdOk() (*string, bool) {
-	if o == nil || isNil(o.TokenId) {
-    return nil, false
+	if o == nil || IsNil(o.TokenId) {
+		return nil, false
 	}
 	return o.TokenId, true
 }
 
 // HasTokenId returns a boolean if a field has been set.
 func (o *DeleteServiceTokenRequest) HasTokenId() bool {
-	if o != nil && !isNil(o.TokenId) {
+	if o != nil && !IsNil(o.TokenId) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *DeleteServiceTokenRequest) SetTokenId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *DeleteServiceTokenRequest) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -180,15 +183,15 @@ func (o *DeleteServiceTokenRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteServiceTokenRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *DeleteServiceTokenRequest) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -201,23 +204,31 @@ func (o *DeleteServiceTokenRequest) SetDescription(v string) {
 }
 
 func (o DeleteServiceTokenRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ServiceId) {
-		toSerialize["serviceId"] = o.ServiceId
-	}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.ApiServerId) {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if !isNil(o.TokenId) {
-		toSerialize["tokenId"] = o.TokenId
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteServiceTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ServiceId) {
+		toSerialize["serviceId"] = o.ServiceId
+	}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.ApiServerId) {
+		toSerialize["apiServerId"] = o.ApiServerId
+	}
+	if !IsNil(o.TokenId) {
+		toSerialize["tokenId"] = o.TokenId
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableDeleteServiceTokenRequest struct {
@@ -255,5 +266,3 @@ func (v *NullableDeleteServiceTokenRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

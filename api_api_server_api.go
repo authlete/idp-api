@@ -13,22 +13,86 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+type ApiServerApiAPI interface {
 
-// ApiServerApiApiService ApiServerApiApi service
-type ApiServerApiApiService service
+	/*
+		CreateApiServer Method for CreateApiServer
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateApiServerRequest
+	*/
+	CreateApiServer(ctx context.Context) ApiCreateApiServerRequest
+
+	// CreateApiServerExecute executes the request
+	//  @return AuthleteApiServerUpdateResponse
+	CreateApiServerExecute(r ApiCreateApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error)
+
+	/*
+		DeleteApiServer Method for DeleteApiServer
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiDeleteApiServerRequest
+	*/
+	DeleteApiServer(ctx context.Context, id int64) ApiDeleteApiServerRequest
+
+	// DeleteApiServerExecute executes the request
+	DeleteApiServerExecute(r ApiDeleteApiServerRequest) (*http.Response, error)
+
+	/*
+		GetAll1 Method for GetAll1
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAll1Request
+	*/
+	GetAll1(ctx context.Context) ApiGetAll1Request
+
+	// GetAll1Execute executes the request
+	//  @return []AuthleteApiServerUpdateResponse
+	GetAll1Execute(r ApiGetAll1Request) ([]AuthleteApiServerUpdateResponse, *http.Response, error)
+
+	/*
+		GetApiServer Method for GetApiServer
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiGetApiServerRequest
+	*/
+	GetApiServer(ctx context.Context, id int64) ApiGetApiServerRequest
+
+	// GetApiServerExecute executes the request
+	//  @return AuthleteApiServerUpdateResponse
+	GetApiServerExecute(r ApiGetApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error)
+
+	/*
+		UpdateApiServer Method for UpdateApiServer
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiUpdateApiServerRequest
+	*/
+	UpdateApiServer(ctx context.Context, id int64) ApiUpdateApiServerRequest
+
+	// UpdateApiServerExecute executes the request
+	//  @return AuthleteApiServerUpdateResponse
+	UpdateApiServerExecute(r ApiUpdateApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error)
+}
+
+// ApiServerApiAPIService ApiServerApiAPI service
+type ApiServerApiAPIService service
 
 type ApiCreateApiServerRequest struct {
-	ctx context.Context
-	ApiService *ApiServerApiApiService
+	ctx                    context.Context
+	ApiService             ApiServerApiAPI
 	createApiServerRequest *CreateApiServerRequest
-	authorization *string
-	dPoP *string
+	authorization          *string
+	dPoP                   *string
 }
 
 func (r ApiCreateApiServerRequest) CreateApiServerRequest(createApiServerRequest CreateApiServerRequest) ApiCreateApiServerRequest {
@@ -53,27 +117,28 @@ func (r ApiCreateApiServerRequest) Execute() (*AuthleteApiServerUpdateResponse, 
 /*
 CreateApiServer Method for CreateApiServer
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateApiServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateApiServerRequest
 */
-func (a *ApiServerApiApiService) CreateApiServer(ctx context.Context) ApiCreateApiServerRequest {
+func (a *ApiServerApiAPIService) CreateApiServer(ctx context.Context) ApiCreateApiServerRequest {
 	return ApiCreateApiServerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return AuthleteApiServerUpdateResponse
-func (a *ApiServerApiApiService) CreateApiServerExecute(r ApiCreateApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error) {
+//
+//	@return AuthleteApiServerUpdateResponse
+func (a *ApiServerApiAPIService) CreateApiServerExecute(r ApiCreateApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AuthleteApiServerUpdateResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthleteApiServerUpdateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiApiService.CreateApiServer")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiAPIService.CreateApiServer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -105,10 +170,10 @@ func (a *ApiServerApiApiService) CreateApiServerExecute(r ApiCreateApiServerRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.createApiServerRequest
@@ -122,9 +187,9 @@ func (a *ApiServerApiApiService) CreateApiServerExecute(r ApiCreateApiServerRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -150,11 +215,11 @@ func (a *ApiServerApiApiService) CreateApiServerExecute(r ApiCreateApiServerRequ
 }
 
 type ApiDeleteApiServerRequest struct {
-	ctx context.Context
-	ApiService *ApiServerApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    ApiServerApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiDeleteApiServerRequest) Authorization(authorization string) ApiDeleteApiServerRequest {
@@ -174,33 +239,33 @@ func (r ApiDeleteApiServerRequest) Execute() (*http.Response, error) {
 /*
 DeleteApiServer Method for DeleteApiServer
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteApiServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiDeleteApiServerRequest
 */
-func (a *ApiServerApiApiService) DeleteApiServer(ctx context.Context, id int64) ApiDeleteApiServerRequest {
+func (a *ApiServerApiAPIService) DeleteApiServer(ctx context.Context, id int64) ApiDeleteApiServerRequest {
 	return ApiDeleteApiServerRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-func (a *ApiServerApiApiService) DeleteApiServerExecute(r ApiDeleteApiServerRequest) (*http.Response, error) {
+func (a *ApiServerApiAPIService) DeleteApiServerExecute(r ApiDeleteApiServerRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiApiService.DeleteApiServer")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiAPIService.DeleteApiServer")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/apiserver/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -224,10 +289,10 @@ func (a *ApiServerApiApiService) DeleteApiServerExecute(r ApiDeleteApiServerRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -239,9 +304,9 @@ func (a *ApiServerApiApiService) DeleteApiServerExecute(r ApiDeleteApiServerRequ
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -258,10 +323,10 @@ func (a *ApiServerApiApiService) DeleteApiServerExecute(r ApiDeleteApiServerRequ
 }
 
 type ApiGetAll1Request struct {
-	ctx context.Context
-	ApiService *ApiServerApiApiService
+	ctx           context.Context
+	ApiService    ApiServerApiAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetAll1Request) Authorization(authorization string) ApiGetAll1Request {
@@ -281,27 +346,28 @@ func (r ApiGetAll1Request) Execute() ([]AuthleteApiServerUpdateResponse, *http.R
 /*
 GetAll1 Method for GetAll1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetAll1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAll1Request
 */
-func (a *ApiServerApiApiService) GetAll1(ctx context.Context) ApiGetAll1Request {
+func (a *ApiServerApiAPIService) GetAll1(ctx context.Context) ApiGetAll1Request {
 	return ApiGetAll1Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []AuthleteApiServerUpdateResponse
-func (a *ApiServerApiApiService) GetAll1Execute(r ApiGetAll1Request) ([]AuthleteApiServerUpdateResponse, *http.Response, error) {
+//
+//	@return []AuthleteApiServerUpdateResponse
+func (a *ApiServerApiAPIService) GetAll1Execute(r ApiGetAll1Request) ([]AuthleteApiServerUpdateResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []AuthleteApiServerUpdateResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []AuthleteApiServerUpdateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiApiService.GetAll1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiAPIService.GetAll1")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -330,10 +396,10 @@ func (a *ApiServerApiApiService) GetAll1Execute(r ApiGetAll1Request) ([]Authlete
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -345,9 +411,9 @@ func (a *ApiServerApiApiService) GetAll1Execute(r ApiGetAll1Request) ([]Authlete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -373,11 +439,11 @@ func (a *ApiServerApiApiService) GetAll1Execute(r ApiGetAll1Request) ([]Authlete
 }
 
 type ApiGetApiServerRequest struct {
-	ctx context.Context
-	ApiService *ApiServerApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    ApiServerApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetApiServerRequest) Authorization(authorization string) ApiGetApiServerRequest {
@@ -397,35 +463,36 @@ func (r ApiGetApiServerRequest) Execute() (*AuthleteApiServerUpdateResponse, *ht
 /*
 GetApiServer Method for GetApiServer
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetApiServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiGetApiServerRequest
 */
-func (a *ApiServerApiApiService) GetApiServer(ctx context.Context, id int64) ApiGetApiServerRequest {
+func (a *ApiServerApiAPIService) GetApiServer(ctx context.Context, id int64) ApiGetApiServerRequest {
 	return ApiGetApiServerRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return AuthleteApiServerUpdateResponse
-func (a *ApiServerApiApiService) GetApiServerExecute(r ApiGetApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error) {
+//
+//	@return AuthleteApiServerUpdateResponse
+func (a *ApiServerApiAPIService) GetApiServerExecute(r ApiGetApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AuthleteApiServerUpdateResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthleteApiServerUpdateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiApiService.GetApiServer")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiAPIService.GetApiServer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/apiserver/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -449,10 +516,10 @@ func (a *ApiServerApiApiService) GetApiServerExecute(r ApiGetApiServerRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -464,9 +531,9 @@ func (a *ApiServerApiApiService) GetApiServerExecute(r ApiGetApiServerRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -492,12 +559,12 @@ func (a *ApiServerApiApiService) GetApiServerExecute(r ApiGetApiServerRequest) (
 }
 
 type ApiUpdateApiServerRequest struct {
-	ctx context.Context
-	ApiService *ApiServerApiApiService
-	id int64
+	ctx                    context.Context
+	ApiService             ApiServerApiAPI
+	id                     int64
 	updateApiServerRequest *UpdateApiServerRequest
-	authorization *string
-	dPoP *string
+	authorization          *string
+	dPoP                   *string
 }
 
 func (r ApiUpdateApiServerRequest) UpdateApiServerRequest(updateApiServerRequest UpdateApiServerRequest) ApiUpdateApiServerRequest {
@@ -522,35 +589,36 @@ func (r ApiUpdateApiServerRequest) Execute() (*AuthleteApiServerUpdateResponse, 
 /*
 UpdateApiServer Method for UpdateApiServer
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateApiServerRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiUpdateApiServerRequest
 */
-func (a *ApiServerApiApiService) UpdateApiServer(ctx context.Context, id int64) ApiUpdateApiServerRequest {
+func (a *ApiServerApiAPIService) UpdateApiServer(ctx context.Context, id int64) ApiUpdateApiServerRequest {
 	return ApiUpdateApiServerRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return AuthleteApiServerUpdateResponse
-func (a *ApiServerApiApiService) UpdateApiServerExecute(r ApiUpdateApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error) {
+//
+//	@return AuthleteApiServerUpdateResponse
+func (a *ApiServerApiAPIService) UpdateApiServerExecute(r ApiUpdateApiServerRequest) (*AuthleteApiServerUpdateResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AuthleteApiServerUpdateResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthleteApiServerUpdateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiApiService.UpdateApiServer")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServerApiAPIService.UpdateApiServer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/apiserver/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -577,10 +645,10 @@ func (a *ApiServerApiApiService) UpdateApiServerExecute(r ApiUpdateApiServerRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateApiServerRequest
@@ -594,9 +662,9 @@ func (a *ApiServerApiApiService) UpdateApiServerExecute(r ApiUpdateApiServerRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

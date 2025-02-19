@@ -11,14 +11,21 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateOrganizationTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateOrganizationTokenRequest{}
 
 // CreateOrganizationTokenRequest struct for CreateOrganizationTokenRequest
 type CreateOrganizationTokenRequest struct {
-	OrganizationId int64 `json:"organizationId"`
-	Description string `json:"description"`
+	OrganizationId int64  `json:"organizationId"`
+	Description    string `json:"description"`
 }
+
+type _CreateOrganizationTokenRequest CreateOrganizationTokenRequest
 
 // NewCreateOrganizationTokenRequest instantiates a new CreateOrganizationTokenRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -53,7 +60,7 @@ func (o *CreateOrganizationTokenRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *CreateOrganizationTokenRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -77,7 +84,7 @@ func (o *CreateOrganizationTokenRequest) GetDescription() string {
 // and a boolean to check if the value has been set.
 func (o *CreateOrganizationTokenRequest) GetDescriptionOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Description, true
 }
@@ -88,14 +95,56 @@ func (o *CreateOrganizationTokenRequest) SetDescription(v string) {
 }
 
 func (o CreateOrganizationTokenRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateOrganizationTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
+}
+
+func (o *CreateOrganizationTokenRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organizationId",
+		"description",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateOrganizationTokenRequest := _CreateOrganizationTokenRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateOrganizationTokenRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateOrganizationTokenRequest(varCreateOrganizationTokenRequest)
+
+	return err
 }
 
 type NullableCreateOrganizationTokenRequest struct {
@@ -133,5 +182,3 @@ func (v *NullableCreateOrganizationTokenRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

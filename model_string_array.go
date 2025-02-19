@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StringArray type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StringArray{}
+
 // StringArray struct for StringArray
 type StringArray struct {
 	Array []string `json:"array,omitempty"`
@@ -38,7 +41,7 @@ func NewStringArrayWithDefaults() *StringArray {
 
 // GetArray returns the Array field value if set, zero value otherwise.
 func (o *StringArray) GetArray() []string {
-	if o == nil || isNil(o.Array) {
+	if o == nil || IsNil(o.Array) {
 		var ret []string
 		return ret
 	}
@@ -48,15 +51,15 @@ func (o *StringArray) GetArray() []string {
 // GetArrayOk returns a tuple with the Array field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StringArray) GetArrayOk() ([]string, bool) {
-	if o == nil || isNil(o.Array) {
-    return nil, false
+	if o == nil || IsNil(o.Array) {
+		return nil, false
 	}
 	return o.Array, true
 }
 
 // HasArray returns a boolean if a field has been set.
 func (o *StringArray) HasArray() bool {
-	if o != nil && !isNil(o.Array) {
+	if o != nil && !IsNil(o.Array) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *StringArray) SetArray(v []string) {
 }
 
 func (o StringArray) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Array) {
-		toSerialize["array"] = o.Array
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StringArray) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Array) {
+		toSerialize["array"] = o.Array
+	}
+	return toSerialize, nil
 }
 
 type NullableStringArray struct {
@@ -111,5 +122,3 @@ func (v *NullableStringArray) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

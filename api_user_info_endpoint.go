@@ -13,20 +13,34 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type UserInfoEndpointAPI interface {
 
-// UserInfoEndpointApiService UserInfoEndpointApi service
-type UserInfoEndpointApiService service
+	/*
+		UserInfo Method for UserInfo
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUserInfoRequest
+	*/
+	UserInfo(ctx context.Context) ApiUserInfoRequest
+
+	// UserInfoExecute executes the request
+	//  @return string
+	UserInfoExecute(r ApiUserInfoRequest) (string, *http.Response, error)
+}
+
+// UserInfoEndpointAPIService UserInfoEndpointAPI service
+type UserInfoEndpointAPIService service
 
 type ApiUserInfoRequest struct {
-	ctx context.Context
-	ApiService *UserInfoEndpointApiService
+	ctx           context.Context
+	ApiService    UserInfoEndpointAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiUserInfoRequest) Authorization(authorization string) ApiUserInfoRequest {
@@ -46,27 +60,28 @@ func (r ApiUserInfoRequest) Execute() (string, *http.Response, error) {
 /*
 UserInfo Method for UserInfo
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUserInfoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUserInfoRequest
 */
-func (a *UserInfoEndpointApiService) UserInfo(ctx context.Context) ApiUserInfoRequest {
+func (a *UserInfoEndpointAPIService) UserInfo(ctx context.Context) ApiUserInfoRequest {
 	return ApiUserInfoRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *UserInfoEndpointApiService) UserInfoExecute(r ApiUserInfoRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *UserInfoEndpointAPIService) UserInfoExecute(r ApiUserInfoRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserInfoEndpointApiService.UserInfo")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserInfoEndpointAPIService.UserInfo")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -95,10 +110,10 @@ func (a *UserInfoEndpointApiService) UserInfoExecute(r ApiUserInfoRequest) (stri
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -110,9 +125,9 @@ func (a *UserInfoEndpointApiService) UserInfoExecute(r ApiUserInfoRequest) (stri
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -13,22 +13,189 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+type AccessApiAPI interface {
 
-// AccessApiApiService AccessApiApi service
-type AccessApiApiService service
+	/*
+		AcceptInvitation Method for AcceptInvitation
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiAcceptInvitationRequest
+	*/
+	AcceptInvitation(ctx context.Context, id int64) ApiAcceptInvitationRequest
+
+	// AcceptInvitationExecute executes the request
+	AcceptInvitationExecute(r ApiAcceptInvitationRequest) (*http.Response, error)
+
+	/*
+		DeclineInvitation Method for DeclineInvitation
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiDeclineInvitationRequest
+	*/
+	DeclineInvitation(ctx context.Context, id int64) ApiDeclineInvitationRequest
+
+	// DeclineInvitationExecute executes the request
+	DeclineInvitationExecute(r ApiDeclineInvitationRequest) (*http.Response, error)
+
+	/*
+		GetInvitation Method for GetInvitation
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiGetInvitationRequest
+	*/
+	GetInvitation(ctx context.Context, id int64) ApiGetInvitationRequest
+
+	// GetInvitationExecute executes the request
+	//  @return InvitationResponse
+	GetInvitationExecute(r ApiGetInvitationRequest) (*InvitationResponse, *http.Response, error)
+
+	/*
+		GetReceivedInvitations Method for GetReceivedInvitations
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetReceivedInvitationsRequest
+	*/
+	GetReceivedInvitations(ctx context.Context) ApiGetReceivedInvitationsRequest
+
+	// GetReceivedInvitationsExecute executes the request
+	//  @return []InvitationResponse
+	GetReceivedInvitationsExecute(r ApiGetReceivedInvitationsRequest) ([]InvitationResponse, *http.Response, error)
+
+	/*
+		GetSentInvitations Method for GetSentInvitations
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetSentInvitationsRequest
+	*/
+	GetSentInvitations(ctx context.Context) ApiGetSentInvitationsRequest
+
+	// GetSentInvitationsExecute executes the request
+	//  @return []InvitationResponse
+	GetSentInvitationsExecute(r ApiGetSentInvitationsRequest) ([]InvitationResponse, *http.Response, error)
+
+	/*
+		InviteByEmail Method for InviteByEmail
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiInviteByEmailRequest
+	*/
+	InviteByEmail(ctx context.Context) ApiInviteByEmailRequest
+
+	// InviteByEmailExecute executes the request
+	//  @return InvitationResponse
+	InviteByEmailExecute(r ApiInviteByEmailRequest) (*InvitationResponse, *http.Response, error)
+
+	/*
+		RemoveApiServerPrivileges Method for RemoveApiServerPrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRemoveApiServerPrivilegesRequest
+	*/
+	RemoveApiServerPrivileges(ctx context.Context) ApiRemoveApiServerPrivilegesRequest
+
+	// RemoveApiServerPrivilegesExecute executes the request
+	RemoveApiServerPrivilegesExecute(r ApiRemoveApiServerPrivilegesRequest) (*http.Response, error)
+
+	/*
+		RemoveClientPrivileges Method for RemoveClientPrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRemoveClientPrivilegesRequest
+	*/
+	RemoveClientPrivileges(ctx context.Context) ApiRemoveClientPrivilegesRequest
+
+	// RemoveClientPrivilegesExecute executes the request
+	RemoveClientPrivilegesExecute(r ApiRemoveClientPrivilegesRequest) (*http.Response, error)
+
+	/*
+		RemoveOrganizationPrivileges Method for RemoveOrganizationPrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRemoveOrganizationPrivilegesRequest
+	*/
+	RemoveOrganizationPrivileges(ctx context.Context) ApiRemoveOrganizationPrivilegesRequest
+
+	// RemoveOrganizationPrivilegesExecute executes the request
+	RemoveOrganizationPrivilegesExecute(r ApiRemoveOrganizationPrivilegesRequest) (*http.Response, error)
+
+	/*
+		RemoveServicePrivileges Method for RemoveServicePrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRemoveServicePrivilegesRequest
+	*/
+	RemoveServicePrivileges(ctx context.Context) ApiRemoveServicePrivilegesRequest
+
+	// RemoveServicePrivilegesExecute executes the request
+	RemoveServicePrivilegesExecute(r ApiRemoveServicePrivilegesRequest) (*http.Response, error)
+
+	/*
+		UpdateApiServerPrivileges Method for UpdateApiServerPrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateApiServerPrivilegesRequest
+	*/
+	UpdateApiServerPrivileges(ctx context.Context) ApiUpdateApiServerPrivilegesRequest
+
+	// UpdateApiServerPrivilegesExecute executes the request
+	//  @return ApiServerAccessResponse
+	UpdateApiServerPrivilegesExecute(r ApiUpdateApiServerPrivilegesRequest) (*ApiServerAccessResponse, *http.Response, error)
+
+	/*
+		UpdateClientPrivileges Method for UpdateClientPrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateClientPrivilegesRequest
+	*/
+	UpdateClientPrivileges(ctx context.Context) ApiUpdateClientPrivilegesRequest
+
+	// UpdateClientPrivilegesExecute executes the request
+	//  @return ClientAccessResponse
+	UpdateClientPrivilegesExecute(r ApiUpdateClientPrivilegesRequest) (*ClientAccessResponse, *http.Response, error)
+
+	/*
+		UpdateOrganizationPrivileges Method for UpdateOrganizationPrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateOrganizationPrivilegesRequest
+	*/
+	UpdateOrganizationPrivileges(ctx context.Context) ApiUpdateOrganizationPrivilegesRequest
+
+	// UpdateOrganizationPrivilegesExecute executes the request
+	//  @return OrganizationAccessResponse
+	UpdateOrganizationPrivilegesExecute(r ApiUpdateOrganizationPrivilegesRequest) (*OrganizationAccessResponse, *http.Response, error)
+
+	/*
+		UpdateServicePrivileges Method for UpdateServicePrivileges
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateServicePrivilegesRequest
+	*/
+	UpdateServicePrivileges(ctx context.Context) ApiUpdateServicePrivilegesRequest
+
+	// UpdateServicePrivilegesExecute executes the request
+	//  @return ServiceAccessResponse
+	UpdateServicePrivilegesExecute(r ApiUpdateServicePrivilegesRequest) (*ServiceAccessResponse, *http.Response, error)
+}
+
+// AccessApiAPIService AccessApiAPI service
+type AccessApiAPIService service
 
 type ApiAcceptInvitationRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    AccessApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiAcceptInvitationRequest) Authorization(authorization string) ApiAcceptInvitationRequest {
@@ -48,33 +215,33 @@ func (r ApiAcceptInvitationRequest) Execute() (*http.Response, error) {
 /*
 AcceptInvitation Method for AcceptInvitation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiAcceptInvitationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiAcceptInvitationRequest
 */
-func (a *AccessApiApiService) AcceptInvitation(ctx context.Context, id int64) ApiAcceptInvitationRequest {
+func (a *AccessApiAPIService) AcceptInvitation(ctx context.Context, id int64) ApiAcceptInvitationRequest {
 	return ApiAcceptInvitationRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-func (a *AccessApiApiService) AcceptInvitationExecute(r ApiAcceptInvitationRequest) (*http.Response, error) {
+func (a *AccessApiAPIService) AcceptInvitationExecute(r ApiAcceptInvitationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.AcceptInvitation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.AcceptInvitation")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/access/invite/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -98,10 +265,10 @@ func (a *AccessApiApiService) AcceptInvitationExecute(r ApiAcceptInvitationReque
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -113,9 +280,9 @@ func (a *AccessApiApiService) AcceptInvitationExecute(r ApiAcceptInvitationReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -132,11 +299,11 @@ func (a *AccessApiApiService) AcceptInvitationExecute(r ApiAcceptInvitationReque
 }
 
 type ApiDeclineInvitationRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    AccessApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiDeclineInvitationRequest) Authorization(authorization string) ApiDeclineInvitationRequest {
@@ -156,33 +323,33 @@ func (r ApiDeclineInvitationRequest) Execute() (*http.Response, error) {
 /*
 DeclineInvitation Method for DeclineInvitation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeclineInvitationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiDeclineInvitationRequest
 */
-func (a *AccessApiApiService) DeclineInvitation(ctx context.Context, id int64) ApiDeclineInvitationRequest {
+func (a *AccessApiAPIService) DeclineInvitation(ctx context.Context, id int64) ApiDeclineInvitationRequest {
 	return ApiDeclineInvitationRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-func (a *AccessApiApiService) DeclineInvitationExecute(r ApiDeclineInvitationRequest) (*http.Response, error) {
+func (a *AccessApiAPIService) DeclineInvitationExecute(r ApiDeclineInvitationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.DeclineInvitation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.DeclineInvitation")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/access/invite/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -206,10 +373,10 @@ func (a *AccessApiApiService) DeclineInvitationExecute(r ApiDeclineInvitationReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -221,9 +388,9 @@ func (a *AccessApiApiService) DeclineInvitationExecute(r ApiDeclineInvitationReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -240,11 +407,11 @@ func (a *AccessApiApiService) DeclineInvitationExecute(r ApiDeclineInvitationReq
 }
 
 type ApiGetInvitationRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    AccessApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetInvitationRequest) Authorization(authorization string) ApiGetInvitationRequest {
@@ -264,35 +431,36 @@ func (r ApiGetInvitationRequest) Execute() (*InvitationResponse, *http.Response,
 /*
 GetInvitation Method for GetInvitation
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiGetInvitationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiGetInvitationRequest
 */
-func (a *AccessApiApiService) GetInvitation(ctx context.Context, id int64) ApiGetInvitationRequest {
+func (a *AccessApiAPIService) GetInvitation(ctx context.Context, id int64) ApiGetInvitationRequest {
 	return ApiGetInvitationRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return InvitationResponse
-func (a *AccessApiApiService) GetInvitationExecute(r ApiGetInvitationRequest) (*InvitationResponse, *http.Response, error) {
+//
+//	@return InvitationResponse
+func (a *AccessApiAPIService) GetInvitationExecute(r ApiGetInvitationRequest) (*InvitationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *InvitationResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvitationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.GetInvitation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.GetInvitation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/access/invite/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -316,10 +484,10 @@ func (a *AccessApiApiService) GetInvitationExecute(r ApiGetInvitationRequest) (*
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -331,9 +499,9 @@ func (a *AccessApiApiService) GetInvitationExecute(r ApiGetInvitationRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -359,10 +527,10 @@ func (a *AccessApiApiService) GetInvitationExecute(r ApiGetInvitationRequest) (*
 }
 
 type ApiGetReceivedInvitationsRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx           context.Context
+	ApiService    AccessApiAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetReceivedInvitationsRequest) Authorization(authorization string) ApiGetReceivedInvitationsRequest {
@@ -382,27 +550,28 @@ func (r ApiGetReceivedInvitationsRequest) Execute() ([]InvitationResponse, *http
 /*
 GetReceivedInvitations Method for GetReceivedInvitations
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetReceivedInvitationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetReceivedInvitationsRequest
 */
-func (a *AccessApiApiService) GetReceivedInvitations(ctx context.Context) ApiGetReceivedInvitationsRequest {
+func (a *AccessApiAPIService) GetReceivedInvitations(ctx context.Context) ApiGetReceivedInvitationsRequest {
 	return ApiGetReceivedInvitationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []InvitationResponse
-func (a *AccessApiApiService) GetReceivedInvitationsExecute(r ApiGetReceivedInvitationsRequest) ([]InvitationResponse, *http.Response, error) {
+//
+//	@return []InvitationResponse
+func (a *AccessApiAPIService) GetReceivedInvitationsExecute(r ApiGetReceivedInvitationsRequest) ([]InvitationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []InvitationResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []InvitationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.GetReceivedInvitations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.GetReceivedInvitations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -431,10 +600,10 @@ func (a *AccessApiApiService) GetReceivedInvitationsExecute(r ApiGetReceivedInvi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -446,9 +615,9 @@ func (a *AccessApiApiService) GetReceivedInvitationsExecute(r ApiGetReceivedInvi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -474,10 +643,10 @@ func (a *AccessApiApiService) GetReceivedInvitationsExecute(r ApiGetReceivedInvi
 }
 
 type ApiGetSentInvitationsRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx           context.Context
+	ApiService    AccessApiAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetSentInvitationsRequest) Authorization(authorization string) ApiGetSentInvitationsRequest {
@@ -497,27 +666,28 @@ func (r ApiGetSentInvitationsRequest) Execute() ([]InvitationResponse, *http.Res
 /*
 GetSentInvitations Method for GetSentInvitations
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetSentInvitationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetSentInvitationsRequest
 */
-func (a *AccessApiApiService) GetSentInvitations(ctx context.Context) ApiGetSentInvitationsRequest {
+func (a *AccessApiAPIService) GetSentInvitations(ctx context.Context) ApiGetSentInvitationsRequest {
 	return ApiGetSentInvitationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []InvitationResponse
-func (a *AccessApiApiService) GetSentInvitationsExecute(r ApiGetSentInvitationsRequest) ([]InvitationResponse, *http.Response, error) {
+//
+//	@return []InvitationResponse
+func (a *AccessApiAPIService) GetSentInvitationsExecute(r ApiGetSentInvitationsRequest) ([]InvitationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []InvitationResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []InvitationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.GetSentInvitations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.GetSentInvitations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -546,10 +716,10 @@ func (a *AccessApiApiService) GetSentInvitationsExecute(r ApiGetSentInvitationsR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -561,9 +731,9 @@ func (a *AccessApiApiService) GetSentInvitationsExecute(r ApiGetSentInvitationsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -589,11 +759,11 @@ func (a *AccessApiApiService) GetSentInvitationsExecute(r ApiGetSentInvitationsR
 }
 
 type ApiInviteByEmailRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx           context.Context
+	ApiService    AccessApiAPI
 	inviteRequest *InviteRequest
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiInviteByEmailRequest) InviteRequest(inviteRequest InviteRequest) ApiInviteByEmailRequest {
@@ -618,27 +788,28 @@ func (r ApiInviteByEmailRequest) Execute() (*InvitationResponse, *http.Response,
 /*
 InviteByEmail Method for InviteByEmail
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiInviteByEmailRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiInviteByEmailRequest
 */
-func (a *AccessApiApiService) InviteByEmail(ctx context.Context) ApiInviteByEmailRequest {
+func (a *AccessApiAPIService) InviteByEmail(ctx context.Context) ApiInviteByEmailRequest {
 	return ApiInviteByEmailRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return InvitationResponse
-func (a *AccessApiApiService) InviteByEmailExecute(r ApiInviteByEmailRequest) (*InvitationResponse, *http.Response, error) {
+//
+//	@return InvitationResponse
+func (a *AccessApiAPIService) InviteByEmailExecute(r ApiInviteByEmailRequest) (*InvitationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *InvitationResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *InvitationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.InviteByEmail")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.InviteByEmail")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -670,10 +841,10 @@ func (a *AccessApiApiService) InviteByEmailExecute(r ApiInviteByEmailRequest) (*
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.inviteRequest
@@ -687,9 +858,9 @@ func (a *AccessApiApiService) InviteByEmailExecute(r ApiInviteByEmailRequest) (*
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -715,11 +886,11 @@ func (a *AccessApiApiService) InviteByEmailExecute(r ApiInviteByEmailRequest) (*
 }
 
 type ApiRemoveApiServerPrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                              context.Context
+	ApiService                       AccessApiAPI
 	removeApiServerPrivilegesRequest *RemoveApiServerPrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                    *string
+	dPoP                             *string
 }
 
 func (r ApiRemoveApiServerPrivilegesRequest) RemoveApiServerPrivilegesRequest(removeApiServerPrivilegesRequest RemoveApiServerPrivilegesRequest) ApiRemoveApiServerPrivilegesRequest {
@@ -744,25 +915,25 @@ func (r ApiRemoveApiServerPrivilegesRequest) Execute() (*http.Response, error) {
 /*
 RemoveApiServerPrivileges Method for RemoveApiServerPrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRemoveApiServerPrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRemoveApiServerPrivilegesRequest
 */
-func (a *AccessApiApiService) RemoveApiServerPrivileges(ctx context.Context) ApiRemoveApiServerPrivilegesRequest {
+func (a *AccessApiAPIService) RemoveApiServerPrivileges(ctx context.Context) ApiRemoveApiServerPrivilegesRequest {
 	return ApiRemoveApiServerPrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AccessApiApiService) RemoveApiServerPrivilegesExecute(r ApiRemoveApiServerPrivilegesRequest) (*http.Response, error) {
+func (a *AccessApiAPIService) RemoveApiServerPrivilegesExecute(r ApiRemoveApiServerPrivilegesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.RemoveApiServerPrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.RemoveApiServerPrivileges")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -794,10 +965,10 @@ func (a *AccessApiApiService) RemoveApiServerPrivilegesExecute(r ApiRemoveApiSer
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.removeApiServerPrivilegesRequest
@@ -811,9 +982,9 @@ func (a *AccessApiApiService) RemoveApiServerPrivilegesExecute(r ApiRemoveApiSer
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -830,11 +1001,11 @@ func (a *AccessApiApiService) RemoveApiServerPrivilegesExecute(r ApiRemoveApiSer
 }
 
 type ApiRemoveClientPrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                           context.Context
+	ApiService                    AccessApiAPI
 	removeClientPrivilegesRequest *RemoveClientPrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                 *string
+	dPoP                          *string
 }
 
 func (r ApiRemoveClientPrivilegesRequest) RemoveClientPrivilegesRequest(removeClientPrivilegesRequest RemoveClientPrivilegesRequest) ApiRemoveClientPrivilegesRequest {
@@ -859,25 +1030,25 @@ func (r ApiRemoveClientPrivilegesRequest) Execute() (*http.Response, error) {
 /*
 RemoveClientPrivileges Method for RemoveClientPrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRemoveClientPrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRemoveClientPrivilegesRequest
 */
-func (a *AccessApiApiService) RemoveClientPrivileges(ctx context.Context) ApiRemoveClientPrivilegesRequest {
+func (a *AccessApiAPIService) RemoveClientPrivileges(ctx context.Context) ApiRemoveClientPrivilegesRequest {
 	return ApiRemoveClientPrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AccessApiApiService) RemoveClientPrivilegesExecute(r ApiRemoveClientPrivilegesRequest) (*http.Response, error) {
+func (a *AccessApiAPIService) RemoveClientPrivilegesExecute(r ApiRemoveClientPrivilegesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.RemoveClientPrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.RemoveClientPrivileges")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -909,10 +1080,10 @@ func (a *AccessApiApiService) RemoveClientPrivilegesExecute(r ApiRemoveClientPri
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.removeClientPrivilegesRequest
@@ -926,9 +1097,9 @@ func (a *AccessApiApiService) RemoveClientPrivilegesExecute(r ApiRemoveClientPri
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -945,11 +1116,11 @@ func (a *AccessApiApiService) RemoveClientPrivilegesExecute(r ApiRemoveClientPri
 }
 
 type ApiRemoveOrganizationPrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                                 context.Context
+	ApiService                          AccessApiAPI
 	removeOrganizationPrivilegesRequest *RemoveOrganizationPrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                       *string
+	dPoP                                *string
 }
 
 func (r ApiRemoveOrganizationPrivilegesRequest) RemoveOrganizationPrivilegesRequest(removeOrganizationPrivilegesRequest RemoveOrganizationPrivilegesRequest) ApiRemoveOrganizationPrivilegesRequest {
@@ -974,25 +1145,25 @@ func (r ApiRemoveOrganizationPrivilegesRequest) Execute() (*http.Response, error
 /*
 RemoveOrganizationPrivileges Method for RemoveOrganizationPrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRemoveOrganizationPrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRemoveOrganizationPrivilegesRequest
 */
-func (a *AccessApiApiService) RemoveOrganizationPrivileges(ctx context.Context) ApiRemoveOrganizationPrivilegesRequest {
+func (a *AccessApiAPIService) RemoveOrganizationPrivileges(ctx context.Context) ApiRemoveOrganizationPrivilegesRequest {
 	return ApiRemoveOrganizationPrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AccessApiApiService) RemoveOrganizationPrivilegesExecute(r ApiRemoveOrganizationPrivilegesRequest) (*http.Response, error) {
+func (a *AccessApiAPIService) RemoveOrganizationPrivilegesExecute(r ApiRemoveOrganizationPrivilegesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.RemoveOrganizationPrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.RemoveOrganizationPrivileges")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1024,10 +1195,10 @@ func (a *AccessApiApiService) RemoveOrganizationPrivilegesExecute(r ApiRemoveOrg
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.removeOrganizationPrivilegesRequest
@@ -1041,9 +1212,9 @@ func (a *AccessApiApiService) RemoveOrganizationPrivilegesExecute(r ApiRemoveOrg
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1060,11 +1231,11 @@ func (a *AccessApiApiService) RemoveOrganizationPrivilegesExecute(r ApiRemoveOrg
 }
 
 type ApiRemoveServicePrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                            context.Context
+	ApiService                     AccessApiAPI
 	removeServicePrivilegesRequest *RemoveServicePrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                  *string
+	dPoP                           *string
 }
 
 func (r ApiRemoveServicePrivilegesRequest) RemoveServicePrivilegesRequest(removeServicePrivilegesRequest RemoveServicePrivilegesRequest) ApiRemoveServicePrivilegesRequest {
@@ -1089,25 +1260,25 @@ func (r ApiRemoveServicePrivilegesRequest) Execute() (*http.Response, error) {
 /*
 RemoveServicePrivileges Method for RemoveServicePrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRemoveServicePrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRemoveServicePrivilegesRequest
 */
-func (a *AccessApiApiService) RemoveServicePrivileges(ctx context.Context) ApiRemoveServicePrivilegesRequest {
+func (a *AccessApiAPIService) RemoveServicePrivileges(ctx context.Context) ApiRemoveServicePrivilegesRequest {
 	return ApiRemoveServicePrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *AccessApiApiService) RemoveServicePrivilegesExecute(r ApiRemoveServicePrivilegesRequest) (*http.Response, error) {
+func (a *AccessApiAPIService) RemoveServicePrivilegesExecute(r ApiRemoveServicePrivilegesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.RemoveServicePrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.RemoveServicePrivileges")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1139,10 +1310,10 @@ func (a *AccessApiApiService) RemoveServicePrivilegesExecute(r ApiRemoveServiceP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.removeServicePrivilegesRequest
@@ -1156,9 +1327,9 @@ func (a *AccessApiApiService) RemoveServicePrivilegesExecute(r ApiRemoveServiceP
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1175,11 +1346,11 @@ func (a *AccessApiApiService) RemoveServicePrivilegesExecute(r ApiRemoveServiceP
 }
 
 type ApiUpdateApiServerPrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                              context.Context
+	ApiService                       AccessApiAPI
 	updateApiServerPrivilegesRequest *UpdateApiServerPrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                    *string
+	dPoP                             *string
 }
 
 func (r ApiUpdateApiServerPrivilegesRequest) UpdateApiServerPrivilegesRequest(updateApiServerPrivilegesRequest UpdateApiServerPrivilegesRequest) ApiUpdateApiServerPrivilegesRequest {
@@ -1204,27 +1375,28 @@ func (r ApiUpdateApiServerPrivilegesRequest) Execute() (*ApiServerAccessResponse
 /*
 UpdateApiServerPrivileges Method for UpdateApiServerPrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateApiServerPrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateApiServerPrivilegesRequest
 */
-func (a *AccessApiApiService) UpdateApiServerPrivileges(ctx context.Context) ApiUpdateApiServerPrivilegesRequest {
+func (a *AccessApiAPIService) UpdateApiServerPrivileges(ctx context.Context) ApiUpdateApiServerPrivilegesRequest {
 	return ApiUpdateApiServerPrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ApiServerAccessResponse
-func (a *AccessApiApiService) UpdateApiServerPrivilegesExecute(r ApiUpdateApiServerPrivilegesRequest) (*ApiServerAccessResponse, *http.Response, error) {
+//
+//	@return ApiServerAccessResponse
+func (a *AccessApiAPIService) UpdateApiServerPrivilegesExecute(r ApiUpdateApiServerPrivilegesRequest) (*ApiServerAccessResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ApiServerAccessResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ApiServerAccessResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.UpdateApiServerPrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.UpdateApiServerPrivileges")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1256,10 +1428,10 @@ func (a *AccessApiApiService) UpdateApiServerPrivilegesExecute(r ApiUpdateApiSer
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateApiServerPrivilegesRequest
@@ -1273,9 +1445,9 @@ func (a *AccessApiApiService) UpdateApiServerPrivilegesExecute(r ApiUpdateApiSer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1301,11 +1473,11 @@ func (a *AccessApiApiService) UpdateApiServerPrivilegesExecute(r ApiUpdateApiSer
 }
 
 type ApiUpdateClientPrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                           context.Context
+	ApiService                    AccessApiAPI
 	updateClientPrivilegesRequest *UpdateClientPrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                 *string
+	dPoP                          *string
 }
 
 func (r ApiUpdateClientPrivilegesRequest) UpdateClientPrivilegesRequest(updateClientPrivilegesRequest UpdateClientPrivilegesRequest) ApiUpdateClientPrivilegesRequest {
@@ -1330,27 +1502,28 @@ func (r ApiUpdateClientPrivilegesRequest) Execute() (*ClientAccessResponse, *htt
 /*
 UpdateClientPrivileges Method for UpdateClientPrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateClientPrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateClientPrivilegesRequest
 */
-func (a *AccessApiApiService) UpdateClientPrivileges(ctx context.Context) ApiUpdateClientPrivilegesRequest {
+func (a *AccessApiAPIService) UpdateClientPrivileges(ctx context.Context) ApiUpdateClientPrivilegesRequest {
 	return ApiUpdateClientPrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ClientAccessResponse
-func (a *AccessApiApiService) UpdateClientPrivilegesExecute(r ApiUpdateClientPrivilegesRequest) (*ClientAccessResponse, *http.Response, error) {
+//
+//	@return ClientAccessResponse
+func (a *AccessApiAPIService) UpdateClientPrivilegesExecute(r ApiUpdateClientPrivilegesRequest) (*ClientAccessResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ClientAccessResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ClientAccessResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.UpdateClientPrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.UpdateClientPrivileges")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1382,10 +1555,10 @@ func (a *AccessApiApiService) UpdateClientPrivilegesExecute(r ApiUpdateClientPri
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateClientPrivilegesRequest
@@ -1399,9 +1572,9 @@ func (a *AccessApiApiService) UpdateClientPrivilegesExecute(r ApiUpdateClientPri
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1427,11 +1600,11 @@ func (a *AccessApiApiService) UpdateClientPrivilegesExecute(r ApiUpdateClientPri
 }
 
 type ApiUpdateOrganizationPrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                                 context.Context
+	ApiService                          AccessApiAPI
 	updateOrganizationPrivilegesRequest *UpdateOrganizationPrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                       *string
+	dPoP                                *string
 }
 
 func (r ApiUpdateOrganizationPrivilegesRequest) UpdateOrganizationPrivilegesRequest(updateOrganizationPrivilegesRequest UpdateOrganizationPrivilegesRequest) ApiUpdateOrganizationPrivilegesRequest {
@@ -1456,27 +1629,28 @@ func (r ApiUpdateOrganizationPrivilegesRequest) Execute() (*OrganizationAccessRe
 /*
 UpdateOrganizationPrivileges Method for UpdateOrganizationPrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateOrganizationPrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateOrganizationPrivilegesRequest
 */
-func (a *AccessApiApiService) UpdateOrganizationPrivileges(ctx context.Context) ApiUpdateOrganizationPrivilegesRequest {
+func (a *AccessApiAPIService) UpdateOrganizationPrivileges(ctx context.Context) ApiUpdateOrganizationPrivilegesRequest {
 	return ApiUpdateOrganizationPrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationAccessResponse
-func (a *AccessApiApiService) UpdateOrganizationPrivilegesExecute(r ApiUpdateOrganizationPrivilegesRequest) (*OrganizationAccessResponse, *http.Response, error) {
+//
+//	@return OrganizationAccessResponse
+func (a *AccessApiAPIService) UpdateOrganizationPrivilegesExecute(r ApiUpdateOrganizationPrivilegesRequest) (*OrganizationAccessResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationAccessResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationAccessResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.UpdateOrganizationPrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.UpdateOrganizationPrivileges")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1508,10 +1682,10 @@ func (a *AccessApiApiService) UpdateOrganizationPrivilegesExecute(r ApiUpdateOrg
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateOrganizationPrivilegesRequest
@@ -1525,9 +1699,9 @@ func (a *AccessApiApiService) UpdateOrganizationPrivilegesExecute(r ApiUpdateOrg
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1553,11 +1727,11 @@ func (a *AccessApiApiService) UpdateOrganizationPrivilegesExecute(r ApiUpdateOrg
 }
 
 type ApiUpdateServicePrivilegesRequest struct {
-	ctx context.Context
-	ApiService *AccessApiApiService
+	ctx                            context.Context
+	ApiService                     AccessApiAPI
 	updateServicePrivilegesRequest *UpdateServicePrivilegesRequest
-	authorization *string
-	dPoP *string
+	authorization                  *string
+	dPoP                           *string
 }
 
 func (r ApiUpdateServicePrivilegesRequest) UpdateServicePrivilegesRequest(updateServicePrivilegesRequest UpdateServicePrivilegesRequest) ApiUpdateServicePrivilegesRequest {
@@ -1582,27 +1756,28 @@ func (r ApiUpdateServicePrivilegesRequest) Execute() (*ServiceAccessResponse, *h
 /*
 UpdateServicePrivileges Method for UpdateServicePrivileges
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiUpdateServicePrivilegesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiUpdateServicePrivilegesRequest
 */
-func (a *AccessApiApiService) UpdateServicePrivileges(ctx context.Context) ApiUpdateServicePrivilegesRequest {
+func (a *AccessApiAPIService) UpdateServicePrivileges(ctx context.Context) ApiUpdateServicePrivilegesRequest {
 	return ApiUpdateServicePrivilegesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ServiceAccessResponse
-func (a *AccessApiApiService) UpdateServicePrivilegesExecute(r ApiUpdateServicePrivilegesRequest) (*ServiceAccessResponse, *http.Response, error) {
+//
+//	@return ServiceAccessResponse
+func (a *AccessApiAPIService) UpdateServicePrivilegesExecute(r ApiUpdateServicePrivilegesRequest) (*ServiceAccessResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceAccessResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceAccessResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiApiService.UpdateServicePrivileges")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccessApiAPIService.UpdateServicePrivileges")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1634,10 +1809,10 @@ func (a *AccessApiApiService) UpdateServicePrivilegesExecute(r ApiUpdateServiceP
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.updateServicePrivilegesRequest
@@ -1651,9 +1826,9 @@ func (a *AccessApiApiService) UpdateServicePrivilegesExecute(r ApiUpdateServiceP
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

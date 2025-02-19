@@ -1,16 +1,16 @@
-# \ServiceApiApi
+# \ServiceApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AdoptService**](ServiceApiApi.md#AdoptService) | **Post** /api/service/adopt | 
-[**CreateService**](ServiceApiApi.md#CreateService) | **Post** /api/service | 
-[**DeleteService**](ServiceApiApi.md#DeleteService) | **Post** /api/service/remove | 
-[**FindService**](ServiceApiApi.md#FindService) | **Get** /api/service/find/{id} | 
-[**GetOrphans**](ServiceApiApi.md#GetOrphans) | **Get** /api/service/orphans | 
-[**MoveService**](ServiceApiApi.md#MoveService) | **Post** /api/service/move | 
-[**RemoveOrphanService**](ServiceApiApi.md#RemoveOrphanService) | **Post** /api/service/orphans/remove | 
+[**AdoptService**](ServiceApiAPI.md#AdoptService) | **Post** /api/service/adopt | 
+[**CreateService**](ServiceApiAPI.md#CreateService) | **Post** /api/service | 
+[**DeleteService**](ServiceApiAPI.md#DeleteService) | **Post** /api/service/remove | 
+[**FindService**](ServiceApiAPI.md#FindService) | **Get** /api/service/find/{id} | 
+[**GetOrphans**](ServiceApiAPI.md#GetOrphans) | **Get** /api/service/orphans | 
+[**MoveService**](ServiceApiAPI.md#MoveService) | **Post** /api/service/move | 
+[**RemoveOrphanService**](ServiceApiAPI.md#RemoveOrphanService) | **Post** /api/service/orphans/remove | 
 
 
 
@@ -26,26 +26,26 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    adoptServiceRequest := *openapiclient.NewAdoptServiceRequest(int64(123), int64(123), int64(123)) // AdoptServiceRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	adoptServiceRequest := *openapiclient.NewAdoptServiceRequest(int64(123), int64(123), int64(123)) // AdoptServiceRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.AdoptService(context.Background()).AdoptServiceRequest(adoptServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.AdoptService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AdoptService`: ServiceInstanceManagementResponse
-    fmt.Fprintf(os.Stdout, "Response from `ServiceApiApi.AdoptService`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceApiAPI.AdoptService(context.Background()).AdoptServiceRequest(adoptServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.AdoptService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AdoptService`: ServiceInstanceManagementResponse
+	fmt.Fprintf(os.Stdout, "Response from `ServiceApiAPI.AdoptService`: %v\n", resp)
 }
 ```
 
@@ -94,26 +94,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    createServiceRequest := *openapiclient.NewCreateServiceRequest(int64(123), int64(123)) // CreateServiceRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	createServiceRequest := *openapiclient.NewCreateServiceRequest(int64(123), int64(123)) // CreateServiceRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.CreateService(context.Background()).CreateServiceRequest(createServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.CreateService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateService`: Service
-    fmt.Fprintf(os.Stdout, "Response from `ServiceApiApi.CreateService`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceApiAPI.CreateService(context.Background()).CreateServiceRequest(createServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.CreateService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateService`: Service
+	fmt.Fprintf(os.Stdout, "Response from `ServiceApiAPI.CreateService`: %v\n", resp)
 }
 ```
 
@@ -162,24 +162,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    deleteServiceRequest := *openapiclient.NewDeleteServiceRequest(int64(123), int64(123), int64(123)) // DeleteServiceRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	deleteServiceRequest := *openapiclient.NewDeleteServiceRequest(int64(123), int64(123), int64(123)) // DeleteServiceRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.DeleteService(context.Background()).DeleteServiceRequest(deleteServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.DeleteService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ServiceApiAPI.DeleteService(context.Background()).DeleteServiceRequest(deleteServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.DeleteService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -228,26 +228,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.FindService(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.FindService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `FindService`: []ServiceInstanceManagementResponse
-    fmt.Fprintf(os.Stdout, "Response from `ServiceApiApi.FindService`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceApiAPI.FindService(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.FindService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `FindService`: []ServiceInstanceManagementResponse
+	fmt.Fprintf(os.Stdout, "Response from `ServiceApiAPI.FindService`: %v\n", resp)
 }
 ```
 
@@ -300,25 +300,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.GetOrphans(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.GetOrphans``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrphans`: OrphanServiceResponse
-    fmt.Fprintf(os.Stdout, "Response from `ServiceApiApi.GetOrphans`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceApiAPI.GetOrphans(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.GetOrphans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrphans`: OrphanServiceResponse
+	fmt.Fprintf(os.Stdout, "Response from `ServiceApiAPI.GetOrphans`: %v\n", resp)
 }
 ```
 
@@ -366,26 +366,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    moveServiceRequest := *openapiclient.NewMoveServiceRequest(int64(123), int64(123), int64(123), int64(123)) // MoveServiceRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	moveServiceRequest := *openapiclient.NewMoveServiceRequest(int64(123), int64(123), int64(123), int64(123)) // MoveServiceRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.MoveService(context.Background()).MoveServiceRequest(moveServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.MoveService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `MoveService`: ServiceInstanceManagementResponse
-    fmt.Fprintf(os.Stdout, "Response from `ServiceApiApi.MoveService`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ServiceApiAPI.MoveService(context.Background()).MoveServiceRequest(moveServiceRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.MoveService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `MoveService`: ServiceInstanceManagementResponse
+	fmt.Fprintf(os.Stdout, "Response from `ServiceApiAPI.MoveService`: %v\n", resp)
 }
 ```
 
@@ -434,24 +434,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    removeOrphanRequest := *openapiclient.NewRemoveOrphanRequest(int64(123), int64(123)) // RemoveOrphanRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	removeOrphanRequest := *openapiclient.NewRemoveOrphanRequest(int64(123), int64(123)) // RemoveOrphanRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ServiceApiApi.RemoveOrphanService(context.Background()).RemoveOrphanRequest(removeOrphanRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiApi.RemoveOrphanService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ServiceApiAPI.RemoveOrphanService(context.Background()).RemoveOrphanRequest(removeOrphanRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceApiAPI.RemoveOrphanService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

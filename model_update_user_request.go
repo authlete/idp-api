@@ -11,15 +11,22 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateUserRequest{}
 
 // UpdateUserRequest struct for UpdateUserRequest
 type UpdateUserRequest struct {
-	Email string `json:"email"`
-	GivenName *string `json:"givenName,omitempty"`
+	Email      string  `json:"email"`
+	GivenName  *string `json:"givenName,omitempty"`
 	FamilyName *string `json:"familyName,omitempty"`
 }
+
+type _UpdateUserRequest UpdateUserRequest
 
 // NewUpdateUserRequest instantiates a new UpdateUserRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -53,7 +60,7 @@ func (o *UpdateUserRequest) GetEmail() string {
 // and a boolean to check if the value has been set.
 func (o *UpdateUserRequest) GetEmailOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Email, true
 }
@@ -65,7 +72,7 @@ func (o *UpdateUserRequest) SetEmail(v string) {
 
 // GetGivenName returns the GivenName field value if set, zero value otherwise.
 func (o *UpdateUserRequest) GetGivenName() string {
-	if o == nil || isNil(o.GivenName) {
+	if o == nil || IsNil(o.GivenName) {
 		var ret string
 		return ret
 	}
@@ -75,15 +82,15 @@ func (o *UpdateUserRequest) GetGivenName() string {
 // GetGivenNameOk returns a tuple with the GivenName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateUserRequest) GetGivenNameOk() (*string, bool) {
-	if o == nil || isNil(o.GivenName) {
-    return nil, false
+	if o == nil || IsNil(o.GivenName) {
+		return nil, false
 	}
 	return o.GivenName, true
 }
 
 // HasGivenName returns a boolean if a field has been set.
 func (o *UpdateUserRequest) HasGivenName() bool {
-	if o != nil && !isNil(o.GivenName) {
+	if o != nil && !IsNil(o.GivenName) {
 		return true
 	}
 
@@ -97,7 +104,7 @@ func (o *UpdateUserRequest) SetGivenName(v string) {
 
 // GetFamilyName returns the FamilyName field value if set, zero value otherwise.
 func (o *UpdateUserRequest) GetFamilyName() string {
-	if o == nil || isNil(o.FamilyName) {
+	if o == nil || IsNil(o.FamilyName) {
 		var ret string
 		return ret
 	}
@@ -107,15 +114,15 @@ func (o *UpdateUserRequest) GetFamilyName() string {
 // GetFamilyNameOk returns a tuple with the FamilyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateUserRequest) GetFamilyNameOk() (*string, bool) {
-	if o == nil || isNil(o.FamilyName) {
-    return nil, false
+	if o == nil || IsNil(o.FamilyName) {
+		return nil, false
 	}
 	return o.FamilyName, true
 }
 
 // HasFamilyName returns a boolean if a field has been set.
 func (o *UpdateUserRequest) HasFamilyName() bool {
-	if o != nil && !isNil(o.FamilyName) {
+	if o != nil && !IsNil(o.FamilyName) {
 		return true
 	}
 
@@ -128,17 +135,60 @@ func (o *UpdateUserRequest) SetFamilyName(v string) {
 }
 
 func (o UpdateUserRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if !isNil(o.GivenName) {
-		toSerialize["givenName"] = o.GivenName
-	}
-	if !isNil(o.FamilyName) {
-		toSerialize["familyName"] = o.FamilyName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateUserRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["email"] = o.Email
+	if !IsNil(o.GivenName) {
+		toSerialize["givenName"] = o.GivenName
+	}
+	if !IsNil(o.FamilyName) {
+		toSerialize["familyName"] = o.FamilyName
+	}
+	return toSerialize, nil
+}
+
+func (o *UpdateUserRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateUserRequest := _UpdateUserRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUpdateUserRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateUserRequest(varUpdateUserRequest)
+
+	return err
 }
 
 type NullableUpdateUserRequest struct {
@@ -176,5 +226,3 @@ func (v *NullableUpdateUserRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

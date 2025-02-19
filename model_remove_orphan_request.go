@@ -11,14 +11,21 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RemoveOrphanRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RemoveOrphanRequest{}
 
 // RemoveOrphanRequest struct for RemoveOrphanRequest
 type RemoveOrphanRequest struct {
 	ApiServerId int64 `json:"apiServerId"`
-	ServiceId int64 `json:"serviceId"`
+	ServiceId   int64 `json:"serviceId"`
 }
+
+type _RemoveOrphanRequest RemoveOrphanRequest
 
 // NewRemoveOrphanRequest instantiates a new RemoveOrphanRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -53,7 +60,7 @@ func (o *RemoveOrphanRequest) GetApiServerId() int64 {
 // and a boolean to check if the value has been set.
 func (o *RemoveOrphanRequest) GetApiServerIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerId, true
 }
@@ -77,7 +84,7 @@ func (o *RemoveOrphanRequest) GetServiceId() int64 {
 // and a boolean to check if the value has been set.
 func (o *RemoveOrphanRequest) GetServiceIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ServiceId, true
 }
@@ -88,14 +95,56 @@ func (o *RemoveOrphanRequest) SetServiceId(v int64) {
 }
 
 func (o RemoveOrphanRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if true {
-		toSerialize["serviceId"] = o.ServiceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RemoveOrphanRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["apiServerId"] = o.ApiServerId
+	toSerialize["serviceId"] = o.ServiceId
+	return toSerialize, nil
+}
+
+func (o *RemoveOrphanRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"apiServerId",
+		"serviceId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRemoveOrphanRequest := _RemoveOrphanRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRemoveOrphanRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RemoveOrphanRequest(varRemoveOrphanRequest)
+
+	return err
 }
 
 type NullableRemoveOrphanRequest struct {
@@ -133,5 +182,3 @@ func (v *NullableRemoveOrphanRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

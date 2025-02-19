@@ -13,18 +13,44 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type AuthorizeApiAPI interface {
 
-// AuthorizeApiApiService AuthorizeApiApi service
-type AuthorizeApiApiService service
+	/*
+		GetCurrentAuthorizationResponse Method for GetCurrentAuthorizationResponse
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetCurrentAuthorizationResponseRequest
+	*/
+	GetCurrentAuthorizationResponse(ctx context.Context) ApiGetCurrentAuthorizationResponseRequest
+
+	// GetCurrentAuthorizationResponseExecute executes the request
+	//  @return PendingAuthorization
+	GetCurrentAuthorizationResponseExecute(r ApiGetCurrentAuthorizationResponseRequest) (*PendingAuthorization, *http.Response, error)
+
+	/*
+		SubmitUserDecision Method for SubmitUserDecision
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiSubmitUserDecisionRequest
+	*/
+	SubmitUserDecision(ctx context.Context) ApiSubmitUserDecisionRequest
+
+	// SubmitUserDecisionExecute executes the request
+	//  @return map[string]interface{}
+	SubmitUserDecisionExecute(r ApiSubmitUserDecisionRequest) (map[string]interface{}, *http.Response, error)
+}
+
+// AuthorizeApiAPIService AuthorizeApiAPI service
+type AuthorizeApiAPIService service
 
 type ApiGetCurrentAuthorizationResponseRequest struct {
-	ctx context.Context
-	ApiService *AuthorizeApiApiService
+	ctx        context.Context
+	ApiService AuthorizeApiAPI
 }
 
 func (r ApiGetCurrentAuthorizationResponseRequest) Execute() (*PendingAuthorization, *http.Response, error) {
@@ -34,27 +60,28 @@ func (r ApiGetCurrentAuthorizationResponseRequest) Execute() (*PendingAuthorizat
 /*
 GetCurrentAuthorizationResponse Method for GetCurrentAuthorizationResponse
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCurrentAuthorizationResponseRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCurrentAuthorizationResponseRequest
 */
-func (a *AuthorizeApiApiService) GetCurrentAuthorizationResponse(ctx context.Context) ApiGetCurrentAuthorizationResponseRequest {
+func (a *AuthorizeApiAPIService) GetCurrentAuthorizationResponse(ctx context.Context) ApiGetCurrentAuthorizationResponseRequest {
 	return ApiGetCurrentAuthorizationResponseRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return PendingAuthorization
-func (a *AuthorizeApiApiService) GetCurrentAuthorizationResponseExecute(r ApiGetCurrentAuthorizationResponseRequest) (*PendingAuthorization, *http.Response, error) {
+//
+//	@return PendingAuthorization
+func (a *AuthorizeApiAPIService) GetCurrentAuthorizationResponseExecute(r ApiGetCurrentAuthorizationResponseRequest) (*PendingAuthorization, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PendingAuthorization
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PendingAuthorization
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizeApiApiService.GetCurrentAuthorizationResponse")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizeApiAPIService.GetCurrentAuthorizationResponse")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -92,9 +119,9 @@ func (a *AuthorizeApiApiService) GetCurrentAuthorizationResponseExecute(r ApiGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -120,9 +147,9 @@ func (a *AuthorizeApiApiService) GetCurrentAuthorizationResponseExecute(r ApiGet
 }
 
 type ApiSubmitUserDecisionRequest struct {
-	ctx context.Context
-	ApiService *AuthorizeApiApiService
-	approval *Approval
+	ctx        context.Context
+	ApiService AuthorizeApiAPI
+	approval   *Approval
 }
 
 func (r ApiSubmitUserDecisionRequest) Approval(approval Approval) ApiSubmitUserDecisionRequest {
@@ -137,27 +164,28 @@ func (r ApiSubmitUserDecisionRequest) Execute() (map[string]interface{}, *http.R
 /*
 SubmitUserDecision Method for SubmitUserDecision
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSubmitUserDecisionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSubmitUserDecisionRequest
 */
-func (a *AuthorizeApiApiService) SubmitUserDecision(ctx context.Context) ApiSubmitUserDecisionRequest {
+func (a *AuthorizeApiAPIService) SubmitUserDecision(ctx context.Context) ApiSubmitUserDecisionRequest {
 	return ApiSubmitUserDecisionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *AuthorizeApiApiService) SubmitUserDecisionExecute(r ApiSubmitUserDecisionRequest) (map[string]interface{}, *http.Response, error) {
+//
+//	@return map[string]interface{}
+func (a *AuthorizeApiAPIService) SubmitUserDecisionExecute(r ApiSubmitUserDecisionRequest) (map[string]interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizeApiApiService.SubmitUserDecision")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizeApiAPIService.SubmitUserDecision")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -200,9 +228,9 @@ func (a *AuthorizeApiApiService) SubmitUserDecisionExecute(r ApiSubmitUserDecisi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

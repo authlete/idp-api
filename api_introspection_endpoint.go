@@ -13,19 +13,39 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type IntrospectionEndpointAPI interface {
 
-// IntrospectionEndpointApiService IntrospectionEndpointApi service
-type IntrospectionEndpointApiService service
+	/*
+		Introspect Method for Introspect
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiIntrospectRequest
+	*/
+	Introspect(ctx context.Context) ApiIntrospectRequest
+
+	// IntrospectExecute executes the request
+	//  @return string
+	IntrospectExecute(r ApiIntrospectRequest) (string, *http.Response, error)
+}
+
+// IntrospectionEndpointAPIService IntrospectionEndpointAPI service
+type IntrospectionEndpointAPIService service
 
 type ApiIntrospectRequest struct {
-	ctx context.Context
-	ApiService *IntrospectionEndpointApiService
-	empty *bool
+	ctx        context.Context
+	ApiService IntrospectionEndpointAPI
+	all        *map[string]string
+	empty      *bool
+}
+
+func (r ApiIntrospectRequest) All(all map[string]string) ApiIntrospectRequest {
+	r.all = &all
+	return r
 }
 
 func (r ApiIntrospectRequest) Empty(empty bool) ApiIntrospectRequest {
@@ -40,27 +60,28 @@ func (r ApiIntrospectRequest) Execute() (string, *http.Response, error) {
 /*
 Introspect Method for Introspect
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiIntrospectRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiIntrospectRequest
 */
-func (a *IntrospectionEndpointApiService) Introspect(ctx context.Context) ApiIntrospectRequest {
+func (a *IntrospectionEndpointAPIService) Introspect(ctx context.Context) ApiIntrospectRequest {
 	return ApiIntrospectRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *IntrospectionEndpointApiService) IntrospectExecute(r ApiIntrospectRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *IntrospectionEndpointAPIService) IntrospectExecute(r ApiIntrospectRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntrospectionEndpointApiService.Introspect")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntrospectionEndpointAPIService.Introspect")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -88,8 +109,11 @@ func (a *IntrospectionEndpointApiService) IntrospectExecute(r ApiIntrospectReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.all != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "all", r.all, "", "")
+	}
 	if r.empty != nil {
-		localVarFormParams.Add("empty", parameterToString(*r.empty, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "empty", r.empty, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -101,9 +125,9 @@ func (a *IntrospectionEndpointApiService) IntrospectExecute(r ApiIntrospectReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

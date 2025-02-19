@@ -14,16 +14,19 @@ import (
 	"encoding/json"
 )
 
+// checks if the GoogleAuthenticatorConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GoogleAuthenticatorConfig{}
+
 // GoogleAuthenticatorConfig struct for GoogleAuthenticatorConfig
 type GoogleAuthenticatorConfig struct {
-	TimeStepSizeInMillis *int64 `json:"timeStepSizeInMillis,omitempty"`
-	WindowSize *int32 `json:"windowSize,omitempty"`
-	CodeDigits *int32 `json:"codeDigits,omitempty"`
-	NumberOfScratchCodes *int32 `json:"numberOfScratchCodes,omitempty"`
-	KeyModulus *int32 `json:"keyModulus,omitempty"`
-	SecretBits *int32 `json:"secretBits,omitempty"`
-	KeyRepresentation *string `json:"keyRepresentation,omitempty"`
-	HmacHashFunction *string `json:"hmacHashFunction,omitempty"`
+	TimeStepSizeInMillis *int64  `json:"timeStepSizeInMillis,omitempty"`
+	WindowSize           *int32  `json:"windowSize,omitempty"`
+	CodeDigits           *int32  `json:"codeDigits,omitempty"`
+	NumberOfScratchCodes *int32  `json:"numberOfScratchCodes,omitempty"`
+	KeyModulus           *int32  `json:"keyModulus,omitempty"`
+	SecretBits           *int32  `json:"secretBits,omitempty"`
+	KeyRepresentation    *string `json:"keyRepresentation,omitempty"`
+	HmacHashFunction     *string `json:"hmacHashFunction,omitempty"`
 }
 
 // NewGoogleAuthenticatorConfig instantiates a new GoogleAuthenticatorConfig object
@@ -45,7 +48,7 @@ func NewGoogleAuthenticatorConfigWithDefaults() *GoogleAuthenticatorConfig {
 
 // GetTimeStepSizeInMillis returns the TimeStepSizeInMillis field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetTimeStepSizeInMillis() int64 {
-	if o == nil || isNil(o.TimeStepSizeInMillis) {
+	if o == nil || IsNil(o.TimeStepSizeInMillis) {
 		var ret int64
 		return ret
 	}
@@ -55,15 +58,15 @@ func (o *GoogleAuthenticatorConfig) GetTimeStepSizeInMillis() int64 {
 // GetTimeStepSizeInMillisOk returns a tuple with the TimeStepSizeInMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetTimeStepSizeInMillisOk() (*int64, bool) {
-	if o == nil || isNil(o.TimeStepSizeInMillis) {
-    return nil, false
+	if o == nil || IsNil(o.TimeStepSizeInMillis) {
+		return nil, false
 	}
 	return o.TimeStepSizeInMillis, true
 }
 
 // HasTimeStepSizeInMillis returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasTimeStepSizeInMillis() bool {
-	if o != nil && !isNil(o.TimeStepSizeInMillis) {
+	if o != nil && !IsNil(o.TimeStepSizeInMillis) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *GoogleAuthenticatorConfig) SetTimeStepSizeInMillis(v int64) {
 
 // GetWindowSize returns the WindowSize field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetWindowSize() int32 {
-	if o == nil || isNil(o.WindowSize) {
+	if o == nil || IsNil(o.WindowSize) {
 		var ret int32
 		return ret
 	}
@@ -87,15 +90,15 @@ func (o *GoogleAuthenticatorConfig) GetWindowSize() int32 {
 // GetWindowSizeOk returns a tuple with the WindowSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetWindowSizeOk() (*int32, bool) {
-	if o == nil || isNil(o.WindowSize) {
-    return nil, false
+	if o == nil || IsNil(o.WindowSize) {
+		return nil, false
 	}
 	return o.WindowSize, true
 }
 
 // HasWindowSize returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasWindowSize() bool {
-	if o != nil && !isNil(o.WindowSize) {
+	if o != nil && !IsNil(o.WindowSize) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *GoogleAuthenticatorConfig) SetWindowSize(v int32) {
 
 // GetCodeDigits returns the CodeDigits field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetCodeDigits() int32 {
-	if o == nil || isNil(o.CodeDigits) {
+	if o == nil || IsNil(o.CodeDigits) {
 		var ret int32
 		return ret
 	}
@@ -119,15 +122,15 @@ func (o *GoogleAuthenticatorConfig) GetCodeDigits() int32 {
 // GetCodeDigitsOk returns a tuple with the CodeDigits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetCodeDigitsOk() (*int32, bool) {
-	if o == nil || isNil(o.CodeDigits) {
-    return nil, false
+	if o == nil || IsNil(o.CodeDigits) {
+		return nil, false
 	}
 	return o.CodeDigits, true
 }
 
 // HasCodeDigits returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasCodeDigits() bool {
-	if o != nil && !isNil(o.CodeDigits) {
+	if o != nil && !IsNil(o.CodeDigits) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *GoogleAuthenticatorConfig) SetCodeDigits(v int32) {
 
 // GetNumberOfScratchCodes returns the NumberOfScratchCodes field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetNumberOfScratchCodes() int32 {
-	if o == nil || isNil(o.NumberOfScratchCodes) {
+	if o == nil || IsNil(o.NumberOfScratchCodes) {
 		var ret int32
 		return ret
 	}
@@ -151,15 +154,15 @@ func (o *GoogleAuthenticatorConfig) GetNumberOfScratchCodes() int32 {
 // GetNumberOfScratchCodesOk returns a tuple with the NumberOfScratchCodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetNumberOfScratchCodesOk() (*int32, bool) {
-	if o == nil || isNil(o.NumberOfScratchCodes) {
-    return nil, false
+	if o == nil || IsNil(o.NumberOfScratchCodes) {
+		return nil, false
 	}
 	return o.NumberOfScratchCodes, true
 }
 
 // HasNumberOfScratchCodes returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasNumberOfScratchCodes() bool {
-	if o != nil && !isNil(o.NumberOfScratchCodes) {
+	if o != nil && !IsNil(o.NumberOfScratchCodes) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *GoogleAuthenticatorConfig) SetNumberOfScratchCodes(v int32) {
 
 // GetKeyModulus returns the KeyModulus field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetKeyModulus() int32 {
-	if o == nil || isNil(o.KeyModulus) {
+	if o == nil || IsNil(o.KeyModulus) {
 		var ret int32
 		return ret
 	}
@@ -183,15 +186,15 @@ func (o *GoogleAuthenticatorConfig) GetKeyModulus() int32 {
 // GetKeyModulusOk returns a tuple with the KeyModulus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetKeyModulusOk() (*int32, bool) {
-	if o == nil || isNil(o.KeyModulus) {
-    return nil, false
+	if o == nil || IsNil(o.KeyModulus) {
+		return nil, false
 	}
 	return o.KeyModulus, true
 }
 
 // HasKeyModulus returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasKeyModulus() bool {
-	if o != nil && !isNil(o.KeyModulus) {
+	if o != nil && !IsNil(o.KeyModulus) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *GoogleAuthenticatorConfig) SetKeyModulus(v int32) {
 
 // GetSecretBits returns the SecretBits field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetSecretBits() int32 {
-	if o == nil || isNil(o.SecretBits) {
+	if o == nil || IsNil(o.SecretBits) {
 		var ret int32
 		return ret
 	}
@@ -215,15 +218,15 @@ func (o *GoogleAuthenticatorConfig) GetSecretBits() int32 {
 // GetSecretBitsOk returns a tuple with the SecretBits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetSecretBitsOk() (*int32, bool) {
-	if o == nil || isNil(o.SecretBits) {
-    return nil, false
+	if o == nil || IsNil(o.SecretBits) {
+		return nil, false
 	}
 	return o.SecretBits, true
 }
 
 // HasSecretBits returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasSecretBits() bool {
-	if o != nil && !isNil(o.SecretBits) {
+	if o != nil && !IsNil(o.SecretBits) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *GoogleAuthenticatorConfig) SetSecretBits(v int32) {
 
 // GetKeyRepresentation returns the KeyRepresentation field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetKeyRepresentation() string {
-	if o == nil || isNil(o.KeyRepresentation) {
+	if o == nil || IsNil(o.KeyRepresentation) {
 		var ret string
 		return ret
 	}
@@ -247,15 +250,15 @@ func (o *GoogleAuthenticatorConfig) GetKeyRepresentation() string {
 // GetKeyRepresentationOk returns a tuple with the KeyRepresentation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetKeyRepresentationOk() (*string, bool) {
-	if o == nil || isNil(o.KeyRepresentation) {
-    return nil, false
+	if o == nil || IsNil(o.KeyRepresentation) {
+		return nil, false
 	}
 	return o.KeyRepresentation, true
 }
 
 // HasKeyRepresentation returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasKeyRepresentation() bool {
-	if o != nil && !isNil(o.KeyRepresentation) {
+	if o != nil && !IsNil(o.KeyRepresentation) {
 		return true
 	}
 
@@ -269,7 +272,7 @@ func (o *GoogleAuthenticatorConfig) SetKeyRepresentation(v string) {
 
 // GetHmacHashFunction returns the HmacHashFunction field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorConfig) GetHmacHashFunction() string {
-	if o == nil || isNil(o.HmacHashFunction) {
+	if o == nil || IsNil(o.HmacHashFunction) {
 		var ret string
 		return ret
 	}
@@ -279,15 +282,15 @@ func (o *GoogleAuthenticatorConfig) GetHmacHashFunction() string {
 // GetHmacHashFunctionOk returns a tuple with the HmacHashFunction field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorConfig) GetHmacHashFunctionOk() (*string, bool) {
-	if o == nil || isNil(o.HmacHashFunction) {
-    return nil, false
+	if o == nil || IsNil(o.HmacHashFunction) {
+		return nil, false
 	}
 	return o.HmacHashFunction, true
 }
 
 // HasHmacHashFunction returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorConfig) HasHmacHashFunction() bool {
-	if o != nil && !isNil(o.HmacHashFunction) {
+	if o != nil && !IsNil(o.HmacHashFunction) {
 		return true
 	}
 
@@ -300,32 +303,40 @@ func (o *GoogleAuthenticatorConfig) SetHmacHashFunction(v string) {
 }
 
 func (o GoogleAuthenticatorConfig) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.TimeStepSizeInMillis) {
-		toSerialize["timeStepSizeInMillis"] = o.TimeStepSizeInMillis
-	}
-	if !isNil(o.WindowSize) {
-		toSerialize["windowSize"] = o.WindowSize
-	}
-	if !isNil(o.CodeDigits) {
-		toSerialize["codeDigits"] = o.CodeDigits
-	}
-	if !isNil(o.NumberOfScratchCodes) {
-		toSerialize["numberOfScratchCodes"] = o.NumberOfScratchCodes
-	}
-	if !isNil(o.KeyModulus) {
-		toSerialize["keyModulus"] = o.KeyModulus
-	}
-	if !isNil(o.SecretBits) {
-		toSerialize["secretBits"] = o.SecretBits
-	}
-	if !isNil(o.KeyRepresentation) {
-		toSerialize["keyRepresentation"] = o.KeyRepresentation
-	}
-	if !isNil(o.HmacHashFunction) {
-		toSerialize["hmacHashFunction"] = o.HmacHashFunction
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GoogleAuthenticatorConfig) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TimeStepSizeInMillis) {
+		toSerialize["timeStepSizeInMillis"] = o.TimeStepSizeInMillis
+	}
+	if !IsNil(o.WindowSize) {
+		toSerialize["windowSize"] = o.WindowSize
+	}
+	if !IsNil(o.CodeDigits) {
+		toSerialize["codeDigits"] = o.CodeDigits
+	}
+	if !IsNil(o.NumberOfScratchCodes) {
+		toSerialize["numberOfScratchCodes"] = o.NumberOfScratchCodes
+	}
+	if !IsNil(o.KeyModulus) {
+		toSerialize["keyModulus"] = o.KeyModulus
+	}
+	if !IsNil(o.SecretBits) {
+		toSerialize["secretBits"] = o.SecretBits
+	}
+	if !IsNil(o.KeyRepresentation) {
+		toSerialize["keyRepresentation"] = o.KeyRepresentation
+	}
+	if !IsNil(o.HmacHashFunction) {
+		toSerialize["hmacHashFunction"] = o.HmacHashFunction
+	}
+	return toSerialize, nil
 }
 
 type NullableGoogleAuthenticatorConfig struct {
@@ -363,5 +374,3 @@ func (v *NullableGoogleAuthenticatorConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

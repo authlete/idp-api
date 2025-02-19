@@ -1,11 +1,11 @@
-# \AuthorizeApiApi
+# \AuthorizeApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetCurrentAuthorizationResponse**](AuthorizeApiApi.md#GetCurrentAuthorizationResponse) | **Get** /api/authorize | 
-[**SubmitUserDecision**](AuthorizeApiApi.md#SubmitUserDecision) | **Post** /api/authorize | 
+[**GetCurrentAuthorizationResponse**](AuthorizeApiAPI.md#GetCurrentAuthorizationResponse) | **Get** /api/authorize | 
+[**SubmitUserDecision**](AuthorizeApiAPI.md#SubmitUserDecision) | **Post** /api/authorize | 
 
 
 
@@ -21,23 +21,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizeApiApi.GetCurrentAuthorizationResponse(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizeApiApi.GetCurrentAuthorizationResponse``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCurrentAuthorizationResponse`: PendingAuthorization
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizeApiApi.GetCurrentAuthorizationResponse`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizeApiAPI.GetCurrentAuthorizationResponse(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizeApiAPI.GetCurrentAuthorizationResponse``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCurrentAuthorizationResponse`: PendingAuthorization
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizeApiAPI.GetCurrentAuthorizationResponse`: %v\n", resp)
 }
 ```
 
@@ -80,24 +80,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    approval := *openapiclient.NewApproval(false, "Ticket_example") // Approval | 
+	approval := *openapiclient.NewApproval(false, "Ticket_example") // Approval | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizeApiApi.SubmitUserDecision(context.Background()).Approval(approval).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizeApiApi.SubmitUserDecision``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SubmitUserDecision`: map[string]interface{}
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizeApiApi.SubmitUserDecision`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizeApiAPI.SubmitUserDecision(context.Background()).Approval(approval).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizeApiAPI.SubmitUserDecision``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SubmitUserDecision`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizeApiAPI.SubmitUserDecision`: %v\n", resp)
 }
 ```
 

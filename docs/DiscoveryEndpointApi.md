@@ -1,10 +1,10 @@
-# \DiscoveryEndpointApi
+# \DiscoveryEndpointAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetConfiguration**](DiscoveryEndpointApi.md#GetConfiguration) | **Get** /.well-known/openid-configuration | 
+[**GetConfiguration**](DiscoveryEndpointAPI.md#GetConfiguration) | **Get** /.well-known/openid-configuration | 
 
 
 
@@ -20,23 +20,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DiscoveryEndpointApi.GetConfiguration(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DiscoveryEndpointApi.GetConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetConfiguration`: string
-    fmt.Fprintf(os.Stdout, "Response from `DiscoveryEndpointApi.GetConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DiscoveryEndpointAPI.GetConfiguration(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DiscoveryEndpointAPI.GetConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetConfiguration`: string
+	fmt.Fprintf(os.Stdout, "Response from `DiscoveryEndpointAPI.GetConfiguration`: %v\n", resp)
 }
 ```
 

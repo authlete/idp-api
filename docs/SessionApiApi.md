@@ -1,13 +1,13 @@
-# \SessionApiApi
+# \SessionApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AccountCheck**](SessionApiApi.md#AccountCheck) | **Get** /session/{email} | 
-[**GetCurrentUser**](SessionApiApi.md#GetCurrentUser) | **Get** /session/current | 
-[**LogIn**](SessionApiApi.md#LogIn) | **Post** /session/login | 
-[**LogOut**](SessionApiApi.md#LogOut) | **Delete** /session/logout | 
+[**AccountCheck**](SessionApiAPI.md#AccountCheck) | **Get** /session/{email} | 
+[**GetCurrentUser**](SessionApiAPI.md#GetCurrentUser) | **Get** /session/current | 
+[**LogIn**](SessionApiAPI.md#LogIn) | **Post** /session/login | 
+[**LogOut**](SessionApiAPI.md#LogOut) | **Delete** /session/logout | 
 
 
 
@@ -23,24 +23,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    email := "email_example" // string | 
+	email := "email_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionApiApi.AccountCheck(context.Background(), email).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionApiApi.AccountCheck``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AccountCheck`: LogInResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionApiApi.AccountCheck`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionApiAPI.AccountCheck(context.Background(), email).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionApiAPI.AccountCheck``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AccountCheck`: LogInResponse
+	fmt.Fprintf(os.Stdout, "Response from `SessionApiAPI.AccountCheck`: %v\n", resp)
 }
 ```
 
@@ -91,23 +91,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionApiApi.GetCurrentUser(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionApiApi.GetCurrentUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCurrentUser`: LogInResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionApiApi.GetCurrentUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionApiAPI.GetCurrentUser(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionApiAPI.GetCurrentUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCurrentUser`: LogInResponse
+	fmt.Fprintf(os.Stdout, "Response from `SessionApiAPI.GetCurrentUser`: %v\n", resp)
 }
 ```
 
@@ -150,24 +150,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    logInRequest := *openapiclient.NewLogInRequest("Username_example", "Password_example") // LogInRequest | 
+	logInRequest := *openapiclient.NewLogInRequest("Username_example", "Password_example") // LogInRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionApiApi.LogIn(context.Background()).LogInRequest(logInRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionApiApi.LogIn``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `LogIn`: LogInResponse
-    fmt.Fprintf(os.Stdout, "Response from `SessionApiApi.LogIn`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SessionApiAPI.LogIn(context.Background()).LogInRequest(logInRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionApiAPI.LogIn``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `LogIn`: LogInResponse
+	fmt.Fprintf(os.Stdout, "Response from `SessionApiAPI.LogIn`: %v\n", resp)
 }
 ```
 
@@ -214,21 +214,21 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SessionApiApi.LogOut(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SessionApiApi.LogOut``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SessionApiAPI.LogOut(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SessionApiAPI.LogOut``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

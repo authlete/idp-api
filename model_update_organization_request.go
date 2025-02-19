@@ -11,14 +11,21 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateOrganizationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateOrganizationRequest{}
 
 // UpdateOrganizationRequest struct for UpdateOrganizationRequest
 type UpdateOrganizationRequest struct {
 	Plan *string `json:"plan,omitempty"`
-	Name string `json:"name"`
+	Name string  `json:"name"`
 }
+
+type _UpdateOrganizationRequest UpdateOrganizationRequest
 
 // NewUpdateOrganizationRequest instantiates a new UpdateOrganizationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -40,7 +47,7 @@ func NewUpdateOrganizationRequestWithDefaults() *UpdateOrganizationRequest {
 
 // GetPlan returns the Plan field value if set, zero value otherwise.
 func (o *UpdateOrganizationRequest) GetPlan() string {
-	if o == nil || isNil(o.Plan) {
+	if o == nil || IsNil(o.Plan) {
 		var ret string
 		return ret
 	}
@@ -50,15 +57,15 @@ func (o *UpdateOrganizationRequest) GetPlan() string {
 // GetPlanOk returns a tuple with the Plan field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateOrganizationRequest) GetPlanOk() (*string, bool) {
-	if o == nil || isNil(o.Plan) {
-    return nil, false
+	if o == nil || IsNil(o.Plan) {
+		return nil, false
 	}
 	return o.Plan, true
 }
 
 // HasPlan returns a boolean if a field has been set.
 func (o *UpdateOrganizationRequest) HasPlan() bool {
-	if o != nil && !isNil(o.Plan) {
+	if o != nil && !IsNil(o.Plan) {
 		return true
 	}
 
@@ -84,7 +91,7 @@ func (o *UpdateOrganizationRequest) GetName() string {
 // and a boolean to check if the value has been set.
 func (o *UpdateOrganizationRequest) GetNameOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Name, true
 }
@@ -95,14 +102,57 @@ func (o *UpdateOrganizationRequest) SetName(v string) {
 }
 
 func (o UpdateOrganizationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Plan) {
-		toSerialize["plan"] = o.Plan
-	}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateOrganizationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Plan) {
+		toSerialize["plan"] = o.Plan
+	}
+	toSerialize["name"] = o.Name
+	return toSerialize, nil
+}
+
+func (o *UpdateOrganizationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateOrganizationRequest := _UpdateOrganizationRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUpdateOrganizationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateOrganizationRequest(varUpdateOrganizationRequest)
+
+	return err
 }
 
 type NullableUpdateOrganizationRequest struct {
@@ -140,5 +190,3 @@ func (v *NullableUpdateOrganizationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

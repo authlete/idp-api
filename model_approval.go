@@ -11,15 +11,22 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Approval type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Approval{}
 
 // Approval struct for Approval
 type Approval struct {
-	Approved bool `json:"approved"`
-	Ticket string `json:"ticket"`
-	Scopes []string `json:"scopes,omitempty"`
+	Approved bool     `json:"approved"`
+	Ticket   string   `json:"ticket"`
+	Scopes   []string `json:"scopes,omitempty"`
 }
+
+type _Approval Approval
 
 // NewApproval instantiates a new Approval object
 // This constructor will assign default values to properties that have it defined,
@@ -54,7 +61,7 @@ func (o *Approval) GetApproved() bool {
 // and a boolean to check if the value has been set.
 func (o *Approval) GetApprovedOk() (*bool, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Approved, true
 }
@@ -78,7 +85,7 @@ func (o *Approval) GetTicket() string {
 // and a boolean to check if the value has been set.
 func (o *Approval) GetTicketOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Ticket, true
 }
@@ -90,7 +97,7 @@ func (o *Approval) SetTicket(v string) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *Approval) GetScopes() []string {
-	if o == nil || isNil(o.Scopes) {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -100,15 +107,15 @@ func (o *Approval) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Approval) GetScopesOk() ([]string, bool) {
-	if o == nil || isNil(o.Scopes) {
-    return nil, false
+	if o == nil || IsNil(o.Scopes) {
+		return nil, false
 	}
 	return o.Scopes, true
 }
 
 // HasScopes returns a boolean if a field has been set.
 func (o *Approval) HasScopes() bool {
-	if o != nil && !isNil(o.Scopes) {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -121,17 +128,59 @@ func (o *Approval) SetScopes(v []string) {
 }
 
 func (o Approval) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["approved"] = o.Approved
-	}
-	if true {
-		toSerialize["ticket"] = o.Ticket
-	}
-	if !isNil(o.Scopes) {
-		toSerialize["scopes"] = o.Scopes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Approval) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["approved"] = o.Approved
+	toSerialize["ticket"] = o.Ticket
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
+	}
+	return toSerialize, nil
+}
+
+func (o *Approval) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"approved",
+		"ticket",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApproval := _Approval{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varApproval)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Approval(varApproval)
+
+	return err
 }
 
 type NullableApproval struct {
@@ -169,5 +218,3 @@ func (v *NullableApproval) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

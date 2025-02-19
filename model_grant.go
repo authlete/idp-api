@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the Grant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Grant{}
+
 // Grant struct for Grant
 type Grant struct {
-	Scopes []GrantScope `json:"scopes,omitempty"`
-	Claims []string `json:"claims,omitempty"`
+	Scopes               []GrantScope  `json:"scopes,omitempty"`
+	Claims               []string      `json:"claims,omitempty"`
 	AuthorizationDetails *AuthzDetails `json:"authorizationDetails,omitempty"`
 }
 
@@ -40,7 +43,7 @@ func NewGrantWithDefaults() *Grant {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *Grant) GetScopes() []GrantScope {
-	if o == nil || isNil(o.Scopes) {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []GrantScope
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *Grant) GetScopes() []GrantScope {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetScopesOk() ([]GrantScope, bool) {
-	if o == nil || isNil(o.Scopes) {
-    return nil, false
+	if o == nil || IsNil(o.Scopes) {
+		return nil, false
 	}
 	return o.Scopes, true
 }
 
 // HasScopes returns a boolean if a field has been set.
 func (o *Grant) HasScopes() bool {
-	if o != nil && !isNil(o.Scopes) {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *Grant) SetScopes(v []GrantScope) {
 
 // GetClaims returns the Claims field value if set, zero value otherwise.
 func (o *Grant) GetClaims() []string {
-	if o == nil || isNil(o.Claims) {
+	if o == nil || IsNil(o.Claims) {
 		var ret []string
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *Grant) GetClaims() []string {
 // GetClaimsOk returns a tuple with the Claims field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetClaimsOk() ([]string, bool) {
-	if o == nil || isNil(o.Claims) {
-    return nil, false
+	if o == nil || IsNil(o.Claims) {
+		return nil, false
 	}
 	return o.Claims, true
 }
 
 // HasClaims returns a boolean if a field has been set.
 func (o *Grant) HasClaims() bool {
-	if o != nil && !isNil(o.Claims) {
+	if o != nil && !IsNil(o.Claims) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *Grant) SetClaims(v []string) {
 
 // GetAuthorizationDetails returns the AuthorizationDetails field value if set, zero value otherwise.
 func (o *Grant) GetAuthorizationDetails() AuthzDetails {
-	if o == nil || isNil(o.AuthorizationDetails) {
+	if o == nil || IsNil(o.AuthorizationDetails) {
 		var ret AuthzDetails
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *Grant) GetAuthorizationDetails() AuthzDetails {
 // GetAuthorizationDetailsOk returns a tuple with the AuthorizationDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetAuthorizationDetailsOk() (*AuthzDetails, bool) {
-	if o == nil || isNil(o.AuthorizationDetails) {
-    return nil, false
+	if o == nil || IsNil(o.AuthorizationDetails) {
+		return nil, false
 	}
 	return o.AuthorizationDetails, true
 }
 
 // HasAuthorizationDetails returns a boolean if a field has been set.
 func (o *Grant) HasAuthorizationDetails() bool {
-	if o != nil && !isNil(o.AuthorizationDetails) {
+	if o != nil && !IsNil(o.AuthorizationDetails) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *Grant) SetAuthorizationDetails(v AuthzDetails) {
 }
 
 func (o Grant) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Scopes) {
-		toSerialize["scopes"] = o.Scopes
-	}
-	if !isNil(o.Claims) {
-		toSerialize["claims"] = o.Claims
-	}
-	if !isNil(o.AuthorizationDetails) {
-		toSerialize["authorizationDetails"] = o.AuthorizationDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Grant) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
+	}
+	if !IsNil(o.Claims) {
+		toSerialize["claims"] = o.Claims
+	}
+	if !IsNil(o.AuthorizationDetails) {
+		toSerialize["authorizationDetails"] = o.AuthorizationDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableGrant struct {
@@ -183,5 +194,3 @@ func (v *NullableGrant) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

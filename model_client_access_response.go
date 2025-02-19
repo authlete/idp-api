@@ -14,14 +14,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the ClientAccessResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClientAccessResponse{}
+
 // ClientAccessResponse struct for ClientAccessResponse
 type ClientAccessResponse struct {
-	ApiServerId *int64 `json:"apiServerId,omitempty"`
-	OrganizationId *int64 `json:"organizationId,omitempty"`
-	UserId *int64 `json:"userId,omitempty"`
-	ServiceId *int64 `json:"serviceId,omitempty"`
-	ClientId *int64 `json:"clientId,omitempty"`
-	Privileges []string `json:"privileges,omitempty"`
+	ApiServerId    *int64   `json:"apiServerId,omitempty"`
+	OrganizationId *int64   `json:"organizationId,omitempty"`
+	UserId         *int64   `json:"userId,omitempty"`
+	ServiceId      *int64   `json:"serviceId,omitempty"`
+	ClientId       *int64   `json:"clientId,omitempty"`
+	Privileges     []string `json:"privileges,omitempty"`
 }
 
 // NewClientAccessResponse instantiates a new ClientAccessResponse object
@@ -43,7 +46,7 @@ func NewClientAccessResponseWithDefaults() *ClientAccessResponse {
 
 // GetApiServerId returns the ApiServerId field value if set, zero value otherwise.
 func (o *ClientAccessResponse) GetApiServerId() int64 {
-	if o == nil || isNil(o.ApiServerId) {
+	if o == nil || IsNil(o.ApiServerId) {
 		var ret int64
 		return ret
 	}
@@ -53,15 +56,15 @@ func (o *ClientAccessResponse) GetApiServerId() int64 {
 // GetApiServerIdOk returns a tuple with the ApiServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ClientAccessResponse) GetApiServerIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiServerId) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerId) {
+		return nil, false
 	}
 	return o.ApiServerId, true
 }
 
 // HasApiServerId returns a boolean if a field has been set.
 func (o *ClientAccessResponse) HasApiServerId() bool {
-	if o != nil && !isNil(o.ApiServerId) {
+	if o != nil && !IsNil(o.ApiServerId) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *ClientAccessResponse) SetApiServerId(v int64) {
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *ClientAccessResponse) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -85,15 +88,15 @@ func (o *ClientAccessResponse) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ClientAccessResponse) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *ClientAccessResponse) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *ClientAccessResponse) SetOrganizationId(v int64) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *ClientAccessResponse) GetUserId() int64 {
-	if o == nil || isNil(o.UserId) {
+	if o == nil || IsNil(o.UserId) {
 		var ret int64
 		return ret
 	}
@@ -117,15 +120,15 @@ func (o *ClientAccessResponse) GetUserId() int64 {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ClientAccessResponse) GetUserIdOk() (*int64, bool) {
-	if o == nil || isNil(o.UserId) {
-    return nil, false
+	if o == nil || IsNil(o.UserId) {
+		return nil, false
 	}
 	return o.UserId, true
 }
 
 // HasUserId returns a boolean if a field has been set.
 func (o *ClientAccessResponse) HasUserId() bool {
-	if o != nil && !isNil(o.UserId) {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *ClientAccessResponse) SetUserId(v int64) {
 
 // GetServiceId returns the ServiceId field value if set, zero value otherwise.
 func (o *ClientAccessResponse) GetServiceId() int64 {
-	if o == nil || isNil(o.ServiceId) {
+	if o == nil || IsNil(o.ServiceId) {
 		var ret int64
 		return ret
 	}
@@ -149,15 +152,15 @@ func (o *ClientAccessResponse) GetServiceId() int64 {
 // GetServiceIdOk returns a tuple with the ServiceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ClientAccessResponse) GetServiceIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ServiceId) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceId) {
+		return nil, false
 	}
 	return o.ServiceId, true
 }
 
 // HasServiceId returns a boolean if a field has been set.
 func (o *ClientAccessResponse) HasServiceId() bool {
-	if o != nil && !isNil(o.ServiceId) {
+	if o != nil && !IsNil(o.ServiceId) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *ClientAccessResponse) SetServiceId(v int64) {
 
 // GetClientId returns the ClientId field value if set, zero value otherwise.
 func (o *ClientAccessResponse) GetClientId() int64 {
-	if o == nil || isNil(o.ClientId) {
+	if o == nil || IsNil(o.ClientId) {
 		var ret int64
 		return ret
 	}
@@ -181,15 +184,15 @@ func (o *ClientAccessResponse) GetClientId() int64 {
 // GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ClientAccessResponse) GetClientIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ClientId) {
-    return nil, false
+	if o == nil || IsNil(o.ClientId) {
+		return nil, false
 	}
 	return o.ClientId, true
 }
 
 // HasClientId returns a boolean if a field has been set.
 func (o *ClientAccessResponse) HasClientId() bool {
-	if o != nil && !isNil(o.ClientId) {
+	if o != nil && !IsNil(o.ClientId) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *ClientAccessResponse) SetClientId(v int64) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *ClientAccessResponse) GetPrivileges() []string {
-	if o == nil || isNil(o.Privileges) {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []string
 		return ret
 	}
@@ -213,15 +216,15 @@ func (o *ClientAccessResponse) GetPrivileges() []string {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ClientAccessResponse) GetPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.Privileges) {
-    return nil, false
+	if o == nil || IsNil(o.Privileges) {
+		return nil, false
 	}
 	return o.Privileges, true
 }
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *ClientAccessResponse) HasPrivileges() bool {
-	if o != nil && !isNil(o.Privileges) {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -234,26 +237,34 @@ func (o *ClientAccessResponse) SetPrivileges(v []string) {
 }
 
 func (o ClientAccessResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ApiServerId) {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.UserId) {
-		toSerialize["userId"] = o.UserId
-	}
-	if !isNil(o.ServiceId) {
-		toSerialize["serviceId"] = o.ServiceId
-	}
-	if !isNil(o.ClientId) {
-		toSerialize["clientId"] = o.ClientId
-	}
-	if !isNil(o.Privileges) {
-		toSerialize["privileges"] = o.Privileges
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ClientAccessResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApiServerId) {
+		toSerialize["apiServerId"] = o.ApiServerId
+	}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.UserId) {
+		toSerialize["userId"] = o.UserId
+	}
+	if !IsNil(o.ServiceId) {
+		toSerialize["serviceId"] = o.ServiceId
+	}
+	if !IsNil(o.ClientId) {
+		toSerialize["clientId"] = o.ClientId
+	}
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	return toSerialize, nil
 }
 
 type NullableClientAccessResponse struct {
@@ -291,5 +302,3 @@ func (v *NullableClientAccessResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

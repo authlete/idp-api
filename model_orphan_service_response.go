@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrphanServiceResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrphanServiceResponse{}
+
 // OrphanServiceResponse struct for OrphanServiceResponse
 type OrphanServiceResponse struct {
 	OnApiButNotOnIdp []OrphanService `json:"onApiButNotOnIdp,omitempty"`
@@ -39,7 +42,7 @@ func NewOrphanServiceResponseWithDefaults() *OrphanServiceResponse {
 
 // GetOnApiButNotOnIdp returns the OnApiButNotOnIdp field value if set, zero value otherwise.
 func (o *OrphanServiceResponse) GetOnApiButNotOnIdp() []OrphanService {
-	if o == nil || isNil(o.OnApiButNotOnIdp) {
+	if o == nil || IsNil(o.OnApiButNotOnIdp) {
 		var ret []OrphanService
 		return ret
 	}
@@ -49,15 +52,15 @@ func (o *OrphanServiceResponse) GetOnApiButNotOnIdp() []OrphanService {
 // GetOnApiButNotOnIdpOk returns a tuple with the OnApiButNotOnIdp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrphanServiceResponse) GetOnApiButNotOnIdpOk() ([]OrphanService, bool) {
-	if o == nil || isNil(o.OnApiButNotOnIdp) {
-    return nil, false
+	if o == nil || IsNil(o.OnApiButNotOnIdp) {
+		return nil, false
 	}
 	return o.OnApiButNotOnIdp, true
 }
 
 // HasOnApiButNotOnIdp returns a boolean if a field has been set.
 func (o *OrphanServiceResponse) HasOnApiButNotOnIdp() bool {
-	if o != nil && !isNil(o.OnApiButNotOnIdp) {
+	if o != nil && !IsNil(o.OnApiButNotOnIdp) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *OrphanServiceResponse) SetOnApiButNotOnIdp(v []OrphanService) {
 
 // GetOnIdPButNotOnApi returns the OnIdPButNotOnApi field value if set, zero value otherwise.
 func (o *OrphanServiceResponse) GetOnIdPButNotOnApi() []OrphanService {
-	if o == nil || isNil(o.OnIdPButNotOnApi) {
+	if o == nil || IsNil(o.OnIdPButNotOnApi) {
 		var ret []OrphanService
 		return ret
 	}
@@ -81,15 +84,15 @@ func (o *OrphanServiceResponse) GetOnIdPButNotOnApi() []OrphanService {
 // GetOnIdPButNotOnApiOk returns a tuple with the OnIdPButNotOnApi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrphanServiceResponse) GetOnIdPButNotOnApiOk() ([]OrphanService, bool) {
-	if o == nil || isNil(o.OnIdPButNotOnApi) {
-    return nil, false
+	if o == nil || IsNil(o.OnIdPButNotOnApi) {
+		return nil, false
 	}
 	return o.OnIdPButNotOnApi, true
 }
 
 // HasOnIdPButNotOnApi returns a boolean if a field has been set.
 func (o *OrphanServiceResponse) HasOnIdPButNotOnApi() bool {
-	if o != nil && !isNil(o.OnIdPButNotOnApi) {
+	if o != nil && !IsNil(o.OnIdPButNotOnApi) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *OrphanServiceResponse) SetOnIdPButNotOnApi(v []OrphanService) {
 }
 
 func (o OrphanServiceResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.OnApiButNotOnIdp) {
-		toSerialize["onApiButNotOnIdp"] = o.OnApiButNotOnIdp
-	}
-	if !isNil(o.OnIdPButNotOnApi) {
-		toSerialize["onIdPButNotOnApi"] = o.OnIdPButNotOnApi
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OrphanServiceResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OnApiButNotOnIdp) {
+		toSerialize["onApiButNotOnIdp"] = o.OnApiButNotOnIdp
+	}
+	if !IsNil(o.OnIdPButNotOnApi) {
+		toSerialize["onIdPButNotOnApi"] = o.OnIdPButNotOnApi
+	}
+	return toSerialize, nil
 }
 
 type NullableOrphanServiceResponse struct {
@@ -147,5 +158,3 @@ func (v *NullableOrphanServiceResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

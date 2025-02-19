@@ -11,16 +11,23 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LogInRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogInRequest{}
 
 // LogInRequest struct for LogInRequest
 type LogInRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Totp *int32 `json:"totp,omitempty"`
+	Username string                    `json:"username"`
+	Password string                    `json:"password"`
+	Totp     *int32                    `json:"totp,omitempty"`
 	Webauthn *WebAuthnChallengeRequest `json:"webauthn,omitempty"`
 }
+
+type _LogInRequest LogInRequest
 
 // NewLogInRequest instantiates a new LogInRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -55,7 +62,7 @@ func (o *LogInRequest) GetUsername() string {
 // and a boolean to check if the value has been set.
 func (o *LogInRequest) GetUsernameOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Username, true
 }
@@ -79,7 +86,7 @@ func (o *LogInRequest) GetPassword() string {
 // and a boolean to check if the value has been set.
 func (o *LogInRequest) GetPasswordOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Password, true
 }
@@ -91,7 +98,7 @@ func (o *LogInRequest) SetPassword(v string) {
 
 // GetTotp returns the Totp field value if set, zero value otherwise.
 func (o *LogInRequest) GetTotp() int32 {
-	if o == nil || isNil(o.Totp) {
+	if o == nil || IsNil(o.Totp) {
 		var ret int32
 		return ret
 	}
@@ -101,15 +108,15 @@ func (o *LogInRequest) GetTotp() int32 {
 // GetTotpOk returns a tuple with the Totp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInRequest) GetTotpOk() (*int32, bool) {
-	if o == nil || isNil(o.Totp) {
-    return nil, false
+	if o == nil || IsNil(o.Totp) {
+		return nil, false
 	}
 	return o.Totp, true
 }
 
 // HasTotp returns a boolean if a field has been set.
 func (o *LogInRequest) HasTotp() bool {
-	if o != nil && !isNil(o.Totp) {
+	if o != nil && !IsNil(o.Totp) {
 		return true
 	}
 
@@ -123,7 +130,7 @@ func (o *LogInRequest) SetTotp(v int32) {
 
 // GetWebauthn returns the Webauthn field value if set, zero value otherwise.
 func (o *LogInRequest) GetWebauthn() WebAuthnChallengeRequest {
-	if o == nil || isNil(o.Webauthn) {
+	if o == nil || IsNil(o.Webauthn) {
 		var ret WebAuthnChallengeRequest
 		return ret
 	}
@@ -133,15 +140,15 @@ func (o *LogInRequest) GetWebauthn() WebAuthnChallengeRequest {
 // GetWebauthnOk returns a tuple with the Webauthn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInRequest) GetWebauthnOk() (*WebAuthnChallengeRequest, bool) {
-	if o == nil || isNil(o.Webauthn) {
-    return nil, false
+	if o == nil || IsNil(o.Webauthn) {
+		return nil, false
 	}
 	return o.Webauthn, true
 }
 
 // HasWebauthn returns a boolean if a field has been set.
 func (o *LogInRequest) HasWebauthn() bool {
-	if o != nil && !isNil(o.Webauthn) {
+	if o != nil && !IsNil(o.Webauthn) {
 		return true
 	}
 
@@ -154,20 +161,62 @@ func (o *LogInRequest) SetWebauthn(v WebAuthnChallengeRequest) {
 }
 
 func (o LogInRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if !isNil(o.Totp) {
-		toSerialize["totp"] = o.Totp
-	}
-	if !isNil(o.Webauthn) {
-		toSerialize["webauthn"] = o.Webauthn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LogInRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["username"] = o.Username
+	toSerialize["password"] = o.Password
+	if !IsNil(o.Totp) {
+		toSerialize["totp"] = o.Totp
+	}
+	if !IsNil(o.Webauthn) {
+		toSerialize["webauthn"] = o.Webauthn
+	}
+	return toSerialize, nil
+}
+
+func (o *LogInRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"username",
+		"password",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLogInRequest := _LogInRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLogInRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LogInRequest(varLogInRequest)
+
+	return err
 }
 
 type NullableLogInRequest struct {
@@ -205,5 +254,3 @@ func (v *NullableLogInRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

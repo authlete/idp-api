@@ -14,14 +14,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the Hsk type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Hsk{}
+
 // Hsk struct for Hsk
 type Hsk struct {
-	Kty *string `json:"kty,omitempty"`
-	Use *string `json:"use,omitempty"`
-	Alg *string `json:"alg,omitempty"`
-	Kid *string `json:"kid,omitempty"`
-	HsmName *string `json:"hsmName,omitempty"`
-	Handle *string `json:"handle,omitempty"`
+	Kty       *string `json:"kty,omitempty"`
+	Use       *string `json:"use,omitempty"`
+	Alg       *string `json:"alg,omitempty"`
+	Kid       *string `json:"kid,omitempty"`
+	HsmName   *string `json:"hsmName,omitempty"`
+	Handle    *string `json:"handle,omitempty"`
 	PublicKey *string `json:"publicKey,omitempty"`
 }
 
@@ -44,7 +47,7 @@ func NewHskWithDefaults() *Hsk {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *Hsk) GetKty() string {
-	if o == nil || isNil(o.Kty) {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -54,15 +57,15 @@ func (o *Hsk) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetKtyOk() (*string, bool) {
-	if o == nil || isNil(o.Kty) {
-    return nil, false
+	if o == nil || IsNil(o.Kty) {
+		return nil, false
 	}
 	return o.Kty, true
 }
 
 // HasKty returns a boolean if a field has been set.
 func (o *Hsk) HasKty() bool {
-	if o != nil && !isNil(o.Kty) {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *Hsk) SetKty(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *Hsk) GetUse() string {
-	if o == nil || isNil(o.Use) {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -86,15 +89,15 @@ func (o *Hsk) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetUseOk() (*string, bool) {
-	if o == nil || isNil(o.Use) {
-    return nil, false
+	if o == nil || IsNil(o.Use) {
+		return nil, false
 	}
 	return o.Use, true
 }
 
 // HasUse returns a boolean if a field has been set.
 func (o *Hsk) HasUse() bool {
-	if o != nil && !isNil(o.Use) {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *Hsk) SetUse(v string) {
 
 // GetAlg returns the Alg field value if set, zero value otherwise.
 func (o *Hsk) GetAlg() string {
-	if o == nil || isNil(o.Alg) {
+	if o == nil || IsNil(o.Alg) {
 		var ret string
 		return ret
 	}
@@ -118,15 +121,15 @@ func (o *Hsk) GetAlg() string {
 // GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetAlgOk() (*string, bool) {
-	if o == nil || isNil(o.Alg) {
-    return nil, false
+	if o == nil || IsNil(o.Alg) {
+		return nil, false
 	}
 	return o.Alg, true
 }
 
 // HasAlg returns a boolean if a field has been set.
 func (o *Hsk) HasAlg() bool {
-	if o != nil && !isNil(o.Alg) {
+	if o != nil && !IsNil(o.Alg) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *Hsk) SetAlg(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *Hsk) GetKid() string {
-	if o == nil || isNil(o.Kid) {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -150,15 +153,15 @@ func (o *Hsk) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetKidOk() (*string, bool) {
-	if o == nil || isNil(o.Kid) {
-    return nil, false
+	if o == nil || IsNil(o.Kid) {
+		return nil, false
 	}
 	return o.Kid, true
 }
 
 // HasKid returns a boolean if a field has been set.
 func (o *Hsk) HasKid() bool {
-	if o != nil && !isNil(o.Kid) {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *Hsk) SetKid(v string) {
 
 // GetHsmName returns the HsmName field value if set, zero value otherwise.
 func (o *Hsk) GetHsmName() string {
-	if o == nil || isNil(o.HsmName) {
+	if o == nil || IsNil(o.HsmName) {
 		var ret string
 		return ret
 	}
@@ -182,15 +185,15 @@ func (o *Hsk) GetHsmName() string {
 // GetHsmNameOk returns a tuple with the HsmName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetHsmNameOk() (*string, bool) {
-	if o == nil || isNil(o.HsmName) {
-    return nil, false
+	if o == nil || IsNil(o.HsmName) {
+		return nil, false
 	}
 	return o.HsmName, true
 }
 
 // HasHsmName returns a boolean if a field has been set.
 func (o *Hsk) HasHsmName() bool {
-	if o != nil && !isNil(o.HsmName) {
+	if o != nil && !IsNil(o.HsmName) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *Hsk) SetHsmName(v string) {
 
 // GetHandle returns the Handle field value if set, zero value otherwise.
 func (o *Hsk) GetHandle() string {
-	if o == nil || isNil(o.Handle) {
+	if o == nil || IsNil(o.Handle) {
 		var ret string
 		return ret
 	}
@@ -214,15 +217,15 @@ func (o *Hsk) GetHandle() string {
 // GetHandleOk returns a tuple with the Handle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetHandleOk() (*string, bool) {
-	if o == nil || isNil(o.Handle) {
-    return nil, false
+	if o == nil || IsNil(o.Handle) {
+		return nil, false
 	}
 	return o.Handle, true
 }
 
 // HasHandle returns a boolean if a field has been set.
 func (o *Hsk) HasHandle() bool {
-	if o != nil && !isNil(o.Handle) {
+	if o != nil && !IsNil(o.Handle) {
 		return true
 	}
 
@@ -236,7 +239,7 @@ func (o *Hsk) SetHandle(v string) {
 
 // GetPublicKey returns the PublicKey field value if set, zero value otherwise.
 func (o *Hsk) GetPublicKey() string {
-	if o == nil || isNil(o.PublicKey) {
+	if o == nil || IsNil(o.PublicKey) {
 		var ret string
 		return ret
 	}
@@ -246,15 +249,15 @@ func (o *Hsk) GetPublicKey() string {
 // GetPublicKeyOk returns a tuple with the PublicKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Hsk) GetPublicKeyOk() (*string, bool) {
-	if o == nil || isNil(o.PublicKey) {
-    return nil, false
+	if o == nil || IsNil(o.PublicKey) {
+		return nil, false
 	}
 	return o.PublicKey, true
 }
 
 // HasPublicKey returns a boolean if a field has been set.
 func (o *Hsk) HasPublicKey() bool {
-	if o != nil && !isNil(o.PublicKey) {
+	if o != nil && !IsNil(o.PublicKey) {
 		return true
 	}
 
@@ -267,29 +270,37 @@ func (o *Hsk) SetPublicKey(v string) {
 }
 
 func (o Hsk) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Kty) {
-		toSerialize["kty"] = o.Kty
-	}
-	if !isNil(o.Use) {
-		toSerialize["use"] = o.Use
-	}
-	if !isNil(o.Alg) {
-		toSerialize["alg"] = o.Alg
-	}
-	if !isNil(o.Kid) {
-		toSerialize["kid"] = o.Kid
-	}
-	if !isNil(o.HsmName) {
-		toSerialize["hsmName"] = o.HsmName
-	}
-	if !isNil(o.Handle) {
-		toSerialize["handle"] = o.Handle
-	}
-	if !isNil(o.PublicKey) {
-		toSerialize["publicKey"] = o.PublicKey
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Hsk) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Kty) {
+		toSerialize["kty"] = o.Kty
+	}
+	if !IsNil(o.Use) {
+		toSerialize["use"] = o.Use
+	}
+	if !IsNil(o.Alg) {
+		toSerialize["alg"] = o.Alg
+	}
+	if !IsNil(o.Kid) {
+		toSerialize["kid"] = o.Kid
+	}
+	if !IsNil(o.HsmName) {
+		toSerialize["hsmName"] = o.HsmName
+	}
+	if !IsNil(o.Handle) {
+		toSerialize["handle"] = o.Handle
+	}
+	if !IsNil(o.PublicKey) {
+		toSerialize["publicKey"] = o.PublicKey
+	}
+	return toSerialize, nil
 }
 
 type NullableHsk struct {
@@ -327,5 +338,3 @@ func (v *NullableHsk) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

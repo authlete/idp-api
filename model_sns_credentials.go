@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SnsCredentials type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SnsCredentials{}
+
 // SnsCredentials struct for SnsCredentials
 type SnsCredentials struct {
-	Sns *string `json:"sns,omitempty"`
-	ApiKey *string `json:"apiKey,omitempty"`
+	Sns       *string `json:"sns,omitempty"`
+	ApiKey    *string `json:"apiKey,omitempty"`
 	ApiSecret *string `json:"apiSecret,omitempty"`
 }
 
@@ -40,7 +43,7 @@ func NewSnsCredentialsWithDefaults() *SnsCredentials {
 
 // GetSns returns the Sns field value if set, zero value otherwise.
 func (o *SnsCredentials) GetSns() string {
-	if o == nil || isNil(o.Sns) {
+	if o == nil || IsNil(o.Sns) {
 		var ret string
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *SnsCredentials) GetSns() string {
 // GetSnsOk returns a tuple with the Sns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SnsCredentials) GetSnsOk() (*string, bool) {
-	if o == nil || isNil(o.Sns) {
-    return nil, false
+	if o == nil || IsNil(o.Sns) {
+		return nil, false
 	}
 	return o.Sns, true
 }
 
 // HasSns returns a boolean if a field has been set.
 func (o *SnsCredentials) HasSns() bool {
-	if o != nil && !isNil(o.Sns) {
+	if o != nil && !IsNil(o.Sns) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *SnsCredentials) SetSns(v string) {
 
 // GetApiKey returns the ApiKey field value if set, zero value otherwise.
 func (o *SnsCredentials) GetApiKey() string {
-	if o == nil || isNil(o.ApiKey) {
+	if o == nil || IsNil(o.ApiKey) {
 		var ret string
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *SnsCredentials) GetApiKey() string {
 // GetApiKeyOk returns a tuple with the ApiKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SnsCredentials) GetApiKeyOk() (*string, bool) {
-	if o == nil || isNil(o.ApiKey) {
-    return nil, false
+	if o == nil || IsNil(o.ApiKey) {
+		return nil, false
 	}
 	return o.ApiKey, true
 }
 
 // HasApiKey returns a boolean if a field has been set.
 func (o *SnsCredentials) HasApiKey() bool {
-	if o != nil && !isNil(o.ApiKey) {
+	if o != nil && !IsNil(o.ApiKey) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *SnsCredentials) SetApiKey(v string) {
 
 // GetApiSecret returns the ApiSecret field value if set, zero value otherwise.
 func (o *SnsCredentials) GetApiSecret() string {
-	if o == nil || isNil(o.ApiSecret) {
+	if o == nil || IsNil(o.ApiSecret) {
 		var ret string
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *SnsCredentials) GetApiSecret() string {
 // GetApiSecretOk returns a tuple with the ApiSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SnsCredentials) GetApiSecretOk() (*string, bool) {
-	if o == nil || isNil(o.ApiSecret) {
-    return nil, false
+	if o == nil || IsNil(o.ApiSecret) {
+		return nil, false
 	}
 	return o.ApiSecret, true
 }
 
 // HasApiSecret returns a boolean if a field has been set.
 func (o *SnsCredentials) HasApiSecret() bool {
-	if o != nil && !isNil(o.ApiSecret) {
+	if o != nil && !IsNil(o.ApiSecret) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *SnsCredentials) SetApiSecret(v string) {
 }
 
 func (o SnsCredentials) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Sns) {
-		toSerialize["sns"] = o.Sns
-	}
-	if !isNil(o.ApiKey) {
-		toSerialize["apiKey"] = o.ApiKey
-	}
-	if !isNil(o.ApiSecret) {
-		toSerialize["apiSecret"] = o.ApiSecret
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SnsCredentials) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Sns) {
+		toSerialize["sns"] = o.Sns
+	}
+	if !IsNil(o.ApiKey) {
+		toSerialize["apiKey"] = o.ApiKey
+	}
+	if !IsNil(o.ApiSecret) {
+		toSerialize["apiSecret"] = o.ApiSecret
+	}
+	return toSerialize, nil
 }
 
 type NullableSnsCredentials struct {
@@ -183,5 +194,3 @@ func (v *NullableSnsCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

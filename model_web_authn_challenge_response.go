@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the WebAuthnChallengeResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebAuthnChallengeResponse{}
+
 // WebAuthnChallengeResponse struct for WebAuthnChallengeResponse
 type WebAuthnChallengeResponse struct {
-	Challenge *Challenge `json:"challenge,omitempty"`
-	Authenticators []string `json:"authenticators,omitempty"`
+	Challenge      *Challenge `json:"challenge,omitempty"`
+	Authenticators []string   `json:"authenticators,omitempty"`
 }
 
 // NewWebAuthnChallengeResponse instantiates a new WebAuthnChallengeResponse object
@@ -39,7 +42,7 @@ func NewWebAuthnChallengeResponseWithDefaults() *WebAuthnChallengeResponse {
 
 // GetChallenge returns the Challenge field value if set, zero value otherwise.
 func (o *WebAuthnChallengeResponse) GetChallenge() Challenge {
-	if o == nil || isNil(o.Challenge) {
+	if o == nil || IsNil(o.Challenge) {
 		var ret Challenge
 		return ret
 	}
@@ -49,15 +52,15 @@ func (o *WebAuthnChallengeResponse) GetChallenge() Challenge {
 // GetChallengeOk returns a tuple with the Challenge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeResponse) GetChallengeOk() (*Challenge, bool) {
-	if o == nil || isNil(o.Challenge) {
-    return nil, false
+	if o == nil || IsNil(o.Challenge) {
+		return nil, false
 	}
 	return o.Challenge, true
 }
 
 // HasChallenge returns a boolean if a field has been set.
 func (o *WebAuthnChallengeResponse) HasChallenge() bool {
-	if o != nil && !isNil(o.Challenge) {
+	if o != nil && !IsNil(o.Challenge) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *WebAuthnChallengeResponse) SetChallenge(v Challenge) {
 
 // GetAuthenticators returns the Authenticators field value if set, zero value otherwise.
 func (o *WebAuthnChallengeResponse) GetAuthenticators() []string {
-	if o == nil || isNil(o.Authenticators) {
+	if o == nil || IsNil(o.Authenticators) {
 		var ret []string
 		return ret
 	}
@@ -81,15 +84,15 @@ func (o *WebAuthnChallengeResponse) GetAuthenticators() []string {
 // GetAuthenticatorsOk returns a tuple with the Authenticators field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebAuthnChallengeResponse) GetAuthenticatorsOk() ([]string, bool) {
-	if o == nil || isNil(o.Authenticators) {
-    return nil, false
+	if o == nil || IsNil(o.Authenticators) {
+		return nil, false
 	}
 	return o.Authenticators, true
 }
 
 // HasAuthenticators returns a boolean if a field has been set.
 func (o *WebAuthnChallengeResponse) HasAuthenticators() bool {
-	if o != nil && !isNil(o.Authenticators) {
+	if o != nil && !IsNil(o.Authenticators) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *WebAuthnChallengeResponse) SetAuthenticators(v []string) {
 }
 
 func (o WebAuthnChallengeResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Challenge) {
-		toSerialize["challenge"] = o.Challenge
-	}
-	if !isNil(o.Authenticators) {
-		toSerialize["authenticators"] = o.Authenticators
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o WebAuthnChallengeResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Challenge) {
+		toSerialize["challenge"] = o.Challenge
+	}
+	if !IsNil(o.Authenticators) {
+		toSerialize["authenticators"] = o.Authenticators
+	}
+	return toSerialize, nil
 }
 
 type NullableWebAuthnChallengeResponse struct {
@@ -147,5 +158,3 @@ func (v *NullableWebAuthnChallengeResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

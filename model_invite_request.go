@@ -11,18 +11,25 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the InviteRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InviteRequest{}
 
 // InviteRequest struct for InviteRequest
 type InviteRequest struct {
-	OrganizationId int64 `json:"organizationId"`
-	Email string `json:"email"`
+	OrganizationId         int64    `json:"organizationId"`
+	Email                  string   `json:"email"`
 	OrganizationPrivileges []string `json:"organizationPrivileges,omitempty"`
-	ApiServerPrivileges []string `json:"apiServerPrivileges,omitempty"`
-	ServicePrivileges []string `json:"servicePrivileges,omitempty"`
-	ClientPrivileges []string `json:"clientPrivileges,omitempty"`
+	ApiServerPrivileges    []string `json:"apiServerPrivileges,omitempty"`
+	ServicePrivileges      []string `json:"servicePrivileges,omitempty"`
+	ClientPrivileges       []string `json:"clientPrivileges,omitempty"`
 }
+
+type _InviteRequest InviteRequest
 
 // NewInviteRequest instantiates a new InviteRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -57,7 +64,7 @@ func (o *InviteRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *InviteRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -81,7 +88,7 @@ func (o *InviteRequest) GetEmail() string {
 // and a boolean to check if the value has been set.
 func (o *InviteRequest) GetEmailOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Email, true
 }
@@ -93,7 +100,7 @@ func (o *InviteRequest) SetEmail(v string) {
 
 // GetOrganizationPrivileges returns the OrganizationPrivileges field value if set, zero value otherwise.
 func (o *InviteRequest) GetOrganizationPrivileges() []string {
-	if o == nil || isNil(o.OrganizationPrivileges) {
+	if o == nil || IsNil(o.OrganizationPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -103,15 +110,15 @@ func (o *InviteRequest) GetOrganizationPrivileges() []string {
 // GetOrganizationPrivilegesOk returns a tuple with the OrganizationPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InviteRequest) GetOrganizationPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.OrganizationPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationPrivileges) {
+		return nil, false
 	}
 	return o.OrganizationPrivileges, true
 }
 
 // HasOrganizationPrivileges returns a boolean if a field has been set.
 func (o *InviteRequest) HasOrganizationPrivileges() bool {
-	if o != nil && !isNil(o.OrganizationPrivileges) {
+	if o != nil && !IsNil(o.OrganizationPrivileges) {
 		return true
 	}
 
@@ -125,7 +132,7 @@ func (o *InviteRequest) SetOrganizationPrivileges(v []string) {
 
 // GetApiServerPrivileges returns the ApiServerPrivileges field value if set, zero value otherwise.
 func (o *InviteRequest) GetApiServerPrivileges() []string {
-	if o == nil || isNil(o.ApiServerPrivileges) {
+	if o == nil || IsNil(o.ApiServerPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -135,15 +142,15 @@ func (o *InviteRequest) GetApiServerPrivileges() []string {
 // GetApiServerPrivilegesOk returns a tuple with the ApiServerPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InviteRequest) GetApiServerPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.ApiServerPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerPrivileges) {
+		return nil, false
 	}
 	return o.ApiServerPrivileges, true
 }
 
 // HasApiServerPrivileges returns a boolean if a field has been set.
 func (o *InviteRequest) HasApiServerPrivileges() bool {
-	if o != nil && !isNil(o.ApiServerPrivileges) {
+	if o != nil && !IsNil(o.ApiServerPrivileges) {
 		return true
 	}
 
@@ -157,7 +164,7 @@ func (o *InviteRequest) SetApiServerPrivileges(v []string) {
 
 // GetServicePrivileges returns the ServicePrivileges field value if set, zero value otherwise.
 func (o *InviteRequest) GetServicePrivileges() []string {
-	if o == nil || isNil(o.ServicePrivileges) {
+	if o == nil || IsNil(o.ServicePrivileges) {
 		var ret []string
 		return ret
 	}
@@ -167,15 +174,15 @@ func (o *InviteRequest) GetServicePrivileges() []string {
 // GetServicePrivilegesOk returns a tuple with the ServicePrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InviteRequest) GetServicePrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.ServicePrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.ServicePrivileges) {
+		return nil, false
 	}
 	return o.ServicePrivileges, true
 }
 
 // HasServicePrivileges returns a boolean if a field has been set.
 func (o *InviteRequest) HasServicePrivileges() bool {
-	if o != nil && !isNil(o.ServicePrivileges) {
+	if o != nil && !IsNil(o.ServicePrivileges) {
 		return true
 	}
 
@@ -189,7 +196,7 @@ func (o *InviteRequest) SetServicePrivileges(v []string) {
 
 // GetClientPrivileges returns the ClientPrivileges field value if set, zero value otherwise.
 func (o *InviteRequest) GetClientPrivileges() []string {
-	if o == nil || isNil(o.ClientPrivileges) {
+	if o == nil || IsNil(o.ClientPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -199,15 +206,15 @@ func (o *InviteRequest) GetClientPrivileges() []string {
 // GetClientPrivilegesOk returns a tuple with the ClientPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InviteRequest) GetClientPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.ClientPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.ClientPrivileges) {
+		return nil, false
 	}
 	return o.ClientPrivileges, true
 }
 
 // HasClientPrivileges returns a boolean if a field has been set.
 func (o *InviteRequest) HasClientPrivileges() bool {
-	if o != nil && !isNil(o.ClientPrivileges) {
+	if o != nil && !IsNil(o.ClientPrivileges) {
 		return true
 	}
 
@@ -220,26 +227,68 @@ func (o *InviteRequest) SetClientPrivileges(v []string) {
 }
 
 func (o InviteRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if !isNil(o.OrganizationPrivileges) {
-		toSerialize["organizationPrivileges"] = o.OrganizationPrivileges
-	}
-	if !isNil(o.ApiServerPrivileges) {
-		toSerialize["apiServerPrivileges"] = o.ApiServerPrivileges
-	}
-	if !isNil(o.ServicePrivileges) {
-		toSerialize["servicePrivileges"] = o.ServicePrivileges
-	}
-	if !isNil(o.ClientPrivileges) {
-		toSerialize["clientPrivileges"] = o.ClientPrivileges
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o InviteRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["email"] = o.Email
+	if !IsNil(o.OrganizationPrivileges) {
+		toSerialize["organizationPrivileges"] = o.OrganizationPrivileges
+	}
+	if !IsNil(o.ApiServerPrivileges) {
+		toSerialize["apiServerPrivileges"] = o.ApiServerPrivileges
+	}
+	if !IsNil(o.ServicePrivileges) {
+		toSerialize["servicePrivileges"] = o.ServicePrivileges
+	}
+	if !IsNil(o.ClientPrivileges) {
+		toSerialize["clientPrivileges"] = o.ClientPrivileges
+	}
+	return toSerialize, nil
+}
+
+func (o *InviteRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organizationId",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInviteRequest := _InviteRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varInviteRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InviteRequest(varInviteRequest)
+
+	return err
 }
 
 type NullableInviteRequest struct {
@@ -277,5 +326,3 @@ func (v *NullableInviteRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

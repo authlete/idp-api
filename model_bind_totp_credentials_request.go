@@ -11,13 +11,20 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BindTotpCredentialsRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BindTotpCredentialsRequest{}
 
 // BindTotpCredentialsRequest struct for BindTotpCredentialsRequest
 type BindTotpCredentialsRequest struct {
 	Totp int32 `json:"totp"`
 }
+
+type _BindTotpCredentialsRequest BindTotpCredentialsRequest
 
 // NewBindTotpCredentialsRequest instantiates a new BindTotpCredentialsRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -51,7 +58,7 @@ func (o *BindTotpCredentialsRequest) GetTotp() int32 {
 // and a boolean to check if the value has been set.
 func (o *BindTotpCredentialsRequest) GetTotpOk() (*int32, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Totp, true
 }
@@ -62,11 +69,54 @@ func (o *BindTotpCredentialsRequest) SetTotp(v int32) {
 }
 
 func (o BindTotpCredentialsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["totp"] = o.Totp
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BindTotpCredentialsRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["totp"] = o.Totp
+	return toSerialize, nil
+}
+
+func (o *BindTotpCredentialsRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"totp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBindTotpCredentialsRequest := _BindTotpCredentialsRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varBindTotpCredentialsRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BindTotpCredentialsRequest(varBindTotpCredentialsRequest)
+
+	return err
 }
 
 type NullableBindTotpCredentialsRequest struct {
@@ -104,5 +154,3 @@ func (v *NullableBindTotpCredentialsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

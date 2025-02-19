@@ -1,10 +1,10 @@
-# \UserInfoEndpointApi
+# \UserInfoEndpointAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**UserInfo**](UserInfoEndpointApi.md#UserInfo) | **Get** /userinfo | 
+[**UserInfo**](UserInfoEndpointAPI.md#UserInfo) | **Get** /userinfo | 
 
 
 
@@ -20,25 +20,25 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserInfoEndpointApi.UserInfo(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserInfoEndpointApi.UserInfo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UserInfo`: string
-    fmt.Fprintf(os.Stdout, "Response from `UserInfoEndpointApi.UserInfo`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserInfoEndpointAPI.UserInfo(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserInfoEndpointAPI.UserInfo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UserInfo`: string
+	fmt.Fprintf(os.Stdout, "Response from `UserInfoEndpointAPI.UserInfo`: %v\n", resp)
 }
 ```
 

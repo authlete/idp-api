@@ -1,23 +1,23 @@
-# \AccessApiApi
+# \AccessApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AcceptInvitation**](AccessApiApi.md#AcceptInvitation) | **Post** /api/access/invite/{id} | 
-[**DeclineInvitation**](AccessApiApi.md#DeclineInvitation) | **Delete** /api/access/invite/{id} | 
-[**GetInvitation**](AccessApiApi.md#GetInvitation) | **Get** /api/access/invite/{id} | 
-[**GetReceivedInvitations**](AccessApiApi.md#GetReceivedInvitations) | **Get** /api/access/invite/received | 
-[**GetSentInvitations**](AccessApiApi.md#GetSentInvitations) | **Get** /api/access/invite/sent | 
-[**InviteByEmail**](AccessApiApi.md#InviteByEmail) | **Post** /api/access/invite | 
-[**RemoveApiServerPrivileges**](AccessApiApi.md#RemoveApiServerPrivileges) | **Post** /api/access/apiserver/remove | 
-[**RemoveClientPrivileges**](AccessApiApi.md#RemoveClientPrivileges) | **Post** /api/access/client/remove | 
-[**RemoveOrganizationPrivileges**](AccessApiApi.md#RemoveOrganizationPrivileges) | **Post** /api/access/organization/remove | 
-[**RemoveServicePrivileges**](AccessApiApi.md#RemoveServicePrivileges) | **Post** /api/access/service/remove | 
-[**UpdateApiServerPrivileges**](AccessApiApi.md#UpdateApiServerPrivileges) | **Post** /api/access/apiserver | 
-[**UpdateClientPrivileges**](AccessApiApi.md#UpdateClientPrivileges) | **Post** /api/access/client | 
-[**UpdateOrganizationPrivileges**](AccessApiApi.md#UpdateOrganizationPrivileges) | **Post** /api/access/organization | 
-[**UpdateServicePrivileges**](AccessApiApi.md#UpdateServicePrivileges) | **Post** /api/access/service | 
+[**AcceptInvitation**](AccessApiAPI.md#AcceptInvitation) | **Post** /api/access/invite/{id} | 
+[**DeclineInvitation**](AccessApiAPI.md#DeclineInvitation) | **Delete** /api/access/invite/{id} | 
+[**GetInvitation**](AccessApiAPI.md#GetInvitation) | **Get** /api/access/invite/{id} | 
+[**GetReceivedInvitations**](AccessApiAPI.md#GetReceivedInvitations) | **Get** /api/access/invite/received | 
+[**GetSentInvitations**](AccessApiAPI.md#GetSentInvitations) | **Get** /api/access/invite/sent | 
+[**InviteByEmail**](AccessApiAPI.md#InviteByEmail) | **Post** /api/access/invite | 
+[**RemoveApiServerPrivileges**](AccessApiAPI.md#RemoveApiServerPrivileges) | **Post** /api/access/apiserver/remove | 
+[**RemoveClientPrivileges**](AccessApiAPI.md#RemoveClientPrivileges) | **Post** /api/access/client/remove | 
+[**RemoveOrganizationPrivileges**](AccessApiAPI.md#RemoveOrganizationPrivileges) | **Post** /api/access/organization/remove | 
+[**RemoveServicePrivileges**](AccessApiAPI.md#RemoveServicePrivileges) | **Post** /api/access/service/remove | 
+[**UpdateApiServerPrivileges**](AccessApiAPI.md#UpdateApiServerPrivileges) | **Post** /api/access/apiserver | 
+[**UpdateClientPrivileges**](AccessApiAPI.md#UpdateClientPrivileges) | **Post** /api/access/client | 
+[**UpdateOrganizationPrivileges**](AccessApiAPI.md#UpdateOrganizationPrivileges) | **Post** /api/access/organization | 
+[**UpdateServicePrivileges**](AccessApiAPI.md#UpdateServicePrivileges) | **Post** /api/access/service | 
 
 
 
@@ -33,24 +33,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.AcceptInvitation(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.AcceptInvitation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessApiAPI.AcceptInvitation(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.AcceptInvitation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -103,24 +103,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.DeclineInvitation(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.DeclineInvitation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessApiAPI.DeclineInvitation(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.DeclineInvitation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -173,26 +173,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.GetInvitation(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.GetInvitation``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInvitation`: InvitationResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.GetInvitation`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.GetInvitation(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.GetInvitation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInvitation`: InvitationResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.GetInvitation`: %v\n", resp)
 }
 ```
 
@@ -245,25 +245,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.GetReceivedInvitations(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.GetReceivedInvitations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetReceivedInvitations`: []InvitationResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.GetReceivedInvitations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.GetReceivedInvitations(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.GetReceivedInvitations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetReceivedInvitations`: []InvitationResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.GetReceivedInvitations`: %v\n", resp)
 }
 ```
 
@@ -311,25 +311,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.GetSentInvitations(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.GetSentInvitations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSentInvitations`: []InvitationResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.GetSentInvitations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.GetSentInvitations(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.GetSentInvitations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSentInvitations`: []InvitationResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.GetSentInvitations`: %v\n", resp)
 }
 ```
 
@@ -377,26 +377,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    inviteRequest := *openapiclient.NewInviteRequest(int64(123), "Email_example") // InviteRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	inviteRequest := *openapiclient.NewInviteRequest(int64(123), "Email_example") // InviteRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.InviteByEmail(context.Background()).InviteRequest(inviteRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.InviteByEmail``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `InviteByEmail`: InvitationResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.InviteByEmail`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.InviteByEmail(context.Background()).InviteRequest(inviteRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.InviteByEmail``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `InviteByEmail`: InvitationResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.InviteByEmail`: %v\n", resp)
 }
 ```
 
@@ -445,24 +445,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    removeApiServerPrivilegesRequest := *openapiclient.NewRemoveApiServerPrivilegesRequest() // RemoveApiServerPrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	removeApiServerPrivilegesRequest := *openapiclient.NewRemoveApiServerPrivilegesRequest() // RemoveApiServerPrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.RemoveApiServerPrivileges(context.Background()).RemoveApiServerPrivilegesRequest(removeApiServerPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.RemoveApiServerPrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessApiAPI.RemoveApiServerPrivileges(context.Background()).RemoveApiServerPrivilegesRequest(removeApiServerPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.RemoveApiServerPrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -511,24 +511,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    removeClientPrivilegesRequest := *openapiclient.NewRemoveClientPrivilegesRequest(int64(123), int64(123), int64(123), int64(123), int64(123)) // RemoveClientPrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	removeClientPrivilegesRequest := *openapiclient.NewRemoveClientPrivilegesRequest(int64(123), int64(123), int64(123), int64(123), int64(123)) // RemoveClientPrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.RemoveClientPrivileges(context.Background()).RemoveClientPrivilegesRequest(removeClientPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.RemoveClientPrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessApiAPI.RemoveClientPrivileges(context.Background()).RemoveClientPrivilegesRequest(removeClientPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.RemoveClientPrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -577,24 +577,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    removeOrganizationPrivilegesRequest := *openapiclient.NewRemoveOrganizationPrivilegesRequest(int64(123), int64(123)) // RemoveOrganizationPrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	removeOrganizationPrivilegesRequest := *openapiclient.NewRemoveOrganizationPrivilegesRequest(int64(123), int64(123)) // RemoveOrganizationPrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.RemoveOrganizationPrivileges(context.Background()).RemoveOrganizationPrivilegesRequest(removeOrganizationPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.RemoveOrganizationPrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessApiAPI.RemoveOrganizationPrivileges(context.Background()).RemoveOrganizationPrivilegesRequest(removeOrganizationPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.RemoveOrganizationPrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -643,24 +643,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    removeServicePrivilegesRequest := *openapiclient.NewRemoveServicePrivilegesRequest(int64(123), int64(123), int64(123), int64(123)) // RemoveServicePrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	removeServicePrivilegesRequest := *openapiclient.NewRemoveServicePrivilegesRequest(int64(123), int64(123), int64(123), int64(123)) // RemoveServicePrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.RemoveServicePrivileges(context.Background()).RemoveServicePrivilegesRequest(removeServicePrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.RemoveServicePrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessApiAPI.RemoveServicePrivileges(context.Background()).RemoveServicePrivilegesRequest(removeServicePrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.RemoveServicePrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -709,26 +709,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    updateApiServerPrivilegesRequest := *openapiclient.NewUpdateApiServerPrivilegesRequest(int64(123), int64(123), int64(123)) // UpdateApiServerPrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	updateApiServerPrivilegesRequest := *openapiclient.NewUpdateApiServerPrivilegesRequest(int64(123), int64(123), int64(123)) // UpdateApiServerPrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.UpdateApiServerPrivileges(context.Background()).UpdateApiServerPrivilegesRequest(updateApiServerPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.UpdateApiServerPrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateApiServerPrivileges`: ApiServerAccessResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.UpdateApiServerPrivileges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.UpdateApiServerPrivileges(context.Background()).UpdateApiServerPrivilegesRequest(updateApiServerPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.UpdateApiServerPrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateApiServerPrivileges`: ApiServerAccessResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.UpdateApiServerPrivileges`: %v\n", resp)
 }
 ```
 
@@ -777,26 +777,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    updateClientPrivilegesRequest := *openapiclient.NewUpdateClientPrivilegesRequest(int64(123), int64(123), int64(123), int64(123), int64(123)) // UpdateClientPrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	updateClientPrivilegesRequest := *openapiclient.NewUpdateClientPrivilegesRequest(int64(123), int64(123), int64(123), int64(123), int64(123)) // UpdateClientPrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.UpdateClientPrivileges(context.Background()).UpdateClientPrivilegesRequest(updateClientPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.UpdateClientPrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateClientPrivileges`: ClientAccessResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.UpdateClientPrivileges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.UpdateClientPrivileges(context.Background()).UpdateClientPrivilegesRequest(updateClientPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.UpdateClientPrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateClientPrivileges`: ClientAccessResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.UpdateClientPrivileges`: %v\n", resp)
 }
 ```
 
@@ -845,26 +845,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    updateOrganizationPrivilegesRequest := *openapiclient.NewUpdateOrganizationPrivilegesRequest(int64(123), int64(123)) // UpdateOrganizationPrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	updateOrganizationPrivilegesRequest := *openapiclient.NewUpdateOrganizationPrivilegesRequest(int64(123), int64(123)) // UpdateOrganizationPrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.UpdateOrganizationPrivileges(context.Background()).UpdateOrganizationPrivilegesRequest(updateOrganizationPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.UpdateOrganizationPrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateOrganizationPrivileges`: OrganizationAccessResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.UpdateOrganizationPrivileges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.UpdateOrganizationPrivileges(context.Background()).UpdateOrganizationPrivilegesRequest(updateOrganizationPrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.UpdateOrganizationPrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateOrganizationPrivileges`: OrganizationAccessResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.UpdateOrganizationPrivileges`: %v\n", resp)
 }
 ```
 
@@ -913,26 +913,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    updateServicePrivilegesRequest := *openapiclient.NewUpdateServicePrivilegesRequest(int64(123), int64(123), int64(123), int64(123)) // UpdateServicePrivilegesRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	updateServicePrivilegesRequest := *openapiclient.NewUpdateServicePrivilegesRequest(int64(123), int64(123), int64(123), int64(123)) // UpdateServicePrivilegesRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessApiApi.UpdateServicePrivileges(context.Background()).UpdateServicePrivilegesRequest(updateServicePrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessApiApi.UpdateServicePrivileges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateServicePrivileges`: ServiceAccessResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessApiApi.UpdateServicePrivileges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessApiAPI.UpdateServicePrivileges(context.Background()).UpdateServicePrivilegesRequest(updateServicePrivilegesRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessApiAPI.UpdateServicePrivileges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateServicePrivileges`: ServiceAccessResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessApiAPI.UpdateServicePrivileges`: %v\n", resp)
 }
 ```
 

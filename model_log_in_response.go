@@ -15,16 +15,19 @@ import (
 	"time"
 )
 
+// checks if the LogInResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LogInResponse{}
+
 // LogInResponse struct for LogInResponse
 type LogInResponse struct {
-	Id *int64 `json:"id,omitempty"`
-	GivenName *string `json:"givenName,omitempty"`
-	FamilyName *string `json:"familyName,omitempty"`
-	DisplayName *string `json:"displayName,omitempty"`
-	Email *string `json:"email,omitempty"`
-	LastAuthTime *time.Time `json:"lastAuthTime,omitempty"`
-	AuthnMethods []string `json:"authnMethods,omitempty"`
-	Webauthn *WebAuthnChallengeResponse `json:"webauthn,omitempty"`
+	Id           *int64                     `json:"id,omitempty"`
+	GivenName    *string                    `json:"givenName,omitempty"`
+	FamilyName   *string                    `json:"familyName,omitempty"`
+	DisplayName  *string                    `json:"displayName,omitempty"`
+	Email        *string                    `json:"email,omitempty"`
+	LastAuthTime *time.Time                 `json:"lastAuthTime,omitempty"`
+	AuthnMethods []string                   `json:"authnMethods,omitempty"`
+	Webauthn     *WebAuthnChallengeResponse `json:"webauthn,omitempty"`
 }
 
 // NewLogInResponse instantiates a new LogInResponse object
@@ -46,7 +49,7 @@ func NewLogInResponseWithDefaults() *LogInResponse {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LogInResponse) GetId() int64 {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret int64
 		return ret
 	}
@@ -56,15 +59,15 @@ func (o *LogInResponse) GetId() int64 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetIdOk() (*int64, bool) {
-	if o == nil || isNil(o.Id) {
-    return nil, false
+	if o == nil || IsNil(o.Id) {
+		return nil, false
 	}
 	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *LogInResponse) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *LogInResponse) SetId(v int64) {
 
 // GetGivenName returns the GivenName field value if set, zero value otherwise.
 func (o *LogInResponse) GetGivenName() string {
-	if o == nil || isNil(o.GivenName) {
+	if o == nil || IsNil(o.GivenName) {
 		var ret string
 		return ret
 	}
@@ -88,15 +91,15 @@ func (o *LogInResponse) GetGivenName() string {
 // GetGivenNameOk returns a tuple with the GivenName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetGivenNameOk() (*string, bool) {
-	if o == nil || isNil(o.GivenName) {
-    return nil, false
+	if o == nil || IsNil(o.GivenName) {
+		return nil, false
 	}
 	return o.GivenName, true
 }
 
 // HasGivenName returns a boolean if a field has been set.
 func (o *LogInResponse) HasGivenName() bool {
-	if o != nil && !isNil(o.GivenName) {
+	if o != nil && !IsNil(o.GivenName) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *LogInResponse) SetGivenName(v string) {
 
 // GetFamilyName returns the FamilyName field value if set, zero value otherwise.
 func (o *LogInResponse) GetFamilyName() string {
-	if o == nil || isNil(o.FamilyName) {
+	if o == nil || IsNil(o.FamilyName) {
 		var ret string
 		return ret
 	}
@@ -120,15 +123,15 @@ func (o *LogInResponse) GetFamilyName() string {
 // GetFamilyNameOk returns a tuple with the FamilyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetFamilyNameOk() (*string, bool) {
-	if o == nil || isNil(o.FamilyName) {
-    return nil, false
+	if o == nil || IsNil(o.FamilyName) {
+		return nil, false
 	}
 	return o.FamilyName, true
 }
 
 // HasFamilyName returns a boolean if a field has been set.
 func (o *LogInResponse) HasFamilyName() bool {
-	if o != nil && !isNil(o.FamilyName) {
+	if o != nil && !IsNil(o.FamilyName) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *LogInResponse) SetFamilyName(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *LogInResponse) GetDisplayName() string {
-	if o == nil || isNil(o.DisplayName) {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -152,15 +155,15 @@ func (o *LogInResponse) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetDisplayNameOk() (*string, bool) {
-	if o == nil || isNil(o.DisplayName) {
-    return nil, false
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
 	}
 	return o.DisplayName, true
 }
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *LogInResponse) HasDisplayName() bool {
-	if o != nil && !isNil(o.DisplayName) {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *LogInResponse) SetDisplayName(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *LogInResponse) GetEmail() string {
-	if o == nil || isNil(o.Email) {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -184,15 +187,15 @@ func (o *LogInResponse) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetEmailOk() (*string, bool) {
-	if o == nil || isNil(o.Email) {
-    return nil, false
+	if o == nil || IsNil(o.Email) {
+		return nil, false
 	}
 	return o.Email, true
 }
 
 // HasEmail returns a boolean if a field has been set.
 func (o *LogInResponse) HasEmail() bool {
-	if o != nil && !isNil(o.Email) {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *LogInResponse) SetEmail(v string) {
 
 // GetLastAuthTime returns the LastAuthTime field value if set, zero value otherwise.
 func (o *LogInResponse) GetLastAuthTime() time.Time {
-	if o == nil || isNil(o.LastAuthTime) {
+	if o == nil || IsNil(o.LastAuthTime) {
 		var ret time.Time
 		return ret
 	}
@@ -216,15 +219,15 @@ func (o *LogInResponse) GetLastAuthTime() time.Time {
 // GetLastAuthTimeOk returns a tuple with the LastAuthTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetLastAuthTimeOk() (*time.Time, bool) {
-	if o == nil || isNil(o.LastAuthTime) {
-    return nil, false
+	if o == nil || IsNil(o.LastAuthTime) {
+		return nil, false
 	}
 	return o.LastAuthTime, true
 }
 
 // HasLastAuthTime returns a boolean if a field has been set.
 func (o *LogInResponse) HasLastAuthTime() bool {
-	if o != nil && !isNil(o.LastAuthTime) {
+	if o != nil && !IsNil(o.LastAuthTime) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *LogInResponse) SetLastAuthTime(v time.Time) {
 
 // GetAuthnMethods returns the AuthnMethods field value if set, zero value otherwise.
 func (o *LogInResponse) GetAuthnMethods() []string {
-	if o == nil || isNil(o.AuthnMethods) {
+	if o == nil || IsNil(o.AuthnMethods) {
 		var ret []string
 		return ret
 	}
@@ -248,15 +251,15 @@ func (o *LogInResponse) GetAuthnMethods() []string {
 // GetAuthnMethodsOk returns a tuple with the AuthnMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetAuthnMethodsOk() ([]string, bool) {
-	if o == nil || isNil(o.AuthnMethods) {
-    return nil, false
+	if o == nil || IsNil(o.AuthnMethods) {
+		return nil, false
 	}
 	return o.AuthnMethods, true
 }
 
 // HasAuthnMethods returns a boolean if a field has been set.
 func (o *LogInResponse) HasAuthnMethods() bool {
-	if o != nil && !isNil(o.AuthnMethods) {
+	if o != nil && !IsNil(o.AuthnMethods) {
 		return true
 	}
 
@@ -270,7 +273,7 @@ func (o *LogInResponse) SetAuthnMethods(v []string) {
 
 // GetWebauthn returns the Webauthn field value if set, zero value otherwise.
 func (o *LogInResponse) GetWebauthn() WebAuthnChallengeResponse {
-	if o == nil || isNil(o.Webauthn) {
+	if o == nil || IsNil(o.Webauthn) {
 		var ret WebAuthnChallengeResponse
 		return ret
 	}
@@ -280,15 +283,15 @@ func (o *LogInResponse) GetWebauthn() WebAuthnChallengeResponse {
 // GetWebauthnOk returns a tuple with the Webauthn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LogInResponse) GetWebauthnOk() (*WebAuthnChallengeResponse, bool) {
-	if o == nil || isNil(o.Webauthn) {
-    return nil, false
+	if o == nil || IsNil(o.Webauthn) {
+		return nil, false
 	}
 	return o.Webauthn, true
 }
 
 // HasWebauthn returns a boolean if a field has been set.
 func (o *LogInResponse) HasWebauthn() bool {
-	if o != nil && !isNil(o.Webauthn) {
+	if o != nil && !IsNil(o.Webauthn) {
 		return true
 	}
 
@@ -301,32 +304,40 @@ func (o *LogInResponse) SetWebauthn(v WebAuthnChallengeResponse) {
 }
 
 func (o LogInResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !isNil(o.GivenName) {
-		toSerialize["givenName"] = o.GivenName
-	}
-	if !isNil(o.FamilyName) {
-		toSerialize["familyName"] = o.FamilyName
-	}
-	if !isNil(o.DisplayName) {
-		toSerialize["displayName"] = o.DisplayName
-	}
-	if !isNil(o.Email) {
-		toSerialize["email"] = o.Email
-	}
-	if !isNil(o.LastAuthTime) {
-		toSerialize["lastAuthTime"] = o.LastAuthTime
-	}
-	if !isNil(o.AuthnMethods) {
-		toSerialize["authnMethods"] = o.AuthnMethods
-	}
-	if !isNil(o.Webauthn) {
-		toSerialize["webauthn"] = o.Webauthn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LogInResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.GivenName) {
+		toSerialize["givenName"] = o.GivenName
+	}
+	if !IsNil(o.FamilyName) {
+		toSerialize["familyName"] = o.FamilyName
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.LastAuthTime) {
+		toSerialize["lastAuthTime"] = o.LastAuthTime
+	}
+	if !IsNil(o.AuthnMethods) {
+		toSerialize["authnMethods"] = o.AuthnMethods
+	}
+	if !IsNil(o.Webauthn) {
+		toSerialize["webauthn"] = o.Webauthn
+	}
+	return toSerialize, nil
 }
 
 type NullableLogInResponse struct {
@@ -364,5 +375,3 @@ func (v *NullableLogInResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

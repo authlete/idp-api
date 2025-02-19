@@ -11,16 +11,23 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateServiceTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateServiceTokenRequest{}
 
 // CreateServiceTokenRequest struct for CreateServiceTokenRequest
 type CreateServiceTokenRequest struct {
-	ServiceId int64 `json:"serviceId"`
-	OrganizationId int64 `json:"organizationId"`
-	ApiServerId int64 `json:"apiServerId"`
-	Description string `json:"description"`
+	ServiceId      int64  `json:"serviceId"`
+	OrganizationId int64  `json:"organizationId"`
+	ApiServerId    int64  `json:"apiServerId"`
+	Description    string `json:"description"`
 }
+
+type _CreateServiceTokenRequest CreateServiceTokenRequest
 
 // NewCreateServiceTokenRequest instantiates a new CreateServiceTokenRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -57,7 +64,7 @@ func (o *CreateServiceTokenRequest) GetServiceId() int64 {
 // and a boolean to check if the value has been set.
 func (o *CreateServiceTokenRequest) GetServiceIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ServiceId, true
 }
@@ -81,7 +88,7 @@ func (o *CreateServiceTokenRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *CreateServiceTokenRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -105,7 +112,7 @@ func (o *CreateServiceTokenRequest) GetApiServerId() int64 {
 // and a boolean to check if the value has been set.
 func (o *CreateServiceTokenRequest) GetApiServerIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerId, true
 }
@@ -129,7 +136,7 @@ func (o *CreateServiceTokenRequest) GetDescription() string {
 // and a boolean to check if the value has been set.
 func (o *CreateServiceTokenRequest) GetDescriptionOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Description, true
 }
@@ -140,20 +147,60 @@ func (o *CreateServiceTokenRequest) SetDescription(v string) {
 }
 
 func (o CreateServiceTokenRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["serviceId"] = o.ServiceId
-	}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateServiceTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["serviceId"] = o.ServiceId
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["apiServerId"] = o.ApiServerId
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
+}
+
+func (o *CreateServiceTokenRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"serviceId",
+		"organizationId",
+		"apiServerId",
+		"description",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateServiceTokenRequest := _CreateServiceTokenRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateServiceTokenRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateServiceTokenRequest(varCreateServiceTokenRequest)
+
+	return err
 }
 
 type NullableCreateServiceTokenRequest struct {
@@ -191,5 +238,3 @@ func (v *NullableCreateServiceTokenRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

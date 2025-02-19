@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the RemoveApiServerPrivilegesRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RemoveApiServerPrivilegesRequest{}
+
 // RemoveApiServerPrivilegesRequest struct for RemoveApiServerPrivilegesRequest
 type RemoveApiServerPrivilegesRequest struct {
-	ApiServerId *int64 `json:"apiServerId,omitempty"`
+	ApiServerId    *int64 `json:"apiServerId,omitempty"`
 	OrganizationId *int64 `json:"organizationId,omitempty"`
-	UserId *int64 `json:"userId,omitempty"`
+	UserId         *int64 `json:"userId,omitempty"`
 }
 
 // NewRemoveApiServerPrivilegesRequest instantiates a new RemoveApiServerPrivilegesRequest object
@@ -40,7 +43,7 @@ func NewRemoveApiServerPrivilegesRequestWithDefaults() *RemoveApiServerPrivilege
 
 // GetApiServerId returns the ApiServerId field value if set, zero value otherwise.
 func (o *RemoveApiServerPrivilegesRequest) GetApiServerId() int64 {
-	if o == nil || isNil(o.ApiServerId) {
+	if o == nil || IsNil(o.ApiServerId) {
 		var ret int64
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *RemoveApiServerPrivilegesRequest) GetApiServerId() int64 {
 // GetApiServerIdOk returns a tuple with the ApiServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RemoveApiServerPrivilegesRequest) GetApiServerIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiServerId) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerId) {
+		return nil, false
 	}
 	return o.ApiServerId, true
 }
 
 // HasApiServerId returns a boolean if a field has been set.
 func (o *RemoveApiServerPrivilegesRequest) HasApiServerId() bool {
-	if o != nil && !isNil(o.ApiServerId) {
+	if o != nil && !IsNil(o.ApiServerId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *RemoveApiServerPrivilegesRequest) SetApiServerId(v int64) {
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *RemoveApiServerPrivilegesRequest) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *RemoveApiServerPrivilegesRequest) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RemoveApiServerPrivilegesRequest) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *RemoveApiServerPrivilegesRequest) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *RemoveApiServerPrivilegesRequest) SetOrganizationId(v int64) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *RemoveApiServerPrivilegesRequest) GetUserId() int64 {
-	if o == nil || isNil(o.UserId) {
+	if o == nil || IsNil(o.UserId) {
 		var ret int64
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *RemoveApiServerPrivilegesRequest) GetUserId() int64 {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RemoveApiServerPrivilegesRequest) GetUserIdOk() (*int64, bool) {
-	if o == nil || isNil(o.UserId) {
-    return nil, false
+	if o == nil || IsNil(o.UserId) {
+		return nil, false
 	}
 	return o.UserId, true
 }
 
 // HasUserId returns a boolean if a field has been set.
 func (o *RemoveApiServerPrivilegesRequest) HasUserId() bool {
-	if o != nil && !isNil(o.UserId) {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *RemoveApiServerPrivilegesRequest) SetUserId(v int64) {
 }
 
 func (o RemoveApiServerPrivilegesRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ApiServerId) {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.UserId) {
-		toSerialize["userId"] = o.UserId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RemoveApiServerPrivilegesRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApiServerId) {
+		toSerialize["apiServerId"] = o.ApiServerId
+	}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.UserId) {
+		toSerialize["userId"] = o.UserId
+	}
+	return toSerialize, nil
 }
 
 type NullableRemoveApiServerPrivilegesRequest struct {
@@ -183,5 +194,3 @@ func (v *NullableRemoveApiServerPrivilegesRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

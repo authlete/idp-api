@@ -14,9 +14,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the GrantScope type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantScope{}
+
 // GrantScope struct for GrantScope
 type GrantScope struct {
-	Scope *string `json:"scope,omitempty"`
+	Scope    *string  `json:"scope,omitempty"`
 	Resource []string `json:"resource,omitempty"`
 }
 
@@ -39,7 +42,7 @@ func NewGrantScopeWithDefaults() *GrantScope {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *GrantScope) GetScope() string {
-	if o == nil || isNil(o.Scope) {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -49,15 +52,15 @@ func (o *GrantScope) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantScope) GetScopeOk() (*string, bool) {
-	if o == nil || isNil(o.Scope) {
-    return nil, false
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
 	}
 	return o.Scope, true
 }
 
 // HasScope returns a boolean if a field has been set.
 func (o *GrantScope) HasScope() bool {
-	if o != nil && !isNil(o.Scope) {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *GrantScope) SetScope(v string) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *GrantScope) GetResource() []string {
-	if o == nil || isNil(o.Resource) {
+	if o == nil || IsNil(o.Resource) {
 		var ret []string
 		return ret
 	}
@@ -81,15 +84,15 @@ func (o *GrantScope) GetResource() []string {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantScope) GetResourceOk() ([]string, bool) {
-	if o == nil || isNil(o.Resource) {
-    return nil, false
+	if o == nil || IsNil(o.Resource) {
+		return nil, false
 	}
 	return o.Resource, true
 }
 
 // HasResource returns a boolean if a field has been set.
 func (o *GrantScope) HasResource() bool {
-	if o != nil && !isNil(o.Resource) {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *GrantScope) SetResource(v []string) {
 }
 
 func (o GrantScope) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Scope) {
-		toSerialize["scope"] = o.Scope
-	}
-	if !isNil(o.Resource) {
-		toSerialize["resource"] = o.Resource
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GrantScope) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	return toSerialize, nil
 }
 
 type NullableGrantScope struct {
@@ -147,5 +158,3 @@ func (v *NullableGrantScope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

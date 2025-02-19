@@ -14,12 +14,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the GoogleAuthenticatorKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GoogleAuthenticatorKey{}
+
 // GoogleAuthenticatorKey struct for GoogleAuthenticatorKey
 type GoogleAuthenticatorKey struct {
-	Config *GoogleAuthenticatorConfig `json:"config,omitempty"`
-	Key *string `json:"key,omitempty"`
-	VerificationCode *int32 `json:"verificationCode,omitempty"`
-	ScratchCodes []int32 `json:"scratchCodes,omitempty"`
+	Config           *GoogleAuthenticatorConfig `json:"config,omitempty"`
+	Key              *string                    `json:"key,omitempty"`
+	VerificationCode *int32                     `json:"verificationCode,omitempty"`
+	ScratchCodes     []int32                    `json:"scratchCodes,omitempty"`
 }
 
 // NewGoogleAuthenticatorKey instantiates a new GoogleAuthenticatorKey object
@@ -41,7 +44,7 @@ func NewGoogleAuthenticatorKeyWithDefaults() *GoogleAuthenticatorKey {
 
 // GetConfig returns the Config field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorKey) GetConfig() GoogleAuthenticatorConfig {
-	if o == nil || isNil(o.Config) {
+	if o == nil || IsNil(o.Config) {
 		var ret GoogleAuthenticatorConfig
 		return ret
 	}
@@ -51,15 +54,15 @@ func (o *GoogleAuthenticatorKey) GetConfig() GoogleAuthenticatorConfig {
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorKey) GetConfigOk() (*GoogleAuthenticatorConfig, bool) {
-	if o == nil || isNil(o.Config) {
-    return nil, false
+	if o == nil || IsNil(o.Config) {
+		return nil, false
 	}
 	return o.Config, true
 }
 
 // HasConfig returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorKey) HasConfig() bool {
-	if o != nil && !isNil(o.Config) {
+	if o != nil && !IsNil(o.Config) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *GoogleAuthenticatorKey) SetConfig(v GoogleAuthenticatorConfig) {
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorKey) GetKey() string {
-	if o == nil || isNil(o.Key) {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -83,15 +86,15 @@ func (o *GoogleAuthenticatorKey) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorKey) GetKeyOk() (*string, bool) {
-	if o == nil || isNil(o.Key) {
-    return nil, false
+	if o == nil || IsNil(o.Key) {
+		return nil, false
 	}
 	return o.Key, true
 }
 
 // HasKey returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorKey) HasKey() bool {
-	if o != nil && !isNil(o.Key) {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *GoogleAuthenticatorKey) SetKey(v string) {
 
 // GetVerificationCode returns the VerificationCode field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorKey) GetVerificationCode() int32 {
-	if o == nil || isNil(o.VerificationCode) {
+	if o == nil || IsNil(o.VerificationCode) {
 		var ret int32
 		return ret
 	}
@@ -115,15 +118,15 @@ func (o *GoogleAuthenticatorKey) GetVerificationCode() int32 {
 // GetVerificationCodeOk returns a tuple with the VerificationCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorKey) GetVerificationCodeOk() (*int32, bool) {
-	if o == nil || isNil(o.VerificationCode) {
-    return nil, false
+	if o == nil || IsNil(o.VerificationCode) {
+		return nil, false
 	}
 	return o.VerificationCode, true
 }
 
 // HasVerificationCode returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorKey) HasVerificationCode() bool {
-	if o != nil && !isNil(o.VerificationCode) {
+	if o != nil && !IsNil(o.VerificationCode) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *GoogleAuthenticatorKey) SetVerificationCode(v int32) {
 
 // GetScratchCodes returns the ScratchCodes field value if set, zero value otherwise.
 func (o *GoogleAuthenticatorKey) GetScratchCodes() []int32 {
-	if o == nil || isNil(o.ScratchCodes) {
+	if o == nil || IsNil(o.ScratchCodes) {
 		var ret []int32
 		return ret
 	}
@@ -147,15 +150,15 @@ func (o *GoogleAuthenticatorKey) GetScratchCodes() []int32 {
 // GetScratchCodesOk returns a tuple with the ScratchCodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GoogleAuthenticatorKey) GetScratchCodesOk() ([]int32, bool) {
-	if o == nil || isNil(o.ScratchCodes) {
-    return nil, false
+	if o == nil || IsNil(o.ScratchCodes) {
+		return nil, false
 	}
 	return o.ScratchCodes, true
 }
 
 // HasScratchCodes returns a boolean if a field has been set.
 func (o *GoogleAuthenticatorKey) HasScratchCodes() bool {
-	if o != nil && !isNil(o.ScratchCodes) {
+	if o != nil && !IsNil(o.ScratchCodes) {
 		return true
 	}
 
@@ -168,20 +171,28 @@ func (o *GoogleAuthenticatorKey) SetScratchCodes(v []int32) {
 }
 
 func (o GoogleAuthenticatorKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Config) {
-		toSerialize["config"] = o.Config
-	}
-	if !isNil(o.Key) {
-		toSerialize["key"] = o.Key
-	}
-	if !isNil(o.VerificationCode) {
-		toSerialize["verificationCode"] = o.VerificationCode
-	}
-	if !isNil(o.ScratchCodes) {
-		toSerialize["scratchCodes"] = o.ScratchCodes
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GoogleAuthenticatorKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Config) {
+		toSerialize["config"] = o.Config
+	}
+	if !IsNil(o.Key) {
+		toSerialize["key"] = o.Key
+	}
+	if !IsNil(o.VerificationCode) {
+		toSerialize["verificationCode"] = o.VerificationCode
+	}
+	if !IsNil(o.ScratchCodes) {
+		toSerialize["scratchCodes"] = o.ScratchCodes
+	}
+	return toSerialize, nil
 }
 
 type NullableGoogleAuthenticatorKey struct {
@@ -219,5 +230,3 @@ func (v *NullableGoogleAuthenticatorKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

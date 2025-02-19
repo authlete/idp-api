@@ -1,10 +1,10 @@
-# \AuthorizationEndpointApi
+# \AuthorizationEndpointAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Get**](AuthorizationEndpointApi.md#Get) | **Get** /authorize | 
+[**Get**](AuthorizationEndpointAPI.md#Get) | **Get** /authorize | 
 
 
 
@@ -20,23 +20,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuthorizationEndpointApi.Get(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationEndpointApi.Get``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Get`: map[string]interface{}
-    fmt.Fprintf(os.Stdout, "Response from `AuthorizationEndpointApi.Get`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuthorizationEndpointAPI.Get(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationEndpointAPI.Get``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Get`: map[string]interface{}
+	fmt.Fprintf(os.Stdout, "Response from `AuthorizationEndpointAPI.Get`: %v\n", resp)
 }
 ```
 

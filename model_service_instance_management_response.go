@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServiceInstanceManagementResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceInstanceManagementResponse{}
+
 // ServiceInstanceManagementResponse struct for ServiceInstanceManagementResponse
 type ServiceInstanceManagementResponse struct {
 	OrganizationId *int64 `json:"organizationId,omitempty"`
-	ApiServerId *int64 `json:"apiServerId,omitempty"`
-	ServiceId *int64 `json:"serviceId,omitempty"`
+	ApiServerId    *int64 `json:"apiServerId,omitempty"`
+	ServiceId      *int64 `json:"serviceId,omitempty"`
 }
 
 // NewServiceInstanceManagementResponse instantiates a new ServiceInstanceManagementResponse object
@@ -40,7 +43,7 @@ func NewServiceInstanceManagementResponseWithDefaults() *ServiceInstanceManageme
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *ServiceInstanceManagementResponse) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *ServiceInstanceManagementResponse) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceManagementResponse) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *ServiceInstanceManagementResponse) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ServiceInstanceManagementResponse) SetOrganizationId(v int64) {
 
 // GetApiServerId returns the ApiServerId field value if set, zero value otherwise.
 func (o *ServiceInstanceManagementResponse) GetApiServerId() int64 {
-	if o == nil || isNil(o.ApiServerId) {
+	if o == nil || IsNil(o.ApiServerId) {
 		var ret int64
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *ServiceInstanceManagementResponse) GetApiServerId() int64 {
 // GetApiServerIdOk returns a tuple with the ApiServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceManagementResponse) GetApiServerIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiServerId) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerId) {
+		return nil, false
 	}
 	return o.ApiServerId, true
 }
 
 // HasApiServerId returns a boolean if a field has been set.
 func (o *ServiceInstanceManagementResponse) HasApiServerId() bool {
-	if o != nil && !isNil(o.ApiServerId) {
+	if o != nil && !IsNil(o.ApiServerId) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *ServiceInstanceManagementResponse) SetApiServerId(v int64) {
 
 // GetServiceId returns the ServiceId field value if set, zero value otherwise.
 func (o *ServiceInstanceManagementResponse) GetServiceId() int64 {
-	if o == nil || isNil(o.ServiceId) {
+	if o == nil || IsNil(o.ServiceId) {
 		var ret int64
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *ServiceInstanceManagementResponse) GetServiceId() int64 {
 // GetServiceIdOk returns a tuple with the ServiceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceInstanceManagementResponse) GetServiceIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ServiceId) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceId) {
+		return nil, false
 	}
 	return o.ServiceId, true
 }
 
 // HasServiceId returns a boolean if a field has been set.
 func (o *ServiceInstanceManagementResponse) HasServiceId() bool {
-	if o != nil && !isNil(o.ServiceId) {
+	if o != nil && !IsNil(o.ServiceId) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *ServiceInstanceManagementResponse) SetServiceId(v int64) {
 }
 
 func (o ServiceInstanceManagementResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.ApiServerId) {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if !isNil(o.ServiceId) {
-		toSerialize["serviceId"] = o.ServiceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServiceInstanceManagementResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.ApiServerId) {
+		toSerialize["apiServerId"] = o.ApiServerId
+	}
+	if !IsNil(o.ServiceId) {
+		toSerialize["serviceId"] = o.ServiceId
+	}
+	return toSerialize, nil
 }
 
 type NullableServiceInstanceManagementResponse struct {
@@ -183,5 +194,3 @@ func (v *NullableServiceInstanceManagementResponse) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

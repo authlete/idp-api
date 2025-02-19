@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the AuthleteApiServerUpdateResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthleteApiServerUpdateResponse{}
+
 // AuthleteApiServerUpdateResponse struct for AuthleteApiServerUpdateResponse
 type AuthleteApiServerUpdateResponse struct {
 	ApiServerUrl *string `json:"apiServerUrl,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Id *int64 `json:"id,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	Id           *int64  `json:"id,omitempty"`
 }
 
 // NewAuthleteApiServerUpdateResponse instantiates a new AuthleteApiServerUpdateResponse object
@@ -40,7 +43,7 @@ func NewAuthleteApiServerUpdateResponseWithDefaults() *AuthleteApiServerUpdateRe
 
 // GetApiServerUrl returns the ApiServerUrl field value if set, zero value otherwise.
 func (o *AuthleteApiServerUpdateResponse) GetApiServerUrl() string {
-	if o == nil || isNil(o.ApiServerUrl) {
+	if o == nil || IsNil(o.ApiServerUrl) {
 		var ret string
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *AuthleteApiServerUpdateResponse) GetApiServerUrl() string {
 // GetApiServerUrlOk returns a tuple with the ApiServerUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerUpdateResponse) GetApiServerUrlOk() (*string, bool) {
-	if o == nil || isNil(o.ApiServerUrl) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerUrl) {
+		return nil, false
 	}
 	return o.ApiServerUrl, true
 }
 
 // HasApiServerUrl returns a boolean if a field has been set.
 func (o *AuthleteApiServerUpdateResponse) HasApiServerUrl() bool {
-	if o != nil && !isNil(o.ApiServerUrl) {
+	if o != nil && !IsNil(o.ApiServerUrl) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *AuthleteApiServerUpdateResponse) SetApiServerUrl(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AuthleteApiServerUpdateResponse) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *AuthleteApiServerUpdateResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerUpdateResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *AuthleteApiServerUpdateResponse) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *AuthleteApiServerUpdateResponse) SetDescription(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthleteApiServerUpdateResponse) GetId() int64 {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret int64
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *AuthleteApiServerUpdateResponse) GetId() int64 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteApiServerUpdateResponse) GetIdOk() (*int64, bool) {
-	if o == nil || isNil(o.Id) {
-    return nil, false
+	if o == nil || IsNil(o.Id) {
+		return nil, false
 	}
 	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthleteApiServerUpdateResponse) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *AuthleteApiServerUpdateResponse) SetId(v int64) {
 }
 
 func (o AuthleteApiServerUpdateResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ApiServerUrl) {
-		toSerialize["apiServerUrl"] = o.ApiServerUrl
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !isNil(o.Id) {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AuthleteApiServerUpdateResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApiServerUrl) {
+		toSerialize["apiServerUrl"] = o.ApiServerUrl
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	return toSerialize, nil
 }
 
 type NullableAuthleteApiServerUpdateResponse struct {
@@ -183,5 +194,3 @@ func (v *NullableAuthleteApiServerUpdateResponse) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

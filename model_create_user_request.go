@@ -11,16 +11,23 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateUserRequest{}
 
 // CreateUserRequest struct for CreateUserRequest
 type CreateUserRequest struct {
-	Email string `json:"email"`
-	Password string `json:"password"`
-	GivenName *string `json:"givenName,omitempty"`
+	Email      string  `json:"email"`
+	Password   string  `json:"password"`
+	GivenName  *string `json:"givenName,omitempty"`
 	FamilyName *string `json:"familyName,omitempty"`
 }
+
+type _CreateUserRequest CreateUserRequest
 
 // NewCreateUserRequest instantiates a new CreateUserRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -55,7 +62,7 @@ func (o *CreateUserRequest) GetEmail() string {
 // and a boolean to check if the value has been set.
 func (o *CreateUserRequest) GetEmailOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Email, true
 }
@@ -79,7 +86,7 @@ func (o *CreateUserRequest) GetPassword() string {
 // and a boolean to check if the value has been set.
 func (o *CreateUserRequest) GetPasswordOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Password, true
 }
@@ -91,7 +98,7 @@ func (o *CreateUserRequest) SetPassword(v string) {
 
 // GetGivenName returns the GivenName field value if set, zero value otherwise.
 func (o *CreateUserRequest) GetGivenName() string {
-	if o == nil || isNil(o.GivenName) {
+	if o == nil || IsNil(o.GivenName) {
 		var ret string
 		return ret
 	}
@@ -101,15 +108,15 @@ func (o *CreateUserRequest) GetGivenName() string {
 // GetGivenNameOk returns a tuple with the GivenName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateUserRequest) GetGivenNameOk() (*string, bool) {
-	if o == nil || isNil(o.GivenName) {
-    return nil, false
+	if o == nil || IsNil(o.GivenName) {
+		return nil, false
 	}
 	return o.GivenName, true
 }
 
 // HasGivenName returns a boolean if a field has been set.
 func (o *CreateUserRequest) HasGivenName() bool {
-	if o != nil && !isNil(o.GivenName) {
+	if o != nil && !IsNil(o.GivenName) {
 		return true
 	}
 
@@ -123,7 +130,7 @@ func (o *CreateUserRequest) SetGivenName(v string) {
 
 // GetFamilyName returns the FamilyName field value if set, zero value otherwise.
 func (o *CreateUserRequest) GetFamilyName() string {
-	if o == nil || isNil(o.FamilyName) {
+	if o == nil || IsNil(o.FamilyName) {
 		var ret string
 		return ret
 	}
@@ -133,15 +140,15 @@ func (o *CreateUserRequest) GetFamilyName() string {
 // GetFamilyNameOk returns a tuple with the FamilyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateUserRequest) GetFamilyNameOk() (*string, bool) {
-	if o == nil || isNil(o.FamilyName) {
-    return nil, false
+	if o == nil || IsNil(o.FamilyName) {
+		return nil, false
 	}
 	return o.FamilyName, true
 }
 
 // HasFamilyName returns a boolean if a field has been set.
 func (o *CreateUserRequest) HasFamilyName() bool {
-	if o != nil && !isNil(o.FamilyName) {
+	if o != nil && !IsNil(o.FamilyName) {
 		return true
 	}
 
@@ -154,20 +161,62 @@ func (o *CreateUserRequest) SetFamilyName(v string) {
 }
 
 func (o CreateUserRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if !isNil(o.GivenName) {
-		toSerialize["givenName"] = o.GivenName
-	}
-	if !isNil(o.FamilyName) {
-		toSerialize["familyName"] = o.FamilyName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateUserRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["email"] = o.Email
+	toSerialize["password"] = o.Password
+	if !IsNil(o.GivenName) {
+		toSerialize["givenName"] = o.GivenName
+	}
+	if !IsNil(o.FamilyName) {
+		toSerialize["familyName"] = o.FamilyName
+	}
+	return toSerialize, nil
+}
+
+func (o *CreateUserRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"email",
+		"password",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateUserRequest := _CreateUserRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateUserRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateUserRequest(varCreateUserRequest)
+
+	return err
 }
 
 type NullableCreateUserRequest struct {
@@ -205,5 +254,3 @@ func (v *NullableCreateUserRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

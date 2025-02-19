@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteOrganizationTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteOrganizationTokenRequest{}
+
 // DeleteOrganizationTokenRequest struct for DeleteOrganizationTokenRequest
 type DeleteOrganizationTokenRequest struct {
-	OrganizationId *int64 `json:"organizationId,omitempty"`
-	TokenId *string `json:"tokenId,omitempty"`
-	Description *string `json:"description,omitempty"`
+	OrganizationId *int64  `json:"organizationId,omitempty"`
+	TokenId        *string `json:"tokenId,omitempty"`
+	Description    *string `json:"description,omitempty"`
 }
 
 // NewDeleteOrganizationTokenRequest instantiates a new DeleteOrganizationTokenRequest object
@@ -40,7 +43,7 @@ func NewDeleteOrganizationTokenRequestWithDefaults() *DeleteOrganizationTokenReq
 
 // GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
 func (o *DeleteOrganizationTokenRequest) GetOrganizationId() int64 {
-	if o == nil || isNil(o.OrganizationId) {
+	if o == nil || IsNil(o.OrganizationId) {
 		var ret int64
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *DeleteOrganizationTokenRequest) GetOrganizationId() int64 {
 // GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteOrganizationTokenRequest) GetOrganizationIdOk() (*int64, bool) {
-	if o == nil || isNil(o.OrganizationId) {
-    return nil, false
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
 	}
 	return o.OrganizationId, true
 }
 
 // HasOrganizationId returns a boolean if a field has been set.
 func (o *DeleteOrganizationTokenRequest) HasOrganizationId() bool {
-	if o != nil && !isNil(o.OrganizationId) {
+	if o != nil && !IsNil(o.OrganizationId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *DeleteOrganizationTokenRequest) SetOrganizationId(v int64) {
 
 // GetTokenId returns the TokenId field value if set, zero value otherwise.
 func (o *DeleteOrganizationTokenRequest) GetTokenId() string {
-	if o == nil || isNil(o.TokenId) {
+	if o == nil || IsNil(o.TokenId) {
 		var ret string
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *DeleteOrganizationTokenRequest) GetTokenId() string {
 // GetTokenIdOk returns a tuple with the TokenId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteOrganizationTokenRequest) GetTokenIdOk() (*string, bool) {
-	if o == nil || isNil(o.TokenId) {
-    return nil, false
+	if o == nil || IsNil(o.TokenId) {
+		return nil, false
 	}
 	return o.TokenId, true
 }
 
 // HasTokenId returns a boolean if a field has been set.
 func (o *DeleteOrganizationTokenRequest) HasTokenId() bool {
-	if o != nil && !isNil(o.TokenId) {
+	if o != nil && !IsNil(o.TokenId) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *DeleteOrganizationTokenRequest) SetTokenId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *DeleteOrganizationTokenRequest) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *DeleteOrganizationTokenRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteOrganizationTokenRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *DeleteOrganizationTokenRequest) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *DeleteOrganizationTokenRequest) SetDescription(v string) {
 }
 
 func (o DeleteOrganizationTokenRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.OrganizationId) {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if !isNil(o.TokenId) {
-		toSerialize["tokenId"] = o.TokenId
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteOrganizationTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organizationId"] = o.OrganizationId
+	}
+	if !IsNil(o.TokenId) {
+		toSerialize["tokenId"] = o.TokenId
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableDeleteOrganizationTokenRequest struct {
@@ -183,5 +194,3 @@ func (v *NullableDeleteOrganizationTokenRequest) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

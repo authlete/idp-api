@@ -13,18 +13,32 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type DiscoveryEndpointAPI interface {
 
-// DiscoveryEndpointApiService DiscoveryEndpointApi service
-type DiscoveryEndpointApiService service
+	/*
+		GetConfiguration Method for GetConfiguration
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetConfigurationRequest
+	*/
+	GetConfiguration(ctx context.Context) ApiGetConfigurationRequest
+
+	// GetConfigurationExecute executes the request
+	//  @return string
+	GetConfigurationExecute(r ApiGetConfigurationRequest) (string, *http.Response, error)
+}
+
+// DiscoveryEndpointAPIService DiscoveryEndpointAPI service
+type DiscoveryEndpointAPIService service
 
 type ApiGetConfigurationRequest struct {
-	ctx context.Context
-	ApiService *DiscoveryEndpointApiService
+	ctx        context.Context
+	ApiService DiscoveryEndpointAPI
 }
 
 func (r ApiGetConfigurationRequest) Execute() (string, *http.Response, error) {
@@ -34,27 +48,28 @@ func (r ApiGetConfigurationRequest) Execute() (string, *http.Response, error) {
 /*
 GetConfiguration Method for GetConfiguration
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetConfigurationRequest
 */
-func (a *DiscoveryEndpointApiService) GetConfiguration(ctx context.Context) ApiGetConfigurationRequest {
+func (a *DiscoveryEndpointAPIService) GetConfiguration(ctx context.Context) ApiGetConfigurationRequest {
 	return ApiGetConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *DiscoveryEndpointApiService) GetConfigurationExecute(r ApiGetConfigurationRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *DiscoveryEndpointAPIService) GetConfigurationExecute(r ApiGetConfigurationRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DiscoveryEndpointApiService.GetConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DiscoveryEndpointAPIService.GetConfiguration")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -92,9 +107,9 @@ func (a *DiscoveryEndpointApiService) GetConfigurationExecute(r ApiGetConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

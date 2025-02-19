@@ -13,20 +13,70 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+type SessionApiAPI interface {
 
-// SessionApiApiService SessionApiApi service
-type SessionApiApiService service
+	/*
+		AccountCheck Method for AccountCheck
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param email
+		@return ApiAccountCheckRequest
+	*/
+	AccountCheck(ctx context.Context, email string) ApiAccountCheckRequest
+
+	// AccountCheckExecute executes the request
+	//  @return LogInResponse
+	AccountCheckExecute(r ApiAccountCheckRequest) (*LogInResponse, *http.Response, error)
+
+	/*
+		GetCurrentUser Method for GetCurrentUser
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetCurrentUserRequest
+	*/
+	GetCurrentUser(ctx context.Context) ApiGetCurrentUserRequest
+
+	// GetCurrentUserExecute executes the request
+	//  @return LogInResponse
+	GetCurrentUserExecute(r ApiGetCurrentUserRequest) (*LogInResponse, *http.Response, error)
+
+	/*
+		LogIn Method for LogIn
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiLogInRequest
+	*/
+	LogIn(ctx context.Context) ApiLogInRequest
+
+	// LogInExecute executes the request
+	//  @return LogInResponse
+	LogInExecute(r ApiLogInRequest) (*LogInResponse, *http.Response, error)
+
+	/*
+		LogOut Method for LogOut
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiLogOutRequest
+	*/
+	LogOut(ctx context.Context) ApiLogOutRequest
+
+	// LogOutExecute executes the request
+	LogOutExecute(r ApiLogOutRequest) (*http.Response, error)
+}
+
+// SessionApiAPIService SessionApiAPI service
+type SessionApiAPIService service
 
 type ApiAccountCheckRequest struct {
-	ctx context.Context
-	ApiService *SessionApiApiService
-	email string
+	ctx        context.Context
+	ApiService SessionApiAPI
+	email      string
 }
 
 func (r ApiAccountCheckRequest) Execute() (*LogInResponse, *http.Response, error) {
@@ -36,35 +86,36 @@ func (r ApiAccountCheckRequest) Execute() (*LogInResponse, *http.Response, error
 /*
 AccountCheck Method for AccountCheck
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param email
- @return ApiAccountCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param email
+	@return ApiAccountCheckRequest
 */
-func (a *SessionApiApiService) AccountCheck(ctx context.Context, email string) ApiAccountCheckRequest {
+func (a *SessionApiAPIService) AccountCheck(ctx context.Context, email string) ApiAccountCheckRequest {
 	return ApiAccountCheckRequest{
 		ApiService: a,
-		ctx: ctx,
-		email: email,
+		ctx:        ctx,
+		email:      email,
 	}
 }
 
 // Execute executes the request
-//  @return LogInResponse
-func (a *SessionApiApiService) AccountCheckExecute(r ApiAccountCheckRequest) (*LogInResponse, *http.Response, error) {
+//
+//	@return LogInResponse
+func (a *SessionApiAPIService) AccountCheckExecute(r ApiAccountCheckRequest) (*LogInResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *LogInResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LogInResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiApiService.AccountCheck")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiAPIService.AccountCheck")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/session/{email}"
-	localVarPath = strings.Replace(localVarPath, "{"+"email"+"}", url.PathEscape(parameterToString(r.email, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"email"+"}", url.PathEscape(parameterValueToString(r.email, "email")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -97,9 +148,9 @@ func (a *SessionApiApiService) AccountCheckExecute(r ApiAccountCheckRequest) (*L
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -125,8 +176,8 @@ func (a *SessionApiApiService) AccountCheckExecute(r ApiAccountCheckRequest) (*L
 }
 
 type ApiGetCurrentUserRequest struct {
-	ctx context.Context
-	ApiService *SessionApiApiService
+	ctx        context.Context
+	ApiService SessionApiAPI
 }
 
 func (r ApiGetCurrentUserRequest) Execute() (*LogInResponse, *http.Response, error) {
@@ -136,27 +187,28 @@ func (r ApiGetCurrentUserRequest) Execute() (*LogInResponse, *http.Response, err
 /*
 GetCurrentUser Method for GetCurrentUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCurrentUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCurrentUserRequest
 */
-func (a *SessionApiApiService) GetCurrentUser(ctx context.Context) ApiGetCurrentUserRequest {
+func (a *SessionApiAPIService) GetCurrentUser(ctx context.Context) ApiGetCurrentUserRequest {
 	return ApiGetCurrentUserRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return LogInResponse
-func (a *SessionApiApiService) GetCurrentUserExecute(r ApiGetCurrentUserRequest) (*LogInResponse, *http.Response, error) {
+//
+//	@return LogInResponse
+func (a *SessionApiAPIService) GetCurrentUserExecute(r ApiGetCurrentUserRequest) (*LogInResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *LogInResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LogInResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiApiService.GetCurrentUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiAPIService.GetCurrentUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -194,9 +246,9 @@ func (a *SessionApiApiService) GetCurrentUserExecute(r ApiGetCurrentUserRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -222,8 +274,8 @@ func (a *SessionApiApiService) GetCurrentUserExecute(r ApiGetCurrentUserRequest)
 }
 
 type ApiLogInRequest struct {
-	ctx context.Context
-	ApiService *SessionApiApiService
+	ctx          context.Context
+	ApiService   SessionApiAPI
 	logInRequest *LogInRequest
 }
 
@@ -239,27 +291,28 @@ func (r ApiLogInRequest) Execute() (*LogInResponse, *http.Response, error) {
 /*
 LogIn Method for LogIn
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiLogInRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiLogInRequest
 */
-func (a *SessionApiApiService) LogIn(ctx context.Context) ApiLogInRequest {
+func (a *SessionApiAPIService) LogIn(ctx context.Context) ApiLogInRequest {
 	return ApiLogInRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return LogInResponse
-func (a *SessionApiApiService) LogInExecute(r ApiLogInRequest) (*LogInResponse, *http.Response, error) {
+//
+//	@return LogInResponse
+func (a *SessionApiAPIService) LogInExecute(r ApiLogInRequest) (*LogInResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *LogInResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LogInResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiApiService.LogIn")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiAPIService.LogIn")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -302,9 +355,9 @@ func (a *SessionApiApiService) LogInExecute(r ApiLogInRequest) (*LogInResponse, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -330,8 +383,8 @@ func (a *SessionApiApiService) LogInExecute(r ApiLogInRequest) (*LogInResponse, 
 }
 
 type ApiLogOutRequest struct {
-	ctx context.Context
-	ApiService *SessionApiApiService
+	ctx        context.Context
+	ApiService SessionApiAPI
 }
 
 func (r ApiLogOutRequest) Execute() (*http.Response, error) {
@@ -341,25 +394,25 @@ func (r ApiLogOutRequest) Execute() (*http.Response, error) {
 /*
 LogOut Method for LogOut
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiLogOutRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiLogOutRequest
 */
-func (a *SessionApiApiService) LogOut(ctx context.Context) ApiLogOutRequest {
+func (a *SessionApiAPIService) LogOut(ctx context.Context) ApiLogOutRequest {
 	return ApiLogOutRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *SessionApiApiService) LogOutExecute(r ApiLogOutRequest) (*http.Response, error) {
+func (a *SessionApiAPIService) LogOutExecute(r ApiLogOutRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiApiService.LogOut")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionApiAPIService.LogOut")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -397,9 +450,9 @@ func (a *SessionApiApiService) LogOutExecute(r ApiLogOutRequest) (*http.Response
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

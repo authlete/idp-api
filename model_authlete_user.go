@@ -15,20 +15,23 @@ import (
 	"time"
 )
 
+// checks if the AuthleteUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthleteUser{}
+
 // AuthleteUser struct for AuthleteUser
 type AuthleteUser struct {
-	Id *int64 `json:"id,omitempty"`
-	Xid *int64 `json:"xid,omitempty"`
-	GivenName *string `json:"givenName,omitempty"`
-	FamilyName *string `json:"familyName,omitempty"`
-	Email *string `json:"email,omitempty"`
-	LastAuthTime *time.Time `json:"lastAuthTime,omitempty"`
-	Admin *bool `json:"admin,omitempty"`
-	WebAuthenticators *map[string]string `json:"webAuthenticators,omitempty"`
-	LastAuthTimeAsLong *int64 `json:"lastAuthTimeAsLong,omitempty"`
-	WebAuthenticatorIDs []string `json:"webAuthenticatorIDs,omitempty"`
-	TotpEnabled *bool `json:"totpEnabled,omitempty"`
-	WebAuthnEnabled *bool `json:"webAuthnEnabled,omitempty"`
+	Id                  *int64             `json:"id,omitempty"`
+	Xid                 *int64             `json:"xid,omitempty"`
+	GivenName           *string            `json:"givenName,omitempty"`
+	FamilyName          *string            `json:"familyName,omitempty"`
+	Email               *string            `json:"email,omitempty"`
+	LastAuthTime        *time.Time         `json:"lastAuthTime,omitempty"`
+	Admin               *bool              `json:"admin,omitempty"`
+	WebAuthenticators   *map[string]string `json:"webAuthenticators,omitempty"`
+	LastAuthTimeAsLong  *int64             `json:"lastAuthTimeAsLong,omitempty"`
+	WebAuthenticatorIDs []string           `json:"webAuthenticatorIDs,omitempty"`
+	TotpEnabled         *bool              `json:"totpEnabled,omitempty"`
+	WebAuthnEnabled     *bool              `json:"webAuthnEnabled,omitempty"`
 }
 
 // NewAuthleteUser instantiates a new AuthleteUser object
@@ -50,7 +53,7 @@ func NewAuthleteUserWithDefaults() *AuthleteUser {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AuthleteUser) GetId() int64 {
-	if o == nil || isNil(o.Id) {
+	if o == nil || IsNil(o.Id) {
 		var ret int64
 		return ret
 	}
@@ -60,15 +63,15 @@ func (o *AuthleteUser) GetId() int64 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetIdOk() (*int64, bool) {
-	if o == nil || isNil(o.Id) {
-    return nil, false
+	if o == nil || IsNil(o.Id) {
+		return nil, false
 	}
 	return o.Id, true
 }
 
 // HasId returns a boolean if a field has been set.
 func (o *AuthleteUser) HasId() bool {
-	if o != nil && !isNil(o.Id) {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *AuthleteUser) SetId(v int64) {
 
 // GetXid returns the Xid field value if set, zero value otherwise.
 func (o *AuthleteUser) GetXid() int64 {
-	if o == nil || isNil(o.Xid) {
+	if o == nil || IsNil(o.Xid) {
 		var ret int64
 		return ret
 	}
@@ -92,15 +95,15 @@ func (o *AuthleteUser) GetXid() int64 {
 // GetXidOk returns a tuple with the Xid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetXidOk() (*int64, bool) {
-	if o == nil || isNil(o.Xid) {
-    return nil, false
+	if o == nil || IsNil(o.Xid) {
+		return nil, false
 	}
 	return o.Xid, true
 }
 
 // HasXid returns a boolean if a field has been set.
 func (o *AuthleteUser) HasXid() bool {
-	if o != nil && !isNil(o.Xid) {
+	if o != nil && !IsNil(o.Xid) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *AuthleteUser) SetXid(v int64) {
 
 // GetGivenName returns the GivenName field value if set, zero value otherwise.
 func (o *AuthleteUser) GetGivenName() string {
-	if o == nil || isNil(o.GivenName) {
+	if o == nil || IsNil(o.GivenName) {
 		var ret string
 		return ret
 	}
@@ -124,15 +127,15 @@ func (o *AuthleteUser) GetGivenName() string {
 // GetGivenNameOk returns a tuple with the GivenName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetGivenNameOk() (*string, bool) {
-	if o == nil || isNil(o.GivenName) {
-    return nil, false
+	if o == nil || IsNil(o.GivenName) {
+		return nil, false
 	}
 	return o.GivenName, true
 }
 
 // HasGivenName returns a boolean if a field has been set.
 func (o *AuthleteUser) HasGivenName() bool {
-	if o != nil && !isNil(o.GivenName) {
+	if o != nil && !IsNil(o.GivenName) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *AuthleteUser) SetGivenName(v string) {
 
 // GetFamilyName returns the FamilyName field value if set, zero value otherwise.
 func (o *AuthleteUser) GetFamilyName() string {
-	if o == nil || isNil(o.FamilyName) {
+	if o == nil || IsNil(o.FamilyName) {
 		var ret string
 		return ret
 	}
@@ -156,15 +159,15 @@ func (o *AuthleteUser) GetFamilyName() string {
 // GetFamilyNameOk returns a tuple with the FamilyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetFamilyNameOk() (*string, bool) {
-	if o == nil || isNil(o.FamilyName) {
-    return nil, false
+	if o == nil || IsNil(o.FamilyName) {
+		return nil, false
 	}
 	return o.FamilyName, true
 }
 
 // HasFamilyName returns a boolean if a field has been set.
 func (o *AuthleteUser) HasFamilyName() bool {
-	if o != nil && !isNil(o.FamilyName) {
+	if o != nil && !IsNil(o.FamilyName) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *AuthleteUser) SetFamilyName(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *AuthleteUser) GetEmail() string {
-	if o == nil || isNil(o.Email) {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -188,15 +191,15 @@ func (o *AuthleteUser) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetEmailOk() (*string, bool) {
-	if o == nil || isNil(o.Email) {
-    return nil, false
+	if o == nil || IsNil(o.Email) {
+		return nil, false
 	}
 	return o.Email, true
 }
 
 // HasEmail returns a boolean if a field has been set.
 func (o *AuthleteUser) HasEmail() bool {
-	if o != nil && !isNil(o.Email) {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -210,7 +213,7 @@ func (o *AuthleteUser) SetEmail(v string) {
 
 // GetLastAuthTime returns the LastAuthTime field value if set, zero value otherwise.
 func (o *AuthleteUser) GetLastAuthTime() time.Time {
-	if o == nil || isNil(o.LastAuthTime) {
+	if o == nil || IsNil(o.LastAuthTime) {
 		var ret time.Time
 		return ret
 	}
@@ -220,15 +223,15 @@ func (o *AuthleteUser) GetLastAuthTime() time.Time {
 // GetLastAuthTimeOk returns a tuple with the LastAuthTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetLastAuthTimeOk() (*time.Time, bool) {
-	if o == nil || isNil(o.LastAuthTime) {
-    return nil, false
+	if o == nil || IsNil(o.LastAuthTime) {
+		return nil, false
 	}
 	return o.LastAuthTime, true
 }
 
 // HasLastAuthTime returns a boolean if a field has been set.
 func (o *AuthleteUser) HasLastAuthTime() bool {
-	if o != nil && !isNil(o.LastAuthTime) {
+	if o != nil && !IsNil(o.LastAuthTime) {
 		return true
 	}
 
@@ -242,7 +245,7 @@ func (o *AuthleteUser) SetLastAuthTime(v time.Time) {
 
 // GetAdmin returns the Admin field value if set, zero value otherwise.
 func (o *AuthleteUser) GetAdmin() bool {
-	if o == nil || isNil(o.Admin) {
+	if o == nil || IsNil(o.Admin) {
 		var ret bool
 		return ret
 	}
@@ -252,15 +255,15 @@ func (o *AuthleteUser) GetAdmin() bool {
 // GetAdminOk returns a tuple with the Admin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetAdminOk() (*bool, bool) {
-	if o == nil || isNil(o.Admin) {
-    return nil, false
+	if o == nil || IsNil(o.Admin) {
+		return nil, false
 	}
 	return o.Admin, true
 }
 
 // HasAdmin returns a boolean if a field has been set.
 func (o *AuthleteUser) HasAdmin() bool {
-	if o != nil && !isNil(o.Admin) {
+	if o != nil && !IsNil(o.Admin) {
 		return true
 	}
 
@@ -274,7 +277,7 @@ func (o *AuthleteUser) SetAdmin(v bool) {
 
 // GetWebAuthenticators returns the WebAuthenticators field value if set, zero value otherwise.
 func (o *AuthleteUser) GetWebAuthenticators() map[string]string {
-	if o == nil || isNil(o.WebAuthenticators) {
+	if o == nil || IsNil(o.WebAuthenticators) {
 		var ret map[string]string
 		return ret
 	}
@@ -284,15 +287,15 @@ func (o *AuthleteUser) GetWebAuthenticators() map[string]string {
 // GetWebAuthenticatorsOk returns a tuple with the WebAuthenticators field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetWebAuthenticatorsOk() (*map[string]string, bool) {
-	if o == nil || isNil(o.WebAuthenticators) {
-    return nil, false
+	if o == nil || IsNil(o.WebAuthenticators) {
+		return nil, false
 	}
 	return o.WebAuthenticators, true
 }
 
 // HasWebAuthenticators returns a boolean if a field has been set.
 func (o *AuthleteUser) HasWebAuthenticators() bool {
-	if o != nil && !isNil(o.WebAuthenticators) {
+	if o != nil && !IsNil(o.WebAuthenticators) {
 		return true
 	}
 
@@ -306,7 +309,7 @@ func (o *AuthleteUser) SetWebAuthenticators(v map[string]string) {
 
 // GetLastAuthTimeAsLong returns the LastAuthTimeAsLong field value if set, zero value otherwise.
 func (o *AuthleteUser) GetLastAuthTimeAsLong() int64 {
-	if o == nil || isNil(o.LastAuthTimeAsLong) {
+	if o == nil || IsNil(o.LastAuthTimeAsLong) {
 		var ret int64
 		return ret
 	}
@@ -316,15 +319,15 @@ func (o *AuthleteUser) GetLastAuthTimeAsLong() int64 {
 // GetLastAuthTimeAsLongOk returns a tuple with the LastAuthTimeAsLong field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetLastAuthTimeAsLongOk() (*int64, bool) {
-	if o == nil || isNil(o.LastAuthTimeAsLong) {
-    return nil, false
+	if o == nil || IsNil(o.LastAuthTimeAsLong) {
+		return nil, false
 	}
 	return o.LastAuthTimeAsLong, true
 }
 
 // HasLastAuthTimeAsLong returns a boolean if a field has been set.
 func (o *AuthleteUser) HasLastAuthTimeAsLong() bool {
-	if o != nil && !isNil(o.LastAuthTimeAsLong) {
+	if o != nil && !IsNil(o.LastAuthTimeAsLong) {
 		return true
 	}
 
@@ -338,7 +341,7 @@ func (o *AuthleteUser) SetLastAuthTimeAsLong(v int64) {
 
 // GetWebAuthenticatorIDs returns the WebAuthenticatorIDs field value if set, zero value otherwise.
 func (o *AuthleteUser) GetWebAuthenticatorIDs() []string {
-	if o == nil || isNil(o.WebAuthenticatorIDs) {
+	if o == nil || IsNil(o.WebAuthenticatorIDs) {
 		var ret []string
 		return ret
 	}
@@ -348,15 +351,15 @@ func (o *AuthleteUser) GetWebAuthenticatorIDs() []string {
 // GetWebAuthenticatorIDsOk returns a tuple with the WebAuthenticatorIDs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetWebAuthenticatorIDsOk() ([]string, bool) {
-	if o == nil || isNil(o.WebAuthenticatorIDs) {
-    return nil, false
+	if o == nil || IsNil(o.WebAuthenticatorIDs) {
+		return nil, false
 	}
 	return o.WebAuthenticatorIDs, true
 }
 
 // HasWebAuthenticatorIDs returns a boolean if a field has been set.
 func (o *AuthleteUser) HasWebAuthenticatorIDs() bool {
-	if o != nil && !isNil(o.WebAuthenticatorIDs) {
+	if o != nil && !IsNil(o.WebAuthenticatorIDs) {
 		return true
 	}
 
@@ -370,7 +373,7 @@ func (o *AuthleteUser) SetWebAuthenticatorIDs(v []string) {
 
 // GetTotpEnabled returns the TotpEnabled field value if set, zero value otherwise.
 func (o *AuthleteUser) GetTotpEnabled() bool {
-	if o == nil || isNil(o.TotpEnabled) {
+	if o == nil || IsNil(o.TotpEnabled) {
 		var ret bool
 		return ret
 	}
@@ -380,15 +383,15 @@ func (o *AuthleteUser) GetTotpEnabled() bool {
 // GetTotpEnabledOk returns a tuple with the TotpEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetTotpEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.TotpEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.TotpEnabled) {
+		return nil, false
 	}
 	return o.TotpEnabled, true
 }
 
 // HasTotpEnabled returns a boolean if a field has been set.
 func (o *AuthleteUser) HasTotpEnabled() bool {
-	if o != nil && !isNil(o.TotpEnabled) {
+	if o != nil && !IsNil(o.TotpEnabled) {
 		return true
 	}
 
@@ -402,7 +405,7 @@ func (o *AuthleteUser) SetTotpEnabled(v bool) {
 
 // GetWebAuthnEnabled returns the WebAuthnEnabled field value if set, zero value otherwise.
 func (o *AuthleteUser) GetWebAuthnEnabled() bool {
-	if o == nil || isNil(o.WebAuthnEnabled) {
+	if o == nil || IsNil(o.WebAuthnEnabled) {
 		var ret bool
 		return ret
 	}
@@ -412,15 +415,15 @@ func (o *AuthleteUser) GetWebAuthnEnabled() bool {
 // GetWebAuthnEnabledOk returns a tuple with the WebAuthnEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthleteUser) GetWebAuthnEnabledOk() (*bool, bool) {
-	if o == nil || isNil(o.WebAuthnEnabled) {
-    return nil, false
+	if o == nil || IsNil(o.WebAuthnEnabled) {
+		return nil, false
 	}
 	return o.WebAuthnEnabled, true
 }
 
 // HasWebAuthnEnabled returns a boolean if a field has been set.
 func (o *AuthleteUser) HasWebAuthnEnabled() bool {
-	if o != nil && !isNil(o.WebAuthnEnabled) {
+	if o != nil && !IsNil(o.WebAuthnEnabled) {
 		return true
 	}
 
@@ -433,44 +436,52 @@ func (o *AuthleteUser) SetWebAuthnEnabled(v bool) {
 }
 
 func (o AuthleteUser) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !isNil(o.Xid) {
-		toSerialize["xid"] = o.Xid
-	}
-	if !isNil(o.GivenName) {
-		toSerialize["givenName"] = o.GivenName
-	}
-	if !isNil(o.FamilyName) {
-		toSerialize["familyName"] = o.FamilyName
-	}
-	if !isNil(o.Email) {
-		toSerialize["email"] = o.Email
-	}
-	if !isNil(o.LastAuthTime) {
-		toSerialize["lastAuthTime"] = o.LastAuthTime
-	}
-	if !isNil(o.Admin) {
-		toSerialize["admin"] = o.Admin
-	}
-	if !isNil(o.WebAuthenticators) {
-		toSerialize["webAuthenticators"] = o.WebAuthenticators
-	}
-	if !isNil(o.LastAuthTimeAsLong) {
-		toSerialize["lastAuthTimeAsLong"] = o.LastAuthTimeAsLong
-	}
-	if !isNil(o.WebAuthenticatorIDs) {
-		toSerialize["webAuthenticatorIDs"] = o.WebAuthenticatorIDs
-	}
-	if !isNil(o.TotpEnabled) {
-		toSerialize["totpEnabled"] = o.TotpEnabled
-	}
-	if !isNil(o.WebAuthnEnabled) {
-		toSerialize["webAuthnEnabled"] = o.WebAuthnEnabled
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AuthleteUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Xid) {
+		toSerialize["xid"] = o.Xid
+	}
+	if !IsNil(o.GivenName) {
+		toSerialize["givenName"] = o.GivenName
+	}
+	if !IsNil(o.FamilyName) {
+		toSerialize["familyName"] = o.FamilyName
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.LastAuthTime) {
+		toSerialize["lastAuthTime"] = o.LastAuthTime
+	}
+	if !IsNil(o.Admin) {
+		toSerialize["admin"] = o.Admin
+	}
+	if !IsNil(o.WebAuthenticators) {
+		toSerialize["webAuthenticators"] = o.WebAuthenticators
+	}
+	if !IsNil(o.LastAuthTimeAsLong) {
+		toSerialize["lastAuthTimeAsLong"] = o.LastAuthTimeAsLong
+	}
+	if !IsNil(o.WebAuthenticatorIDs) {
+		toSerialize["webAuthenticatorIDs"] = o.WebAuthenticatorIDs
+	}
+	if !IsNil(o.TotpEnabled) {
+		toSerialize["totpEnabled"] = o.TotpEnabled
+	}
+	if !IsNil(o.WebAuthnEnabled) {
+		toSerialize["webAuthnEnabled"] = o.WebAuthnEnabled
+	}
+	return toSerialize, nil
 }
 
 type NullableAuthleteUser struct {
@@ -508,5 +519,3 @@ func (v *NullableAuthleteUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

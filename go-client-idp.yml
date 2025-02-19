@@ -1,0 +1,13 @@
+inputSpec: /local/api/openapi.yaml
+outputDir: /local/
+generatorName: go
+validateSpec: true
+gitRepoId: idp-api
+gitUserId: authlete
+additionalProperties:
+  enumClassPrefix: true
+  generateInterfaces: true
+  packageName: openapi
+  packageVersion: "1.0"
+  prependFormOrBodyParameters: false
+  useOneOfDiscriminatorLookup: true

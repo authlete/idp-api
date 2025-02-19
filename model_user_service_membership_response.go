@@ -14,11 +14,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserServiceMembershipResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserServiceMembershipResponse{}
+
 // UserServiceMembershipResponse struct for UserServiceMembershipResponse
 type UserServiceMembershipResponse struct {
 	Organizations []OrganizationMembershipResponse `json:"organizations,omitempty"`
-	UserId *int64 `json:"userId,omitempty"`
-	Admin *bool `json:"admin,omitempty"`
+	UserId        *int64                           `json:"userId,omitempty"`
+	Admin         *bool                            `json:"admin,omitempty"`
 }
 
 // NewUserServiceMembershipResponse instantiates a new UserServiceMembershipResponse object
@@ -40,7 +43,7 @@ func NewUserServiceMembershipResponseWithDefaults() *UserServiceMembershipRespon
 
 // GetOrganizations returns the Organizations field value if set, zero value otherwise.
 func (o *UserServiceMembershipResponse) GetOrganizations() []OrganizationMembershipResponse {
-	if o == nil || isNil(o.Organizations) {
+	if o == nil || IsNil(o.Organizations) {
 		var ret []OrganizationMembershipResponse
 		return ret
 	}
@@ -50,15 +53,15 @@ func (o *UserServiceMembershipResponse) GetOrganizations() []OrganizationMembers
 // GetOrganizationsOk returns a tuple with the Organizations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserServiceMembershipResponse) GetOrganizationsOk() ([]OrganizationMembershipResponse, bool) {
-	if o == nil || isNil(o.Organizations) {
-    return nil, false
+	if o == nil || IsNil(o.Organizations) {
+		return nil, false
 	}
 	return o.Organizations, true
 }
 
 // HasOrganizations returns a boolean if a field has been set.
 func (o *UserServiceMembershipResponse) HasOrganizations() bool {
-	if o != nil && !isNil(o.Organizations) {
+	if o != nil && !IsNil(o.Organizations) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *UserServiceMembershipResponse) SetOrganizations(v []OrganizationMembers
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *UserServiceMembershipResponse) GetUserId() int64 {
-	if o == nil || isNil(o.UserId) {
+	if o == nil || IsNil(o.UserId) {
 		var ret int64
 		return ret
 	}
@@ -82,15 +85,15 @@ func (o *UserServiceMembershipResponse) GetUserId() int64 {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserServiceMembershipResponse) GetUserIdOk() (*int64, bool) {
-	if o == nil || isNil(o.UserId) {
-    return nil, false
+	if o == nil || IsNil(o.UserId) {
+		return nil, false
 	}
 	return o.UserId, true
 }
 
 // HasUserId returns a boolean if a field has been set.
 func (o *UserServiceMembershipResponse) HasUserId() bool {
-	if o != nil && !isNil(o.UserId) {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -104,7 +107,7 @@ func (o *UserServiceMembershipResponse) SetUserId(v int64) {
 
 // GetAdmin returns the Admin field value if set, zero value otherwise.
 func (o *UserServiceMembershipResponse) GetAdmin() bool {
-	if o == nil || isNil(o.Admin) {
+	if o == nil || IsNil(o.Admin) {
 		var ret bool
 		return ret
 	}
@@ -114,15 +117,15 @@ func (o *UserServiceMembershipResponse) GetAdmin() bool {
 // GetAdminOk returns a tuple with the Admin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserServiceMembershipResponse) GetAdminOk() (*bool, bool) {
-	if o == nil || isNil(o.Admin) {
-    return nil, false
+	if o == nil || IsNil(o.Admin) {
+		return nil, false
 	}
 	return o.Admin, true
 }
 
 // HasAdmin returns a boolean if a field has been set.
 func (o *UserServiceMembershipResponse) HasAdmin() bool {
-	if o != nil && !isNil(o.Admin) {
+	if o != nil && !IsNil(o.Admin) {
 		return true
 	}
 
@@ -135,17 +138,25 @@ func (o *UserServiceMembershipResponse) SetAdmin(v bool) {
 }
 
 func (o UserServiceMembershipResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.Organizations) {
-		toSerialize["organizations"] = o.Organizations
-	}
-	if !isNil(o.UserId) {
-		toSerialize["userId"] = o.UserId
-	}
-	if !isNil(o.Admin) {
-		toSerialize["admin"] = o.Admin
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserServiceMembershipResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Organizations) {
+		toSerialize["organizations"] = o.Organizations
+	}
+	if !IsNil(o.UserId) {
+		toSerialize["userId"] = o.UserId
+	}
+	if !IsNil(o.Admin) {
+		toSerialize["admin"] = o.Admin
+	}
+	return toSerialize, nil
 }
 
 type NullableUserServiceMembershipResponse struct {
@@ -183,5 +194,3 @@ func (v *NullableUserServiceMembershipResponse) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

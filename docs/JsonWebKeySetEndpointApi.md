@@ -1,10 +1,10 @@
-# \JsonWebKeySetEndpointApi
+# \JsonWebKeySetEndpointAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetJsonWebKeySet**](JsonWebKeySetEndpointApi.md#GetJsonWebKeySet) | **Get** /jwks | 
+[**GetJsonWebKeySet**](JsonWebKeySetEndpointAPI.md#GetJsonWebKeySet) | **Get** /jwks | 
 
 
 
@@ -20,23 +20,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.JsonWebKeySetEndpointApi.GetJsonWebKeySet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `JsonWebKeySetEndpointApi.GetJsonWebKeySet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetJsonWebKeySet`: string
-    fmt.Fprintf(os.Stdout, "Response from `JsonWebKeySetEndpointApi.GetJsonWebKeySet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.JsonWebKeySetEndpointAPI.GetJsonWebKeySet(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `JsonWebKeySetEndpointAPI.GetJsonWebKeySet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetJsonWebKeySet`: string
+	fmt.Fprintf(os.Stdout, "Response from `JsonWebKeySetEndpointAPI.GetJsonWebKeySet`: %v\n", resp)
 }
 ```
 

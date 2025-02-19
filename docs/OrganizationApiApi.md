@@ -1,14 +1,14 @@
-# \OrganizationApiApi
+# \OrganizationApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateOrganization**](OrganizationApiApi.md#CreateOrganization) | **Post** /api/organization | 
-[**DeleteOrganization**](OrganizationApiApi.md#DeleteOrganization) | **Delete** /api/organization/{id} | 
-[**GetAll**](OrganizationApiApi.md#GetAll) | **Get** /api/organization | 
-[**GetOrganization**](OrganizationApiApi.md#GetOrganization) | **Get** /api/organization/{id} | 
-[**UpdateOrganization**](OrganizationApiApi.md#UpdateOrganization) | **Post** /api/organization/{id} | 
+[**CreateOrganization**](OrganizationApiAPI.md#CreateOrganization) | **Post** /api/organization | 
+[**DeleteOrganization**](OrganizationApiAPI.md#DeleteOrganization) | **Delete** /api/organization/{id} | 
+[**GetAll**](OrganizationApiAPI.md#GetAll) | **Get** /api/organization | 
+[**GetOrganization**](OrganizationApiAPI.md#GetOrganization) | **Get** /api/organization/{id} | 
+[**UpdateOrganization**](OrganizationApiAPI.md#UpdateOrganization) | **Post** /api/organization/{id} | 
 
 
 
@@ -24,26 +24,26 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    updateOrganizationRequest := *openapiclient.NewUpdateOrganizationRequest("Name_example") // UpdateOrganizationRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	updateOrganizationRequest := *openapiclient.NewUpdateOrganizationRequest("Name_example") // UpdateOrganizationRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrganizationApiApi.CreateOrganization(context.Background()).UpdateOrganizationRequest(updateOrganizationRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiApi.CreateOrganization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateOrganization`: OrganizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `OrganizationApiApi.CreateOrganization`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrganizationApiAPI.CreateOrganization(context.Background()).UpdateOrganizationRequest(updateOrganizationRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiAPI.CreateOrganization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateOrganization`: OrganizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `OrganizationApiAPI.CreateOrganization`: %v\n", resp)
 }
 ```
 
@@ -92,24 +92,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrganizationApiApi.DeleteOrganization(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiApi.DeleteOrganization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.OrganizationApiAPI.DeleteOrganization(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiAPI.DeleteOrganization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -162,25 +162,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrganizationApiApi.GetAll(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiApi.GetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAll`: []OrganizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `OrganizationApiApi.GetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrganizationApiAPI.GetAll(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiAPI.GetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAll`: []OrganizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `OrganizationApiAPI.GetAll`: %v\n", resp)
 }
 ```
 
@@ -228,26 +228,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrganizationApiApi.GetOrganization(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiApi.GetOrganization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOrganization`: OrganizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `OrganizationApiApi.GetOrganization`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrganizationApiAPI.GetOrganization(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiAPI.GetOrganization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOrganization`: OrganizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `OrganizationApiAPI.GetOrganization`: %v\n", resp)
 }
 ```
 
@@ -300,27 +300,27 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    updateOrganizationRequest := *openapiclient.NewUpdateOrganizationRequest("Name_example") // UpdateOrganizationRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	updateOrganizationRequest := *openapiclient.NewUpdateOrganizationRequest("Name_example") // UpdateOrganizationRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrganizationApiApi.UpdateOrganization(context.Background(), id).UpdateOrganizationRequest(updateOrganizationRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiApi.UpdateOrganization``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateOrganization`: OrganizationResponse
-    fmt.Fprintf(os.Stdout, "Response from `OrganizationApiApi.UpdateOrganization`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrganizationApiAPI.UpdateOrganization(context.Background(), id).UpdateOrganizationRequest(updateOrganizationRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationApiAPI.UpdateOrganization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateOrganization`: OrganizationResponse
+	fmt.Fprintf(os.Stdout, "Response from `OrganizationApiAPI.UpdateOrganization`: %v\n", resp)
 }
 ```
 

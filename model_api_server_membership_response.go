@@ -14,13 +14,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApiServerMembershipResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiServerMembershipResponse{}
+
 // ApiServerMembershipResponse struct for ApiServerMembershipResponse
 type ApiServerMembershipResponse struct {
-	ApiServerId *int64 `json:"apiServerId,omitempty"`
-	Url *string `json:"url,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Privileges []string `json:"privileges,omitempty"`
-	Services []ServiceInstanceMembershipResponse `json:"services,omitempty"`
+	ApiServerId *int64                              `json:"apiServerId,omitempty"`
+	Url         *string                             `json:"url,omitempty"`
+	Description *string                             `json:"description,omitempty"`
+	Privileges  []string                            `json:"privileges,omitempty"`
+	Services    []ServiceInstanceMembershipResponse `json:"services,omitempty"`
 }
 
 // NewApiServerMembershipResponse instantiates a new ApiServerMembershipResponse object
@@ -42,7 +45,7 @@ func NewApiServerMembershipResponseWithDefaults() *ApiServerMembershipResponse {
 
 // GetApiServerId returns the ApiServerId field value if set, zero value otherwise.
 func (o *ApiServerMembershipResponse) GetApiServerId() int64 {
-	if o == nil || isNil(o.ApiServerId) {
+	if o == nil || IsNil(o.ApiServerId) {
 		var ret int64
 		return ret
 	}
@@ -52,15 +55,15 @@ func (o *ApiServerMembershipResponse) GetApiServerId() int64 {
 // GetApiServerIdOk returns a tuple with the ApiServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiServerMembershipResponse) GetApiServerIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiServerId) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerId) {
+		return nil, false
 	}
 	return o.ApiServerId, true
 }
 
 // HasApiServerId returns a boolean if a field has been set.
 func (o *ApiServerMembershipResponse) HasApiServerId() bool {
-	if o != nil && !isNil(o.ApiServerId) {
+	if o != nil && !IsNil(o.ApiServerId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *ApiServerMembershipResponse) SetApiServerId(v int64) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *ApiServerMembershipResponse) GetUrl() string {
-	if o == nil || isNil(o.Url) {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -84,15 +87,15 @@ func (o *ApiServerMembershipResponse) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiServerMembershipResponse) GetUrlOk() (*string, bool) {
-	if o == nil || isNil(o.Url) {
-    return nil, false
+	if o == nil || IsNil(o.Url) {
+		return nil, false
 	}
 	return o.Url, true
 }
 
 // HasUrl returns a boolean if a field has been set.
 func (o *ApiServerMembershipResponse) HasUrl() bool {
-	if o != nil && !isNil(o.Url) {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *ApiServerMembershipResponse) SetUrl(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ApiServerMembershipResponse) GetDescription() string {
-	if o == nil || isNil(o.Description) {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -116,15 +119,15 @@ func (o *ApiServerMembershipResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiServerMembershipResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || isNil(o.Description) {
-    return nil, false
+	if o == nil || IsNil(o.Description) {
+		return nil, false
 	}
 	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ApiServerMembershipResponse) HasDescription() bool {
-	if o != nil && !isNil(o.Description) {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *ApiServerMembershipResponse) SetDescription(v string) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *ApiServerMembershipResponse) GetPrivileges() []string {
-	if o == nil || isNil(o.Privileges) {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []string
 		return ret
 	}
@@ -148,15 +151,15 @@ func (o *ApiServerMembershipResponse) GetPrivileges() []string {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiServerMembershipResponse) GetPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.Privileges) {
-    return nil, false
+	if o == nil || IsNil(o.Privileges) {
+		return nil, false
 	}
 	return o.Privileges, true
 }
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *ApiServerMembershipResponse) HasPrivileges() bool {
-	if o != nil && !isNil(o.Privileges) {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *ApiServerMembershipResponse) SetPrivileges(v []string) {
 
 // GetServices returns the Services field value if set, zero value otherwise.
 func (o *ApiServerMembershipResponse) GetServices() []ServiceInstanceMembershipResponse {
-	if o == nil || isNil(o.Services) {
+	if o == nil || IsNil(o.Services) {
 		var ret []ServiceInstanceMembershipResponse
 		return ret
 	}
@@ -180,15 +183,15 @@ func (o *ApiServerMembershipResponse) GetServices() []ServiceInstanceMembershipR
 // GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiServerMembershipResponse) GetServicesOk() ([]ServiceInstanceMembershipResponse, bool) {
-	if o == nil || isNil(o.Services) {
-    return nil, false
+	if o == nil || IsNil(o.Services) {
+		return nil, false
 	}
 	return o.Services, true
 }
 
 // HasServices returns a boolean if a field has been set.
 func (o *ApiServerMembershipResponse) HasServices() bool {
-	if o != nil && !isNil(o.Services) {
+	if o != nil && !IsNil(o.Services) {
 		return true
 	}
 
@@ -201,23 +204,31 @@ func (o *ApiServerMembershipResponse) SetServices(v []ServiceInstanceMembershipR
 }
 
 func (o ApiServerMembershipResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ApiServerId) {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if !isNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
-	if !isNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !isNil(o.Privileges) {
-		toSerialize["privileges"] = o.Privileges
-	}
-	if !isNil(o.Services) {
-		toSerialize["services"] = o.Services
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApiServerMembershipResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApiServerId) {
+		toSerialize["apiServerId"] = o.ApiServerId
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	if !IsNil(o.Services) {
+		toSerialize["services"] = o.Services
+	}
+	return toSerialize, nil
 }
 
 type NullableApiServerMembershipResponse struct {
@@ -255,5 +266,3 @@ func (v *NullableApiServerMembershipResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

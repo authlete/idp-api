@@ -14,10 +14,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the OrphanService type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrphanService{}
+
 // OrphanService struct for OrphanService
 type OrphanService struct {
 	ApiServerId *int64 `json:"apiServerId,omitempty"`
-	ServiceId *int64 `json:"serviceId,omitempty"`
+	ServiceId   *int64 `json:"serviceId,omitempty"`
 }
 
 // NewOrphanService instantiates a new OrphanService object
@@ -39,7 +42,7 @@ func NewOrphanServiceWithDefaults() *OrphanService {
 
 // GetApiServerId returns the ApiServerId field value if set, zero value otherwise.
 func (o *OrphanService) GetApiServerId() int64 {
-	if o == nil || isNil(o.ApiServerId) {
+	if o == nil || IsNil(o.ApiServerId) {
 		var ret int64
 		return ret
 	}
@@ -49,15 +52,15 @@ func (o *OrphanService) GetApiServerId() int64 {
 // GetApiServerIdOk returns a tuple with the ApiServerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrphanService) GetApiServerIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ApiServerId) {
-    return nil, false
+	if o == nil || IsNil(o.ApiServerId) {
+		return nil, false
 	}
 	return o.ApiServerId, true
 }
 
 // HasApiServerId returns a boolean if a field has been set.
 func (o *OrphanService) HasApiServerId() bool {
-	if o != nil && !isNil(o.ApiServerId) {
+	if o != nil && !IsNil(o.ApiServerId) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *OrphanService) SetApiServerId(v int64) {
 
 // GetServiceId returns the ServiceId field value if set, zero value otherwise.
 func (o *OrphanService) GetServiceId() int64 {
-	if o == nil || isNil(o.ServiceId) {
+	if o == nil || IsNil(o.ServiceId) {
 		var ret int64
 		return ret
 	}
@@ -81,15 +84,15 @@ func (o *OrphanService) GetServiceId() int64 {
 // GetServiceIdOk returns a tuple with the ServiceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrphanService) GetServiceIdOk() (*int64, bool) {
-	if o == nil || isNil(o.ServiceId) {
-    return nil, false
+	if o == nil || IsNil(o.ServiceId) {
+		return nil, false
 	}
 	return o.ServiceId, true
 }
 
 // HasServiceId returns a boolean if a field has been set.
 func (o *OrphanService) HasServiceId() bool {
-	if o != nil && !isNil(o.ServiceId) {
+	if o != nil && !IsNil(o.ServiceId) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *OrphanService) SetServiceId(v int64) {
 }
 
 func (o OrphanService) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.ApiServerId) {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if !isNil(o.ServiceId) {
-		toSerialize["serviceId"] = o.ServiceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OrphanService) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApiServerId) {
+		toSerialize["apiServerId"] = o.ApiServerId
+	}
+	if !IsNil(o.ServiceId) {
+		toSerialize["serviceId"] = o.ServiceId
+	}
+	return toSerialize, nil
 }
 
 type NullableOrphanService struct {
@@ -147,5 +158,3 @@ func (v *NullableOrphanService) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

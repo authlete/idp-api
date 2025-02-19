@@ -1,10 +1,10 @@
-# \AccessMapApiApi
+# \AccessMapApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAccessMap**](AccessMapApiApi.md#GetAccessMap) | **Get** /api/accessmap | 
+[**GetAccessMap**](AccessMapApiAPI.md#GetAccessMap) | **Get** /api/accessmap | 
 
 
 
@@ -20,25 +20,25 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessMapApiApi.GetAccessMap(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessMapApiApi.GetAccessMap``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAccessMap`: UserServiceMembershipResponse
-    fmt.Fprintf(os.Stdout, "Response from `AccessMapApiApi.GetAccessMap`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessMapApiAPI.GetAccessMap(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessMapApiAPI.GetAccessMap``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAccessMap`: UserServiceMembershipResponse
+	fmt.Fprintf(os.Stdout, "Response from `AccessMapApiAPI.GetAccessMap`: %v\n", resp)
 }
 ```
 

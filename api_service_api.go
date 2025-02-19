@@ -13,22 +13,107 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+type ServiceApiAPI interface {
 
-// ServiceApiApiService ServiceApiApi service
-type ServiceApiApiService service
+	/*
+		AdoptService Method for AdoptService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiAdoptServiceRequest
+	*/
+	AdoptService(ctx context.Context) ApiAdoptServiceRequest
+
+	// AdoptServiceExecute executes the request
+	//  @return ServiceInstanceManagementResponse
+	AdoptServiceExecute(r ApiAdoptServiceRequest) (*ServiceInstanceManagementResponse, *http.Response, error)
+
+	/*
+		CreateService Method for CreateService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateServiceRequest
+	*/
+	CreateService(ctx context.Context) ApiCreateServiceRequest
+
+	// CreateServiceExecute executes the request
+	//  @return Service
+	CreateServiceExecute(r ApiCreateServiceRequest) (*Service, *http.Response, error)
+
+	/*
+		DeleteService Method for DeleteService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiDeleteServiceRequest
+	*/
+	DeleteService(ctx context.Context) ApiDeleteServiceRequest
+
+	// DeleteServiceExecute executes the request
+	DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error)
+
+	/*
+		FindService Method for FindService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiFindServiceRequest
+	*/
+	FindService(ctx context.Context, id int64) ApiFindServiceRequest
+
+	// FindServiceExecute executes the request
+	//  @return []ServiceInstanceManagementResponse
+	FindServiceExecute(r ApiFindServiceRequest) ([]ServiceInstanceManagementResponse, *http.Response, error)
+
+	/*
+		GetOrphans Method for GetOrphans
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrphansRequest
+	*/
+	GetOrphans(ctx context.Context) ApiGetOrphansRequest
+
+	// GetOrphansExecute executes the request
+	//  @return OrphanServiceResponse
+	GetOrphansExecute(r ApiGetOrphansRequest) (*OrphanServiceResponse, *http.Response, error)
+
+	/*
+		MoveService Method for MoveService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiMoveServiceRequest
+	*/
+	MoveService(ctx context.Context) ApiMoveServiceRequest
+
+	// MoveServiceExecute executes the request
+	//  @return ServiceInstanceManagementResponse
+	MoveServiceExecute(r ApiMoveServiceRequest) (*ServiceInstanceManagementResponse, *http.Response, error)
+
+	/*
+		RemoveOrphanService Method for RemoveOrphanService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRemoveOrphanServiceRequest
+	*/
+	RemoveOrphanService(ctx context.Context) ApiRemoveOrphanServiceRequest
+
+	// RemoveOrphanServiceExecute executes the request
+	RemoveOrphanServiceExecute(r ApiRemoveOrphanServiceRequest) (*http.Response, error)
+}
+
+// ServiceApiAPIService ServiceApiAPI service
+type ServiceApiAPIService service
 
 type ApiAdoptServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
+	ctx                 context.Context
+	ApiService          ServiceApiAPI
 	adoptServiceRequest *AdoptServiceRequest
-	authorization *string
-	dPoP *string
+	authorization       *string
+	dPoP                *string
 }
 
 func (r ApiAdoptServiceRequest) AdoptServiceRequest(adoptServiceRequest AdoptServiceRequest) ApiAdoptServiceRequest {
@@ -53,27 +138,28 @@ func (r ApiAdoptServiceRequest) Execute() (*ServiceInstanceManagementResponse, *
 /*
 AdoptService Method for AdoptService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAdoptServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAdoptServiceRequest
 */
-func (a *ServiceApiApiService) AdoptService(ctx context.Context) ApiAdoptServiceRequest {
+func (a *ServiceApiAPIService) AdoptService(ctx context.Context) ApiAdoptServiceRequest {
 	return ApiAdoptServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ServiceInstanceManagementResponse
-func (a *ServiceApiApiService) AdoptServiceExecute(r ApiAdoptServiceRequest) (*ServiceInstanceManagementResponse, *http.Response, error) {
+//
+//	@return ServiceInstanceManagementResponse
+func (a *ServiceApiAPIService) AdoptServiceExecute(r ApiAdoptServiceRequest) (*ServiceInstanceManagementResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceInstanceManagementResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceInstanceManagementResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.AdoptService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.AdoptService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -105,10 +191,10 @@ func (a *ServiceApiApiService) AdoptServiceExecute(r ApiAdoptServiceRequest) (*S
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.adoptServiceRequest
@@ -122,9 +208,9 @@ func (a *ServiceApiApiService) AdoptServiceExecute(r ApiAdoptServiceRequest) (*S
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -150,11 +236,11 @@ func (a *ServiceApiApiService) AdoptServiceExecute(r ApiAdoptServiceRequest) (*S
 }
 
 type ApiCreateServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
+	ctx                  context.Context
+	ApiService           ServiceApiAPI
 	createServiceRequest *CreateServiceRequest
-	authorization *string
-	dPoP *string
+	authorization        *string
+	dPoP                 *string
 }
 
 func (r ApiCreateServiceRequest) CreateServiceRequest(createServiceRequest CreateServiceRequest) ApiCreateServiceRequest {
@@ -179,27 +265,28 @@ func (r ApiCreateServiceRequest) Execute() (*Service, *http.Response, error) {
 /*
 CreateService Method for CreateService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateServiceRequest
 */
-func (a *ServiceApiApiService) CreateService(ctx context.Context) ApiCreateServiceRequest {
+func (a *ServiceApiAPIService) CreateService(ctx context.Context) ApiCreateServiceRequest {
 	return ApiCreateServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return Service
-func (a *ServiceApiApiService) CreateServiceExecute(r ApiCreateServiceRequest) (*Service, *http.Response, error) {
+//
+//	@return Service
+func (a *ServiceApiAPIService) CreateServiceExecute(r ApiCreateServiceRequest) (*Service, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Service
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Service
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.CreateService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.CreateService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -231,10 +318,10 @@ func (a *ServiceApiApiService) CreateServiceExecute(r ApiCreateServiceRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.createServiceRequest
@@ -248,9 +335,9 @@ func (a *ServiceApiApiService) CreateServiceExecute(r ApiCreateServiceRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -276,11 +363,11 @@ func (a *ServiceApiApiService) CreateServiceExecute(r ApiCreateServiceRequest) (
 }
 
 type ApiDeleteServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
+	ctx                  context.Context
+	ApiService           ServiceApiAPI
 	deleteServiceRequest *DeleteServiceRequest
-	authorization *string
-	dPoP *string
+	authorization        *string
+	dPoP                 *string
 }
 
 func (r ApiDeleteServiceRequest) DeleteServiceRequest(deleteServiceRequest DeleteServiceRequest) ApiDeleteServiceRequest {
@@ -305,25 +392,25 @@ func (r ApiDeleteServiceRequest) Execute() (*http.Response, error) {
 /*
 DeleteService Method for DeleteService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDeleteServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteServiceRequest
 */
-func (a *ServiceApiApiService) DeleteService(ctx context.Context) ApiDeleteServiceRequest {
+func (a *ServiceApiAPIService) DeleteService(ctx context.Context) ApiDeleteServiceRequest {
 	return ApiDeleteServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *ServiceApiApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error) {
+func (a *ServiceApiAPIService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.DeleteService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.DeleteService")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -355,10 +442,10 @@ func (a *ServiceApiApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.deleteServiceRequest
@@ -372,9 +459,9 @@ func (a *ServiceApiApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -391,11 +478,11 @@ func (a *ServiceApiApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (
 }
 
 type ApiFindServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    ServiceApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiFindServiceRequest) Authorization(authorization string) ApiFindServiceRequest {
@@ -415,35 +502,36 @@ func (r ApiFindServiceRequest) Execute() ([]ServiceInstanceManagementResponse, *
 /*
 FindService Method for FindService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiFindServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiFindServiceRequest
 */
-func (a *ServiceApiApiService) FindService(ctx context.Context, id int64) ApiFindServiceRequest {
+func (a *ServiceApiAPIService) FindService(ctx context.Context, id int64) ApiFindServiceRequest {
 	return ApiFindServiceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return []ServiceInstanceManagementResponse
-func (a *ServiceApiApiService) FindServiceExecute(r ApiFindServiceRequest) ([]ServiceInstanceManagementResponse, *http.Response, error) {
+//
+//	@return []ServiceInstanceManagementResponse
+func (a *ServiceApiAPIService) FindServiceExecute(r ApiFindServiceRequest) ([]ServiceInstanceManagementResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ServiceInstanceManagementResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ServiceInstanceManagementResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.FindService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.FindService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/service/find/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -467,10 +555,10 @@ func (a *ServiceApiApiService) FindServiceExecute(r ApiFindServiceRequest) ([]Se
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -482,9 +570,9 @@ func (a *ServiceApiApiService) FindServiceExecute(r ApiFindServiceRequest) ([]Se
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -510,10 +598,10 @@ func (a *ServiceApiApiService) FindServiceExecute(r ApiFindServiceRequest) ([]Se
 }
 
 type ApiGetOrphansRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
+	ctx           context.Context
+	ApiService    ServiceApiAPI
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiGetOrphansRequest) Authorization(authorization string) ApiGetOrphansRequest {
@@ -533,27 +621,28 @@ func (r ApiGetOrphansRequest) Execute() (*OrphanServiceResponse, *http.Response,
 /*
 GetOrphans Method for GetOrphans
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetOrphansRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOrphansRequest
 */
-func (a *ServiceApiApiService) GetOrphans(ctx context.Context) ApiGetOrphansRequest {
+func (a *ServiceApiAPIService) GetOrphans(ctx context.Context) ApiGetOrphansRequest {
 	return ApiGetOrphansRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return OrphanServiceResponse
-func (a *ServiceApiApiService) GetOrphansExecute(r ApiGetOrphansRequest) (*OrphanServiceResponse, *http.Response, error) {
+//
+//	@return OrphanServiceResponse
+func (a *ServiceApiAPIService) GetOrphansExecute(r ApiGetOrphansRequest) (*OrphanServiceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrphanServiceResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrphanServiceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.GetOrphans")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.GetOrphans")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -582,10 +671,10 @@ func (a *ServiceApiApiService) GetOrphansExecute(r ApiGetOrphansRequest) (*Orpha
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -597,9 +686,9 @@ func (a *ServiceApiApiService) GetOrphansExecute(r ApiGetOrphansRequest) (*Orpha
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -625,11 +714,11 @@ func (a *ServiceApiApiService) GetOrphansExecute(r ApiGetOrphansRequest) (*Orpha
 }
 
 type ApiMoveServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
+	ctx                context.Context
+	ApiService         ServiceApiAPI
 	moveServiceRequest *MoveServiceRequest
-	authorization *string
-	dPoP *string
+	authorization      *string
+	dPoP               *string
 }
 
 func (r ApiMoveServiceRequest) MoveServiceRequest(moveServiceRequest MoveServiceRequest) ApiMoveServiceRequest {
@@ -654,27 +743,28 @@ func (r ApiMoveServiceRequest) Execute() (*ServiceInstanceManagementResponse, *h
 /*
 MoveService Method for MoveService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiMoveServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiMoveServiceRequest
 */
-func (a *ServiceApiApiService) MoveService(ctx context.Context) ApiMoveServiceRequest {
+func (a *ServiceApiAPIService) MoveService(ctx context.Context) ApiMoveServiceRequest {
 	return ApiMoveServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ServiceInstanceManagementResponse
-func (a *ServiceApiApiService) MoveServiceExecute(r ApiMoveServiceRequest) (*ServiceInstanceManagementResponse, *http.Response, error) {
+//
+//	@return ServiceInstanceManagementResponse
+func (a *ServiceApiAPIService) MoveServiceExecute(r ApiMoveServiceRequest) (*ServiceInstanceManagementResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceInstanceManagementResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceInstanceManagementResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.MoveService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.MoveService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -706,10 +796,10 @@ func (a *ServiceApiApiService) MoveServiceExecute(r ApiMoveServiceRequest) (*Ser
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.moveServiceRequest
@@ -723,9 +813,9 @@ func (a *ServiceApiApiService) MoveServiceExecute(r ApiMoveServiceRequest) (*Ser
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -751,11 +841,11 @@ func (a *ServiceApiApiService) MoveServiceExecute(r ApiMoveServiceRequest) (*Ser
 }
 
 type ApiRemoveOrphanServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceApiApiService
+	ctx                 context.Context
+	ApiService          ServiceApiAPI
 	removeOrphanRequest *RemoveOrphanRequest
-	authorization *string
-	dPoP *string
+	authorization       *string
+	dPoP                *string
 }
 
 func (r ApiRemoveOrphanServiceRequest) RemoveOrphanRequest(removeOrphanRequest RemoveOrphanRequest) ApiRemoveOrphanServiceRequest {
@@ -780,25 +870,25 @@ func (r ApiRemoveOrphanServiceRequest) Execute() (*http.Response, error) {
 /*
 RemoveOrphanService Method for RemoveOrphanService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRemoveOrphanServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRemoveOrphanServiceRequest
 */
-func (a *ServiceApiApiService) RemoveOrphanService(ctx context.Context) ApiRemoveOrphanServiceRequest {
+func (a *ServiceApiAPIService) RemoveOrphanService(ctx context.Context) ApiRemoveOrphanServiceRequest {
 	return ApiRemoveOrphanServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *ServiceApiApiService) RemoveOrphanServiceExecute(r ApiRemoveOrphanServiceRequest) (*http.Response, error) {
+func (a *ServiceApiAPIService) RemoveOrphanServiceExecute(r ApiRemoveOrphanServiceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiApiService.RemoveOrphanService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceApiAPIService.RemoveOrphanService")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -830,10 +920,10 @@ func (a *ServiceApiApiService) RemoveOrphanServiceExecute(r ApiRemoveOrphanServi
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.removeOrphanRequest
@@ -847,9 +937,9 @@ func (a *ServiceApiApiService) RemoveOrphanServiceExecute(r ApiRemoveOrphanServi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

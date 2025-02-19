@@ -13,21 +13,82 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type ServiceTokenApiAPI interface {
 
-// ServiceTokenApiApiService ServiceTokenApiApi service
-type ServiceTokenApiApiService service
+	/*
+		CreateTokenForService Method for CreateTokenForService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateTokenForServiceRequest
+	*/
+	CreateTokenForService(ctx context.Context) ApiCreateTokenForServiceRequest
+
+	// CreateTokenForServiceExecute executes the request
+	//  @return ServiceTokenResponse
+	CreateTokenForServiceExecute(r ApiCreateTokenForServiceRequest) (*ServiceTokenResponse, *http.Response, error)
+
+	/*
+		GetTokensForService Method for GetTokensForService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetTokensForServiceRequest
+	*/
+	GetTokensForService(ctx context.Context) ApiGetTokensForServiceRequest
+
+	// GetTokensForServiceExecute executes the request
+	//  @return []ServiceTokenResponse
+	GetTokensForServiceExecute(r ApiGetTokensForServiceRequest) ([]ServiceTokenResponse, *http.Response, error)
+
+	/*
+		RenameServiceToken Method for RenameServiceToken
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRenameServiceTokenRequest
+	*/
+	RenameServiceToken(ctx context.Context) ApiRenameServiceTokenRequest
+
+	// RenameServiceTokenExecute executes the request
+	//  @return ServiceTokenResponse
+	RenameServiceTokenExecute(r ApiRenameServiceTokenRequest) (*ServiceTokenResponse, *http.Response, error)
+
+	/*
+		RevokeServiceToken Method for RevokeServiceToken
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRevokeServiceTokenRequest
+	*/
+	RevokeServiceToken(ctx context.Context) ApiRevokeServiceTokenRequest
+
+	// RevokeServiceTokenExecute executes the request
+	RevokeServiceTokenExecute(r ApiRevokeServiceTokenRequest) (*http.Response, error)
+
+	/*
+		RotateServiceToken Method for RotateServiceToken
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRotateServiceTokenRequest
+	*/
+	RotateServiceToken(ctx context.Context) ApiRotateServiceTokenRequest
+
+	// RotateServiceTokenExecute executes the request
+	//  @return ServiceTokenResponse
+	RotateServiceTokenExecute(r ApiRotateServiceTokenRequest) (*ServiceTokenResponse, *http.Response, error)
+}
+
+// ServiceTokenApiAPIService ServiceTokenApiAPI service
+type ServiceTokenApiAPIService service
 
 type ApiCreateTokenForServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceTokenApiApiService
+	ctx                       context.Context
+	ApiService                ServiceTokenApiAPI
 	createServiceTokenRequest *CreateServiceTokenRequest
-	authorization *string
-	dPoP *string
+	authorization             *string
+	dPoP                      *string
 }
 
 func (r ApiCreateTokenForServiceRequest) CreateServiceTokenRequest(createServiceTokenRequest CreateServiceTokenRequest) ApiCreateTokenForServiceRequest {
@@ -52,27 +113,28 @@ func (r ApiCreateTokenForServiceRequest) Execute() (*ServiceTokenResponse, *http
 /*
 CreateTokenForService Method for CreateTokenForService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTokenForServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateTokenForServiceRequest
 */
-func (a *ServiceTokenApiApiService) CreateTokenForService(ctx context.Context) ApiCreateTokenForServiceRequest {
+func (a *ServiceTokenApiAPIService) CreateTokenForService(ctx context.Context) ApiCreateTokenForServiceRequest {
 	return ApiCreateTokenForServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ServiceTokenResponse
-func (a *ServiceTokenApiApiService) CreateTokenForServiceExecute(r ApiCreateTokenForServiceRequest) (*ServiceTokenResponse, *http.Response, error) {
+//
+//	@return ServiceTokenResponse
+func (a *ServiceTokenApiAPIService) CreateTokenForServiceExecute(r ApiCreateTokenForServiceRequest) (*ServiceTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiApiService.CreateTokenForService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiAPIService.CreateTokenForService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -104,10 +166,10 @@ func (a *ServiceTokenApiApiService) CreateTokenForServiceExecute(r ApiCreateToke
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.createServiceTokenRequest
@@ -121,9 +183,9 @@ func (a *ServiceTokenApiApiService) CreateTokenForServiceExecute(r ApiCreateToke
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -149,11 +211,11 @@ func (a *ServiceTokenApiApiService) CreateTokenForServiceExecute(r ApiCreateToke
 }
 
 type ApiGetTokensForServiceRequest struct {
-	ctx context.Context
-	ApiService *ServiceTokenApiApiService
+	ctx                     context.Context
+	ApiService              ServiceTokenApiAPI
 	getServiceTokensRequest *GetServiceTokensRequest
-	authorization *string
-	dPoP *string
+	authorization           *string
+	dPoP                    *string
 }
 
 func (r ApiGetTokensForServiceRequest) GetServiceTokensRequest(getServiceTokensRequest GetServiceTokensRequest) ApiGetTokensForServiceRequest {
@@ -178,27 +240,28 @@ func (r ApiGetTokensForServiceRequest) Execute() ([]ServiceTokenResponse, *http.
 /*
 GetTokensForService Method for GetTokensForService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTokensForServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTokensForServiceRequest
 */
-func (a *ServiceTokenApiApiService) GetTokensForService(ctx context.Context) ApiGetTokensForServiceRequest {
+func (a *ServiceTokenApiAPIService) GetTokensForService(ctx context.Context) ApiGetTokensForServiceRequest {
 	return ApiGetTokensForServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []ServiceTokenResponse
-func (a *ServiceTokenApiApiService) GetTokensForServiceExecute(r ApiGetTokensForServiceRequest) ([]ServiceTokenResponse, *http.Response, error) {
+//
+//	@return []ServiceTokenResponse
+func (a *ServiceTokenApiAPIService) GetTokensForServiceExecute(r ApiGetTokensForServiceRequest) ([]ServiceTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ServiceTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ServiceTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiApiService.GetTokensForService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiAPIService.GetTokensForService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -230,10 +293,10 @@ func (a *ServiceTokenApiApiService) GetTokensForServiceExecute(r ApiGetTokensFor
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.getServiceTokensRequest
@@ -247,9 +310,9 @@ func (a *ServiceTokenApiApiService) GetTokensForServiceExecute(r ApiGetTokensFor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -275,11 +338,11 @@ func (a *ServiceTokenApiApiService) GetTokensForServiceExecute(r ApiGetTokensFor
 }
 
 type ApiRenameServiceTokenRequest struct {
-	ctx context.Context
-	ApiService *ServiceTokenApiApiService
+	ctx                       context.Context
+	ApiService                ServiceTokenApiAPI
 	renameServiceTokenRequest *RenameServiceTokenRequest
-	authorization *string
-	dPoP *string
+	authorization             *string
+	dPoP                      *string
 }
 
 func (r ApiRenameServiceTokenRequest) RenameServiceTokenRequest(renameServiceTokenRequest RenameServiceTokenRequest) ApiRenameServiceTokenRequest {
@@ -304,27 +367,28 @@ func (r ApiRenameServiceTokenRequest) Execute() (*ServiceTokenResponse, *http.Re
 /*
 RenameServiceToken Method for RenameServiceToken
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRenameServiceTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRenameServiceTokenRequest
 */
-func (a *ServiceTokenApiApiService) RenameServiceToken(ctx context.Context) ApiRenameServiceTokenRequest {
+func (a *ServiceTokenApiAPIService) RenameServiceToken(ctx context.Context) ApiRenameServiceTokenRequest {
 	return ApiRenameServiceTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ServiceTokenResponse
-func (a *ServiceTokenApiApiService) RenameServiceTokenExecute(r ApiRenameServiceTokenRequest) (*ServiceTokenResponse, *http.Response, error) {
+//
+//	@return ServiceTokenResponse
+func (a *ServiceTokenApiAPIService) RenameServiceTokenExecute(r ApiRenameServiceTokenRequest) (*ServiceTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiApiService.RenameServiceToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiAPIService.RenameServiceToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -356,10 +420,10 @@ func (a *ServiceTokenApiApiService) RenameServiceTokenExecute(r ApiRenameService
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.renameServiceTokenRequest
@@ -373,9 +437,9 @@ func (a *ServiceTokenApiApiService) RenameServiceTokenExecute(r ApiRenameService
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -401,11 +465,11 @@ func (a *ServiceTokenApiApiService) RenameServiceTokenExecute(r ApiRenameService
 }
 
 type ApiRevokeServiceTokenRequest struct {
-	ctx context.Context
-	ApiService *ServiceTokenApiApiService
+	ctx                       context.Context
+	ApiService                ServiceTokenApiAPI
 	deleteServiceTokenRequest *DeleteServiceTokenRequest
-	authorization *string
-	dPoP *string
+	authorization             *string
+	dPoP                      *string
 }
 
 func (r ApiRevokeServiceTokenRequest) DeleteServiceTokenRequest(deleteServiceTokenRequest DeleteServiceTokenRequest) ApiRevokeServiceTokenRequest {
@@ -430,25 +494,25 @@ func (r ApiRevokeServiceTokenRequest) Execute() (*http.Response, error) {
 /*
 RevokeServiceToken Method for RevokeServiceToken
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRevokeServiceTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeServiceTokenRequest
 */
-func (a *ServiceTokenApiApiService) RevokeServiceToken(ctx context.Context) ApiRevokeServiceTokenRequest {
+func (a *ServiceTokenApiAPIService) RevokeServiceToken(ctx context.Context) ApiRevokeServiceTokenRequest {
 	return ApiRevokeServiceTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *ServiceTokenApiApiService) RevokeServiceTokenExecute(r ApiRevokeServiceTokenRequest) (*http.Response, error) {
+func (a *ServiceTokenApiAPIService) RevokeServiceTokenExecute(r ApiRevokeServiceTokenRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiApiService.RevokeServiceToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiAPIService.RevokeServiceToken")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -480,10 +544,10 @@ func (a *ServiceTokenApiApiService) RevokeServiceTokenExecute(r ApiRevokeService
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.deleteServiceTokenRequest
@@ -497,9 +561,9 @@ func (a *ServiceTokenApiApiService) RevokeServiceTokenExecute(r ApiRevokeService
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -516,11 +580,11 @@ func (a *ServiceTokenApiApiService) RevokeServiceTokenExecute(r ApiRevokeService
 }
 
 type ApiRotateServiceTokenRequest struct {
-	ctx context.Context
-	ApiService *ServiceTokenApiApiService
+	ctx                       context.Context
+	ApiService                ServiceTokenApiAPI
 	rotateServiceTokenRequest *RotateServiceTokenRequest
-	authorization *string
-	dPoP *string
+	authorization             *string
+	dPoP                      *string
 }
 
 func (r ApiRotateServiceTokenRequest) RotateServiceTokenRequest(rotateServiceTokenRequest RotateServiceTokenRequest) ApiRotateServiceTokenRequest {
@@ -545,27 +609,28 @@ func (r ApiRotateServiceTokenRequest) Execute() (*ServiceTokenResponse, *http.Re
 /*
 RotateServiceToken Method for RotateServiceToken
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRotateServiceTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRotateServiceTokenRequest
 */
-func (a *ServiceTokenApiApiService) RotateServiceToken(ctx context.Context) ApiRotateServiceTokenRequest {
+func (a *ServiceTokenApiAPIService) RotateServiceToken(ctx context.Context) ApiRotateServiceTokenRequest {
 	return ApiRotateServiceTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ServiceTokenResponse
-func (a *ServiceTokenApiApiService) RotateServiceTokenExecute(r ApiRotateServiceTokenRequest) (*ServiceTokenResponse, *http.Response, error) {
+//
+//	@return ServiceTokenResponse
+func (a *ServiceTokenApiAPIService) RotateServiceTokenExecute(r ApiRotateServiceTokenRequest) (*ServiceTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ServiceTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiApiService.RotateServiceToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceTokenApiAPIService.RotateServiceToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -597,10 +662,10 @@ func (a *ServiceTokenApiApiService) RotateServiceTokenExecute(r ApiRotateService
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.rotateServiceTokenRequest
@@ -614,9 +679,9 @@ func (a *ServiceTokenApiApiService) RotateServiceTokenExecute(r ApiRotateService
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

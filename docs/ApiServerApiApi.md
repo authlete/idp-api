@@ -1,14 +1,14 @@
-# \ApiServerApiApi
+# \ApiServerApiAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateApiServer**](ApiServerApiApi.md#CreateApiServer) | **Post** /api/apiserver | 
-[**DeleteApiServer**](ApiServerApiApi.md#DeleteApiServer) | **Delete** /api/apiserver/{id} | 
-[**GetAll1**](ApiServerApiApi.md#GetAll1) | **Get** /api/apiserver | 
-[**GetApiServer**](ApiServerApiApi.md#GetApiServer) | **Get** /api/apiserver/{id} | 
-[**UpdateApiServer**](ApiServerApiApi.md#UpdateApiServer) | **Post** /api/apiserver/{id} | 
+[**CreateApiServer**](ApiServerApiAPI.md#CreateApiServer) | **Post** /api/apiserver | 
+[**DeleteApiServer**](ApiServerApiAPI.md#DeleteApiServer) | **Delete** /api/apiserver/{id} | 
+[**GetAll1**](ApiServerApiAPI.md#GetAll1) | **Get** /api/apiserver | 
+[**GetApiServer**](ApiServerApiAPI.md#GetApiServer) | **Get** /api/apiserver/{id} | 
+[**UpdateApiServer**](ApiServerApiAPI.md#UpdateApiServer) | **Post** /api/apiserver/{id} | 
 
 
 
@@ -24,26 +24,26 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    createApiServerRequest := *openapiclient.NewCreateApiServerRequest("ApiServerUrl_example", "Description_example") // CreateApiServerRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	createApiServerRequest := *openapiclient.NewCreateApiServerRequest("ApiServerUrl_example", "Description_example") // CreateApiServerRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServerApiApi.CreateApiServer(context.Background()).CreateApiServerRequest(createApiServerRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiApi.CreateApiServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateApiServer`: AuthleteApiServerUpdateResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApiServerApiApi.CreateApiServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServerApiAPI.CreateApiServer(context.Background()).CreateApiServerRequest(createApiServerRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiAPI.CreateApiServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateApiServer`: AuthleteApiServerUpdateResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApiServerApiAPI.CreateApiServer`: %v\n", resp)
 }
 ```
 
@@ -92,24 +92,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServerApiApi.DeleteApiServer(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiApi.DeleteApiServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApiServerApiAPI.DeleteApiServer(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiAPI.DeleteApiServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -162,25 +162,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServerApiApi.GetAll1(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiApi.GetAll1``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAll1`: []AuthleteApiServerUpdateResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApiServerApiApi.GetAll1`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServerApiAPI.GetAll1(context.Background()).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiAPI.GetAll1``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAll1`: []AuthleteApiServerUpdateResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApiServerApiAPI.GetAll1`: %v\n", resp)
 }
 ```
 
@@ -228,26 +228,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServerApiApi.GetApiServer(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiApi.GetApiServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApiServer`: AuthleteApiServerUpdateResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApiServerApiApi.GetApiServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServerApiAPI.GetApiServer(context.Background(), id).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiAPI.GetApiServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApiServer`: AuthleteApiServerUpdateResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApiServerApiAPI.GetApiServer`: %v\n", resp)
 }
 ```
 
@@ -300,27 +300,27 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    id := int64(789) // int64 | 
-    updateApiServerRequest := *openapiclient.NewUpdateApiServerRequest("ApiServerUrl_example", "Description_example") // UpdateApiServerRequest | 
-    authorization := "authorization_example" // string |  (optional)
-    dPoP := "dPoP_example" // string |  (optional)
+	id := int64(789) // int64 | 
+	updateApiServerRequest := *openapiclient.NewUpdateApiServerRequest("ApiServerUrl_example", "Description_example") // UpdateApiServerRequest | 
+	authorization := "authorization_example" // string |  (optional)
+	dPoP := "dPoP_example" // string |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApiServerApiApi.UpdateApiServer(context.Background(), id).UpdateApiServerRequest(updateApiServerRequest).Authorization(authorization).DPoP(dPoP).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiApi.UpdateApiServer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateApiServer`: AuthleteApiServerUpdateResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApiServerApiApi.UpdateApiServer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApiServerApiAPI.UpdateApiServer(context.Background(), id).UpdateApiServerRequest(updateApiServerRequest).Authorization(authorization).DPoP(dPoP).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApiServerApiAPI.UpdateApiServer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateApiServer`: AuthleteApiServerUpdateResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApiServerApiAPI.UpdateApiServer`: %v\n", resp)
 }
 ```
 

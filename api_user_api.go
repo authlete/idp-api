@@ -13,20 +13,136 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
+type UserApiAPI interface {
 
-// UserApiApiService UserApiApi service
-type UserApiApiService service
+	/*
+		BindTotpCredentials Method for BindTotpCredentials
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiBindTotpCredentialsRequest
+	*/
+	BindTotpCredentials(ctx context.Context, id int64) ApiBindTotpCredentialsRequest
+
+	// BindTotpCredentialsExecute executes the request
+	BindTotpCredentialsExecute(r ApiBindTotpCredentialsRequest) (*http.Response, error)
+
+	/*
+		BindWebAuthnChallenge Method for BindWebAuthnChallenge
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiBindWebAuthnChallengeRequest
+	*/
+	BindWebAuthnChallenge(ctx context.Context, id int64) ApiBindWebAuthnChallengeRequest
+
+	// BindWebAuthnChallengeExecute executes the request
+	//  @return string
+	BindWebAuthnChallengeExecute(r ApiBindWebAuthnChallengeRequest) (string, *http.Response, error)
+
+	/*
+		CreateTotpCredentials Method for CreateTotpCredentials
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiCreateTotpCredentialsRequest
+	*/
+	CreateTotpCredentials(ctx context.Context, id int64) ApiCreateTotpCredentialsRequest
+
+	// CreateTotpCredentialsExecute executes the request
+	//  @return GoogleAuthenticatorKey
+	CreateTotpCredentialsExecute(r ApiCreateTotpCredentialsRequest) (*GoogleAuthenticatorKey, *http.Response, error)
+
+	/*
+		CreateUser Method for CreateUser
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateUserRequest
+	*/
+	CreateUser(ctx context.Context) ApiCreateUserRequest
+
+	// CreateUserExecute executes the request
+	//  @return CreateUserResponse
+	CreateUserExecute(r ApiCreateUserRequest) (*CreateUserResponse, *http.Response, error)
+
+	/*
+		CreateWebAuthnChallenge Method for CreateWebAuthnChallenge
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiCreateWebAuthnChallengeRequest
+	*/
+	CreateWebAuthnChallenge(ctx context.Context, id int64) ApiCreateWebAuthnChallengeRequest
+
+	// CreateWebAuthnChallengeExecute executes the request
+	//  @return Challenge
+	CreateWebAuthnChallengeExecute(r ApiCreateWebAuthnChallengeRequest) (*Challenge, *http.Response, error)
+
+	/*
+		DeleteUser Method for DeleteUser
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiDeleteUserRequest
+	*/
+	DeleteUser(ctx context.Context, id int64) ApiDeleteUserRequest
+
+	// DeleteUserExecute executes the request
+	DeleteUserExecute(r ApiDeleteUserRequest) (*http.Response, error)
+
+	/*
+		SetAdmin Method for SetAdmin
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiSetAdminRequest
+	*/
+	SetAdmin(ctx context.Context, id int64) ApiSetAdminRequest
+
+	// SetAdminExecute executes the request
+	//  @return AuthleteUser
+	SetAdminExecute(r ApiSetAdminRequest) (*AuthleteUser, *http.Response, error)
+
+	/*
+		UnsetAdmin Method for UnsetAdmin
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiUnsetAdminRequest
+	*/
+	UnsetAdmin(ctx context.Context, id int64) ApiUnsetAdminRequest
+
+	// UnsetAdminExecute executes the request
+	//  @return AuthleteUser
+	UnsetAdminExecute(r ApiUnsetAdminRequest) (*AuthleteUser, *http.Response, error)
+
+	/*
+		UpdateUser Method for UpdateUser
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id
+		@return ApiUpdateUserRequest
+	*/
+	UpdateUser(ctx context.Context, id int64) ApiUpdateUserRequest
+
+	// UpdateUserExecute executes the request
+	//  @return AuthleteUser
+	UpdateUserExecute(r ApiUpdateUserRequest) (*AuthleteUser, *http.Response, error)
+}
+
+// UserApiAPIService UserApiAPI service
+type UserApiAPIService service
 
 type ApiBindTotpCredentialsRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx                        context.Context
+	ApiService                 UserApiAPI
+	id                         int64
 	bindTotpCredentialsRequest *BindTotpCredentialsRequest
 }
 
@@ -42,33 +158,33 @@ func (r ApiBindTotpCredentialsRequest) Execute() (*http.Response, error) {
 /*
 BindTotpCredentials Method for BindTotpCredentials
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiBindTotpCredentialsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiBindTotpCredentialsRequest
 */
-func (a *UserApiApiService) BindTotpCredentials(ctx context.Context, id int64) ApiBindTotpCredentialsRequest {
+func (a *UserApiAPIService) BindTotpCredentials(ctx context.Context, id int64) ApiBindTotpCredentialsRequest {
 	return ApiBindTotpCredentialsRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-func (a *UserApiApiService) BindTotpCredentialsExecute(r ApiBindTotpCredentialsRequest) (*http.Response, error) {
+func (a *UserApiAPIService) BindTotpCredentialsExecute(r ApiBindTotpCredentialsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.BindTotpCredentials")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.BindTotpCredentials")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}/totp"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -106,9 +222,9 @@ func (a *UserApiApiService) BindTotpCredentialsExecute(r ApiBindTotpCredentialsR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -125,9 +241,9 @@ func (a *UserApiApiService) BindTotpCredentialsExecute(r ApiBindTotpCredentialsR
 }
 
 type ApiBindWebAuthnChallengeRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx                      context.Context
+	ApiService               UserApiAPI
+	id                       int64
 	webAuthnChallengeRequest *WebAuthnChallengeRequest
 }
 
@@ -143,35 +259,36 @@ func (r ApiBindWebAuthnChallengeRequest) Execute() (string, *http.Response, erro
 /*
 BindWebAuthnChallenge Method for BindWebAuthnChallenge
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiBindWebAuthnChallengeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiBindWebAuthnChallengeRequest
 */
-func (a *UserApiApiService) BindWebAuthnChallenge(ctx context.Context, id int64) ApiBindWebAuthnChallengeRequest {
+func (a *UserApiAPIService) BindWebAuthnChallenge(ctx context.Context, id int64) ApiBindWebAuthnChallengeRequest {
 	return ApiBindWebAuthnChallengeRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *UserApiApiService) BindWebAuthnChallengeExecute(r ApiBindWebAuthnChallengeRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *UserApiAPIService) BindWebAuthnChallengeExecute(r ApiBindWebAuthnChallengeRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.BindWebAuthnChallenge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.BindWebAuthnChallenge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}/webauthn"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -209,9 +326,9 @@ func (a *UserApiApiService) BindWebAuthnChallengeExecute(r ApiBindWebAuthnChalle
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -237,9 +354,9 @@ func (a *UserApiApiService) BindWebAuthnChallengeExecute(r ApiBindWebAuthnChalle
 }
 
 type ApiCreateTotpCredentialsRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx        context.Context
+	ApiService UserApiAPI
+	id         int64
 }
 
 func (r ApiCreateTotpCredentialsRequest) Execute() (*GoogleAuthenticatorKey, *http.Response, error) {
@@ -249,35 +366,36 @@ func (r ApiCreateTotpCredentialsRequest) Execute() (*GoogleAuthenticatorKey, *ht
 /*
 CreateTotpCredentials Method for CreateTotpCredentials
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiCreateTotpCredentialsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiCreateTotpCredentialsRequest
 */
-func (a *UserApiApiService) CreateTotpCredentials(ctx context.Context, id int64) ApiCreateTotpCredentialsRequest {
+func (a *UserApiAPIService) CreateTotpCredentials(ctx context.Context, id int64) ApiCreateTotpCredentialsRequest {
 	return ApiCreateTotpCredentialsRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return GoogleAuthenticatorKey
-func (a *UserApiApiService) CreateTotpCredentialsExecute(r ApiCreateTotpCredentialsRequest) (*GoogleAuthenticatorKey, *http.Response, error) {
+//
+//	@return GoogleAuthenticatorKey
+func (a *UserApiAPIService) CreateTotpCredentialsExecute(r ApiCreateTotpCredentialsRequest) (*GoogleAuthenticatorKey, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GoogleAuthenticatorKey
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GoogleAuthenticatorKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.CreateTotpCredentials")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.CreateTotpCredentials")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}/totp"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -310,9 +428,9 @@ func (a *UserApiApiService) CreateTotpCredentialsExecute(r ApiCreateTotpCredenti
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -338,8 +456,8 @@ func (a *UserApiApiService) CreateTotpCredentialsExecute(r ApiCreateTotpCredenti
 }
 
 type ApiCreateUserRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
+	ctx               context.Context
+	ApiService        UserApiAPI
 	createUserRequest *CreateUserRequest
 }
 
@@ -355,27 +473,28 @@ func (r ApiCreateUserRequest) Execute() (*CreateUserResponse, *http.Response, er
 /*
 CreateUser Method for CreateUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateUserRequest
 */
-func (a *UserApiApiService) CreateUser(ctx context.Context) ApiCreateUserRequest {
+func (a *UserApiAPIService) CreateUser(ctx context.Context) ApiCreateUserRequest {
 	return ApiCreateUserRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreateUserResponse
-func (a *UserApiApiService) CreateUserExecute(r ApiCreateUserRequest) (*CreateUserResponse, *http.Response, error) {
+//
+//	@return CreateUserResponse
+func (a *UserApiAPIService) CreateUserExecute(r ApiCreateUserRequest) (*CreateUserResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateUserResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateUserResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.CreateUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.CreateUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -418,9 +537,9 @@ func (a *UserApiApiService) CreateUserExecute(r ApiCreateUserRequest) (*CreateUs
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -446,9 +565,9 @@ func (a *UserApiApiService) CreateUserExecute(r ApiCreateUserRequest) (*CreateUs
 }
 
 type ApiCreateWebAuthnChallengeRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx        context.Context
+	ApiService UserApiAPI
+	id         int64
 }
 
 func (r ApiCreateWebAuthnChallengeRequest) Execute() (*Challenge, *http.Response, error) {
@@ -458,35 +577,36 @@ func (r ApiCreateWebAuthnChallengeRequest) Execute() (*Challenge, *http.Response
 /*
 CreateWebAuthnChallenge Method for CreateWebAuthnChallenge
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiCreateWebAuthnChallengeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiCreateWebAuthnChallengeRequest
 */
-func (a *UserApiApiService) CreateWebAuthnChallenge(ctx context.Context, id int64) ApiCreateWebAuthnChallengeRequest {
+func (a *UserApiAPIService) CreateWebAuthnChallenge(ctx context.Context, id int64) ApiCreateWebAuthnChallengeRequest {
 	return ApiCreateWebAuthnChallengeRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return Challenge
-func (a *UserApiApiService) CreateWebAuthnChallengeExecute(r ApiCreateWebAuthnChallengeRequest) (*Challenge, *http.Response, error) {
+//
+//	@return Challenge
+func (a *UserApiAPIService) CreateWebAuthnChallengeExecute(r ApiCreateWebAuthnChallengeRequest) (*Challenge, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Challenge
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Challenge
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.CreateWebAuthnChallenge")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.CreateWebAuthnChallenge")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}/webauthn"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -519,9 +639,9 @@ func (a *UserApiApiService) CreateWebAuthnChallengeExecute(r ApiCreateWebAuthnCh
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -547,9 +667,9 @@ func (a *UserApiApiService) CreateWebAuthnChallengeExecute(r ApiCreateWebAuthnCh
 }
 
 type ApiDeleteUserRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx        context.Context
+	ApiService UserApiAPI
+	id         int64
 }
 
 func (r ApiDeleteUserRequest) Execute() (*http.Response, error) {
@@ -559,33 +679,33 @@ func (r ApiDeleteUserRequest) Execute() (*http.Response, error) {
 /*
 DeleteUser Method for DeleteUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiDeleteUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiDeleteUserRequest
 */
-func (a *UserApiApiService) DeleteUser(ctx context.Context, id int64) ApiDeleteUserRequest {
+func (a *UserApiAPIService) DeleteUser(ctx context.Context, id int64) ApiDeleteUserRequest {
 	return ApiDeleteUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-func (a *UserApiApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*http.Response, error) {
+func (a *UserApiAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.DeleteUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.DeleteUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -618,9 +738,9 @@ func (a *UserApiApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*http.Res
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -637,11 +757,11 @@ func (a *UserApiApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*http.Res
 }
 
 type ApiSetAdminRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    UserApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiSetAdminRequest) Authorization(authorization string) ApiSetAdminRequest {
@@ -661,35 +781,36 @@ func (r ApiSetAdminRequest) Execute() (*AuthleteUser, *http.Response, error) {
 /*
 SetAdmin Method for SetAdmin
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiSetAdminRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiSetAdminRequest
 */
-func (a *UserApiApiService) SetAdmin(ctx context.Context, id int64) ApiSetAdminRequest {
+func (a *UserApiAPIService) SetAdmin(ctx context.Context, id int64) ApiSetAdminRequest {
 	return ApiSetAdminRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return AuthleteUser
-func (a *UserApiApiService) SetAdminExecute(r ApiSetAdminRequest) (*AuthleteUser, *http.Response, error) {
+//
+//	@return AuthleteUser
+func (a *UserApiAPIService) SetAdminExecute(r ApiSetAdminRequest) (*AuthleteUser, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AuthleteUser
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthleteUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.SetAdmin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.SetAdmin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}/admin"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -713,10 +834,10 @@ func (a *UserApiApiService) SetAdminExecute(r ApiSetAdminRequest) (*AuthleteUser
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -728,9 +849,9 @@ func (a *UserApiApiService) SetAdminExecute(r ApiSetAdminRequest) (*AuthleteUser
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -756,11 +877,11 @@ func (a *UserApiApiService) SetAdminExecute(r ApiSetAdminRequest) (*AuthleteUser
 }
 
 type ApiUnsetAdminRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx           context.Context
+	ApiService    UserApiAPI
+	id            int64
 	authorization *string
-	dPoP *string
+	dPoP          *string
 }
 
 func (r ApiUnsetAdminRequest) Authorization(authorization string) ApiUnsetAdminRequest {
@@ -780,35 +901,36 @@ func (r ApiUnsetAdminRequest) Execute() (*AuthleteUser, *http.Response, error) {
 /*
 UnsetAdmin Method for UnsetAdmin
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUnsetAdminRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiUnsetAdminRequest
 */
-func (a *UserApiApiService) UnsetAdmin(ctx context.Context, id int64) ApiUnsetAdminRequest {
+func (a *UserApiAPIService) UnsetAdmin(ctx context.Context, id int64) ApiUnsetAdminRequest {
 	return ApiUnsetAdminRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return AuthleteUser
-func (a *UserApiApiService) UnsetAdminExecute(r ApiUnsetAdminRequest) (*AuthleteUser, *http.Response, error) {
+//
+//	@return AuthleteUser
+func (a *UserApiAPIService) UnsetAdminExecute(r ApiUnsetAdminRequest) (*AuthleteUser, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AuthleteUser
+		localVarHTTPMethod  = http.MethodDelete
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthleteUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.UnsetAdmin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.UnsetAdmin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}/admin"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -832,10 +954,10 @@ func (a *UserApiApiService) UnsetAdminExecute(r ApiUnsetAdminRequest) (*Authlete
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -847,9 +969,9 @@ func (a *UserApiApiService) UnsetAdminExecute(r ApiUnsetAdminRequest) (*Authlete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -875,9 +997,9 @@ func (a *UserApiApiService) UnsetAdminExecute(r ApiUnsetAdminRequest) (*Authlete
 }
 
 type ApiUpdateUserRequest struct {
-	ctx context.Context
-	ApiService *UserApiApiService
-	id int64
+	ctx               context.Context
+	ApiService        UserApiAPI
+	id                int64
 	updateUserRequest *UpdateUserRequest
 }
 
@@ -893,35 +1015,36 @@ func (r ApiUpdateUserRequest) Execute() (*AuthleteUser, *http.Response, error) {
 /*
 UpdateUser Method for UpdateUser
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id
- @return ApiUpdateUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id
+	@return ApiUpdateUserRequest
 */
-func (a *UserApiApiService) UpdateUser(ctx context.Context, id int64) ApiUpdateUserRequest {
+func (a *UserApiAPIService) UpdateUser(ctx context.Context, id int64) ApiUpdateUserRequest {
 	return ApiUpdateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
 // Execute executes the request
-//  @return AuthleteUser
-func (a *UserApiApiService) UpdateUserExecute(r ApiUpdateUserRequest) (*AuthleteUser, *http.Response, error) {
+//
+//	@return AuthleteUser
+func (a *UserApiAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*AuthleteUser, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AuthleteUser
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AuthleteUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiApiService.UpdateUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserApiAPIService.UpdateUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/user/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -959,9 +1082,9 @@ func (a *UserApiApiService) UpdateUserExecute(r ApiUpdateUserRequest) (*Authlete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

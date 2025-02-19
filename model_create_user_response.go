@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateUserResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateUserResponse{}
+
 // CreateUserResponse struct for CreateUserResponse
 type CreateUserResponse struct {
 	User *AuthleteUser `json:"user,omitempty"`
@@ -38,7 +41,7 @@ func NewCreateUserResponseWithDefaults() *CreateUserResponse {
 
 // GetUser returns the User field value if set, zero value otherwise.
 func (o *CreateUserResponse) GetUser() AuthleteUser {
-	if o == nil || isNil(o.User) {
+	if o == nil || IsNil(o.User) {
 		var ret AuthleteUser
 		return ret
 	}
@@ -48,15 +51,15 @@ func (o *CreateUserResponse) GetUser() AuthleteUser {
 // GetUserOk returns a tuple with the User field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateUserResponse) GetUserOk() (*AuthleteUser, bool) {
-	if o == nil || isNil(o.User) {
-    return nil, false
+	if o == nil || IsNil(o.User) {
+		return nil, false
 	}
 	return o.User, true
 }
 
 // HasUser returns a boolean if a field has been set.
 func (o *CreateUserResponse) HasUser() bool {
-	if o != nil && !isNil(o.User) {
+	if o != nil && !IsNil(o.User) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *CreateUserResponse) SetUser(v AuthleteUser) {
 }
 
 func (o CreateUserResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if !isNil(o.User) {
-		toSerialize["user"] = o.User
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateUserResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateUserResponse struct {
@@ -111,5 +122,3 @@ func (v *NullableCreateUserResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -11,16 +11,23 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RotateServiceTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RotateServiceTokenRequest{}
 
 // RotateServiceTokenRequest struct for RotateServiceTokenRequest
 type RotateServiceTokenRequest struct {
-	ServiceId int64 `json:"serviceId"`
-	OrganizationId int64 `json:"organizationId"`
-	ApiServerId int64 `json:"apiServerId"`
-	TokenId string `json:"tokenId"`
+	ServiceId      int64  `json:"serviceId"`
+	OrganizationId int64  `json:"organizationId"`
+	ApiServerId    int64  `json:"apiServerId"`
+	TokenId        string `json:"tokenId"`
 }
+
+type _RotateServiceTokenRequest RotateServiceTokenRequest
 
 // NewRotateServiceTokenRequest instantiates a new RotateServiceTokenRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -57,7 +64,7 @@ func (o *RotateServiceTokenRequest) GetServiceId() int64 {
 // and a boolean to check if the value has been set.
 func (o *RotateServiceTokenRequest) GetServiceIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ServiceId, true
 }
@@ -81,7 +88,7 @@ func (o *RotateServiceTokenRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *RotateServiceTokenRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -105,7 +112,7 @@ func (o *RotateServiceTokenRequest) GetApiServerId() int64 {
 // and a boolean to check if the value has been set.
 func (o *RotateServiceTokenRequest) GetApiServerIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerId, true
 }
@@ -129,7 +136,7 @@ func (o *RotateServiceTokenRequest) GetTokenId() string {
 // and a boolean to check if the value has been set.
 func (o *RotateServiceTokenRequest) GetTokenIdOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.TokenId, true
 }
@@ -140,20 +147,60 @@ func (o *RotateServiceTokenRequest) SetTokenId(v string) {
 }
 
 func (o RotateServiceTokenRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["serviceId"] = o.ServiceId
-	}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if true {
-		toSerialize["tokenId"] = o.TokenId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RotateServiceTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["serviceId"] = o.ServiceId
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["apiServerId"] = o.ApiServerId
+	toSerialize["tokenId"] = o.TokenId
+	return toSerialize, nil
+}
+
+func (o *RotateServiceTokenRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"serviceId",
+		"organizationId",
+		"apiServerId",
+		"tokenId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRotateServiceTokenRequest := _RotateServiceTokenRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRotateServiceTokenRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RotateServiceTokenRequest(varRotateServiceTokenRequest)
+
+	return err
 }
 
 type NullableRotateServiceTokenRequest struct {
@@ -191,5 +238,3 @@ func (v *NullableRotateServiceTokenRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

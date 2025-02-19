@@ -11,15 +11,22 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateApiServerRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateApiServerRequest{}
 
 // UpdateApiServerRequest struct for UpdateApiServerRequest
 type UpdateApiServerRequest struct {
 	ApiServerUrl string `json:"apiServerUrl"`
-	Description string `json:"description"`
-	OwnedBy *int64 `json:"ownedBy,omitempty"`
+	Description  string `json:"description"`
+	OwnedBy      *int64 `json:"ownedBy,omitempty"`
 }
+
+type _UpdateApiServerRequest UpdateApiServerRequest
 
 // NewUpdateApiServerRequest instantiates a new UpdateApiServerRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -54,7 +61,7 @@ func (o *UpdateApiServerRequest) GetApiServerUrl() string {
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerRequest) GetApiServerUrlOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerUrl, true
 }
@@ -78,7 +85,7 @@ func (o *UpdateApiServerRequest) GetDescription() string {
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerRequest) GetDescriptionOk() (*string, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.Description, true
 }
@@ -90,7 +97,7 @@ func (o *UpdateApiServerRequest) SetDescription(v string) {
 
 // GetOwnedBy returns the OwnedBy field value if set, zero value otherwise.
 func (o *UpdateApiServerRequest) GetOwnedBy() int64 {
-	if o == nil || isNil(o.OwnedBy) {
+	if o == nil || IsNil(o.OwnedBy) {
 		var ret int64
 		return ret
 	}
@@ -100,15 +107,15 @@ func (o *UpdateApiServerRequest) GetOwnedBy() int64 {
 // GetOwnedByOk returns a tuple with the OwnedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerRequest) GetOwnedByOk() (*int64, bool) {
-	if o == nil || isNil(o.OwnedBy) {
-    return nil, false
+	if o == nil || IsNil(o.OwnedBy) {
+		return nil, false
 	}
 	return o.OwnedBy, true
 }
 
 // HasOwnedBy returns a boolean if a field has been set.
 func (o *UpdateApiServerRequest) HasOwnedBy() bool {
-	if o != nil && !isNil(o.OwnedBy) {
+	if o != nil && !IsNil(o.OwnedBy) {
 		return true
 	}
 
@@ -121,17 +128,59 @@ func (o *UpdateApiServerRequest) SetOwnedBy(v int64) {
 }
 
 func (o UpdateApiServerRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["apiServerUrl"] = o.ApiServerUrl
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if !isNil(o.OwnedBy) {
-		toSerialize["ownedBy"] = o.OwnedBy
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateApiServerRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["apiServerUrl"] = o.ApiServerUrl
+	toSerialize["description"] = o.Description
+	if !IsNil(o.OwnedBy) {
+		toSerialize["ownedBy"] = o.OwnedBy
+	}
+	return toSerialize, nil
+}
+
+func (o *UpdateApiServerRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"apiServerUrl",
+		"description",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateApiServerRequest := _UpdateApiServerRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUpdateApiServerRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateApiServerRequest(varUpdateApiServerRequest)
+
+	return err
 }
 
 type NullableUpdateApiServerRequest struct {
@@ -169,5 +218,3 @@ func (v *NullableUpdateApiServerRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

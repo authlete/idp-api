@@ -13,21 +13,82 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type OrganizationTokenApiAPI interface {
 
-// OrganizationTokenApiApiService OrganizationTokenApiApi service
-type OrganizationTokenApiApiService service
+	/*
+		CreateTokenForOrganization Method for CreateTokenForOrganization
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateTokenForOrganizationRequest
+	*/
+	CreateTokenForOrganization(ctx context.Context) ApiCreateTokenForOrganizationRequest
+
+	// CreateTokenForOrganizationExecute executes the request
+	//  @return OrganizationTokenResponse
+	CreateTokenForOrganizationExecute(r ApiCreateTokenForOrganizationRequest) (*OrganizationTokenResponse, *http.Response, error)
+
+	/*
+		DeleteOrganizationToken Method for DeleteOrganizationToken
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiDeleteOrganizationTokenRequest
+	*/
+	DeleteOrganizationToken(ctx context.Context) ApiDeleteOrganizationTokenRequest
+
+	// DeleteOrganizationTokenExecute executes the request
+	DeleteOrganizationTokenExecute(r ApiDeleteOrganizationTokenRequest) (*http.Response, error)
+
+	/*
+		GetTokensForService1 Method for GetTokensForService1
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetTokensForService1Request
+	*/
+	GetTokensForService1(ctx context.Context) ApiGetTokensForService1Request
+
+	// GetTokensForService1Execute executes the request
+	//  @return []OrganizationTokenResponse
+	GetTokensForService1Execute(r ApiGetTokensForService1Request) ([]OrganizationTokenResponse, *http.Response, error)
+
+	/*
+		RenameTokenForService Method for RenameTokenForService
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRenameTokenForServiceRequest
+	*/
+	RenameTokenForService(ctx context.Context) ApiRenameTokenForServiceRequest
+
+	// RenameTokenForServiceExecute executes the request
+	//  @return OrganizationTokenResponse
+	RenameTokenForServiceExecute(r ApiRenameTokenForServiceRequest) (*OrganizationTokenResponse, *http.Response, error)
+
+	/*
+		RotateTokenForOrganization Method for RotateTokenForOrganization
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRotateTokenForOrganizationRequest
+	*/
+	RotateTokenForOrganization(ctx context.Context) ApiRotateTokenForOrganizationRequest
+
+	// RotateTokenForOrganizationExecute executes the request
+	//  @return OrganizationTokenResponse
+	RotateTokenForOrganizationExecute(r ApiRotateTokenForOrganizationRequest) (*OrganizationTokenResponse, *http.Response, error)
+}
+
+// OrganizationTokenApiAPIService OrganizationTokenApiAPI service
+type OrganizationTokenApiAPIService service
 
 type ApiCreateTokenForOrganizationRequest struct {
-	ctx context.Context
-	ApiService *OrganizationTokenApiApiService
+	ctx                            context.Context
+	ApiService                     OrganizationTokenApiAPI
 	createOrganizationTokenRequest *CreateOrganizationTokenRequest
-	authorization *string
-	dPoP *string
+	authorization                  *string
+	dPoP                           *string
 }
 
 func (r ApiCreateTokenForOrganizationRequest) CreateOrganizationTokenRequest(createOrganizationTokenRequest CreateOrganizationTokenRequest) ApiCreateTokenForOrganizationRequest {
@@ -52,27 +113,28 @@ func (r ApiCreateTokenForOrganizationRequest) Execute() (*OrganizationTokenRespo
 /*
 CreateTokenForOrganization Method for CreateTokenForOrganization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreateTokenForOrganizationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateTokenForOrganizationRequest
 */
-func (a *OrganizationTokenApiApiService) CreateTokenForOrganization(ctx context.Context) ApiCreateTokenForOrganizationRequest {
+func (a *OrganizationTokenApiAPIService) CreateTokenForOrganization(ctx context.Context) ApiCreateTokenForOrganizationRequest {
 	return ApiCreateTokenForOrganizationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationTokenResponse
-func (a *OrganizationTokenApiApiService) CreateTokenForOrganizationExecute(r ApiCreateTokenForOrganizationRequest) (*OrganizationTokenResponse, *http.Response, error) {
+//
+//	@return OrganizationTokenResponse
+func (a *OrganizationTokenApiAPIService) CreateTokenForOrganizationExecute(r ApiCreateTokenForOrganizationRequest) (*OrganizationTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiApiService.CreateTokenForOrganization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiAPIService.CreateTokenForOrganization")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -104,10 +166,10 @@ func (a *OrganizationTokenApiApiService) CreateTokenForOrganizationExecute(r Api
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.createOrganizationTokenRequest
@@ -121,9 +183,9 @@ func (a *OrganizationTokenApiApiService) CreateTokenForOrganizationExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -149,11 +211,11 @@ func (a *OrganizationTokenApiApiService) CreateTokenForOrganizationExecute(r Api
 }
 
 type ApiDeleteOrganizationTokenRequest struct {
-	ctx context.Context
-	ApiService *OrganizationTokenApiApiService
+	ctx                            context.Context
+	ApiService                     OrganizationTokenApiAPI
 	deleteOrganizationTokenRequest *DeleteOrganizationTokenRequest
-	authorization *string
-	dPoP *string
+	authorization                  *string
+	dPoP                           *string
 }
 
 func (r ApiDeleteOrganizationTokenRequest) DeleteOrganizationTokenRequest(deleteOrganizationTokenRequest DeleteOrganizationTokenRequest) ApiDeleteOrganizationTokenRequest {
@@ -178,25 +240,25 @@ func (r ApiDeleteOrganizationTokenRequest) Execute() (*http.Response, error) {
 /*
 DeleteOrganizationToken Method for DeleteOrganizationToken
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDeleteOrganizationTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteOrganizationTokenRequest
 */
-func (a *OrganizationTokenApiApiService) DeleteOrganizationToken(ctx context.Context) ApiDeleteOrganizationTokenRequest {
+func (a *OrganizationTokenApiAPIService) DeleteOrganizationToken(ctx context.Context) ApiDeleteOrganizationTokenRequest {
 	return ApiDeleteOrganizationTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *OrganizationTokenApiApiService) DeleteOrganizationTokenExecute(r ApiDeleteOrganizationTokenRequest) (*http.Response, error) {
+func (a *OrganizationTokenApiAPIService) DeleteOrganizationTokenExecute(r ApiDeleteOrganizationTokenRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiApiService.DeleteOrganizationToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiAPIService.DeleteOrganizationToken")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -228,10 +290,10 @@ func (a *OrganizationTokenApiApiService) DeleteOrganizationTokenExecute(r ApiDel
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.deleteOrganizationTokenRequest
@@ -245,9 +307,9 @@ func (a *OrganizationTokenApiApiService) DeleteOrganizationTokenExecute(r ApiDel
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -264,11 +326,11 @@ func (a *OrganizationTokenApiApiService) DeleteOrganizationTokenExecute(r ApiDel
 }
 
 type ApiGetTokensForService1Request struct {
-	ctx context.Context
-	ApiService *OrganizationTokenApiApiService
+	ctx                          context.Context
+	ApiService                   OrganizationTokenApiAPI
 	getOrganizationTokensRequest *GetOrganizationTokensRequest
-	authorization *string
-	dPoP *string
+	authorization                *string
+	dPoP                         *string
 }
 
 func (r ApiGetTokensForService1Request) GetOrganizationTokensRequest(getOrganizationTokensRequest GetOrganizationTokensRequest) ApiGetTokensForService1Request {
@@ -293,27 +355,28 @@ func (r ApiGetTokensForService1Request) Execute() ([]OrganizationTokenResponse, 
 /*
 GetTokensForService1 Method for GetTokensForService1
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetTokensForService1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetTokensForService1Request
 */
-func (a *OrganizationTokenApiApiService) GetTokensForService1(ctx context.Context) ApiGetTokensForService1Request {
+func (a *OrganizationTokenApiAPIService) GetTokensForService1(ctx context.Context) ApiGetTokensForService1Request {
 	return ApiGetTokensForService1Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []OrganizationTokenResponse
-func (a *OrganizationTokenApiApiService) GetTokensForService1Execute(r ApiGetTokensForService1Request) ([]OrganizationTokenResponse, *http.Response, error) {
+//
+//	@return []OrganizationTokenResponse
+func (a *OrganizationTokenApiAPIService) GetTokensForService1Execute(r ApiGetTokensForService1Request) ([]OrganizationTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []OrganizationTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []OrganizationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiApiService.GetTokensForService1")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiAPIService.GetTokensForService1")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -345,10 +408,10 @@ func (a *OrganizationTokenApiApiService) GetTokensForService1Execute(r ApiGetTok
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.getOrganizationTokensRequest
@@ -362,9 +425,9 @@ func (a *OrganizationTokenApiApiService) GetTokensForService1Execute(r ApiGetTok
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -390,11 +453,11 @@ func (a *OrganizationTokenApiApiService) GetTokensForService1Execute(r ApiGetTok
 }
 
 type ApiRenameTokenForServiceRequest struct {
-	ctx context.Context
-	ApiService *OrganizationTokenApiApiService
+	ctx                            context.Context
+	ApiService                     OrganizationTokenApiAPI
 	renameOrganizationTokenRequest *RenameOrganizationTokenRequest
-	authorization *string
-	dPoP *string
+	authorization                  *string
+	dPoP                           *string
 }
 
 func (r ApiRenameTokenForServiceRequest) RenameOrganizationTokenRequest(renameOrganizationTokenRequest RenameOrganizationTokenRequest) ApiRenameTokenForServiceRequest {
@@ -419,27 +482,28 @@ func (r ApiRenameTokenForServiceRequest) Execute() (*OrganizationTokenResponse, 
 /*
 RenameTokenForService Method for RenameTokenForService
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRenameTokenForServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRenameTokenForServiceRequest
 */
-func (a *OrganizationTokenApiApiService) RenameTokenForService(ctx context.Context) ApiRenameTokenForServiceRequest {
+func (a *OrganizationTokenApiAPIService) RenameTokenForService(ctx context.Context) ApiRenameTokenForServiceRequest {
 	return ApiRenameTokenForServiceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationTokenResponse
-func (a *OrganizationTokenApiApiService) RenameTokenForServiceExecute(r ApiRenameTokenForServiceRequest) (*OrganizationTokenResponse, *http.Response, error) {
+//
+//	@return OrganizationTokenResponse
+func (a *OrganizationTokenApiAPIService) RenameTokenForServiceExecute(r ApiRenameTokenForServiceRequest) (*OrganizationTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiApiService.RenameTokenForService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiAPIService.RenameTokenForService")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -471,10 +535,10 @@ func (a *OrganizationTokenApiApiService) RenameTokenForServiceExecute(r ApiRenam
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.renameOrganizationTokenRequest
@@ -488,9 +552,9 @@ func (a *OrganizationTokenApiApiService) RenameTokenForServiceExecute(r ApiRenam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -516,11 +580,11 @@ func (a *OrganizationTokenApiApiService) RenameTokenForServiceExecute(r ApiRenam
 }
 
 type ApiRotateTokenForOrganizationRequest struct {
-	ctx context.Context
-	ApiService *OrganizationTokenApiApiService
+	ctx                            context.Context
+	ApiService                     OrganizationTokenApiAPI
 	rotateOrganizationTokenRequest *RotateOrganizationTokenRequest
-	authorization *string
-	dPoP *string
+	authorization                  *string
+	dPoP                           *string
 }
 
 func (r ApiRotateTokenForOrganizationRequest) RotateOrganizationTokenRequest(rotateOrganizationTokenRequest RotateOrganizationTokenRequest) ApiRotateTokenForOrganizationRequest {
@@ -545,27 +609,28 @@ func (r ApiRotateTokenForOrganizationRequest) Execute() (*OrganizationTokenRespo
 /*
 RotateTokenForOrganization Method for RotateTokenForOrganization
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiRotateTokenForOrganizationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRotateTokenForOrganizationRequest
 */
-func (a *OrganizationTokenApiApiService) RotateTokenForOrganization(ctx context.Context) ApiRotateTokenForOrganizationRequest {
+func (a *OrganizationTokenApiAPIService) RotateTokenForOrganization(ctx context.Context) ApiRotateTokenForOrganizationRequest {
 	return ApiRotateTokenForOrganizationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return OrganizationTokenResponse
-func (a *OrganizationTokenApiApiService) RotateTokenForOrganizationExecute(r ApiRotateTokenForOrganizationRequest) (*OrganizationTokenResponse, *http.Response, error) {
+//
+//	@return OrganizationTokenResponse
+func (a *OrganizationTokenApiAPIService) RotateTokenForOrganizationExecute(r ApiRotateTokenForOrganizationRequest) (*OrganizationTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *OrganizationTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *OrganizationTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiApiService.RotateTokenForOrganization")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationTokenApiAPIService.RotateTokenForOrganization")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -597,10 +662,10 @@ func (a *OrganizationTokenApiApiService) RotateTokenForOrganizationExecute(r Api
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.rotateOrganizationTokenRequest
@@ -614,9 +679,9 @@ func (a *OrganizationTokenApiApiService) RotateTokenForOrganizationExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

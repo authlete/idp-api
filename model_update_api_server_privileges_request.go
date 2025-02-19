@@ -11,18 +11,25 @@ API version: v0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateApiServerPrivilegesRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateApiServerPrivilegesRequest{}
 
 // UpdateApiServerPrivilegesRequest struct for UpdateApiServerPrivilegesRequest
 type UpdateApiServerPrivilegesRequest struct {
-	ApiServerId int64 `json:"apiServerId"`
-	OrganizationId int64 `json:"organizationId"`
-	UserId int64 `json:"userId"`
-	Privileges []string `json:"privileges,omitempty"`
+	ApiServerId          int64    `json:"apiServerId"`
+	OrganizationId       int64    `json:"organizationId"`
+	UserId               int64    `json:"userId"`
+	Privileges           []string `json:"privileges,omitempty"`
 	AllServicePrivileges []string `json:"allServicePrivileges,omitempty"`
-	AllClientPrivileges []string `json:"allClientPrivileges,omitempty"`
+	AllClientPrivileges  []string `json:"allClientPrivileges,omitempty"`
 }
+
+type _UpdateApiServerPrivilegesRequest UpdateApiServerPrivilegesRequest
 
 // NewUpdateApiServerPrivilegesRequest instantiates a new UpdateApiServerPrivilegesRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -58,7 +65,7 @@ func (o *UpdateApiServerPrivilegesRequest) GetApiServerId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerPrivilegesRequest) GetApiServerIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.ApiServerId, true
 }
@@ -82,7 +89,7 @@ func (o *UpdateApiServerPrivilegesRequest) GetOrganizationId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerPrivilegesRequest) GetOrganizationIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.OrganizationId, true
 }
@@ -106,7 +113,7 @@ func (o *UpdateApiServerPrivilegesRequest) GetUserId() int64 {
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerPrivilegesRequest) GetUserIdOk() (*int64, bool) {
 	if o == nil {
-    return nil, false
+		return nil, false
 	}
 	return &o.UserId, true
 }
@@ -118,7 +125,7 @@ func (o *UpdateApiServerPrivilegesRequest) SetUserId(v int64) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *UpdateApiServerPrivilegesRequest) GetPrivileges() []string {
-	if o == nil || isNil(o.Privileges) {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []string
 		return ret
 	}
@@ -128,15 +135,15 @@ func (o *UpdateApiServerPrivilegesRequest) GetPrivileges() []string {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerPrivilegesRequest) GetPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.Privileges) {
-    return nil, false
+	if o == nil || IsNil(o.Privileges) {
+		return nil, false
 	}
 	return o.Privileges, true
 }
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *UpdateApiServerPrivilegesRequest) HasPrivileges() bool {
-	if o != nil && !isNil(o.Privileges) {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -150,7 +157,7 @@ func (o *UpdateApiServerPrivilegesRequest) SetPrivileges(v []string) {
 
 // GetAllServicePrivileges returns the AllServicePrivileges field value if set, zero value otherwise.
 func (o *UpdateApiServerPrivilegesRequest) GetAllServicePrivileges() []string {
-	if o == nil || isNil(o.AllServicePrivileges) {
+	if o == nil || IsNil(o.AllServicePrivileges) {
 		var ret []string
 		return ret
 	}
@@ -160,15 +167,15 @@ func (o *UpdateApiServerPrivilegesRequest) GetAllServicePrivileges() []string {
 // GetAllServicePrivilegesOk returns a tuple with the AllServicePrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerPrivilegesRequest) GetAllServicePrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.AllServicePrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.AllServicePrivileges) {
+		return nil, false
 	}
 	return o.AllServicePrivileges, true
 }
 
 // HasAllServicePrivileges returns a boolean if a field has been set.
 func (o *UpdateApiServerPrivilegesRequest) HasAllServicePrivileges() bool {
-	if o != nil && !isNil(o.AllServicePrivileges) {
+	if o != nil && !IsNil(o.AllServicePrivileges) {
 		return true
 	}
 
@@ -182,7 +189,7 @@ func (o *UpdateApiServerPrivilegesRequest) SetAllServicePrivileges(v []string) {
 
 // GetAllClientPrivileges returns the AllClientPrivileges field value if set, zero value otherwise.
 func (o *UpdateApiServerPrivilegesRequest) GetAllClientPrivileges() []string {
-	if o == nil || isNil(o.AllClientPrivileges) {
+	if o == nil || IsNil(o.AllClientPrivileges) {
 		var ret []string
 		return ret
 	}
@@ -192,15 +199,15 @@ func (o *UpdateApiServerPrivilegesRequest) GetAllClientPrivileges() []string {
 // GetAllClientPrivilegesOk returns a tuple with the AllClientPrivileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateApiServerPrivilegesRequest) GetAllClientPrivilegesOk() ([]string, bool) {
-	if o == nil || isNil(o.AllClientPrivileges) {
-    return nil, false
+	if o == nil || IsNil(o.AllClientPrivileges) {
+		return nil, false
 	}
 	return o.AllClientPrivileges, true
 }
 
 // HasAllClientPrivileges returns a boolean if a field has been set.
 func (o *UpdateApiServerPrivilegesRequest) HasAllClientPrivileges() bool {
-	if o != nil && !isNil(o.AllClientPrivileges) {
+	if o != nil && !IsNil(o.AllClientPrivileges) {
 		return true
 	}
 
@@ -213,26 +220,67 @@ func (o *UpdateApiServerPrivilegesRequest) SetAllClientPrivileges(v []string) {
 }
 
 func (o UpdateApiServerPrivilegesRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["apiServerId"] = o.ApiServerId
-	}
-	if true {
-		toSerialize["organizationId"] = o.OrganizationId
-	}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if !isNil(o.Privileges) {
-		toSerialize["privileges"] = o.Privileges
-	}
-	if !isNil(o.AllServicePrivileges) {
-		toSerialize["allServicePrivileges"] = o.AllServicePrivileges
-	}
-	if !isNil(o.AllClientPrivileges) {
-		toSerialize["allClientPrivileges"] = o.AllClientPrivileges
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateApiServerPrivilegesRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["apiServerId"] = o.ApiServerId
+	toSerialize["organizationId"] = o.OrganizationId
+	toSerialize["userId"] = o.UserId
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	if !IsNil(o.AllServicePrivileges) {
+		toSerialize["allServicePrivileges"] = o.AllServicePrivileges
+	}
+	if !IsNil(o.AllClientPrivileges) {
+		toSerialize["allClientPrivileges"] = o.AllClientPrivileges
+	}
+	return toSerialize, nil
+}
+
+func (o *UpdateApiServerPrivilegesRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"apiServerId",
+		"organizationId",
+		"userId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateApiServerPrivilegesRequest := _UpdateApiServerPrivilegesRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUpdateApiServerPrivilegesRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateApiServerPrivilegesRequest(varUpdateApiServerPrivilegesRequest)
+
+	return err
 }
 
 type NullableUpdateApiServerPrivilegesRequest struct {
@@ -270,5 +318,3 @@ func (v *NullableUpdateApiServerPrivilegesRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

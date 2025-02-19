@@ -1,16 +1,16 @@
-# \IntrospectionEndpointApi
+# \IntrospectionEndpointAPI
 
 All URIs are relative to *https://devidp.authlete.net*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Introspect**](IntrospectionEndpointApi.md#Introspect) | **Post** /introspect | 
+[**Introspect**](IntrospectionEndpointAPI.md#Introspect) | **Post** /introspect | 
 
 
 
 ## Introspect
 
-> string Introspect(ctx).Empty(empty).Execute()
+> string Introspect(ctx).All(all).Empty(empty).Execute()
 
 
 
@@ -20,24 +20,25 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/authlete/idp-api"
 )
 
 func main() {
-    empty := true // bool |  (optional)
+	all := map[string]string{"key": "Inner_example"} // map[string]string |  (optional)
+	empty := true // bool |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntrospectionEndpointApi.Introspect(context.Background()).Empty(empty).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntrospectionEndpointApi.Introspect``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Introspect`: string
-    fmt.Fprintf(os.Stdout, "Response from `IntrospectionEndpointApi.Introspect`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntrospectionEndpointAPI.Introspect(context.Background()).All(all).Empty(empty).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntrospectionEndpointAPI.Introspect``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Introspect`: string
+	fmt.Fprintf(os.Stdout, "Response from `IntrospectionEndpointAPI.Introspect`: %v\n", resp)
 }
 ```
 
@@ -52,6 +53,7 @@ Other parameters are passed through a pointer to a apiIntrospectRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **all** | **map[string]string** |  | 
  **empty** | **bool** |  | 
 
 ### Return type

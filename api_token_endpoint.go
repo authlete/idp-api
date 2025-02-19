@@ -13,21 +13,36 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
+type TokenEndpointAPI interface {
 
-// TokenEndpointApiService TokenEndpointApi service
-type TokenEndpointApiService service
+	/*
+		TokenEndpoint Method for TokenEndpoint
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiTokenEndpointRequest
+	*/
+	TokenEndpoint(ctx context.Context) ApiTokenEndpointRequest
+
+	// TokenEndpointExecute executes the request
+	//  @return string
+	TokenEndpointExecute(r ApiTokenEndpointRequest) (string, *http.Response, error)
+}
+
+// TokenEndpointAPIService TokenEndpointAPI service
+type TokenEndpointAPIService service
 
 type ApiTokenEndpointRequest struct {
-	ctx context.Context
-	ApiService *TokenEndpointApiService
+	ctx           context.Context
+	ApiService    TokenEndpointAPI
 	authorization *string
-	dPoP *string
-	empty *bool
+	dPoP          *string
+	all           *map[string]string
+	empty         *bool
 }
 
 func (r ApiTokenEndpointRequest) Authorization(authorization string) ApiTokenEndpointRequest {
@@ -37,6 +52,11 @@ func (r ApiTokenEndpointRequest) Authorization(authorization string) ApiTokenEnd
 
 func (r ApiTokenEndpointRequest) DPoP(dPoP string) ApiTokenEndpointRequest {
 	r.dPoP = &dPoP
+	return r
+}
+
+func (r ApiTokenEndpointRequest) All(all map[string]string) ApiTokenEndpointRequest {
+	r.all = &all
 	return r
 }
 
@@ -52,27 +72,28 @@ func (r ApiTokenEndpointRequest) Execute() (string, *http.Response, error) {
 /*
 TokenEndpoint Method for TokenEndpoint
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiTokenEndpointRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTokenEndpointRequest
 */
-func (a *TokenEndpointApiService) TokenEndpoint(ctx context.Context) ApiTokenEndpointRequest {
+func (a *TokenEndpointAPIService) TokenEndpoint(ctx context.Context) ApiTokenEndpointRequest {
 	return ApiTokenEndpointRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return string
-func (a *TokenEndpointApiService) TokenEndpointExecute(r ApiTokenEndpointRequest) (string, *http.Response, error) {
+//
+//	@return string
+func (a *TokenEndpointAPIService) TokenEndpointExecute(r ApiTokenEndpointRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  string
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokenEndpointApiService.TokenEndpoint")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TokenEndpointAPIService.TokenEndpoint")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -101,13 +122,16 @@ func (a *TokenEndpointApiService) TokenEndpointExecute(r ApiTokenEndpointRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.authorization != nil {
-		localVarHeaderParams["Authorization"] = parameterToString(*r.authorization, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Authorization", r.authorization, "simple", "")
 	}
 	if r.dPoP != nil {
-		localVarHeaderParams["DPoP"] = parameterToString(*r.dPoP, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "DPoP", r.dPoP, "simple", "")
+	}
+	if r.all != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "all", r.all, "", "")
 	}
 	if r.empty != nil {
-		localVarFormParams.Add("empty", parameterToString(*r.empty, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "empty", r.empty, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -119,9 +143,9 @@ func (a *TokenEndpointApiService) TokenEndpointExecute(r ApiTokenEndpointRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
